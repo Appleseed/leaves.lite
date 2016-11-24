@@ -1,0 +1,12 @@
+<div class="leaf">
+  <img class="leaf-logo" src="/img/leaf.link.png"/>
+  <h3 class="leaf-h3">
+    <a href="{{ $ctrl.leaf.path }}">{{ $ctrl.leaf.title }}</a>
+  </h3>
+  <p>{{ $ctrl.leaf.content }}</p>
+  <p>{{ $ctrl.leaf.text2 }}</p>
+  <div>
+    <span ng-repeat="tag in $ctrl.leaf.tags">{{tag}},</span> <br/>
+    <strong> <span>{{$ctrl.leaf.type}}: {{$ctrl.leaf.category}} : {{$ctrl.leaf.source}}</span></strong>
+  </div>
+</div>
