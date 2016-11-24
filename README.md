@@ -5,6 +5,9 @@ This is a light-weight link/bookmark viewer for the Appleseed Search Platform ( 
 * No DB Required / Links in JSON
 * AngularJS 1.5 w/ Components (AngularJS 2 Coming)
 * Quickly share links / bookmarks
+* TypeScript so code is better
+* Webpack Module management for future modularization
+* Karma Tests for good unit Tests
 
 #Where it began: KIGG##
 While at [Anant](http://www.anant.us), I was creating this to iterate on the original Kigg project which was written in ASP.net MVC 3.
@@ -26,12 +29,13 @@ just JSON, you can just do that. Because after a build, its all static, you can 
 
 ##Quickstart :##
 
-Assuming you have node and npm installed, you can run the following commands to get started.
+Assuming you have node and npm installed, you can run the following commands to get started. I recommend using yarn if you have it.
+It's much faster that npm.
 
 - `git clone https://github.com/Appleseed/leaves.lite`
 - `cd leaves.lite`
-- `npm install`
-- `npm run serve` to check out the site.
+- `npm install` (or `yarn install`)
+- `npm run serve` (or `yarn run serve`) to check out the site.
 
 Follow the instructions to open it up on the browser. The file that feeds the links are in.
 
