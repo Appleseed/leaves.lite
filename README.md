@@ -1,12 +1,17 @@
 #Appleseed Leaves.Lite#
-This is a light-weight link/bookmark viewer for the Appleseed Search Platform ( part of the Appleseed Framework ).
+This is a light-weight link/bookmark viewer for the Appleseed Search Platform ( part of the [Appleseed Framework](http://www.appleseedapp.com) ).
 
-#Where it began: KIGG#
+##Features##
+* No DB Required / Links in JSON
+* AngularJS 1.5 w/ Components (AngularJS 2 Coming)
+* Quickly share links / bookmarks
+
+#Where it began: KIGG##
 While at [Anant](http://www.anant.us), I was creating this to iterate on the original Kigg project which was written in ASP.net MVC 3.
 Kigg was a great "Digg" clone but we never had the time to get it up to speed. In hindsight, doing it as a SPA (Single Page Application)
 with different data providers (JSON, SolR, Elastic, Web.API) may be a good start.
 
-##Purpose of leaves.lite
+##Purpose of leaves.lite##
 
 The purpose of this leaves.lite project is to display links and make it easy to filter/search. The main use case is that we share a bunch
 of links at work. In essence, much of the knowledge we pass to each other is a series of links. A beginner may need to go through and read/ watch / try out examples.
@@ -26,11 +31,9 @@ Assuming you have node and npm installed, you can run the following commands to 
 - `git clone https://github.com/Appleseed/leaves.lite`
 - `cd leaves.lite`
 - `npm install`
-- `npm run serve` or 'npm run build'
+- `npm run serve` to check out the site.
 
-Follow the instructions to open it up on the browser.
-
-The file that feeds the links are in
+Follow the instructions to open it up on the browser. The file that feeds the links are in.
 
 - `leaves.lite/src/data`
 
