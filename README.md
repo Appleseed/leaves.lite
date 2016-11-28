@@ -32,6 +32,7 @@ just JSON, you can just do that. Because after a build, its all static, you can 
 Assuming you have node and npm installed, you can run the following commands to get started. I recommend using yarn if you have it.
 It's much faster that npm.
 
+- `Download & Install Node https://nodejs.org/en/download/`
 - `git clone https://github.com/Appleseed/leaves.lite`
 - `cd leaves.lite`
 - `npm install` (or `yarn install`)
