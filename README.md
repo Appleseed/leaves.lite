@@ -36,7 +36,8 @@ It's much faster that npm.
 - `git clone https://github.com/Appleseed/leaves.lite`
 - `cd leaves.lite`
 - `npm install` (or `yarn install`)
-- `npm run serve` (or `yarn run serve`) to check out the site.
+- `npm run serve` (or `yarn run serve`)  
+- `Open http://localhost:3000 in a browser to view the site
 
 Follow the instructions to open it up on the browser. The file that feeds the links are in.
 
