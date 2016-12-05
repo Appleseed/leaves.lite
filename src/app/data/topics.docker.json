@@ -105,6 +105,19 @@
   },
   {
     "area":"content-right",
+    "name": "Playlist: Different Docker Videos",
+    "path":"https://www.youtube.com/watch?v=Tlgoq9t95ew&feature=youtu.be&list=PLkA60AVN3hh_CglPdPy3M_4yv_XEmXE10",
+    "ContentImages_small":"",
+    "ContentImages_large":"",
+    "title": "Playlist: Different Docker Videos",
+    "content": "This is a play list of various different docker videos.",
+    "category": "Tutorial",
+    "tags": ["docker","introduction","video"],
+    "type": "Video",
+    "source": "Youtube"
+  },
+  {
+    "area":"content-right",
     "name": "Introduction to Docker",
     "path":"https://youtu.be/Q5POuMHxW-0",
     "ContentImages_small":"",
