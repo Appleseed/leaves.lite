@@ -65,6 +65,32 @@
     "source": "Docker"
   },
   {
+    "area":"content-left",
+    "name": "Docker Hub",
+    "path":"https://hub.docker.com/",
+    "ContentImages_small":"",
+    "ContentImages_large":"",
+    "title": "Docker Hub",
+    "content": "Browse Thousands of the most popular software tools in the Docker Image Library",
+    "category": "Documentation",
+    "tags": ["docker","registry"],
+    "type": "Page",
+    "source": "Docker"
+  },
+  {
+    "area":"content-left",
+    "name": "Composer Registry",
+    "path":"https://www.composeregistry.com/",
+    "ContentImages_small":"",
+    "ContentImages_large":"",
+    "title": "Composer Registry",
+    "content": "a search engine for Docker Compose application stacks",
+    "category": "Article",
+    "tags": ["docker","registry", "compose"],
+    "type": "Article",
+    "source": "Site"
+  },
+  {
     "area":"content-center",
     "name": "Containers (Docker): A disruptive force in cloud computing",
     "path":"http://anandmanisankar.com/posts/container-docker-PaaS-microservices/",
@@ -217,8 +243,8 @@
     "content": "Great tutorials on how to use Docker by a hosting company.",
     "category": "Tutorial",
     "tags": ["docker","hosting","compose","delete","naming"],
-    "type": "KB",
-    "source": "Digital Ocean"
+    "type": "Article",
+    "source": "Site"
   },
   {
     "area":"footer-left",
