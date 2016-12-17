@@ -190,7 +190,7 @@
     "title": "Development with Docker Compose",
     "content": "ey guys, in this little article we’ll talk about using docker, docker-compose and docker-machine for bootstraping development environment of the platform built with microservices architecture.",
     "category": "Article",
-    "tags": ["docker","windows","chocolatey"],
+    "tags": ["docker","compose","development"],
     "type": "Article",
     "source": "Site"
   },
@@ -206,6 +206,19 @@
     "tags": ["docker","windows","chocolatey"],
     "type": "Article",
     "source": "Blog"
+  },
+  {
+    "area":"content-center",
+    "name": "Digital Ocean: Docker Tutorials and Guides",
+    "path":"https://www.digitalocean.com/community/tutorials?q=docker",
+    "ContentImages_small":"",
+    "ContentImages_large":"",
+    "title":"Digital Ocean: Docker Tutorials and Guides",
+    "content": "Great tutorials on how to use Docker by a hosting company.",
+    "category": "Tutorial",
+    "tags": ["docker","hosting","compose","delete","naming"],
+    "type": "KB",
+    "source": "Digital Ocean"
   },
   {
     "area":"footer-left",
