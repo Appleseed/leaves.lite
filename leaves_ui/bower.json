@@ -1,0 +1,25 @@
+{
+  "name": "leaves_ui",
+  "description": "leaves.lite UI",
+  "main": "index.js",
+  "authors": [
+    "mddanishyusuf"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Appleseed/leaves.lite",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-ui-router": "^1.0.3",
+    "bootstrap": "^3.3.7",
+    "angular-bootstrap": "^2.5.0",
+    "angular-filter": "^0.5.16"
+  }
+}

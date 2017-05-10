@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="leave_lite" topic="docker">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Leaves Lite</title>
+
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/leaves.css" rel="stylesheet">
+    <link href="css/side-navbar.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-controller="DocCtrl">
+<nav class="navbar navbar-default navbar-fixed-top leaves-navbar">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+             <a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars"></i></a> <span class="logo-title">Leaves</span>
+        </div>
+        <div class="hidden-xs">
+            <form class="navbar-form navbar-left" role="search" style="width:50%">
+                <div class="inner-addon left-addon" style="width:100%">
+                    <i class="fa fa-search"></i>
+                    <input type="text" class="form-control" placeholder="Enter your search terms" style="width:100%" />
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-circle"></i> Add Leaf</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+            </div>
+    </div><!-- /.container-fluid -->
+</nav>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                    <h4 class="modal-title" id="myModalLabel"><img src="img/user.png"> Mohd Danish Yusuf</h4>
+                </div>
+                <div class="modal-body">
+                <div class="row">
+                    <link-preview></link-preview>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div id="wrapper" class="ng-cloak">
+
+<!-- Sidebar -->
+<div>
+<div id="sidebar-wrapper">
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="doc in documents | unique:'category'">{{doc.category}}</li>
+    </ul>    
+</div>
+<div class="modal fade" id="browse-channels" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Channels Lists</h4>
+            </div>
+            <div class="modal-body">
+            <input class="form-control" ng-model="search_name" id="exampleInputEmail1" placeholder="Search Page Name">
+                <br>
+                <div class="list-group">
+                    <a href="/p/{{page.name_id}}" class="list-group-item" ng-repeat="page in page_name | filter:search_name" ng-model="search_name"><img ng-src="{{ page.picture }}" alt="{{ page.name }}" > {{ page.name }}</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- /#sidebar-wrapper -->
+
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid mid-container">
+    <div class="row-fluid">
+
+        <!-- search results panel right-->
+        <div id="search-results-doc-right" 
+             class="col-md-4 col-sm-12 col-xs-12 pull-right right"
+             ng-cloak>
+            <div>
+                <article class="leave-grids" ng-repeat="doc in documents | filter : {area : 'content-right'}" class="document row-fluid" ng-cloak>
+                <div class="source inline"><span ng-repeat="tag in doc.tags">{{tag}}{{$last ? '' : ', '}}</span> <br/> <strong> <span>{{doc.type}}: {{doc.category}} : {{doc.source}}</span></strong></div>
+                    <blockquote class="embedly-card" data-card-width="100%">
+                        <h4><a href="{{doc.path}}">{{doc.title}}</a></h4>
+                        <p>
+                            <a ng-href="{{doc.path}}" target="_blank">{{doc.name}}</a>
+                            {{doc.content}}
+                        </p>
+                    </blockquote>
+                </article>
+
+            </div>
+
+        </div>
+        <!-- /search results panel right -->
+
+        <!-- search results panel center-->
+        <div id="search-results-doc-center" 
+             class="col-md-4 col-sm-12 col-xs-12 pull-right center"
+             ng-cloak>
+            <div>
+            <article class="leave-grids" ng-repeat="doc in documents | filter : {area : 'content-center'}" class="document row-fluid" ng-cloak>
+                <div class="source inline"><span ng-repeat="tag in doc.tags">{{tag}}{{$last ? '' : ', '}}</span> <br/> <strong> <span>{{doc.type}}: {{doc.category}} : {{doc.source}}</span></strong></div>
+                <blockquote class="embedly-card" data-card-width="100%">
+                    <h4><a href="{{doc.path}}">{{doc.title}}</a></h4>
+                    <p>
+                        <a ng-href="{{doc.path}}" target="_blank">{{doc.name}}</a>
+                        {{doc.content}}
+                    </p>
+                </blockquote>
+            </article>
+            </div>
+        </div>
+        <!-- /search results panel center -->
+
+        <!-- search results panel left-->
+        <div id="search-results-doc-left" 
+             class="col-md-4 col-sm-12 col-xs-12 pull-right left"
+             ng-cloak>
+            <div>
+                <article class="leave-grids" ng-repeat="doc in documents | filter : {area : 'content-left'}" class="document row-fluid" ng-cloak>
+                    <div class="source inline"><span ng-repeat="tag in doc.tags">{{tag}}{{$last ? '' : ', '}}</span> <br/> <strong> <span>{{doc.type}}: {{doc.category}} : {{doc.source}}</span></strong></div>
+                    <blockquote class="embedly-card" data-card-width="100%">
+                        <h4><a href="{{doc.path}}">{{doc.title}}</a></h4>
+                        <p>
+                            <a ng-href="{{doc.path}}" target="_blank">{{doc.name}}</a>
+                            {{doc.content}}
+                        </p>
+                    </blockquote>                   
+                    <!-- <a class="embedly-card article-img-container full no-padding" href="{{doc.path}}" data-card-width="200px">{{doc.title}}</a> -->
+                </article>
+            </div>
+        </div>
+        <!-- /search results panel left -->
+
+    </div>
+    <!-- /main row -->
+    </div>
+            <!-- /container -->
+
+    <div class="container-fluid">
+        <!-- /fatfooter row -->
+        <div class="row-fluid">
+
+            <!-- search results panel footer-right-->
+            <div id="search-results-doc-footer-right" 
+                 class="col-md-6 col-sm-12 col-xs-12 pull-right footer-right"
+                 ng-cloak>
+                <div>
+                    <article class="leave-grids" ng-repeat="doc in documents | filter : {area : 'footer-right'}" class="document row-fluid" ng-cloak>
+                        <div class="source inline"><span ng-repeat="tag in doc.tags">{{tag}}{{$last ? '' : ', '}}</span> <br/> <strong> <span>{{doc.type}}: {{doc.category}} : {{doc.source}}</span></strong></div>
+                        <blockquote class="embedly-card" data-card-width="100%">
+                            <h4><a href="{{doc.path}}">{{doc.title}}</a></h4>
+                            <p>
+                                <a ng-href="{{doc.path}}" target="_blank">{{doc.name}}</a>
+                                {{doc.content}}
+                            </p>
+                        </blockquote>
+                    </article>
+
+                </div>
+
+            </div>
+            <!-- /search results panel footer-right -->
+
+            <!-- search results panel footer-left-->
+            <div id="search-results-doc-footer-left" 
+                 class="col-md-6 col-sm-12 col-xs-12 pull-right footer-left | searchFor:searchString"
+                 ng-cloak>
+                <div>
+                    <article class="leave-grids" ng-repeat="doc in documents | filter : {area : 'footer-left'}" class="document row-fluid" ng-cloak>
+                        <div class="source inline"><span ng-repeat="tag in doc.tags">{{tag}}{{$last ? '' : ', '}}</span> <br/> <strong> <span>{{doc.type}}: {{doc.category}} : {{doc.source}}</span></strong></div>
+                        <blockquote class="embedly-card" data-card-width="100%">
+                            <h4><a href="{{doc.path}}">{{doc.title}}</a></h4>
+                            <p>
+                                <a ng-href="{{doc.path}}" target="_blank" >{{doc.name}}</a>
+                                {{doc.content}}
+                            </p>
+                        </blockquote>
+                    </article>
+
+                </div>
+
+            </div>
+            <!-- /search results panel footer-left -->
+        </div>
+
+</div>
+<!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->
+</div>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="js/leaves.js"></script>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
+</body>
+</html>

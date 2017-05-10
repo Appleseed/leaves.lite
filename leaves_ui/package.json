@@ -1,0 +1,17 @@
+{
+  "name": "leaves_ui",
+  "version": "0.0.0",
+  "description": "leaves.lite UI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mddanishyusuf",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.6.2",
+    "errorhandler": "^1.5.0",
+    "express": "^4.15.2",
+    "morgan": "^1.8.1"
+  }
+}
