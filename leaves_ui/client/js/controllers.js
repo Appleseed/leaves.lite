@@ -1,6 +1,6 @@
 app.controller('mainController', ['$scope','$http', function($scope, $http){
 	$scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
-	$scope.token = 'MzY1MzM3OGIyOGYwZDUwYjcxNjc4ZGViZTg0MmM0ZTc0ZGU0MjFjYTQ4Y2Y5ZTUxYzE0YzBmNTE5MWMwMjBkMg'
+	$scope.token = 'NzIyYWNkMTBkM2FlMzY2MTc3Yzk0MzlmYTAxODcyZGMzY2ZjMzVhMjJlN2I2ODYyMGNjYWU4NmUxMzcwMjE3Mw'
 	$scope.navCloseOpen = function(){
 		$("#wrapper").toggleClass("toggled");
 	}
