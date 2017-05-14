@@ -20,6 +20,10 @@
     "angular-ui-router": "^1.0.3",
     "bootstrap": "^3.3.7",
     "angular-bootstrap": "^2.5.0",
+    "angular-filter": "^0.5.16",
+    "angular-sanitize": "^1.6.4",
+    "components-font-awesome": "^4.7.0",
+    "moment": "^2.18.1"
     "angular-filter": "^0.5.16"
   }
 }

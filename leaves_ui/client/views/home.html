@@ -1,0 +1,33 @@
+<div id="wrapper">
+
+    <!-- Sidebar -->
+
+    <div id="sidebar-wrapper">
+	    <div id="sidebar-inner">
+	    <div class="search_tag">
+	    	<input type="text" ng-model="tag_name" placeholder="Search by tag" style="border: 0px;border-bottom: 2px solid #eee;margin-left: 20px; padding: 6px">
+	    </div>
+	        <ul class="sidebar-nav">
+	            <li ng-repeat="tag in tags.data | filter:tag_name"><a ng-click="setTags()">{{tag.label}}</a></li>
+	        </ul>
+	    </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">                        
+                        <div ng-repeat="entry in entries._embedded.items">
+                            <leaves-card data="entry"></leaves-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
+<div ui-view></div>
