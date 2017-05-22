@@ -2,8 +2,14 @@ body {
 	padding-top: 70px;
 	background-color: #eeeeee;
 }
-.logo-title{
-	margin-left: 20px
+.single-content h1, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p{
+    font-family: 'Montserrat', sans-serif;    
+}
+.single-content .leave-title{
+    font-weight: 700;
+    font-size: 60px;
+    text-align: center;
+    margin-top: 60px;    
 }
 .menu-bar{
 	cursor: pointer;
@@ -147,7 +153,6 @@ height: 14em;
 }
 .card-div a{
     text-decoration: none;
-    font-size: 17px;
     color: #000;
 }
 .entry-meta ul{
@@ -158,6 +163,7 @@ height: 14em;
 .entry-meta li{
 	float: left;
 	padding: 0px 10px 0px 0px;
+    font-family: 'Montserrat', sans-serif; 
 }
 
 .sidenav {
@@ -169,6 +175,7 @@ height: 14em;
     background-color: #fff;
     overflow-x: hidden;
     transition: 0.5s;
+    margin-left: -264px;
 }
 
 .sidenav p{	
@@ -179,15 +186,31 @@ height: 14em;
 .sidenav img{
 	max-width: 100%;
 }
-
 .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
+    position: fixed;
+    font-family: 'Montserrat', sans-serif;
+    float: left;
+    font-size: 16px;
     margin-left: 50px;
+    color: #000;
+    border: 2px solid;
+    width: auto;
+    padding: 2px 16px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px
 }
-
+.sidenav .closebtn:hover{
+    background-color: #eee;
+}
+#page-content-wrapper{
+    padding-bottom: 40px
+}
+.loadingMessage p{
+    text-align: center;
+    margin: 16px;
+    font-size: 20px;
+}
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}

@@ -1,9 +1,10 @@
 <div id="mySidenav" class="sidenav">
-<a class="closebtn" ui-sref="home">&times;</a>
-<div class="container">
+<a class="closebtn" ng-click="close()"><i class="fa fa-step-backward"></i> Back</a>
+<div class="container single-content">
 	<div class="row">
 		<div class="col-md-12">
-			<h1>{{leaves.title}}</h1>
+			<h1 class="leave-title">{{leaves.title}}</h1>
+			<hr>
 			<p ng-bind-html="leaves.content"></p>
 		</div>
 	</div>
