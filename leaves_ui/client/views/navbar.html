@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-             <span class="menu-bar" id="menu-toggle" ng-click="navCloseOpen()"><i class="fa fa-bars"></i></span> <span class="logo-title" ui-sref="home">Leaves</span>
+             <span class="menu-bar" id="menu-toggle" ng-click="navCloseOpen()"><i class="fa fa-bars"></i></span> <span class="logo-title" ui-sref="home">Appleseed Leaves</span>
         </div>
         <div class="hidden-xs">
         <form class="navbar-form navbar-left" role="search" style="width:50%">
@@ -24,14 +24,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <form name="addUrlForm">
-            
+
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="gridSystemModalLabel">Add New Leaf</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="addUrl">Add URL to this leaves</label>
+                    <label for="addUrl">Site URL</label>
                     <input type="url" class="form-control" name="leavesurl" ng-model="leavesurl" placeholder="Enter URl" required>
                 </div>
                 {{error.data.error.message}}

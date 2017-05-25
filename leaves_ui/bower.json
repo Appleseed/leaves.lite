@@ -3,9 +3,11 @@
   "description": "",
   "main": "index.js",
   "authors": [
-    "mddanishyusuf"
+    "Anant Corporation",
+    "mddanishyusuf",
+    "xingh"
   ],
-  "license": "ISC",
+  "license": "Apache",
   "homepage": "",
   "ignore": [
     "**/.*",
