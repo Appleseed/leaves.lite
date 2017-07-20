@@ -14,22 +14,51 @@ class Leaf {
   ) {}
 }
 
-class LeavesController {
-  public leaves: Leaf[];
-  public twig: string;
-  public twigName: string;
+class Twig {
+  constructor(
+    public area: string,
+    public name: string
+  ){}
+}
 
+class LeavesController {
+  public leavesData : Leaf[];
+  public leavesItems: Leaf[];
+  public twig: Twig;
+
+  $onInit(): void {
+      //console.dir(this.twig);
+      console.log(this.twig.area);
+
+      //TODO: these can't run because leavesData hasn't been populated by this point. 
+      //this.filterLeaves(this.twig.area);
+      //this.filterLeaves();
+
+  } 
   /** @ngInject */
   constructor(private $http: angular.IHttpService) {
-    var twigFilter = this.twig;
+    console.log("in constructor - twiddling");
+    //this.$onInit();
+    //var twigFilter = this.twig;
     $http
       .get('app/data/topics.docker.json')
       .then(response => {
+        console.log("got data");
         var allLeaves = response.data as Leaf[];
-        this.leaves = allLeaves.filter( function (leaf: Leaf) {
-          return leaf.area === twigFilter;
-        });
+        this.leavesData = allLeaves;
+        this.bindLeaves();
       });
+    
+  }
+
+  public bindLeaves(){
+    this.leavesItems = this.leavesData;
+  }
+
+  public filterLeaves(filter:string){
+    this.leavesItems = this.leavesData.filter( function (leaf: Leaf) {
+          return leaf.area == filter;
+    });
   }
 }
 
@@ -38,6 +67,6 @@ export const leaves: angular.IComponentOptions = {
   controller: LeavesController,
   bindings: {
     twig: '<',
-    twigName: '<'
+    twigName: '='
   }
 };
