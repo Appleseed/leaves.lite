@@ -32,14 +32,13 @@ class LeavesController {
 
       //TODO: these can't run because leavesData hasn't been populated by this point. 
       //this.filterLeaves(this.twig.area);
-      //this.filterLeaves();
 
+      //TODO: make this wait until its ready and then try again
   } 
   /** @ngInject */
   constructor(private $http: angular.IHttpService) {
     console.log("in constructor - twiddling");
-    //this.$onInit();
-    //var twigFilter = this.twig;
+
     $http
       .get('app/data/topics.docker.json')
       .then(response => {
