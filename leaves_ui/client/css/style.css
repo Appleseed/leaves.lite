@@ -14,6 +14,9 @@ body {
 .logo-title {
     cursor: pointer;
 }
+.single-content h1, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p{
+    font-family: 'Montserrat', sans-serif;    
+}
 .single-content .leave-title{
     font-weight: 700;
     font-size: 60px;
