@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html ng-app="leavesNext">
 <head>
+	<title>Leaves.lite Next</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Appleseed Leaves.Lite</title>
 	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="bower_components/components-font-awesome/css/font-awesome.min.css">
@@ -17,7 +20,7 @@
     <div id="sidebar-wrapper">
 	    <div id="sidebar-inner">
 	    <div class="search_tag">
-	    	<input type="text" ng-model="tag_name" placeholder="Search by tag" style="border: 0px;border-bottom: 2px solid #eee;margin-left: 20px; padding: 6px">
+	    	<input type="text" ng-model="tag_name" placeholder="Search by tag" style="border-radius: 10%;border: 2px solid #eee;margin-left: 20px; padding: 6px">
 	    </div>
 	        <ul class="sidebar-nav">
 	            <li ng-repeat="tag in tags.data | filter:tag_name"><a ui-sref="tags_leaves({tag_slug:tag.slug})">{{tag.label}}</a></li>

@@ -1,6 +1,6 @@
 app.controller('mainController', ['$scope','$http','$state', function($scope, $http, $state){
 	$scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
-	$scope.token = 'ZGNiMGRhOWI4MjE0MWFmZTRmMTA1ZGMyNTQ0M2QyM2RhOWVjMGFkOGFiODdhMWQ1ZjM4YjgyZGY0ZTczNDViOA'
+	$scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
 	$scope.navCloseOpen = function(){
 		$("#wrapper").toggleClass("toggled");
 	}
@@ -82,6 +82,7 @@ app.controller('homeController', ['$scope','$http','$state', function($scope, $h
 
 app.controller('tagController', ['$scope','$http','$stateParams','$state', function($scope, $http, $stateParams, $state){
 	$scope.stateJson = $state.current
+	$scope.tagName = $stateParams.tag_slug
 	document.getElementById('body').style.overflowY = "scroll"
 	console.log($state.current)
 	var page = 1

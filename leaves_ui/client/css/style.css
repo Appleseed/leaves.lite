@@ -2,6 +2,18 @@ body {
 	padding-top: 70px;
 	background-color: #eeeeee;
 }
+.single-content h1, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p, .tag-state{
+    font-family: 'Montserrat', sans-serif;    
+}
+.tag-state {
+    text-transform: uppercase;
+    margin: 10px;
+    border-bottom: 3px solid #000;
+    display: inline-block;
+}
+.logo-title {
+    cursor: pointer;
+}
 .single-content h1, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p{
     font-family: 'Montserrat', sans-serif;    
 }
