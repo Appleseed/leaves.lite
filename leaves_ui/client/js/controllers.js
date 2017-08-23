@@ -1,8 +1,19 @@
 app.controller('mainController', ['$scope','$http','$state', function($scope, $http, $state){
 	$scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
+	$scope.card_view = true
 	$scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
 	$scope.navCloseOpen = function(){
 		$("#wrapper").toggleClass("toggled");
+	}
+
+	$scope.cardView = function(){
+		$scope.card_view = true
+		console.log($scope.card_view)
+	}
+
+	$scope.listView = function(){
+		$scope.card_view = false
+		console.log($scope.card_view)
 	}
 
 	$scope.save_it = function(url){
