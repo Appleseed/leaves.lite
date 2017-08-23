@@ -42,7 +42,22 @@ app.directive('leavesCard', function(){
 		restrict: 'E',
 		templateUrl: 'views/leaves-card.html',
 		scope: {
-			data: '='
+			data: '=',
+		},
+		link: function($scope, element, attrs) {
+		    $scope.added_date = function(tm) {
+		      return moment(tm).startOf('hour').fromNow();
+		    }
+		}
+	}
+})
+
+app.directive('leavesList', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'views/leaves-list.html',
+		scope: {
+			data: '=',
 		},
 		link: function($scope, element, attrs) {
 		    $scope.added_date = function(tm) {

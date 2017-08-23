@@ -1,8 +1,19 @@
 app.controller('mainController', ['$scope','$http','$state', function($scope, $http, $state){
 	$scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
+	$scope.card_view = true
 	$scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
 	$scope.navCloseOpen = function(){
 		$("#wrapper").toggleClass("toggled");
+	}
+
+	$scope.cardView = function(){
+		$scope.card_view = true
+		console.log($scope.card_view)
+	}
+
+	$scope.listView = function(){
+		$scope.card_view = false
+		console.log($scope.card_view)
 	}
 
 	$scope.save_it = function(url){
@@ -82,7 +93,7 @@ app.controller('homeController', ['$scope','$http','$state', function($scope, $h
 
 app.controller('tagController', ['$scope','$http','$stateParams','$state', function($scope, $http, $stateParams, $state){
 	$scope.stateJson = $state.current
-	$scope.tagName = $stateParams.tag_slug
+	$scope.tagName = $stateParams.tag_slug.split('-').join(' ');
 	document.getElementById('body').style.overflowY = "scroll"
 	console.log($state.current)
 	var page = 1
@@ -96,7 +107,7 @@ app.controller('tagController', ['$scope','$http','$stateParams','$state', funct
 		$http({
 			method: 'GET',
 			url: $scope.base_url + '/api/entries',
-			params: {access_token: $scope.token,limit:12,page:page,tags:$stateParams.tag_slug}
+			params: {access_token: $scope.token,limit:12,page:page,tags:$scope.tagName}
 		}).then(function(success){
 			$scope.tagData = success
 			angular.forEach(success.data._embedded.items, function(value) {

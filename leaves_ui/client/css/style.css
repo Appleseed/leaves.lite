@@ -49,7 +49,7 @@ body {
     right: -20px;
     overflow: auto;
     padding-bottom: 100px;
-	font-family: 'Vollkorn', serif;
+	font-family: 'Montserrat', sans-serif;
 }
 .navbar-default{
 	-webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
@@ -161,7 +161,7 @@ height: 14em;
     padding: 10px;
     -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
-	font-family: 'Vollkorn', serif;
+	font-family: 'Montserrat', sans-serif;
 }
 .card-div a{
     text-decoration: none;
@@ -191,7 +191,7 @@ height: 14em;
 }
 
 .sidenav p{	
-	font-family: 'Vollkorn', serif;
+	font-family: 'Montserrat', sans-serif;
 	font-size: 20px;
 }
 
@@ -222,6 +222,31 @@ height: 14em;
     text-align: center;
     margin: 16px;
     font-size: 20px;
+}
+
+.card-view .fa{
+    font-size: 24px;
+    cursor: pointer;
+    margin: 10px;
+}
+.list-view{
+    padding: 10px;
+}
+.list-view li{
+    margin: 15px 0px 0px 0px;
+    background-color: #fff;
+    padding: 10px;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
+    font-family: 'Montserrat', sans-serif;
+}
+.list-content-date{
+    display: inline-block;
+    float: right;
+}
+.list-title{
+    display: inline-block;
+    font-size: 18px;
 }
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
