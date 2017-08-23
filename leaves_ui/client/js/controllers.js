@@ -93,7 +93,7 @@ app.controller('homeController', ['$scope','$http','$state', function($scope, $h
 
 app.controller('tagController', ['$scope','$http','$stateParams','$state', function($scope, $http, $stateParams, $state){
 	$scope.stateJson = $state.current
-	$scope.tagName = $stateParams.tag_slug
+	$scope.tagName = $stateParams.tag_slug.split('-').join(' ');
 	document.getElementById('body').style.overflowY = "scroll"
 	console.log($state.current)
 	var page = 1
@@ -107,7 +107,7 @@ app.controller('tagController', ['$scope','$http','$stateParams','$state', funct
 		$http({
 			method: 'GET',
 			url: $scope.base_url + '/api/entries',
-			params: {access_token: $scope.token,limit:12,page:page,tags:$stateParams.tag_slug}
+			params: {access_token: $scope.token,limit:12,page:page,tags:$scope.tagName}
 		}).then(function(success){
 			$scope.tagData = success
 			angular.forEach(success.data._embedded.items, function(value) {
