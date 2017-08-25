@@ -245,6 +245,14 @@ height: 14em;
     display: inline-block;
     font-size: 18px;
 }
+.card {
+    width:33.33%;
+    padding: 10px;
+    display: inline-block;
+}
+.card_reader{
+    width: 100%;
+}
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}

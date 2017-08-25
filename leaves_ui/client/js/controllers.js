@@ -48,6 +48,10 @@ app.controller('mainController', ['$scope','$http','$state', function($scope, $h
 }])
 
 app.controller('homeController', ['$scope','$http','$state', function($scope, $http, $state){
+	$('#card-view div.card-view').each(function(){
+	    $(this).addClass('col-md-4');
+	    $(this).removeClass('col-md-12');
+	});
 	document.getElementById('body').style.overflowY = "scroll"
 	$scope.stateJson = $state.current
 	var page = 1
@@ -135,7 +139,9 @@ app.controller('tagController', ['$scope','$http','$stateParams','$state', funct
 }])
 
 app.controller('singleLeaves', ['$scope','$http','$stateParams','$sce', function($scope, $http, $stateParams){
-	document.getElementById('body').style.overflowY = "hidden"
+	
+	// $("#viewDiv> div.col-md-4").addClass('col-md-12')
+	// $("#viewDiv > div.col-md-4").removeClass('col-md-4')
 	$http({
 		method: 'GET',
 		url: $scope.base_url + '/api/entries/' + $stateParams.id,
@@ -146,6 +152,11 @@ app.controller('singleLeaves', ['$scope','$http','$stateParams','$sce', function
 		$scope.error = response
 		// console.log(response)
 	}).finally(function(){
-		document.getElementById("mySidenav").style.height = "100%";
+		$("#viewDiv").removeClass('col-lg-12')
+	$("#viewDiv").addClass('col-lg-4')
+	$('#card-view div.card-view').each(function(){
+	    $(this).removeClass('col-md-4');
+	    $(this).addClass('col-md-12');
+	});
 	})
 }])
