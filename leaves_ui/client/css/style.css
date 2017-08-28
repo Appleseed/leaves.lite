@@ -2,7 +2,11 @@ body {
 	padding-top: 70px;
 	background-color: #eeeeee;
 }
-.single-content h1, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p, .tag-state{
+html{
+    overflow-y: hidden;
+    height: 100vh
+}
+.single-content h1,.single-content p, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p, .tag-state{
     font-family: 'Montserrat', sans-serif;    
 }
 .tag-state {
@@ -14,13 +18,26 @@ body {
 .logo-title {
     cursor: pointer;
 }
+#viewDiv{
+    height: 100vh;
+    overflow: scroll;
+}
+.single-content{
+    background-color: #fff;
+    padding: 10px;
+    overflow: scroll;
+    height: 100vh
+}
+.single-content p{
+    font-size: 16px;
+}
 .single-content h1, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p{
-    font-family: 'Montserrat', sans-serif;    
+    font-family: 'Montserrat', sans-serif; 
 }
 .single-content .leave-title{
     font-weight: 700;
-    font-size: 60px;
-    text-align: center;
+    font-size: 40px;
+    /*text-align: center;*/
     margin-top: 60px;    
 }
 .menu-bar{
@@ -247,6 +264,14 @@ height: 14em;
 .list-title{
     display: inline-block;
     font-size: 18px;
+}
+.card {
+    width:33.33%;
+    padding: 10px;
+    display: inline-block;
+}
+.card_reader{
+    width: 100%;
 }
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
