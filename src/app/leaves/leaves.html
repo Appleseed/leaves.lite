@@ -1,8 +1,8 @@
 <div class="leaves-container">
   <h2 class="leaves-h2">
-    {{$ctrl.twigName}}
+    {{$ctrl.twig.name}}
   </h2>
   <div class="leaves">
-    <appleseed-leaf ng-repeat="leaf in $ctrl.leaves" leaf="leaf"></appleseed-leaf>
+    <appleseed-leaf ng-repeat="leaf in $ctrl.leavesItems" leaf="leaf"></appleseed-leaf>
   </div>
 </div>

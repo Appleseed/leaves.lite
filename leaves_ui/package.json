@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "mddanishyusuf",
-  "license": "ISC",
+  "author": "Anant Corporation",
+  "license": "Apache",
   "dependencies": {
     "compression": "^1.6.2",
     "errorhandler": "^1.5.0",
