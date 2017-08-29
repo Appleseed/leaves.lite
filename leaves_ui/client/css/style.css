@@ -3,7 +3,6 @@ body {
 	background-color: #eeeeee;
 }
 html{
-    overflow-y: hidden;
     height: 100vh
 }
 .single-content h1,.single-content p, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p, .tag-state{
@@ -18,15 +17,17 @@ html{
 .logo-title {
     cursor: pointer;
 }
-#viewDiv{
-    height: 100vh;
-    overflow: scroll;
-}
 .single-content{
     background-color: #fff;
     padding: 10px;
     overflow: scroll;
-    height: 100vh
+    height: 100vh;
+    position: fixed;
+    cursor: pointer;
+    width: 100%;
+}
+.single-content:hover #viewDiv{
+    background-color: red
 }
 .single-content p{
     font-size: 16px;
