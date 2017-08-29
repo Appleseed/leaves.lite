@@ -4,30 +4,18 @@ app.config(function($stateProvider, $urlRouterProvider){
 
 	$stateProvider
 	.state('home', {
-		url: '/home',
+		url: '/?type',
 		templateUrl: 'views/home.html',
 		controller: 'homeController'
 	})
 
 	.state('home.single_leaves', {
-		url: '/leaf/:id',
+		url: 'leaf/:id',
 		templateUrl: 'views/single-leaves.html',
 		controller: 'singleLeaves'
 	})
 
-	.state('tags_leaves', {
-		url: '/tag/:tag_slug',
-		templateUrl: 'views/tag-leaves.html',
-		controller: 'tagController'
-	})
-
-	.state('tags_leaves.single_leaves', {
-		url: '/:id',
-		templateUrl: 'views/single-leaves.html',
-		controller: 'singleLeaves'
-	})
-
-	$urlRouterProvider.otherwise('/home');
+	$urlRouterProvider.otherwise('/');
 })
 
 app.directive('leavesNav', function(){
@@ -43,36 +31,6 @@ app.directive('leavesCard', function(){
 		templateUrl: 'views/leaves-card.html',
 		scope: {
 			data: '=',
-		},
-		link: function($scope, element, attrs) {
-		    $scope.added_date = function(tm) {
-		      return moment(tm).startOf('hour').fromNow();
-		    }
-		}
-	}
-})
-
-app.directive('leavesList', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'views/leaves-list.html',
-		scope: {
-			data: '=',
-		},
-		link: function($scope, element, attrs) {
-		    $scope.added_date = function(tm) {
-		      return moment(tm).startOf('hour').fromNow();
-		    }
-		}
-	}
-})
-
-app.directive('tagsCard', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'views/tag-leaves-card.html',
-		scope: {
-			data: '='
 		},
 		link: function($scope, element, attrs) {
 		    $scope.added_date = function(tm) {

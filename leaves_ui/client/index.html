@@ -23,7 +23,7 @@
 	    	<input type="text" ng-model="tag_name" placeholder="Search by tag" style="border-radius: 10%;border: 2px solid #eee;margin-left: 20px; padding: 6px">
 	    </div>
 	        <ul class="sidebar-nav">
-	            <li ng-repeat="tag in tags.data | filter:tag_name"><a ui-sref="tags_leaves({tag_slug:tag.slug})">{{tag.label}}</a></li>
+	            <li ng-repeat="tag in tags.data | filter:tag_name"><a ui-sref="home({type:tag.slug})">{{tag.label}}</a></li>
 	        </ul>
 	    </div>
     </div>

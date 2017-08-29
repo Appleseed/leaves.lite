@@ -61,16 +61,28 @@ app.controller('mainController', ['$scope','$http','$state', function($scope, $h
 	})
 }])
 
-app.controller('homeController', ['$scope','$http','$state', function($scope, $http, $state){
-	$('#card-view div.card-view').each(function(){
+app.controller('homeController', ['$scope','$http','$state','$stateParams', function($scope, $http, $state, $stateParams){
+	function removeCardReaderView(){		
+	
+
+	setInterval(function(){ 
+			$('#card-view div.card-view').each(function(){
 	    $(this).addClass('col-md-4');
 	    $(this).removeClass('col-md-12');
 	});
+		}, 500);
+	}
 	// document.getElementById('body').style.overflowY = "scroll"
 	$scope.stateJson = $state.current
 	var page = 1
 	$scope.disable_scroll = true
 	var dataArray = []
+	if($stateParams.type && $stateParams.type != 'home'){
+		var tagName = $stateParams.type.split('-').join(' ');
+		var param = {access_token: $scope.token,limit:12,page:page,tags:tagName}
+	}else{
+		var param = {access_token: $scope.token,limit:12,page:page}
+	}
 	function homeData(){
 		$scope.loadingMessage = true
 		if(page >= 2){
@@ -79,7 +91,7 @@ app.controller('homeController', ['$scope','$http','$state', function($scope, $h
 		$http({
 			method: 'GET',
 			url: $scope.base_url + '/api/entries',
-			params: {access_token: $scope.token,limit:12,page:page}
+			params: param
 		}).then(function(success){
 			$scope.homeData = success
 			angular.forEach(success.data._embedded.items, function(value) {
@@ -109,54 +121,7 @@ app.controller('homeController', ['$scope','$http','$state', function($scope, $h
 
 }])
 
-app.controller('tagController', ['$scope','$http','$stateParams','$state', function($scope, $http, $stateParams, $state){
-	$scope.stateJson = $state.current
-	$scope.tagName = $stateParams.tag_slug.split('-').join(' ');
-	document.getElementById('body').style.overflowY = "scroll"
-	console.log($state.current)
-	var page = 1
-	$scope.disable_scroll = true
-	var tagArray = []
-	function tagLeaves(){
-	$scope.loadingMessage = true
-	if(page >= 2){
-		$scope.disable_scroll = true
-	}	
-		$http({
-			method: 'GET',
-			url: $scope.base_url + '/api/entries',
-			params: {access_token: $scope.token,limit:12,page:page,tags:$scope.tagName}
-		}).then(function(success){
-			$scope.tagData = success
-			angular.forEach(success.data._embedded.items, function(value) {
-				tagArray.push(value)
-			})
-		}).catch(function(response){
-			$scope.error = response
-		}).finally(function(){
-			$scope.loadingMessage = false
-			if(tagArray.length == $scope.tagData.data.total){
-				$scope.disable_scroll = true				
-			}else{
-				$scope.disable_scroll = false
-			}
-		})
-	}
-
-	tagLeaves();
-	
-	$scope.loadMore = function(){
-		page = page + 1
-		tagLeaves();
-	}
-	$scope.entries = tagArray
-}])
-
 app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout', function($scope, $http, $stateParams, $timeout){
-	
-	// $("#viewDiv> div.col-md-4").addClass('col-md-12')
-	// $("#viewDiv > div.col-md-4").removeClass('col-md-4')
-	
 	$http({
 		method: 'GET',
 		url: $scope.base_url + '/api/entries/' + $stateParams.id,
