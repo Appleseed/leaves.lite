@@ -1,19 +1,20 @@
 function makeCardReaderView(){
-		setInterval(function(){ 
-			$("#viewDiv").removeClass('col-lg-12')
-			$("#viewDiv").addClass('col-lg-4')
-			$('#card-view div.card-view').each(function(){
-				$(this).removeClass('col-md-4');
-				$(this).addClass('col-md-12');
-			})
-		}, 500);
-	}
+	$("#viewDiv").removeClass('col-lg-12')
+	$("#viewDiv").addClass('col-lg-4')
+}
 
-app.controller('mainController', ['$scope','$http','$state', function($scope, $http, $state){
+app.controller('mainController', ['$scope','$http','$state','$location', function($scope, $http, $state, $location){
 	$scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
 	$scope.card_view = true
 	$scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
 
+	$scope.goToHome = function(){
+		$("#viewDiv").removeClass('col-lg-4')
+		$("#viewDiv").addClass('col-lg-12')
+		// $state.go('home')
+		$location.path('/home')
+		console.log('go to home')
+	}
 
 
 	$scope.navCloseOpen = function(){
@@ -22,12 +23,12 @@ app.controller('mainController', ['$scope','$http','$state', function($scope, $h
 
 	$scope.cardView = function(){
 		$scope.card_view = true
-		makeCardReaderView()
+		// makeCardReaderView()
 	}
 
 	$scope.listView = function(){
 		$scope.card_view = false
-		makeCardReaderView()
+		// makeCardReaderView()
 	}
 
 	$scope.save_it = function(url){
@@ -43,11 +44,6 @@ app.controller('mainController', ['$scope','$http','$state', function($scope, $h
 		})
 	}
 
-	// $scope.close = function(){		
-	// 	document.getElementById("body").style.overflowY = "scroll";
-	// 	document.getElementById("mySidenav").style.height = "0";
-	// }
-
 	//$http.get call to get all tags json
 	$http({
 		method: 'GET',
@@ -62,31 +58,21 @@ app.controller('mainController', ['$scope','$http','$state', function($scope, $h
 }])
 
 app.controller('homeController', ['$scope','$http','$state','$stateParams', function($scope, $http, $state, $stateParams){
-	function removeCardReaderView(){		
-	
-
-	setInterval(function(){ 
-			$('#card-view div.card-view').each(function(){
-	    $(this).addClass('col-md-4');
-	    $(this).removeClass('col-md-12');
-	});
-		}, 500);
-	}
-	// document.getElementById('body').style.overflowY = "scroll"
 	$scope.stateJson = $state.current
 	var page = 1
 	$scope.disable_scroll = true
+	$scope.loading_button = false
 	var dataArray = []
-	if($stateParams.type && $stateParams.type != 'home'){
-		var tagName = $stateParams.type.split('-').join(' ');
-		var param = {access_token: $scope.token,limit:12,page:page,tags:tagName}
-	}else{
-		var param = {access_token: $scope.token,limit:12,page:page}
-	}
 	function homeData(){
+		if($stateParams.tag && $stateParams.tag != 'home'){
+			var tagName = $stateParams.tag.split('-').join(' ');
+			var param = {access_token: $scope.token,limit:12,page:page,tags:tagName}
+		}else{
+			var param = {access_token: $scope.token,limit:12,page:page}
+		}
 		$scope.loadingMessage = true
 		if(page >= 2){
-			$scope.disable_scroll = true
+			$scope.loading_button = true
 		}	
 		$http({
 			method: 'GET',
@@ -100,19 +86,20 @@ app.controller('homeController', ['$scope','$http','$state','$stateParams', func
 		}).catch(function(response){
 			$scope.error = response
 		}).finally(function(){
-			// $scope.loadingMessage = false
-			// if(dataArray.length == $scope.homeData.data.total){
-			// 	$scope.disable_scroll = false				
-			// }else{
-			// 	$scope.disable_scroll = false
-			// }
+			page = page + 1
+			$scope.loading_button = true
+			$scope.loadingMessage = false
+			if(dataArray.length == $scope.homeData.data.total){
+				$scope.disable_scroll = false				
+			}else{
+				$scope.disable_scroll = false
+			}
 		})
 	}
 
 	homeData();
 	
 	$scope.loadMore = function(){
-		page = page + 1
 		homeData();
 	}
 	$scope.entries = dataArray

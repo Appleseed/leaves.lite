@@ -6,7 +6,15 @@
 </div>
 <div class="row">
 <div class="col-lg-12" id="viewDiv">
-    <div class="row" infinite-scroll="loadMore()" infinite-scroll-disabled="disable_scroll" infinite-scroll-distance='0' infinite-scroll-use-document-bottom="true" id="card-view">     
+    <div ng-repeat="entry in entries" class="card_view" ng-if="card_view">
+        <leaves-card data="entry"></leaves-card>
+    </div>
+    <ul class="list-group list-view">
+    <div ng-repeat="entry in entries" ng-if="!card_view">
+        <leaves-list data="entry"></leaves-list>
+    </div>
+    </ul>
+  <!--   <div class="row" infinite-scroll="loadMore()" infinite-scroll-disabled="disable_scroll" infinite-scroll-distance='0' infinite-scroll-use-document-bottom="true" id="card-view">     
             <div class="card-view col-md-4" ng-repeat="entry in entries" ng-if="card_view">                  
                 <leaves-card data="entry"></leaves-card>
             </div>
@@ -17,10 +25,11 @@
                 </div>
             </ul>
             </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-10">                            
-            <div class="loadingMessage" ng-if="loadingMessage"><p>Loading...</p></div>
+    </div> -->
+    <div class="row" ng-if="loading_button">
+        <div class="col-lg-10 text-center loading_button">              
+            <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>            
+            <!-- <div class="loadingMessage" ng-if="loadingMessage"><p>Loading...</p></div> -->
         </div>
     </div>
 </div>

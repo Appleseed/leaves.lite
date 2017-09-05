@@ -5,6 +5,10 @@ body {
 html{
     height: 100vh
 }
+#injecter{
+    width: 100%;
+    position: absolute; 
+}
 .single-content h1,.single-content p, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p, .tag-state{
     font-family: 'Montserrat', sans-serif;    
 }
@@ -24,7 +28,6 @@ html{
     height: 100vh;
     position: fixed;
     cursor: pointer;
-    width: 100%;
 }
 .single-content:hover #viewDiv{
     background-color: red
@@ -277,4 +280,21 @@ height: 14em;
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+.loading_button{
+    padding: 10px;
+}
+.card_view{
+    width: 400px;
+    display: inline-block;
+    padding: 5px
+}
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+.card_view{
+    width: 300px;
+    display: inline-block;
+    padding: 5px
+}
 }

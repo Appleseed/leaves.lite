@@ -4,7 +4,7 @@ app.config(function($stateProvider, $urlRouterProvider){
 
 	$stateProvider
 	.state('home', {
-		url: '/?type',
+		url: '/?tag',
 		templateUrl: 'views/home.html',
 		controller: 'homeController'
 	})

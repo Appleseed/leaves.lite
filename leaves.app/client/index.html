@@ -23,7 +23,7 @@
 	    	<input type="text" ng-model="tag_name" placeholder="Search by tag" style="border-radius: 10%;border: 2px solid #eee;margin-left: 20px; padding: 6px">
 	    </div>
 	        <ul class="sidebar-nav">
-	            <li ng-repeat="tag in tags.data | filter:tag_name"><a ui-sref="home({type:tag.slug})">{{tag.label}}</a></li>
+	            <li ng-repeat="tag in tags.data | filter:tag_name"><a ui-sref="home({tag:tag.slug})">{{tag.label}}</a></li>
 	        </ul>
 	    </div>
     </div>
@@ -32,7 +32,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
-        <ui-view></ui-view>
+        <ui-view id="injecter"></ui-view>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
