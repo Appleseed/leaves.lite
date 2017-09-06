@@ -1,17 +1,10 @@
-function makeCardReaderView(){
-	$("#viewDiv").removeClass('col-lg-12')
-	$("#viewDiv").addClass('col-lg-4')
-}
-
-app.controller('mainController', ['$scope','$http','$state','$location', function($scope, $http, $state, $location){
+app.controller('mainController', ['$scope','$http','$state','$location','$rootScope', function($scope, $http, $state, $location, $rootScope){
 	$scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
 	$scope.card_view = true
+	$scope.default_reader = true
 	$scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
 
 	$scope.goToHome = function(){
-		$("#viewDiv").removeClass('col-lg-4')
-		$("#viewDiv").addClass('col-lg-12')
-		// $state.go('home')
 		$location.path('/home')
 		console.log('go to home')
 	}
@@ -108,7 +101,7 @@ app.controller('homeController', ['$scope','$http','$state','$stateParams', func
 
 }])
 
-app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout', function($scope, $http, $stateParams, $timeout){
+app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout','$rootScope', function($scope, $http, $stateParams, $timeout, $rootScope){
 	$http({
 		method: 'GET',
 		url: $scope.base_url + '/api/entries/' + $stateParams.id,
@@ -119,6 +112,7 @@ app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout', func
 		$scope.error = response
 		// console.log(response)
 	}).finally(function(){
-		makeCardReaderView()
+		$rootScope.default_reader = true
 	})
+	console.log($scope.default_reader)
 }])

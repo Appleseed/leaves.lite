@@ -1,11 +1,5 @@
 <div class="row">
-    <div class="col-lg-12 card-view">
-        <i class="fa fa-list" ng-click="listView()"></i>
-        <i class="fa fa-th-large" ng-click="cardView()"></i>
-    </div>
-</div>
-<div class="row">
-<div class="col-lg-12" id="viewDiv">
+<div class="col-lg-5" id="viewDiv">
     <div ng-repeat="entry in entries" class="card_view" ng-if="card_view">
         <leaves-card data="entry"></leaves-card>
     </div>
@@ -14,18 +8,6 @@
         <leaves-list data="entry"></leaves-list>
     </div>
     </ul>
-  <!--   <div class="row" infinite-scroll="loadMore()" infinite-scroll-disabled="disable_scroll" infinite-scroll-distance='0' infinite-scroll-use-document-bottom="true" id="card-view">     
-            <div class="card-view col-md-4" ng-repeat="entry in entries" ng-if="card_view">                  
-                <leaves-card data="entry"></leaves-card>
-            </div>
-            <div class="col-md-12 col-xs-12 col-sm-6">                  
-            <ul class="list-group list-view">
-                <div ng-repeat="entry in entries" ng-if="!card_view">
-                    <leaves-list data="entry"></leaves-list>
-                </div>
-            </ul>
-            </div>
-    </div> -->
     <div class="row" ng-if="loading_button">
         <div class="col-lg-10 text-center loading_button">              
             <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>            
@@ -33,7 +15,9 @@
         </div>
     </div>
 </div>
-<div class="col-lg-8" id="readerDiv">
+<div class="col-lg-7" id="readerDiv">
     <div ui-view></div>
+</div>
+</div>
 </div>
 </div>

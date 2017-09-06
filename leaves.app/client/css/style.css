@@ -246,9 +246,9 @@ height: 14em;
 }
 
 .card-view .fa{
-    font-size: 24px;
+    font-size: 18px;
     cursor: pointer;
-    margin: 10px;
+    margin: 15px 3px 0px 8px;
 }
 .list-view{
     padding: 10px;
@@ -284,17 +284,10 @@ height: 14em;
 .loading_button{
     padding: 10px;
 }
-.card_view{
-    width: 400px;
-    display: inline-block;
-    padding: 5px
-}
-/* Desktops and laptops ----------- */
-@media only screen 
-and (min-width : 1224px) {
-.card_view{
-    width: 300px;
-    display: inline-block;
-    padding: 5px
-}
+.default-reader{
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+    height: 100vh;
+    position: fixed;
 }
