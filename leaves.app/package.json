@@ -1,17 +1,23 @@
 {
-  "name": "leaves.lite",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Anant Corporation",
-  "license": "Apache",
-  "dependencies": {
-    "compression": "^1.6.2",
-    "errorhandler": "^1.5.0",
-    "express": "^4.15.3",
-    "morgan": "^1.8.1"
-  }
+    "name": "leaves.lite",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Anant Corporation",
+    "license": "Apache",
+    "dependencies": {
+        "compression": "^1.6.2",
+        "errorhandler": "^1.5.0",
+        "express": "^4.15.3",
+        "morgan": "^1.8.1",
+        "angular": "^1.6.4",
+        "@uirouter/angularjs": "^1.0.6",
+        "bootstrap": "^3.3.7",
+        "angular-sanitize": "^1.6.4",
+        "components-font-awesome": "^4.7.0",
+        "moment": "^2.18.1"
+    }
 }

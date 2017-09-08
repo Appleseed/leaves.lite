@@ -1,19 +1,19 @@
 <div class="row single-content" ng-if="leaves">
-	<div class="col-md-12">
-		
-		
-		<ul class="nav nav-tabs" role="tablist">
-			<li class="nav-item" ng-repeat="x in leaves">
-				<a class="nav-link active" data-toggle="tab" data-target="{{'#tab'+x.id}}" role="tab" data-toggle="tab">{{x.title}}</a>
-			</li>
-		</ul>
-		<!-- Tab panes -->
-		<div class="tab-content">
-		  <div class="tab-pane" id="{{'tab'+x.id}}" role="tabpanel" ng-repeat="x in leaves">
-			<h1 class="leave-title">{{x.title}}</h1>
-			<hr>
-			<p ng-bind-html="x.content"></p>
-		  </div>
-		</div>
-	</div>
+    <div class="col-md-5">
+
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" ng-repeat="x in leaves">
+                <a class="nav-link active" data-toggle="tab" data-target="{{'#tab'+x.id}}" role="tab" data-toggle="tab">{{x.title}}</a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane" id="{{'tab'+x.id}}" role="tabpanel" ng-repeat="x in leaves">
+                <h1 class="leave-title">{{x.title}}</h1>
+                <hr>
+                <p ng-bind-html="x.content"></p>
+            </div>
+        </div>
+    </div>
 </div>
