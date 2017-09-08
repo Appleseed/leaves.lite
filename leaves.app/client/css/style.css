@@ -28,6 +28,7 @@ html{
     height: 100vh;
     position: fixed;
     cursor: pointer;
+    width: 100%;
 }
 .single-content:hover #viewDiv{
     background-color: red
