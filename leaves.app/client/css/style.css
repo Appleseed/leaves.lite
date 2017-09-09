@@ -21,6 +21,9 @@ html{
 .logo-title {
     cursor: pointer;
 }
+#reader{
+    display: block;
+}
 .single-content{
     background-color: #fff;
     padding: 10px;
@@ -28,7 +31,10 @@ html{
     height: 100vh;
     position: fixed;
     cursor: pointer;
-    width: 100%;
+    width: 50%;
+}
+.content img{
+    max-width: 100%;
 }
 .single-content:hover #viewDiv{
     background-color: red
@@ -176,6 +182,9 @@ height: 14em;
 .entry-meta{
 	height: 80px;
 	overflow: hidden;
+}
+.entry-meta a{
+    cursor: pointer;
 }
 .card-div{
      margin: 15px 0px 0px 0px; 

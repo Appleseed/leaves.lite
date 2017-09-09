@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="bower_components/components-font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/side-navbar.css">
+	<link rel="stylesheet" type="text/css" href="css/chrome-tabs.css">
 	<link href="https://fonts.googleapis.com/css?family=Vollkorn|Montserrat" rel="stylesheet">
 </head>
 <body ng-controller="mainController" id="body">
@@ -22,9 +23,9 @@
 	    <div class="search_tag">
 	    	<input type="text" ng-model="tag_name" placeholder="Search by tag" style="border-radius: 10%;border: 2px solid #eee;margin-left: 20px; padding: 6px">
 	    </div>
-	        <ul class="sidebar-nav">
-	            <li ng-repeat="tag in tags.data | filter:tag_name"><a ui-sref="home({tag:tag.slug})">{{tag.label}}</a></li>
-	        </ul>
+        <ul class="sidebar-nav">
+            <li ng-repeat="tag in tags.data | filter:tag_name"><a ui-sref="home({tag:tag.slug})">{{tag.label}}</a></li>
+        </ul>
 	    </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -45,8 +46,10 @@
 <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
 <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/controllers.js"></script>
+<!-- <script type="text/javascript" src="js/chrome-tabs.js"></script> -->
 <script>
   $(function () {
     $('#myTab a:last').tab('show')

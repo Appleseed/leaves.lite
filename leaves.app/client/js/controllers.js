@@ -79,7 +79,7 @@ app.controller('homeController', ['$scope','$http','$state','$stateParams', func
 	$scope.loading_button = false
 	var dataArray = []
 	var itemIds = []
-	function homeData(){
+	function homeData(loadmore){
 		if($stateParams.tag && $stateParams.tag != 'home'){
 			var tagName = $stateParams.tag.split('-').join(' ');
 			var param = {access_token: $scope.token,sort:'created',limit:12,order:'asc',page:page,tags:tagName}
@@ -107,13 +107,16 @@ app.controller('homeController', ['$scope','$http','$state','$stateParams', func
 			page = page + 1
 			$scope.loading_button = true
 			$scope.loadingMessage = false
+			if(loadmore == 1){
+				makeCardReaderView()				
+			}
 		})
 	}
 
-	homeData();
+	homeData(0);
 	
 	$scope.loadMore = function(){
-		homeData();
+		homeData(1);
 	}
 	$scope.entries = dataArray
 }])
@@ -122,6 +125,7 @@ app.controller('homeController', ['$scope','$http','$state','$stateParams', func
 app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout','$rootScope', '$state', function($scope, $http, $stateParams, $timeout, $rootScope, $state){
 	var leafIdsList = String($stateParams.ids).split(',')
 	function leafHTTP(id){
+		$scope.active_id = id
 		$http({
 			method: 'GET',
 			url: $scope.base_url + '/api/entries/' + id,
@@ -133,6 +137,7 @@ app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout','$roo
 			$scope.error = response
 		}).finally(function(){
 			makeCardReaderView()
+			$rootScope.leaves[$rootScope.leaves.length - 1].active = true;
 		})
 	}
 	if($rootScope.flag == undefined){
@@ -142,4 +147,7 @@ app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout','$roo
 	}else{
 		leafHTTP(leafIdsList[leafIdsList.length-1])
 	}
+
+
+
 }])
