@@ -1,4 +1,4 @@
-#Appleseed Leaves.Lite - 0.4 #
+# Appleseed Leaves.Lite - 0.4 
 This is a light-weight link/bookmark viewer for the Appleseed Search Platform ( part of the [Appleseed Framework](http://www.appleseedapp.com) ).
 
 ## Changelog
