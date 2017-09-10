@@ -1,7 +1,10 @@
-#Appleseed Leaves.Lite#
+# IMPORTANT - THIS CODE IS BEING DEPRECATED. WE LEARNED A LOT DOING THIS AND ARE MOVING FORWARD. #
+
+# Appleseed Leaves.Lite 0.3
 This is a light-weight link/bookmark viewer for the Appleseed Search Platform ( part of the [Appleseed Framework](http://www.appleseedapp.com) ).
 
-##Features##
+
+## Features
 * No DB Required / Links in JSON
 * AngularJS 1.5 w/ Components (AngularJS 2 Coming)
 * Quickly share links / bookmarks
@@ -41,34 +44,7 @@ It's much faster that npm.
 
 Follow the instructions to open it up on the browser. The file that feeds the links are in.
 
-- `leaves.lite/src/data`
+- `leaves.lite/leaves.home/src/data`
 
-#TODOS#
-
-There's a bunch of stuff left to do.
-
-##Interface:##
-
-- TODO: add Component routing
-- TODO: add bootstrap or other responsive layout management
-- TODO: migrate ideas from anant.co layout
-
-##Software:##
-- TODO: bind main.html leaves instances from another JSON
-- TODO: implement different modes for leaf component
-- TODO: abstract JSON / REST behind a serviceFactory
-
-
-##Data / Database:##
-- TODO: iterate on Leaf object definition
-- TODO: iterate on Leaves object definition
-- TODO: iterate on twigPanel / "twig" object definition
-- TODO: add examples to interact with elastic / solr / algolia type services
-- TODO: add examples to interact with web.api
-
-###Systems###
-- TODO: create dockerfile
-- TODO: document how to run on azure
-- TODO: document how to run on github pages
 
 This is built with the [FountainJS webapp](https://fountainjs.io) [yeoman generator](https://yeoman.io) and is configured to run on AngularJS 1, TypeScript, Gulp, Webpack, TSLint, etc..
