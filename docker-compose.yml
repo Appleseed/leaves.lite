@@ -1,0 +1,50 @@
+#######################################
+#  Appleseed.Leaves.App 
+#  Currently just a test app 
+#######################################
+version: '2'
+services: 
+    leaves-web:
+      build: leaves.app/
+      links:
+        #- mysql
+        #- postgres
+        #- mail
+        #- search-index-solr
+        #- search-index-elastic
+      ports:
+        - "90:9000"
+      volumes_from:
+        - storage
+      env_file:
+        - etc/environment.yml
+        - etc/environment.production.yml
+
+    leaves-web:
+      build: leaves.home/
+      links:
+        #- mysql
+        #- postgres
+        #- mail
+        #- search-index-solr
+        #- search-index-elastic
+      ports:
+        - "91:3000"
+      volumes_from:
+        - storage
+      env_file:
+        - etc/environment.yml
+        - etc/environment.production.yml
+
+    #######################################
+    # Storage
+    #######################################
+    storage:
+      build: leaves.storage/
+      #container_name: storage.local
+      volumes:
+        - /storage
+
+
+volumes:
+    data:
