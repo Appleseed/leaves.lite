@@ -6,7 +6,7 @@ version: '2'
 services: 
     leaves-web:
       build: leaves.app/
-      links:
+      # links:
         #- mysql
         #- postgres
         #- mail
@@ -20,21 +20,21 @@ services:
         - etc/environment.yml
         - etc/environment.production.yml
 
-    leaves-web:
-      build: leaves.home/
-      links:
+    # leaves-web:
+      # build: leaves.home/
+      # links:
         #- mysql
         #- postgres
         #- mail
         #- search-index-solr
         #- search-index-elastic
-      ports:
-        - "91:3000"
-      volumes_from:
-        - storage
-      env_file:
-        - etc/environment.yml
-        - etc/environment.production.yml
+      # ports:
+        #- "91:3000"
+      # volumes_from:
+        #- storage
+      # env_file:
+        #- etc/environment.yml
+        #- etc/environment.production.yml
 
     #######################################
     # Storage
