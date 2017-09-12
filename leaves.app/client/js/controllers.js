@@ -23,7 +23,7 @@ function removeCardReaderView(){
 app.controller('mainController', ['$scope','$http','$state','$location','$rootScope', function($scope, $http, $state, $location, $rootScope){
 	$scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
 	$scope.card_view = true
-	$scope.listArray = []
+	$rootScope.listArray = []
 	$rootScope.tempArray = []
 	$rootScope.leaves = []
 	$scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
@@ -40,12 +40,12 @@ app.controller('mainController', ['$scope','$http','$state','$location','$rootSc
 
 	$scope.cardView = function(){
 		$scope.card_view = true
-		// makeCardReaderView()
+		makeCardReaderView()
 	}
 
 	$scope.listView = function(){
 		$scope.card_view = false
-		// makeCardReaderView()
+		makeCardReaderView()
 	}
 
 	// $scope.save_it = function(url){
@@ -147,7 +147,29 @@ app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout','$roo
 	}else{
 		leafHTTP(leafIdsList[leafIdsList.length-1])
 	}
+	console.log($stateParams.tag)
+	var removeTab = function (event, index, item_id) {
+		event.preventDefault();
+		event.stopPropagation();
+		content_index = $rootScope.leaves.findIndex(i => i.id == item_id)
+		$rootScope.leaves.splice(content_index, 1);
+		console.log(content_index)
+		console.log($rootScope.leaves)
+		var param_list = $stateParams.ids.split(',');
+		var index = param_list.indexOf(String(item_id))
+		if(index > -1){
+			param_list.splice(index, 1);
+		}
+		$rootScope.listArray = param_list
+		$state.go('home.single_leaves', {ids: param_list})
+		if(param_list.length == 0){
+			event.preventDefault();
+			event.stopPropagation();
+			$state.go('home',{ids:$stateParams.tag})
+			removeCardReaderView()
+		}
+	};
 
-
+    $scope.removeTab = removeTab;
 
 }])

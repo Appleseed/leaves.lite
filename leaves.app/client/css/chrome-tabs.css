@@ -1,5 +1,4 @@
 .tab-container {
-  background: #8dc8fb;
   margin: 0;
   padding: 0;
   max-height: 40px;
@@ -17,13 +16,7 @@
   border-bottom: 5px solid #f7f7f7;
 }
 .tab-container ul.nav-tabs > li {
-  margin: 5px -14px 0;
-  -moz-border-radius-topleft: 28px 145px;
-  -webkit-border-top-left-radius: 28px 145px;
-  border-top-left-radius: 28px 145px;
-  -moz-border-radius-topright: 28px 145px;
-  -webkit-border-top-right-radius: 28px 145px;
-  border-top-right-radius: 28px 145px;
+  margin: 5px -10px 0;
   padding: 0 30px 0 25px;
   height: 170px;
   background: #c3d5e6;
@@ -123,7 +116,6 @@
 }
 .tab-container .tab-pane {
   padding: 60px 40px;
-  text-align: center;
 }
 .tab-container .tab-pane.active {
   border-top: 1px solid #ddd;

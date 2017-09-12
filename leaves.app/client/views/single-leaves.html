@@ -23,14 +23,12 @@
  <tabset class="tab-container">
       <tab ng-repeat="x in leaves" active="x.active">
         <tab-heading title="{{x.title}}">
-          <span>{{x.title}}</span> <i class="glyphicon glyphicon-remove" ng-click="removeTab($event, $index)"></i>
+          <span>{{x.title}}</span> <i class="glyphicon glyphicon-remove" ng-click="removeTab($event, $index, x.id)"></i>
         </tab-heading>
         <h1 class="leave-title">{{x.title}}</h1>
 			<hr>
 			<p ng-bind-html="x.content" class="content"></p>
       </tab>
-
-      <button class="btn btn-default" ng-click="addTab()"></button>
     </tabset>
 
 
