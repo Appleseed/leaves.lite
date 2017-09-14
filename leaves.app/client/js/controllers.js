@@ -81,7 +81,9 @@ app.controller('homeController', ['$scope','$http','$state','$stateParams', func
 	var itemIds = []
 	function homeData(loadmore){
 		if($stateParams.tag && $stateParams.tag != 'home'){
+			console.log($stateParams.tag)
 			var tagName = $stateParams.tag.split('-').join(' ');
+			console.log(tagName)
 			var param = {access_token: $scope.token,sort:'created',limit:12,order:'asc',page:page,tags:tagName}
 			// makeCardReaderView()
 		}else{

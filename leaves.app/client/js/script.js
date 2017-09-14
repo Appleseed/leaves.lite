@@ -38,6 +38,21 @@ app.directive('leavesCard', function(){
 	}
 })
 
+
+app.directive('leavesList', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'views/leaves-list.html',
+		scope: {
+			data: '=',
+			state: "@state",
+			listarr: '='
+
+		},
+		controller: 'leavesCardCtrl'
+	}
+})
+
 app.controller('leavesCardCtrl',['$scope', '$state', '$rootScope', function($scope, $state, $rootScope){
 	$scope.added_date = function(tm) {
 		return moment(tm).startOf('hour').fromNow();
@@ -52,22 +67,6 @@ app.controller('leavesCardCtrl',['$scope', '$state', '$rootScope', function($sco
 	    }
 	}
 }])
-
-app.directive('leavesList', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'views/leaves-list.html',
-		scope: {
-			data: '=',
-		},
-		link: function($scope, element, attrs) {
-		    $scope.added_date = function(tm) {
-		      return moment(tm).startOf('hour').fromNow();
-		    }
-		}
-	}
-})
-
 // app.directive('tabHighlight', [function(){
 //     return {
 //       restrict: 'A',
