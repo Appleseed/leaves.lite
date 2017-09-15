@@ -1,0 +1,19 @@
+<div class="row" style="margin-right: 10px">
+    <div ng-class="isidexit ? 'col-md-4' : 'col-md-12'">
+        <div class="card-view">
+            <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
+            <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
+        </div>
+        <div class="row" id="cardView">
+            <div  ng-class="isidexit ? 'col-md-12' : 'col-md-4'" ng-repeat="entry in entries">
+                <leaves-card data="entry" listarr="listArray"></leaves-card>
+            </div>
+        </div>
+        <div class="text-center loading_button" ng-if="loading_button && 'entries.length <= entries.total'">              
+            <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+        </div>
+    </div>
+    <div class="col-lg-7" id="reader">
+        <div ui-view></div>
+    </div>
+</div>

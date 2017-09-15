@@ -1,25 +1,3 @@
-function makeCardReaderView(){
-	setTimeout(function(){ 
-		$("#grid").removeClass('col-lg-12')
-		$("#grid").addClass('col-lg-5')
-		$('#cardView div.card-view').each(function(){
-			$(this).removeClass('col-lg-4');
-			$(this).addClass('col-lg-12');
-		})
-	}, 1000);
-}
-
-function removeCardReaderView(){
-	setTimeout(function(){ 
-		$("#grid").removeClass('col-lg-5')
-		$("#grid").addClass('col-lg-12')
-		$('#cardView div.card-view').each(function(){
-			$(this).removeClass('col-lg-12');
-			$(this).addClass('col-lg-4');
-		})
-	}, 1000);
-}
-
 app.controller('mainController', ['$scope','$http','$state','$location','$rootScope', function($scope, $http, $state, $location, $rootScope){
 	$scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
 	$scope.card_view = true
@@ -30,24 +8,8 @@ app.controller('mainController', ['$scope','$http','$state','$location','$rootSc
 
 	$scope.goToHome = function(){
 		$state.go('home', {tag:'home'})
-		removeCardReaderView()
+		$rootScope.isidexit = 0
 	}
-
-
-	$scope.navCloseOpen = function(){
-		$("#wrapper").toggleClass("toggled");
-	}
-
-	$scope.cardView = function(){
-		$scope.card_view = true
-		makeCardReaderView()
-	}
-
-	$scope.listView = function(){
-		$scope.card_view = false
-		makeCardReaderView()
-	}
-
 	// $scope.save_it = function(url){
 	// 	$http({
 	// 		method: 'POST',
@@ -62,33 +24,36 @@ app.controller('mainController', ['$scope','$http','$state','$location','$rootSc
 	// }
 
 	//$http.get call to get all tags json
+	var tags_list = []
 	$http({
 		method: 'GET',
 		url: $scope.base_url + '/api/tags',
 		params: {access_token: $scope.token}
 	}).then(function(success){
-		$scope.tags = success
+		angular.forEach(success.data, function(value){
+			var slug = value.label.split(' ').join('-')
+			tags_list.push({id: value.id,label:value.label,slug:slug})
+		})
 	}).catch(function(response){
 		$scope.error = response
 	})
+	$scope.tags = tags_list
 }])
 
-app.controller('homeController', ['$scope','$http','$state','$stateParams', function($scope, $http, $state, $stateParams){
+app.controller('homeController', ['$scope','$rootScope','$http','$state','$stateParams', function($scope, $rootScope, $http, $state, $stateParams){
+	$rootScope.isidexit = 0
 	$scope.stateJson = $state.current
 	var page = 1
 	$scope.loading_button = false
 	var dataArray = []
 	var itemIds = []
+	$scope.current_params = {tag:$stateParams.tag}
 	function homeData(loadmore){
 		if($stateParams.tag && $stateParams.tag != 'home'){
-			console.log($stateParams.tag)
 			var tagName = $stateParams.tag.split('-').join(' ');
-			console.log(tagName)
 			var param = {access_token: $scope.token,sort:'created',limit:12,order:'asc',page:page,tags:tagName}
-			// makeCardReaderView()
 		}else{
 			var param = {access_token: $scope.token,sort:'created',limit:12,order:'asc',page:page}
-			// makeCardReaderView()
 		}
 		$scope.loadingMessage = true
 		if(page >= 2){
@@ -107,10 +72,9 @@ app.controller('homeController', ['$scope','$http','$state','$stateParams', func
 			$scope.error = response
 		}).finally(function(){
 			page = page + 1
-			$scope.loading_button = true
-			$scope.loadingMessage = false
-			if(loadmore == 1){
-				makeCardReaderView()				
+			if(dataArray.length < $scope.homeData.data.total){
+				$scope.loading_button = true
+				$scope.loadingMessage = false
 			}
 		})
 	}
@@ -126,49 +90,66 @@ app.controller('homeController', ['$scope','$http','$state','$stateParams', func
 
 app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout','$rootScope', '$state', function($scope, $http, $stateParams, $timeout, $rootScope, $state){
 	var leafIdsList = String($stateParams.ids).split(',')
+	$rootScope.isidexit = 1
 	function leafHTTP(id){
+		var param_list = $stateParams.ids.split(',');
+		console.log(param_list)
 		$scope.active_id = id
 		$http({
 			method: 'GET',
 			url: $scope.base_url + '/api/entries/' + id,
 			params: {access_token: $scope.token}
 		}).then(function(success){
-			// $scope.leaves = success.data
 			$rootScope.leaves.push(success.data)
 		}).catch(function(response){
 			$scope.error = response
 		}).finally(function(){
-			makeCardReaderView()
 			$rootScope.leaves[$rootScope.leaves.length - 1].active = true;
 		})
 	}
 	if($rootScope.flag == undefined){
+		$rootScope.listArray = leafIdsList
 		for (var i = 0; i < leafIdsList.length; i++) {
 			leafHTTP(leafIdsList[i])
 		}
 	}else{
+		console.log(leafIdsList)
+		console.log($rootScope.rm_id)
+		console.log($rootScope.rm_id)
+		if($rootScope.rm_id){
+
 		leafHTTP(leafIdsList[leafIdsList.length-1])
+		}
 	}
-	console.log($stateParams.tag)
 	var removeTab = function (event, index, item_id) {
 		event.preventDefault();
 		event.stopPropagation();
+
+		if($state.current.name == 'home.reader'){
+			var sendTo = 'home.reader'
+			var sendToParent = 'home'
+		}else{
+			var sendTo = 'list-view.reader'
+			var sendToParent = 'list-view'
+		}
+
+		$rootScope.rm_id = false
 		content_index = $rootScope.leaves.findIndex(i => i.id == item_id)
 		$rootScope.leaves.splice(content_index, 1);
-		console.log(content_index)
-		console.log($rootScope.leaves)
 		var param_list = $stateParams.ids.split(',');
-		var index = param_list.indexOf(String(item_id))
-		if(index > -1){
-			param_list.splice(index, 1);
+		var item_index = param_list.indexOf(String(item_id))
+		if(item_index > -1){
+			param_list.splice(item_index, 1);
 		}
 		$rootScope.listArray = param_list
-		$state.go('home.single_leaves', {ids: param_list})
+		console.log(param_list)
+		$state.go(sendTo, {ids: param_list})
 		if(param_list.length == 0){
 			event.preventDefault();
 			event.stopPropagation();
-			$state.go('home',{ids:$stateParams.tag})
-			removeCardReaderView()
+			$state.go(sendToParent,{ids:$stateParams.tag})
+			$rootScope.listArray = []
+			$rootScope.isidexit = 0
 		}
 	};
 

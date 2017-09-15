@@ -1,0 +1,21 @@
+<div class="container-fluid">
+<div class="row" style="margin-right: 10px;background-color: #fff">
+    <div ng-class="(isidexit == 0) ? 'col-md-12' : 'col-md-4'" id="grid">
+        <div class="card-view">
+            <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
+            <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
+        </div>
+        <ul class="list-group list-view">
+                <div  class="col-md-12" ng-repeat="entry in entries">                        
+                    <leaves-list data="entry" listarr="listArray"></leaves-list>
+                </div>
+        </ul>
+        <div class="text-center loading_button" ng-if="loading_button">              
+            <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+        </div>
+    </div>
+    <div class="col-md-7" id="reader">
+        <div ui-view></div>
+    </div>
+</div>
+</div>

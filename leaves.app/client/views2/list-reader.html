@@ -1,0 +1,36 @@
+<div class="container-fluid">
+<div class="row" style="margin-right: 10px;background-color: #fff">
+    <div class="col-md-4">
+        <div class="card-view">
+            <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
+            <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
+        </div>
+        <ul class="list-group list-view">
+            <div class="row" ng-repeat="entry in entries">
+                <div class="col-md-12">                        
+                    <leaves-list data="entry" listarr="listArray"></leaves-list>
+                </div>
+            </div>
+        </ul>
+        <div class="text-center loading_button" ng-if="loading_button">              
+            <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+        </div>
+    </div>
+    <div class="col-md-8" id="reader">
+		<div class="row single-content" ng-if="leaves">
+			<div class="col-md-12">
+				<tabset class="tab-container">
+				<tab ng-repeat="x in leaves" active="x.active">
+				<tab-heading title="{{x.title}}">
+				<span>{{x.title}}</span> <i class="glyphicon glyphicon-remove" ng-click="removeTab($event, $index, x.id)"></i>
+				</tab-heading>
+				<h1 class="leave-title">{{x.title}}</h1>
+				<hr>
+				<p ng-bind-html="x.content" class="content"></p>
+				</tab>
+				</tabset>
+			</div>
+		</div>
+    </div>
+</div>
+</div>

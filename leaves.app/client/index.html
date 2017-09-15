@@ -8,35 +8,25 @@
 	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="bower_components/components-font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/side-navbar.css">
 	<link rel="stylesheet" type="text/css" href="css/chrome-tabs.css">
 	<link href="https://fonts.googleapis.com/css?family=Vollkorn|Montserrat" rel="stylesheet">
 </head>
 <body ng-controller="mainController" id="body">
 <leaves-nav></leaves-nav>
-<div id="wrapper">
-
-    <!-- Sidebar -->
-
-    <div id="sidebar-wrapper">
-	    <div id="sidebar-inner">
-	    <div class="search_tag">
-	    	<input type="text" ng-model="tag_name" placeholder="Search by tag" style="border-radius: 10%;border: 2px solid #eee;margin-left: 20px; padding: 6px">
-	    </div>
-        <ul class="sidebar-nav">
-            <li ng-repeat="tag in tags.data | filter:tag_name"><a ui-sref="home({tag:tag.slug})">{{tag.label}}</a></li>
-        </ul>
-	    </div>
-    </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-        <ui-view id="injecter"></ui-view>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="side-tag-navbar">                
+                <input type="text" ng-model="tag_name" placeholder="Search by tag">
+                <ul class="sidebar-nav">
+                    <li ng-repeat="tag in tags | filter:tag_name" ui-sref="home({tag:tag.slug})">{{tag.label}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10 content-area">
+            <ui-view id="injecter"></ui-view>
         </div>
     </div>
-    <!-- /#page-content-wrapper -->
 </div>
 </body>
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
