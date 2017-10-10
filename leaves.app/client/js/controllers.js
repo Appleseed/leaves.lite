@@ -90,6 +90,7 @@ app.controller('homeController', ['$scope','$rootScope','$http','$state','$state
 
 app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout','$rootScope', '$state', function($scope, $http, $stateParams, $timeout, $rootScope, $state){
 	var leafIdsList = String($stateParams.ids).split(',')
+	$scope.readerView = false
 	$rootScope.isidexit = 1
 	function leafHTTP(id){
 		var param_list = $stateParams.ids.split(',');
@@ -105,6 +106,7 @@ app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout','$roo
 			$scope.error = response
 		}).finally(function(){
 			$rootScope.leaves[$rootScope.leaves.length - 1].active = true;
+			$scope.readerView = true
 		})
 	}
 	if($rootScope.flag == undefined){
@@ -117,8 +119,7 @@ app.controller('singleLeaves', ['$scope','$http','$stateParams','$timeout','$roo
 		console.log($rootScope.rm_id)
 		console.log($rootScope.rm_id)
 		if($rootScope.rm_id){
-
-		leafHTTP(leafIdsList[leafIdsList.length-1])
+			leafHTTP(leafIdsList[leafIdsList.length-1])
 		}
 	}
 	var removeTab = function (event, index, item_id) {
