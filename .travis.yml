@@ -17,7 +17,7 @@ before_install:
 - docker pull mariadb
 - docker pull redis:alpine
 - docker pull postgres
-- docker pull norganon/postgres
+- docker pull nornagon/postgres
 - docker pull wallabag/wallabag
 - docker pull rabbitmq
 - docker pull clue/ttrss
