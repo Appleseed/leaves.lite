@@ -1,6 +1,6 @@
 <div class="row single-content" ng-if="leaves">
     <div class="col-md-12">
-        <tabset class="tab-container">
+        <tabset class="tab-container" id="readerTabsSingle">
             <tab ng-repeat="item in leaves" active="item.active">
                 <tab-heading title="{{item.title}}">
                     <span>{{item.title}}</span> <i class="glyphicon glyphicon-remove" ng-click="removeTab($event, $index, item.id)"></i>
