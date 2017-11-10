@@ -26,6 +26,7 @@
     overflow: hidden;
     white-space: nowrap;
     display: block;
+    margin-right: 10px;
 }
 
 .tab-container ul.nav-tabs>li>a .glyphicon-remove {
