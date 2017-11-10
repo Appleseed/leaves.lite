@@ -1,32 +1,46 @@
-body { 
-	padding-top: 70px;
-	background-color: #eeeeee;
+body {
+    padding-top: 70px;
+    background-color: #eeeeee;
     overflow-x: hidden;
 }
-html{
+
+html {
     height: 100vh
 }
-#injecter{
+
+#injecter {
     width: 100%;
     position: absolute;
-    padding-bottom: 30px; 
+    padding-bottom: 30px;
 }
-.single-content h1,.single-content p, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p, .tag-state{
-    font-family: 'Montserrat', sans-serif;    
+
+.single-content h1,
+.single-content p,
+.entry-meta h4,
+.logo-title,
+.navbar,
+.modal,
+.loadingMessage p,
+.tag-state {
+    font-family: 'Montserrat', sans-serif;
 }
+
 .tag-state {
     text-transform: uppercase;
     margin: 10px;
     border-bottom: 3px solid #000;
     display: inline-block;
 }
+
 .logo-title {
     cursor: pointer;
 }
-#reader{
+
+#reader {
     display: block;
 }
-.single-content{
+
+.single-content {
     background-color: #fff;
     padding: 10px;
     overflow: scroll;
@@ -36,43 +50,58 @@ html{
     margin-top: -17px;
     border-left: 3px solid #eee;
 }
-.content img{
+
+.content img {
     max-width: 100%;
 }
-.single-content:hover #viewDiv{
+
+.single-content:hover #viewDiv {
     background-color: red
 }
-.single-content p{
+
+.single-content p {
     font-size: 16px;
 }
-.single-content h1, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p{
-    font-family: 'Montserrat', sans-serif; 
+
+.single-content h1,
+.entry-meta h4,
+.logo-title,
+.navbar,
+.modal,
+.loadingMessage p {
+    font-family: 'Montserrat', sans-serif;
 }
-.single-content .leave-title{
+
+.single-content .leave-title {
     font-weight: 700;
     font-size: 40px;
-    /*text-align: center;*/
-    margin-top: 60px;    
+    /* text-align: center;*/
+    /* margin-top: 60px; */
 }
-.menu-bar{
-	cursor: pointer;
+
+.menu-bar {
+    cursor: pointer;
 }
-#menu-toggle i{
-	font-size: 16px;
+
+#menu-toggle i {
+    font-size: 16px;
     color: #565454;
     padding: 7px 8.5px;
     border-radius: 50%;
 }
-#menu-toggle i:hover{
-	background-color: rgba(158, 158, 158, 0.55);
+
+#menu-toggle i:hover {
+    background-color: rgba(158, 158, 158, 0.55);
 }
-#sidebar-wrapper{
+
+#sidebar-wrapper {
     height: 100%;
     width: 100%;
     overflow: hidden;
     position: relative;
 }
-#sidebar-inner{
+
+#sidebar-inner {
     position: absolute;
     top: 0px;
     bottom: 0px;
@@ -80,173 +109,218 @@ html{
     right: -20px;
     overflow: auto;
     padding-bottom: 100px;
-	font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
-.navbar-default{
-	-webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
-	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
-	z-index: 2;
+
+.navbar-default {
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    z-index: 2;
 }
-.leaves-navbar .input-group-addon{
-	background-color: #fff;
-	border-radius: 0;
+
+.leaves-navbar .input-group-addon {
+    background-color: #fff;
+    border-radius: 0;
 }
-.form-control{
-	box-shadow: none;
-	border-radius: 0;
+
+.form-control {
+    box-shadow: none;
+    border-radius: 0;
 }
-.navbar-header{
-	padding: 5px;
-	font-size: 24px;
+
+.navbar-header {
+    padding: 5px;
+    font-size: 24px;
 }
-.list-group-item{
-	border: none;
-	background-color: #eeeeee;
+
+.list-group-item {
+    border: none;
+    background-color: #eeeeee;
 }
-.list-group-item h3{
+
+.list-group-item h3 {
     padding: 0px;
     margin: 0px;
 }
-.leave-grids{
+
+.leave-grids {
     background-color: #fff;
     padding: 10px 20px 10px 10px;
-    -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
     margin-bottom: 10px
 }
-.inner-addon input{	
-	border:none;
-	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12);
+
+.inner-addon input {
+    border: none;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
+
 .inner-addon input:focus {
-	outline: none;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	border:none;
-	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12);
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
-.list-group-item{
-	cursor: pointer;
+
+.list-group-item {
+    cursor: pointer;
 }
-.list-group-item:first-child{
-	border-radius: 0;
+
+.list-group-item:first-child {
+    border-radius: 0;
 }
-.list-group-item:hover{
+
+.list-group-item:hover {
     background-color: rgba(158, 158, 158, 0.36);
 }
+
+
 /* enable absolute positioning */
-.inner-addon { 
-    position: relative; 
+
+.inner-addon {
+    position: relative;
 }
+
 
 /* style icon */
+
 .inner-addon .fa {
-	position: absolute;
-	padding: 10px;
-	pointer-events: none;
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
 }
+
 
 /* align icon */
-.left-addon .fa  { 
-	left:  0px;
+
+.left-addon .fa {
+    left: 0px;
 }
-.right-addon .fa { 
-	right: 0px;
+
+.right-addon .fa {
+    right: 0px;
 }
+
 
 /* add padding  */
-.left-addon input  { 
-	padding-left:  30px; 
-}
-.right-addon input { 
-	padding-right: 30px; 
+
+.left-addon input {
+    padding-left: 30px;
 }
 
-.modal-title img{
+.right-addon input {
+    padding-right: 30px;
+}
+
+.modal-title img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     border: 1px solid #eee;
 }
-.searchTag{
-	margin-top:15px;
+
+.searchTag {
+    margin-top: 15px;
 }
-.search_tag{
-	margin-top: 15px;
+
+.search_tag {
+    margin-top: 15px;
 }
-.search_tag input:focus{
-	outline: none;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	border:none;
+
+.search_tag input:focus {
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
 }
-.leaves-card{
-height: 14em;
+
+.leaves-card {
+    height: 14em;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50%;
 }
-.entry-meta{
-	height: 80px;
-	overflow: hidden;
+
+.entry-meta {
+    height: 80px;
+    overflow: hidden;
 }
-.entry-meta a{
+
+.tab-container .entry-meta {
+    height: 40px;
+    overflow: hidden;
+}
+
+.entry-meta a {
     cursor: pointer;
 }
-.card-div{
-     margin: 15px 0px 0px 0px; 
+
+.card-div {
+    margin: 15px 0px 0px 0px;
     background-color: #fff;
     padding: 10px;
-    -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
-	font-family: 'Montserrat', sans-serif;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    font-family: 'Montserrat', sans-serif;
 }
-.card-div a{
+
+.card-div a {
     text-decoration: none;
     color: #000;
 }
-.entry-meta ul{
-	list-style-type: none;
+
+.entry-meta ul {
+    list-style-type: none;
     margin: 0px;
     padding: 0px;
 }
-.entry-meta li{
-	float: left;
-	padding: 0px 10px 0px 0px;
-    font-family: 'Montserrat', sans-serif; 
+
+.entry-meta li {
+    float: left;
+    padding: 0px 10px 0px 0px;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.side-tag-navbar{
+.side-tag-navbar {
     position: fixed;
     font-family: 'Montserrat', sans-serif;
 }
-.side-tag-navbar ul{
+
+.side-tag-navbar ul {
     overflow-y: scroll;
     height: 80vh;
     padding: 0;
-    margin-top:10px;
+    margin-top: 10px;
 }
-.side-tag-navbar ul li{
+
+.side-tag-navbar ul li {
     list-style-type: none;
     padding: 5px 10px;
     color: #010101;
 }
-.side-tag-navbar ul li:hover{
+
+.side-tag-navbar ul li:hover {
     background-color: #e1e1e1;
     cursor: pointer;
 }
-.side-tag-navbar input{
+
+.side-tag-navbar input {
     width: 100%;
     padding: 6px
 }
-.side-tag-navbar input:focus{
+
+.side-tag-navbar input:focus {
     outline: none;
 }
+
 .side-tag-navbar ul::-webkit-scrollbar {
     width: 0px;
-    background: transparent; 
+    background: transparent;
 }
-.content-area{
+
+.content-area {
     display: block;
 }
 
@@ -262,14 +336,15 @@ height: 14em;
     margin-left: -264px;
 }
 
-.sidenav p{	
-	font-family: 'Montserrat', sans-serif;
-	font-size: 20px;
+.sidenav p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
 }
 
-.sidenav img{
-	max-width: 100%;
+.sidenav img {
+    max-width: 100%;
 }
+
 .sidenav .closebtn {
     position: fixed;
     font-family: 'Montserrat', sans-serif;
@@ -284,65 +359,83 @@ height: 14em;
     text-decoration: none;
     margin-top: 10px
 }
-.sidenav .closebtn:hover{
+
+.sidenav .closebtn:hover {
     background-color: #eee;
 }
-#page-content-wrapper{
+
+#page-content-wrapper {
     padding-bottom: 40px
 }
-.loadingMessage p{
+
+.loadingMessage p {
     text-align: center;
     margin: 16px;
     font-size: 20px;
 }
 
-.card-view .fa{
+.card-view .fa {
     font-size: 18px;
     cursor: pointer;
     margin: 15px 3px 0px 8px;
 }
-.list-view{
+
+.list-view {
     margin-left: -10px;
 }
-.list-group-item{
+
+.list-group-item {
     background-color: #fff !important;
     font-family: 'Montserrat', sans-serif;
 }
-.list-before-img img{
+
+.list-before-img img {
     width: 100%
 }
-.list-view li{
+
+.list-view li {
     margin: 15px 0px 0px 0px;
     background-color: #fff;
     padding: 10px;
-    -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
     font-family: 'Montserrat', sans-serif;
 }
-.list-content-date{
+
+.list-content-date {
     display: inline-block;
     float: right;
 }
-.list-title{
+
+.list-title {
     display: inline-block;
     font-size: 18px;
 }
+
 .card {
-    width:33.33%;
+    width: 33.33%;
     padding: 10px;
     display: inline-block;
 }
-.card_reader{
+
+.card_reader {
     width: 100%;
 }
+
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
 }
-.loading_button{
+
+.loading_button {
     padding: 10px;
 }
-.default-reader{
+
+.default-reader {
     width: 100%;
     background-color: #fff;
     padding: 10px;
