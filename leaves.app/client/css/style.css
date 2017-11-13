@@ -287,7 +287,16 @@ html {
     position: fixed;
     font-family: 'Montserrat', sans-serif;
 }
-
+@media only screen and (max-width: 1080px){
+    .side-tag-navbar {
+        display: none;
+    }
+}
+@media only screen and (max-width: 900px){
+    .side-tag-navbar  input{
+        width: 60%
+    }
+}
 .side-tag-navbar ul {
     overflow-y: scroll;
     height: 80vh;
@@ -307,7 +316,6 @@ html {
 }
 
 .side-tag-navbar input {
-    width: 100%;
     padding: 6px
 }
 
