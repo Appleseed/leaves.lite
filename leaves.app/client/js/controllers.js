@@ -96,7 +96,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
 
     function leafHTTP(id) {
         var param_list = $stateParams.ids.split(',');
-        console.log(param_list)
+        //console.log(param_list)
         $scope.active_id = id
         $http({
             method: 'GET',
@@ -117,8 +117,8 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             leafHTTP(leafIdsList[i])
         }
     } else {
-        console.log(leafIdsList)
-        console.log($rootScope.rm_id)
+        // console.log(leafIdsList)
+        // console.log($rootScope.rm_id)
         if ($rootScope.rm_id) {
             leafHTTP(leafIdsList[leafIdsList.length - 1])
         }
@@ -144,7 +144,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             param_list.splice(item_index, 1);
         }
         $rootScope.listArray = param_list
-        console.log(param_list)
+            //console.log(param_list)
         $state.go(sendTo, { ids: param_list })
         if (param_list.length == 0) {
             event.preventDefault();
