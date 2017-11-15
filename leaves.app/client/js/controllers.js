@@ -157,4 +157,24 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
 
     $scope.removeTab = removeTab;
 
+    $scope.sortableOptions = {
+        update: function(e, ui) {
+            let currentLeaves = $rootScope.leaves
+            let orderedLeaves = currentLeaves.map(function(i) {
+                return i.id;
+            }).join(',');
+            console.log('Update: ' + orderedLeaves);
+        },
+        stop: function(e, ui) {
+            // this callback has the changed model
+            let currentLeaves2 = $rootScope.leaves
+            let orderedLeaves2 = currentLeaves2.map(function(i) {
+                return i.id;
+            }).join(',');
+
+            console.log('Stop: ' + orderedLeaves2);
+            //$state.go('home.reader', { ids: orderedLeave2s })
+        }
+    };
+
 }])
