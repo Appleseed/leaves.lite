@@ -17,7 +17,7 @@ require('./routes')(app);
 
 // Start server
 http.createServer(app).listen(config.port, function() {
-    console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
+    console.log('Appleseed Leaves server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
 // Expose app
