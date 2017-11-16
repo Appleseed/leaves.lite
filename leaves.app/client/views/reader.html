@@ -4,25 +4,6 @@
 
 <div class="row single-content" ng-if="leaves" ng-if="readerView">
     <div class="col-md-12">
-<<<<<<< HEAD:leaves.app/client/views/card-reader.html
-        <scrollable-tabset show-tooltips="true" show-drop-downs="true">
-            <uib-tabset class="tab-container" id="readerTabsCard">
-                <uib-tab ng-repeat="item in leaves" active="item.active">
-                    <uib-tab-heading title="{{item.title}}">
-                        <span>{{item.title}}</span> <i class="glyphicon glyphicon-remove" ng-click="removeTab($event, $index, item.id)"></i>
-                    </uib-tab-heading>
-                    <h1 class="leave-title">{{item.title}}</h1>
-                    <div class="entry-meta">
-                        <ul>
-                            <li><i class="fa fa-user"></i> <span>{{item.user_name}}</span></li>
-                            <li><a href="{{item.url}}" target="_blank"><i class="fa fa-external-link"></i> <span>link</span></a></li>
-                        </ul>
-                    </div>
-                    <p ng-bind-html="item.content" class="content"></p>
-                </uib-tab>
-            </uib-tabset>
-        </scrollable-tabset>
-=======
         <tabset class="tab-container" id="readerTabsCard">
             <tab ng-repeat="item in leaves" active="item.active">
                 <tab-heading title="{{item.title}}">
@@ -33,7 +14,7 @@
                 <div class="entry-meta">
                     <ul>
                         <li><i class="fa fa-user"></i> <span>{{item.user_name}}</span></li>
-                        <li ng-if="item.tags.length"><i class="fa fa-tags"></i> 
+                        <li ng-if="item.tags.length"><i class="fa fa-tags"></i>
                             <span ng-repeat="tag in item.tags">
                                 <a ui-sref="home({tag:tag.slug})">{{tag.label}}</a>
                                 {{$last ? '':', '}}
@@ -46,7 +27,6 @@
                 <p ng-bind-html="item.content" class="content"></p>
             </tab>
         </tabset>
->>>>>>> 7cd0c78c0c03b5f37533f6d74b5a0a2d105eff49:leaves.app/client/views/reader.html
 
     </div>
 </div>
