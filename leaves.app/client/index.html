@@ -34,6 +34,10 @@
             </div>
         </div>
     </div>
+    <div id="contentInIframe" class="second-layer">
+        <center><button class="minimizeButton" type="submit" onclick="closeIframe()" title="minimize"><i class="fa fa-close"></i></button></center>
+        <div id="originalContent"></div>
+    </div>
 </body>
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
@@ -57,6 +61,11 @@
     $(function() {
         $('#myTab a:last').tab('show')
     })
+    function closeIframe(){
+        document.getElementById("contentInIframe").style.height = "0%";
+        document.body.style.overflow = 'scroll';
+        document.getElementById("originalContent").innerHTML = ''
+    }
 </script>
 
 </html>
