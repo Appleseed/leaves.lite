@@ -244,7 +244,7 @@ html {
 }
 
 .entry-meta {
-    height: 80px;
+    height: 90px;
     overflow: hidden;
 }
 
@@ -255,6 +255,9 @@ html {
 
 .entry-meta a {
     cursor: pointer;
+}
+.entry-meta h4 {
+    margin-bottom: 0px;
 }
 
 .card-div {
