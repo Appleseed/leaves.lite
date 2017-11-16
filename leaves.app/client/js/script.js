@@ -11,7 +11,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
     .state('home.reader', {
         url: 'leaf/:ids',
-        templateUrl: 'views/card-reader.html',
+        templateUrl: 'views/reader.html',
         controller: 'singleLeaves'
     })
 
@@ -23,7 +23,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
     .state('list-view.reader', {
         url: 'leaf/:ids',
-        templateUrl: 'views/list-reader.html',
+        templateUrl: 'views/reader.html',
         controller: 'singleLeaves'
     })
 
