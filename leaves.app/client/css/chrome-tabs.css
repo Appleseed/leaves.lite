@@ -18,8 +18,8 @@
     height: 170px;
     position: relative;
     width: 200px;
-    max-width: 200px;
-    min-width: 20px;
+    /*max-width: 200px;
+    min-width: 20px;*/
 }
 
 .tab-container ul.nav-tabs>li>a span {
