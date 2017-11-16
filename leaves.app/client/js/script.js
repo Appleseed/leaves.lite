@@ -95,4 +95,10 @@ app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($sc
     }
 }])
 
+app.filter('htmlToPlaintext', function() {
+    return function(text) {
+      return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+    };
+  })
+
 // TODO make the tabs sortable
