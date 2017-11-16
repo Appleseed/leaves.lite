@@ -177,4 +177,10 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }
     };
 
+    $scope.viewOriginalCOntent = function(original_link){
+        document.getElementById("contentInIframe").style.height = "100%";
+        document.getElementById("originalContent").innerHTML = '<iframe src="'+original_link+'" frameborder="0" style="width:100%; height: 100vh;"></iframe>'
+        document.body.style.overflow = 'hidden';
+    }
+
 }])

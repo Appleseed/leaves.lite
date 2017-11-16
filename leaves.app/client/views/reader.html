@@ -20,6 +20,7 @@
                             </span>
                         </li>
                         <li><a href="{{item.url}}" target="_blank"><i class="fa fa-external-link"></i> <span>link</span></a></li>
+                        <li><i class="fa fa-link"></i> <span ng-click="viewOriginalCOntent(item.url)">Original Content</span></li>
                     </ul>
                 </div>
                 <p ng-bind-html="item.content" class="content"></p>
