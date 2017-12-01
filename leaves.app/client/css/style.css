@@ -49,6 +49,7 @@ html {
     cursor: pointer;
     margin-top: -17px;
     border-left: 3px solid #eee;
+    width: 55%;
 }
 
 .content img {
@@ -290,16 +291,19 @@ html {
     position: fixed;
     font-family: 'Montserrat', sans-serif;
 }
-@media only screen and (max-width: 1080px){
+
+@media only screen and (max-width: 1080px) {
     .side-tag-navbar {
         display: none;
     }
 }
-@media only screen and (max-width: 900px){
-    .side-tag-navbar  input{
+
+@media only screen and (max-width: 900px) {
+    .side-tag-navbar input {
         width: 60%
     }
 }
+
 .side-tag-navbar ul {
     overflow-y: scroll;
     height: 80vh;
