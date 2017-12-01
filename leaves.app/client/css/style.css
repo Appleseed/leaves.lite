@@ -1,6 +1,7 @@
 body {
     padding-top: 70px;
     background-color: #eeeeee;
+    overflow-x: hidden;
 }
 
 html {
@@ -10,6 +11,7 @@ html {
 #injecter {
     width: 100%;
     position: absolute;
+    padding-bottom: 30px;
 }
 
 .single-content h1,
@@ -34,6 +36,10 @@ html {
     cursor: pointer;
 }
 
+#reader {
+    display: block;
+}
+
 .single-content {
     background-color: #fff;
     padding: 10px;
@@ -41,7 +47,13 @@ html {
     height: 100vh;
     position: fixed;
     cursor: pointer;
-    width: 100%;
+    margin-top: -17px;
+    border-left: 3px solid #eee;
+    width: 55%;
+}
+
+.content img {
+    max-width: 100%;
 }
 
 .single-content:hover #viewDiv {
@@ -64,8 +76,8 @@ html {
 .single-content .leave-title {
     font-weight: 700;
     font-size: 40px;
-    /*text-align: center;*/
-    margin-top: 60px;
+    /* text-align: center;*/
+    /* margin-top: 60px; */
 }
 
 .menu-bar {
@@ -125,6 +137,11 @@ html {
 .list-group-item {
     border: none;
     background-color: #eeeeee;
+}
+
+.list-group-item h3 {
+    padding: 0px;
+    margin: 0px;
 }
 
 .leave-grids {
@@ -228,8 +245,21 @@ html {
 }
 
 .entry-meta {
-    height: 80px;
+    height: 90px;
     overflow: hidden;
+}
+
+.tab-container .entry-meta {
+    height: 40px;
+    overflow: hidden;
+}
+
+.entry-meta a {
+    cursor: pointer;
+}
+
+.entry-meta h4 {
+    margin-bottom: 0px;
 }
 
 .card-div {
@@ -256,6 +286,58 @@ html {
     float: left;
     padding: 0px 10px 0px 0px;
     font-family: 'Montserrat', sans-serif;
+}
+
+.side-tag-navbar {
+    position: fixed;
+    font-family: 'Montserrat', sans-serif;
+}
+
+@media only screen and (max-width: 1080px) {
+    .side-tag-navbar {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .side-tag-navbar input {
+        width: 60%
+    }
+}
+
+.side-tag-navbar ul {
+    overflow-y: scroll;
+    height: 80vh;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.side-tag-navbar ul li {
+    list-style-type: none;
+    padding: 5px 10px;
+    color: #010101;
+}
+
+.side-tag-navbar ul li:hover {
+    background-color: #e1e1e1;
+    cursor: pointer;
+}
+
+.side-tag-navbar input {
+    padding: 6px
+}
+
+.side-tag-navbar input:focus {
+    outline: none;
+}
+
+.side-tag-navbar ul::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.content-area {
+    display: block;
 }
 
 .sidenav {
@@ -315,7 +397,16 @@ html {
 }
 
 .list-view {
-    padding: 10px;
+    margin-left: -10px;
+}
+
+.list-group-item {
+    background-color: #fff !important;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.list-before-img img {
+    width: 100%
 }
 
 .list-view li {
@@ -368,6 +459,24 @@ html {
     position: fixed;
 }
 
-.tab-content .tab-pane img {
+.second-layer {
+    height: 0;
     width: 100%;
+    position: fixed;
+    z-index: 3;
+    bottom: 0;
+    background-color: #fff;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.minimizeButton {
+    right: 50%;
+    margin-top: 20px;
+    top: 0;
+    font-size: 20px;
+    color: #999;
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 6px 10px 2px 10px;
 }

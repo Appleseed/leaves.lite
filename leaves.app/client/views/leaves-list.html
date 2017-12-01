@@ -1,13 +1,15 @@
-<li class="list-group-item">
-    <div class="row">
-        <!-- <div class="col-md-3">
-		placeholder for potential image or screen of page
-	</div> -->
-        <div class="col-md-10 list-title"><a ui-sref="home.single_leaves({id:data.id})">{{data.title}}</a></div>
-        <div class="col-md-2 list-content-date">
-            <i class="fa fa-clock-o"></i>
-            <span ng-bind="added_date(data.created_at)"></span>
-            <a href="{{data.url}}" target="_blank"><i class="fa fa-external-link"></i> <span>link</span></a>
-        </div>
+<div class="row">
+    <div class="col-md-2 list-before-img">
+        <img src="{{data.preview_picture}}" />
     </div>
-</li>
+    <div class="col-md-10">
+        <a ng-click="getSingleLeaves(data.id,listarr)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h3 class="mb-1">{{data.title}}</h3>
+                <small ng-bind="added_date(data.created_at)"></small>
+            </div>
+            <small>{{data.url}}</small>
+        </a>
+    </div>
+</div>
+<hr>

@@ -1,69 +1,104 @@
-var app  = angular.module('leavesNext', ['ui.router','ngSanitize','infinite-scroll'])
+var app = angular.module('leavesNext', ['ui.router', 'ngSanitize', 'infinite-scroll', 'ui.bootstrap', 'ui.tab.scroll'])
 
-app.config(function($stateProvider, $urlRouterProvider){
+app.config(function($stateProvider, $urlRouterProvider) {
 
-	$stateProvider
-	.state('home', {
-		url: '/?tag',
-		templateUrl: 'views/home.html',
-		controller: 'homeController'
-	})
+    $stateProvider
+        .state('home', {
+            url: '/?tag',
+            templateUrl: 'views/card-view.html',
+            controller: 'homeController'
+        })
 
-	.state('home.single_leaves', {
-		url: 'leaf/:ids',
-		templateUrl: 'views/single-leaves.html',
-		controller: 'singleLeaves'
-	})
+    .state('home.reader', {
+        url: 'leaf/:ids',
+        templateUrl: 'views/reader.html',
+        controller: 'singleLeaves'
+    })
 
-	$urlRouterProvider.otherwise('/?tag=home');
+    .state('list-view', {
+        url: '/list/?tag',
+        templateUrl: 'views/list-view.html',
+        controller: 'homeController'
+    })
+
+    .state('list-view.reader', {
+        url: 'leaf/:ids',
+        templateUrl: 'views/reader.html',
+        controller: 'singleLeaves'
+    })
+
+    $urlRouterProvider.otherwise('/?tag=home');
 })
 
-app.directive('leavesNav', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'views/navbar.html'
-	}
+app.directive('leavesNav', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'views/navbar.html'
+    }
 })
 
-app.directive('leavesCard', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'views/leaves-card.html',
-		scope: {
-			data: '=',
-			state: "@state",
-			listarr: '='
-		},
-		controller: 'leavesCardCtrl'
-	}
+app.directive('leavesCard', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'views/leaves-card.html',
+        scope: {
+            data: '=',
+            state: "@state",
+            listarr: '='
+        },
+        controller: 'leavesCardCtrl'
+    }
 })
 
-app.controller('leavesCardCtrl',['$scope', '$state', '$rootScope', function($scope, $state, $rootScope){
-	$scope.added_date = function(tm) {
-		return moment(tm).startOf('hour').fromNow();
-	}
-	$scope.getSingleLeaves = function(id,listarr){
-		$rootScope.flag = 1
-		if(listarr.indexOf(id) === -1){  
-			listarr.push(id)
-			$scope.listArray = listarr
-			var param = {ids: listarr}
-			$state.go('home.single_leaves', param)
-	    }
-	}
+
+app.directive('leavesList', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'views/leaves-list.html',
+        scope: {
+            data: '=',
+            state: "@state",
+            listarr: '='
+
+        },
+        controller: 'leavesListCtrl'
+    }
+})
+app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
+    $scope.added_date = function(tm) {
+        return moment(tm).startOf('hour').fromNow();
+    }
+    $scope.getSingleLeaves = function(id, listarr) {
+        $rootScope.rm_id = true
+        $rootScope.flag = 1
+        if (listarr.indexOf(id) === -1) {
+            listarr.push(id)
+            $scope.listArray = listarr
+            var param = { ids: listarr }
+            $state.go('list-view.reader', param)
+        }
+    }
+}])
+app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
+    $scope.added_date = function(tm) {
+        return moment(tm).startOf('hour').fromNow();
+    }
+    $scope.getSingleLeaves = function(id, listarr) {
+        $rootScope.rm_id = true
+        $rootScope.flag = 1
+        if (listarr.indexOf(id) === -1) {
+            listarr.push(id)
+            $scope.listArray = listarr
+            var param = { ids: listarr }
+            $state.go('home.reader', param)
+        }
+    }
 }])
 
-app.directive('leavesList', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'views/leaves-list.html',
-		scope: {
-			data: '=',
-		},
-		link: function($scope, element, attrs) {
-		    $scope.added_date = function(tm) {
-		      return moment(tm).startOf('hour').fromNow();
-		    }
-		}
-	}
-})
+app.filter('htmlToPlaintext', function() {
+    return function(text) {
+      return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+    };
+  })
+
+// TODO make the tabs sortable
