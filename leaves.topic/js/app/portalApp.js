@@ -31,15 +31,13 @@ portalApp.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
             $scope.topic = $location.search()['topic']
         }
 
+        if ($scope.topic == '') {
+            $scope.topic = null;
+        }
+
         var data = 'data/';
         var topicSourceUrl = data + 'topic.' + $scope.topic + '.js';
         var loc = $location.path();
-
-        if ($scope.topic == '') {
-            $scope.source = dataloc + 'topic.anantco.js';
-        } else {
-            $scope.source = dataloc + 'topic.' + $scope.topic + '.js';
-        }
 
         var param = {
             access_token: $scope.token,
