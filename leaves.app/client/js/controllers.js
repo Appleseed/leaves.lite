@@ -7,19 +7,25 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
     $scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
 
     $scope.goToHome = function() {
-        $state.go('home', { tag: 'home' })
+        $state.go('home', {
+            tag: 'home'
+        })
         $rootScope.isidexit = 0
     }
     $scope.save_it = function(url) {
         $http({
             method: 'POST',
             url: $scope.base_url + '/api/entries',
-            params: { access_token: $scope.token, url: url }
+            params: {
+                access_token: $scope.token,
+                url: url
+            }
         }).then(function(success) {
             $scope.entries = success.data
-            console.log(success)
+            console.log('success')
         }).catch(function(response) {
             $scope.error = response
+            console.log(response)
         })
     }
 
@@ -28,11 +34,17 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
     $http({
         method: 'GET',
         url: $scope.base_url + '/api/tags',
-        params: { access_token: $scope.token }
+        params: {
+            access_token: $scope.token
+        }
     }).then(function(success) {
         angular.forEach(success.data, function(value) {
             var slug = value.label.split(' ').join('-')
-            tags_list.push({ id: value.id, label: value.label, slug: slug })
+            tags_list.push({
+                id: value.id,
+                label: value.label,
+                slug: slug
+            })
         })
     }).catch(function(response) {
         $scope.error = response
@@ -47,14 +59,29 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     $scope.loading_button = false
     var dataArray = []
     var itemIds = []
-    $scope.current_params = { tag: $stateParams.tag }
+    $scope.current_params = {
+        tag: $stateParams.tag
+    }
 
     function homeData(loadmore) {
         if ($stateParams.tag && $stateParams.tag != 'home') {
             var tagName = $stateParams.tag.split('-').join(' ');
-            var param = { access_token: $scope.token, sort: 'created', limit: 12, order: 'desc', page: page, tags: tagName }
+            var param = {
+                access_token: $scope.token,
+                sort: 'created',
+                limit: 12,
+                order: 'desc',
+                page: page,
+                tags: tagName
+            }
         } else {
-            var param = { access_token: $scope.token, sort: 'created', limit: 12, order: 'desc', page: page }
+            var param = {
+                access_token: $scope.token,
+                sort: 'created',
+                limit: 12,
+                order: 'desc',
+                page: page
+            }
         }
         $scope.loadingMessage = true
         if (page >= 2) {
@@ -91,6 +118,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
 
 app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', function($scope, $http, $stateParams, $timeout, $rootScope, $state) {
     var leafIdsList = String($stateParams.ids).split(',')
+    $rootScope.inboxLength = leafIdsList.length
     $scope.readerView = false
     $rootScope.isidexit = 1
 
@@ -101,7 +129,9 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         $http({
             method: 'GET',
             url: $scope.base_url + '/api/entries/' + id,
-            params: { access_token: $scope.token }
+            params: {
+                access_token: $scope.token
+            }
         }).then(function(success) {
             $rootScope.leaves.push(success.data)
         }).catch(function(response) {
@@ -144,12 +174,16 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             param_list.splice(item_index, 1);
         }
         $rootScope.listArray = param_list
-            //console.log(param_list)
-        $state.go(sendTo, { ids: param_list })
+        //console.log(param_list)
+        $state.go(sendTo, {
+            ids: param_list
+        })
         if (param_list.length == 0) {
             event.preventDefault();
             event.stopPropagation();
-            $state.go(sendToParent, { ids: $stateParams.tag })
+            $state.go(sendToParent, {
+                ids: $stateParams.tag
+            })
             $rootScope.listArray = []
             $rootScope.isidexit = 0
         }
@@ -177,9 +211,9 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }
     };
 
-    $scope.viewOriginalCOntent = function(original_link){
+    $scope.viewOriginalCOntent = function(original_link) {
         document.getElementById("contentInIframe").style.height = "100%";
-        document.getElementById("originalContent").innerHTML = '<iframe src="'+original_link+'" frameborder="0" style="width:100%; height: 100vh;"></iframe>'
+        document.getElementById("originalContent").innerHTML = '<iframe src="' + original_link + '" frameborder="0" style="width:100%; height: 100vh;"></iframe>'
         document.body.style.overflow = 'hidden';
     }
 
