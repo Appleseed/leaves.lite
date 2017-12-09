@@ -10,6 +10,13 @@ var portalApp = angular.module('portalApp', ['angular.filter', 'ngSanitize'], fu
 
 portalApp.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
 
+    $scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
+    $rootScope.listArray = []
+    $rootScope.tempArray = []
+    $rootScope.leaves = []
+    $scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
+
+    var page = 1;
     var dataloc = 'data/';
     var topic = '';
     $scope.topic = '';
@@ -34,9 +41,26 @@ portalApp.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
             $scope.source = dataloc + 'topic.' + $scope.topic + '.js';
         }
 
-        $http.get(topicSourceUrl).success(function(data) {
-            $scope.documents = data._embedded.items;
+        var param = {
+            access_token: $scope.token,
+            sort: 'created',
+            limit: 12,
+            order: 'desc',
+            page: page,
+            tags: $scope.topic
+        }
+
+        $http({
+            method: 'GET',
+            url: $scope.base_url + '/api/entries',
+            params: param
+        }).then(function(success) {
+            $scope.documents = success.data._embedded.items;
         });
+
+        //$http.get(topicSourceUrl).success(function(data) {
+        //    $scope.documents = data._embedded.items;
+        //});
 
     };
 
