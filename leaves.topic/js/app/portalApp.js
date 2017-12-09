@@ -4,10 +4,10 @@
 // TODO: fix this to take a parameter from the HTML or from url route / parameter / dropdown?
 // Check angular routes for pulling data-source from url
 
-var portalApp = angular.module('portalApp', ['angular.filter', 'ngSanitize']);
-//,function($locationProvider){
-//$locationProvider.html5Mode(true);
-//}
+var portalApp = angular.module('portalApp', ['angular.filter', 'ngSanitize'], function($locationProvider) {
+    $locationProvider.html5Mode(true);
+});
+
 portalApp.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
 
     var dataloc = 'data/';
@@ -16,19 +16,16 @@ portalApp.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
 
     console.log("source: " + $scope.source);
 
-
     $scope.init = function(topic) {
         $scope.topic = topic;
 
+        if ($location.search()['topic'] != undefined) {
+            console.log($location.search()['topic']);
+            $scope.topic = $location.search()['topic']
+        }
+
         var data = 'data/';
         var topicSourceUrl = data + 'topic.' + $scope.topic + '.js';
-
-        $http.get(topicSourceUrl).success(function(data) {
-            $scope.documents = data._embedded.items;
-        });
-
-        $scope.topic = topic;
-
         var loc = $location.path();
 
         if ($scope.topic == '') {
@@ -37,12 +34,9 @@ portalApp.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
             $scope.source = dataloc + 'topic.' + $scope.topic + '.js';
         }
 
-        $http.get($scope.source).success(function(data) {
+        $http.get(topicSourceUrl).success(function(data) {
             $scope.documents = data._embedded.items;
         });
-
-        console.log("data:" + $scope.documents);
-
 
     };
 

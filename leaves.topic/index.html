@@ -39,7 +39,6 @@
     <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="js/bootstrap/v3.3.7/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/d3js/d3.v3.min.js"></script>
     <script type="text/javascript" src="lib/angular/angular.min.js"></script>
     <script type="text/javascript" src="lib/angular/angular-route.js"></script>
     <script type="text/javascript" src="lib/angular/angular-sanitize.js"></script>
@@ -69,7 +68,7 @@
     </script>
 </head>
 
-<body class="browse-view" ng-controller="DocCtrl" ng-init="init('cassandra.entries')">
+<body class="browse-view" ng-controller="DocCtrl" ng-init="init('leaves.entries')">
 
     <header id="page-header">
         <div class="navbar navbar-default">
@@ -116,10 +115,10 @@
                 <div id="search-results-doc-right" class="col-md-5 pull-right right" ng-cloak>
                     <div class="">
 
-                        <article ng-repeat="doc in documents | filter:CatFilter| searchFor:searchString" class="document row-fluid" ng-cloak>
+                        <article ng-repeat="doc in documents | filter: {domain_name: 'www.youtube.com'} | filter: CatFilter | searchFor:searchString" class="document row-fluid" ng-cloak>
 
                             <div class="article-img-container full col-xs-12 no-padding">
-                                <a ng-href="{{doc.url}}" target="_blank">
+                                <a ng-href="{{doc.url}}" target="_blank" ng-if="doc.preview_picture">
                                     <img src="{{doc.preview_picture}}" />
                                 </a>
                             </div>
@@ -133,9 +132,8 @@
                             </div>
 
                             <div class="content col-xs-12">
-                                <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString"></p>
+                                <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString" ng-if="searchString"></p>
                             </div>
-
 
                             <div class="source inline">{{doc.domain_name}}</div>
 
@@ -150,27 +148,23 @@
                 <div id="search-results-doc-center" class="col-md-4 pull-right center" ng-cloak>
                     <div class="">
 
-                        <article ng-repeat="doc in documents | filter:CatFilter| searchFor:searchString" class="document row-fluid" ng-cloak>
+                        <article ng-repeat="doc in documents | filter:CatFilter| searchFor:searchString" class="document row-fluid" ng-if="doc.domain_name!='github.com' && ( doc.domain_name!='youtube.com' || doc.domain_name!='slideshare.net')" ng-cloak>
 
                             <div class="article-img-container full col-xs-12 no-padding">
-                                <a ng-href="{{doc.path}}" target="_blank">
-                                    <img src="{{doc.ContentImages_small}}" />
+                                <a ng-href="{{doc.path}}" target="_blank" ng-if="doc.preview_picture">
+                                    <img src="{{doc.preview_picture}}" />
                                 </a>
                             </div>
 
-                            <div class="category col-xs-12">
-                                <span class="doc-category" ng-bind-html="doc.name | highlightWord : searchString"></span>
-                            </div>
-
                             <div class="title col-xs-12">
-                                <a ng-href="{{doc.path}}" target="_blank" ng-bind-html="doc.title | highlightWord : searchString"></a>
+                                <a ng-href="{{doc.url}}" target="_blank" ng-bind-html="doc.title | highlightWord : searchString"></a>
                             </div>
 
                             <div class="content col-xs-12">
-                                <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString"></p>
+                                <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString" ng-if="searchString"></p>
                             </div>
 
-                            <div class="source inline">{{doc.source}}</div>
+                            <div class="source inline">{{doc.domain_name}}</div>
 
                         </article>
 
@@ -183,27 +177,20 @@
                 <div id="search-results-doc-left" class="col-md-3 pull-right left" ng-cloak>
                     <div class="">
 
-                        <article ng-repeat="doc in documents | filter:CatFilter| searchFor:searchString" class="document row-fluid" ng-cloak>
+                        <article ng-repeat="doc in documents | filter: {domain_name: 'github.com'} | searchFor:searchString" class="document row-fluid" ng-cloak>
 
                             <div class="article-img-container thumb col-xs-3 no-padding">
-                                <a ng-href="{{doc.path}}" target="_blank">
-                                    <img src="{{doc.ContentImages_small}}" />
+                                <a ng-href="{{doc.url}}" target="_blank" ng-if="doc.preview_picture">
+                                    <img src="{{doc.preview_picture}}" />
                                 </a>
                             </div>
 
-                            <div class="category col-xs-9">
-                                <span class="doc-category" ng-bind-html="doc.name | highlightWord : searchString"></span>
-                            </div>
 
                             <div class="title col-xs-9">
-                                <a ng-href="{{doc.path}}" target="_blank" ng-bind-html="doc.title | highlightWord : searchString"></a>
+                                <a ng-href="{{doc.url}}" target="_blank" ng-bind-html="doc.title | highlightWord : searchString"></a>
                             </div>
 
-                            <div class="content col-xs-9">
-                                <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString"></p>
-                            </div>
-
-                            <div class="source inline">{{doc.source}}</div>
+                            <div class="source inline">{{doc.domain_name}}</div>
 
                         </article>
 
@@ -217,78 +204,7 @@
         </div>
         <!-- /container -->
 
-        <div class="container-fluid">
-            <!-- /fatfooter row -->
-            <div class="row-fluid">
 
-                <!-- search results panel footer-right-->
-                <div id="search-results-doc-footer-right" class="col-md-6 pull-right footer-right" ng-cloak>
-                    <div class="">
-
-                        <article ng-repeat="doc in documents | filter:CatFilter| searchFor:searchString" class="document row-fluid" ng-cloak>
-
-                            <div class="article-img-container full col-xs-12 no-padding">
-                                <a ng-href="{{doc.path}}" target="_blank">
-                                    <img src="{{doc.ContentImages_small}}" />
-                                </a>
-                            </div>
-
-                            <div class="category col-xs-9">
-                                <span class="doc-category" ng-bind-html="doc.name | highlightWord : searchString"></span>
-                            </div>
-
-                            <div class="title col-xs-9">
-                                <a ng-href="{{doc.path}}" target="_blank" ng-bind-html="doc.title | highlightWord : searchString"></a>
-                            </div>
-
-                            <div class="content col-xs-9">
-                                <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString"></p>
-                            </div>
-
-                            <div class="source inline">{{doc.source}}</div>
-
-                        </article>
-
-                    </div>
-
-                </div>
-                <!-- /search results panel footer-right -->
-
-                <!-- search results panel footer-left-->
-                <div id="search-results-doc-footer-left" class="col-md-6 pull-right footer-left" ng-cloak>
-                    <div class="">
-
-                        <article ng-repeat="doc in documents | filter:CatFilter| searchFor:searchString" class="document row-fluid" ng-cloak>
-
-                            <div class="article-img-container full col-xs-12 no-padding">
-                                <a ng-href="{{doc.path}}" target="_blank">
-                                    <img src="{{doc.ContentImages_small}}" />
-                                </a>
-                            </div>
-
-                            <div class="category col-xs-9">
-                                <span class="doc-category" ng-bind-html="doc.name | highlightWord : searchString"></span>
-                            </div>
-
-                            <div class="title col-xs-9">
-                                <a ng-href="{{doc.path}}" target="_blank" ng-bind-html="doc.title | highlightWord : searchString"></a>
-                            </div>
-
-                            <div class="content col-xs-9">
-                                <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString"></p>
-                            </div>
-
-                            <div class="source inline">{{doc.source}}</div>
-
-                        </article>
-
-                    </div>
-
-                </div>
-                <!-- /search results panel footer-left -->
-            </div>
-            <!-- /fatfooter row -->
-        </div>
         <!-- /container -->
     </section>
 
