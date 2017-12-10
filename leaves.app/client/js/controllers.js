@@ -6,21 +6,12 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
     $rootScope.leaves = []
     $scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
 
-    this.scrollableTabsApi = {}
-
-    this.reCalcScroll = function() {
-        if (this.scrollableTabsApi.doRecalculate) {
-            this.scrollableTabsApi.doRecalculate();
-        }
-    };
-
     $scope.goToHome = function() {
         $state.go('home', {
             tag: 'home'
         })
         $rootScope.isidexit = 0
     }
-
     $scope.save_it = function(url) {
         $http({
             method: 'POST',
@@ -59,9 +50,6 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
         $scope.error = response
     })
     $scope.tags = tags_list
-
-    //INPROGRESS - scrollable tabs
-
 }])
 
 app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$stateParams', function($scope, $rootScope, $http, $state, $stateParams) {
@@ -152,7 +140,6 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
             $scope.readerView = true
         })
-
     }
     if ($rootScope.flag == undefined) {
         $rootScope.listArray = leafIdsList
@@ -202,11 +189,8 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }
     };
 
-
     $scope.removeTab = removeTab;
 
-
-    //INPROGRESS - sortable tabs
     $scope.sortableOptions = {
         update: function(e, ui) {
             let currentLeaves = $rootScope.leaves

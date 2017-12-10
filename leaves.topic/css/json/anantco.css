@@ -1,28 +1,28 @@
 /*** Go Anant.co styling ***/
 
 .navbar {
-	background-image: none;
+    background-image: none;
 }
 
 .brand-title {
-	color: #5e5e5e;
+    color: #5e5e5e;
 }
 
-.nav > li,
-.nav > li > a {
-	color: #777;
-	padding: 15px 15px;
-	cursor: pointer;
+.nav>li,
+.nav>li>a {
+    color: #777;
+    padding: 15px 15px;
+    cursor: pointer;
 }
 
-.nav > li:hover,
-.nav > li > a:hover {
-	color: #333;
+.nav>li:hover,
+.nav>li>a:hover {
+    color: #333;
 }
 
 .search-bar input {
-	margin: 10px 0px;
-	width: 100%;
+    margin: 10px 0px;
+    width: 100%;
 }
 
 .navbar-default .navbar-link:hover {
@@ -30,13 +30,13 @@
 }
 
 .document .title {
-	margin: 0px 0px 25px 0px;
+    margin: 0px 0px 25px 0px;
 }
 
 .document .article-img-container {
-	margin: 0px 0px 12px 0px;
-	height: 100px;
-	overflow: hidden;
+    margin: 0px 0px 12px 0px;
+    /* height: 100px;*/
+    overflow: hidden;
     white-space: nowrap;
     text-align: center;
 }
@@ -48,48 +48,44 @@
 }
 
 .document img {
-	width: 100%;
+    width: 100%;
 }
 
 .document .title a {
-	color: #333;
-	font-size: 22px;
-	line-height: 26px;
-	font-weight: normal;
-	cursor: pointer;
+    color: #333;
+    font-size: 22px;
+    line-height: 26px;
+    font-weight: normal;
+    cursor: pointer;
 }
 
 .left .document .title a {
-	font-size: 14px;
-	line-height: 14px;
+    font-size: 14px;
+    line-height: 14px;
 }
 
 .document .category {
-	margin-bottom: 6px;
+    margin-bottom: 6px;
 }
 
 .document .doc-category {
-	color: #626364;
-	font-size: 10px;
-	line-height: 12px;
-	text-transform: uppercase;
+    color: #626364;
+    font-size: 10px;
+    line-height: 12px;
+    text-transform: uppercase;
 }
 
 .document .title a:hover,
 .document .title a:focus {
-	color: #333;
+    color: #333;
 }
 
 .highlighted {
-	font-weight: bold;
-	color: #333;
-	background-color: #ccff66;
+    font-weight: bold;
+    color: #333;
+    background-color: #ccff66;
 }
 
 @media (max-width: 480px) {
-
-	.document .title a {
-		
-	}
-
+    .document .title a {}
 }
