@@ -257,6 +257,7 @@ html {
 .entry-meta a {
     cursor: pointer;
 }
+
 .entry-meta h4 {
     margin-bottom: 0px;
 }
@@ -458,8 +459,7 @@ html {
     position: fixed;
 }
 
-
-.second-layer{
+.second-layer {
     height: 0;
     width: 100%;
     position: fixed;
@@ -469,6 +469,7 @@ html {
     overflow: hidden;
     transition: 0.5s;
 }
+
 .minimizeButton {
     right: 50%;
     margin-top: 20px;

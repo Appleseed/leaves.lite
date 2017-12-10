@@ -1,0 +1,96 @@
+#######################################
+#  Appleseed.Leaves.App 
+#  Currently just a test app 
+#######################################
+version: '2'
+services: 
+    leaves-web:
+      # docker run -p 90:9000 -d appleseed/leaves
+      build: leaves.app/
+      # links:
+        #- mysql
+        #- postgres
+        #- mail
+        #- search-index-solr
+        #- search-index-elastic
+      ports:
+        - "90:9000"
+      volumes_from:
+        - storage
+      env_file:
+        - etc/environment.yml
+        - etc/environment.production.yml
+
+    ttrss-mysql:
+      # docker run --name ttrss_mysql_1    --env='MYSQL_DATABASE=ttrss-dummy'    --env='MYSQL_ROOT_PASSWORD=rootpass'    --env='MYSQL_USER=user'    --env='MYSQL_PASSWORD=userpass'    -v /home/azureuser/docker-compositions/ttrss-docker-compose/mysql/volumes/var/lib/mysql:/var/lib/mysql    -v /home/azureuser/docker-compositions/ttrss-docker-compose/mysql/volumes/etc/mysql/conf.d:/etc/mysql/conf.d    -p 3307:3306    mysql:latest
+      image: mysql:latest
+    ttrss-db:
+      # docker run -d --name ttrssdb nornagon/postgres 
+      image: norganon/postgres
+    ttrss-web:
+      #docker run -d --link ttrssdb:db -p 81:80 clue/ttrss     
+      image: clue/ttrss
+      ports:
+        - "81:80"
+
+    wallabag:
+      image: wallabag/wallabag
+      environment:
+        - MYSQL_ROOT_PASSWORD=wallaroot
+        - SYMFONY__ENV__DATABASE_DRIVER=pdo_mysql
+        - SYMFONY__ENV__DATABASE_HOST=db
+        - SYMFONY__ENV__DATABASE_PORT=3306
+        - SYMFONY__ENV__DATABASE_NAME=wallabag
+        - SYMFONY__ENV__DATABASE_USER=wallabag
+        - SYMFONY__ENV__DATABASE_PASSWORD=wallapass
+        - SYMFONY__ENV__MAILER_HOST=127.0.0.1
+        - SYMFONY__ENV__MAILER_USER=~
+        - SYMFONY__ENV__MAILER_PASSWORD=~
+        - SYMFONY__ENV__FROM_EMAIL=rahul.singh@anant.us
+      links:
+        - redis:redis
+      ports:
+        - 80:80
+    db:
+      image: mariadb
+      environment:
+        - MYSQL_ROOT_PASSWORD=wallaroot
+    redis:
+      image: redis:alpine
+      ports:
+      - 6379:6379
+
+
+    # leaves-web:
+      # build: leaves.home/
+      # links:
+        #- mysql
+        #- postgres
+        #- mail
+        #- search-index-solr
+        #- search-index-elastic
+      # ports:
+        #- "91:3000"
+      # volumes_from:
+        #- storage
+      # env_file:
+        #- etc/environment.yml
+        #- etc/environment.production.yml
+
+    #######################################
+    # Storage
+    #######################################
+    storage:
+      build: leaves.storage/
+      #container_name: storage.local
+      volumes:
+        - /storage
+
+
+volumes:
+    data:
+
+
+#backupdbs <-- data was backed up via dump commands since system is ephemeral
+#docker exec -t ttrssdb pg_dumpall -c -U postgres > ttrss.sql
+#docker exec -t wallabag_db_1 /usr/bin/mysqldump -u wallabag --password=wallapass wallabag > wallabag.sql
