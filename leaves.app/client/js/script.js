@@ -74,8 +74,7 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
         if (listarr.indexOf(id) === -1) {
             listarr.push(id)
             $scope.listArray = listarr
-            console.log(window.encodeURIComponent(listarr))
-            var param = { ids: listarr }
+            var param = { ids: window.encodeURIComponent(listarr) }
             $state.go('list-view.reader', param)
         }
     }
