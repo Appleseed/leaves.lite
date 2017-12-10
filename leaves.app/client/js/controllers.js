@@ -6,21 +6,12 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
     $rootScope.leaves = []
     $scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
 
-    this.scrollableTabsApi = {}
-
-    this.reCalcScroll = function() {
-        if (this.scrollableTabsApi.doRecalculate) {
-            this.scrollableTabsApi.doRecalculate();
-        }
-    };
-
     $scope.goToHome = function() {
         $state.go('home', {
             tag: 'home'
         })
         $rootScope.isidexit = 0
     }
-
     $scope.save_it = function(url) {
         $http({
             method: 'POST',
@@ -59,9 +50,6 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
         $scope.error = response
     })
     $scope.tags = tags_list
-
-    //INPROGRESS - scrollable tabs
-
 }])
 
 app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$stateParams', function($scope, $rootScope, $http, $state, $stateParams) {
@@ -129,13 +117,13 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
 
 
 app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', function($scope, $http, $stateParams, $timeout, $rootScope, $state) {
-    var leafIdsList = String($stateParams.ids).split(',')
+    var leafIdsList = String($stateParams.ids).split('%2C')
     $rootScope.inboxLength = leafIdsList.length
     $scope.readerView = false
     $rootScope.isidexit = 1
 
     function leafHTTP(id) {
-        var param_list = $stateParams.ids.split(',');
+        var param_list = $stateParams.ids.split('%2C');
         //console.log(param_list)
         $scope.active_id = id
         $http({
@@ -152,7 +140,6 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
             $scope.readerView = true
         })
-
     }
     if ($rootScope.flag == undefined) {
         $rootScope.listArray = leafIdsList
@@ -181,7 +168,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         $rootScope.rm_id = false
         content_index = $rootScope.leaves.findIndex(i => i.id == item_id)
         $rootScope.leaves.splice(content_index, 1);
-        var param_list = $stateParams.ids.split(',');
+        var param_list = $stateParams.ids.split('%2C');
         var item_index = param_list.indexOf(String(item_id))
         if (item_index > -1) {
             param_list.splice(item_index, 1);
@@ -189,7 +176,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         $rootScope.listArray = param_list
         //console.log(param_list)
         $state.go(sendTo, {
-            ids: param_list
+            ids: window.encodeURIComponent(param_list)
         })
         if (param_list.length == 0) {
             event.preventDefault();
@@ -202,11 +189,8 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }
     };
 
-
     $scope.removeTab = removeTab;
 
-
-    //INPROGRESS - sortable tabs
     $scope.sortableOptions = {
         update: function(e, ui) {
             let currentLeaves = $rootScope.leaves
