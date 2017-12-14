@@ -2,20 +2,17 @@
 FROM node:latest
 
 # Set in what directory commands will run
-WORKDIR /client
+WORKDIR /topic
 
 # Put all our code inside that directory that lives in the container
-ADD . /client
+ADD . /topic
 
 # Install dependencies
 RUN \
-    npm install -g bower && \
-    npm install && \
-    bower install --config.interactive=false --allow-root
-
+    npm install -g http-server
 
 # Tell Docker we are going to use this port
 EXPOSE 9000
 
 # The command to run our app when the container is run
-CMD ["node", "server/app.js"]
+CMD ["http-server", ""]
