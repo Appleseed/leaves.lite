@@ -4,11 +4,15 @@
 // TODO: fix this to take a parameter from the HTML or from url route / parameter / dropdown?
 // Check angular routes for pulling data-source from url
 
-var portalApp = angular.module('portalApp', ['angular.filter', 'ngSanitize'], function($locationProvider) {
+var app = angular.module('portalApp', ['angular.filter', 'ngSanitize'], function($locationProvider) {
     $locationProvider.html5Mode(true);
 });
 
-portalApp.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
+app.run(function($rootScope) {
+    $rootScope.leavesTeamID = "anantco";
+});
+
+app.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
 
     $scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
     $rootScope.listArray = []
@@ -16,16 +20,32 @@ portalApp.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
     $rootScope.leaves = []
     $scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
 
-    var page = 1;
-    var dataloc = 'data/';
-    var topic = '';
     $scope.topic = '';
-
-    console.log("source: " + $scope.source);
 
     $scope.init = function(topic) {
         $scope.topic = topic;
 
+        var data = 'data/';
+        var teams = data + 'teams.config.json';
+        var loc = $location.path();
+
+        // get teams from JS file (for now)
+        // TODO : refactor to use auth0 + firebase
+        $http({
+            method: 'GET',
+            url: teams
+        }).then(function(success) {
+            for (var i = 0; i < success.length; i++) {
+                console.log(i);
+                if (success[i].id == $rootScope.leavesTeamID) {
+                    console.log(success[i]);
+                    //TODO: set $scope.base_url
+                    //TODO: set $scope.token
+                }
+            }
+        });
+
+        //TODO: begin - refactor this into a function
         if ($location.search()['topic'] != undefined) {
             console.log($location.search()['topic']);
             $scope.topic = $location.search()['topic']
@@ -34,11 +54,8 @@ portalApp.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
         if ($scope.topic == '') {
             $scope.topic = null;
         }
-
-        var data = 'data/';
-        var topicSourceUrl = data + 'topic.' + $scope.topic + '.js';
-        var loc = $location.path();
-
+        //TODO: end - refactor this into a function
+        var page = 1;
         var param = {
             access_token: $scope.token,
             sort: 'created',
@@ -83,7 +100,7 @@ portalApp.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
 
 });
 
-portalApp.filter('searchFor', function() {
+app.filter('searchFor', function() {
     return function(arr, searchString) {
         if (!searchString) {
             return arr;
@@ -107,7 +124,7 @@ portalApp.filter('searchFor', function() {
 });
 
 
-portalApp.filter('highlightWord', function() {
+app.filter('highlightWord', function() {
     return function(text, selectedWord) {
         if (selectedWord) {
             var pattern = new RegExp(selectedWord, "gi");
