@@ -97,8 +97,13 @@ app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($sc
 
 app.filter('htmlToPlaintext', function() {
     return function(text) {
-      return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+        return text ? String(text).replace(/<[^>]+>/gm, '') : '';
     };
-  })
+})
+
+
+app.run(function($rootScope) {
+    $rootScope.leavesTeamID = "anantco";
+});
 
 // TODO make the tabs sortable

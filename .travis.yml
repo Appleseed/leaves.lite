@@ -19,6 +19,7 @@ before_install:
 
 script:
 - docker build -t appleseed/leaves leaves.app
+- docker build -t appleseed/leaves.topic leaves.topic
 
 #after_success:
 #  - if [ "$TRAVIS_BRANCH" == "master" ]; then

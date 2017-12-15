@@ -84,16 +84,16 @@
 
                         <div class="col-sm-3 pull-right">
                             <p class="navbar-text">
-                                Logged in as <a href="#" class="navbar-link">Username</a>
+                                <a href="#" class="navbar-link">{{leavesTeamID}}</a>
                             </p>
                         </div>
                         <div class="search-bar col-sm-2">
                             <input type="text" class="search" ng-model="searchString" placeholder="Enter your search terms" autofocus />
                         </div>
                         <ul class="nav col-sm-7" ng-cloak>
-                            <li class="filter-link" ng-click="CatFilter = null">All</li>
+                            <!--<li class="filter-link" ng-click="CatFilter = null">All</li>
                             <li class="filter-link" ng-repeat="doc in documents | unique:'domain_name'" ng-click="GetCategory(doc.domain_name)">{{doc.domain_name}}</li>
-                            <!--<li class="filter-link" ng-click="CatFilter = {category: 'PS'}">Products & Services</li>
+                            <li class="filter-link" ng-click="CatFilter = {category: 'PS'}">Products & Services</li>
                                 <li class="filter-link" ng-click="CatFilter = {category: 'RD'}">Research & Development</li>
                                 <li class="filter-link" ng-click="CatFilter = {category: 'SM'}">Sales & Marketing</li>
                                 <li class="filter-link" ng-click="CatFilter = {category: 'OI'}">Operations & Infrastructure</li>
@@ -115,7 +115,7 @@
                 <div id="search-results-doc-right" class="col-md-5 pull-right right" ng-cloak>
                     <div class="">
 
-                        <article ng-repeat="doc in documents | filter: {domain_name: 'www.youtube.com'} | filter: CatFilter | searchFor:searchString" class="document row-fluid" ng-cloak>
+                        <article ng-repeat="doc in documents | filter: CatFilter | searchFor:searchString" class="document row-fluid" ng-if="( doc.reading_time > 5 )" ng-cloak>
 
                             <div class="article-img-container full col-xs-12 no-padding">
                                 <a ng-href="{{doc.url}}" target="_blank" ng-if="doc.preview_picture">
@@ -148,7 +148,7 @@
                 <div id="search-results-doc-center" class="col-md-4 pull-right center" ng-cloak>
                     <div class="">
 
-                        <article ng-repeat="doc in documents | filter:CatFilter| searchFor:searchString" class="document row-fluid" ng-if="doc.domain_name!='github.com' && ( doc.domain_name!='youtube.com' || doc.domain_name!='slideshare.net')" ng-cloak>
+                        <article ng-repeat="doc in documents | filter:CatFilter| searchFor:searchString" class="document row-fluid" ng-if="( doc.reading_time > 0 && doc.reading_time < 5 )" ng-cloak>
 
                             <div class="article-img-container full col-xs-12 no-padding">
                                 <a ng-href="{{doc.path}}" target="_blank" ng-if="doc.preview_picture">
@@ -161,7 +161,7 @@
                             </div>
 
                             <div class="content col-xs-12">
-                                <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString" ng-if="searchString"></p>
+                                <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString"></p>
                             </div>
 
                             <div class="source inline">{{doc.domain_name}}</div>
@@ -177,7 +177,7 @@
                 <div id="search-results-doc-left" class="col-md-3 pull-right left" ng-cloak>
                     <div class="">
 
-                        <article ng-repeat="doc in documents | filter: {domain_name: 'github.com'} | searchFor:searchString" class="document row-fluid" ng-cloak>
+                        <article ng-repeat="doc in documents | searchFor:searchString" class="document row-fluid" ng-if="(  doc.reading_time == 0 )" ng-cloak>
 
                             <div class="article-img-container thumb col-xs-3 no-padding">
                                 <a ng-href="{{doc.url}}" target="_blank" ng-if="doc.preview_picture">
