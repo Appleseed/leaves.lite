@@ -91,9 +91,9 @@
                             <input type="text" class="search" ng-model="searchString" placeholder="Enter your search terms" autofocus />
                         </div>
                         <ul class="nav col-sm-7" ng-cloak>
-                            <li class="filter-link" ng-click="CatFilter = null">All</li>
+                            <!--<li class="filter-link" ng-click="CatFilter = null">All</li>
                             <li class="filter-link" ng-repeat="doc in documents | unique:'domain_name'" ng-click="GetCategory(doc.domain_name)">{{doc.domain_name}}</li>
-                            <!--<li class="filter-link" ng-click="CatFilter = {category: 'PS'}">Products & Services</li>
+                            <li class="filter-link" ng-click="CatFilter = {category: 'PS'}">Products & Services</li>
                                 <li class="filter-link" ng-click="CatFilter = {category: 'RD'}">Research & Development</li>
                                 <li class="filter-link" ng-click="CatFilter = {category: 'SM'}">Sales & Marketing</li>
                                 <li class="filter-link" ng-click="CatFilter = {category: 'OI'}">Operations & Infrastructure</li>
