@@ -59,7 +59,7 @@ app.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
         var param = {
             access_token: $scope.token,
             sort: 'created',
-            limit: 12,
+            perPage: 50,
             order: 'desc',
             page: page,
             tags: $scope.topic

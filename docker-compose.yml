@@ -50,6 +50,8 @@ services:
       ports:
         - "81:80"
 
+
+
     wallabag:
       image: wallabag/wallabag
       environment:
@@ -77,6 +79,15 @@ services:
       ports:
       - 6379:6379
 
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - '8080:80'
 
     # leaves-web:
       # build: leaves.home/
