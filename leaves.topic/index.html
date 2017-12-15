@@ -115,7 +115,7 @@
                 <div id="search-results-doc-right" class="col-md-5 pull-right right" ng-cloak>
                     <div class="">
 
-                        <article ng-repeat="doc in documents | filter: CatFilter | searchFor:searchString" class="document row-fluid" ng-if="( doc.domain_name=='vimeo.com' || doc.domain_name=='www.youtube.com' || doc.domain_name=='slideshare.net')" ng-cloak>
+                        <article ng-repeat="doc in documents | filter: CatFilter | searchFor:searchString" class="document row-fluid" ng-if="( doc.reading_time > 5 )" ng-cloak>
 
                             <div class="article-img-container full col-xs-12 no-padding">
                                 <a ng-href="{{doc.url}}" target="_blank" ng-if="doc.preview_picture">
@@ -148,8 +148,7 @@
                 <div id="search-results-doc-center" class="col-md-4 pull-right center" ng-cloak>
                     <div class="">
 
-                        <article ng-repeat="doc in documents | filter:CatFilter| searchFor:searchString" class="document row-fluid" ng-if="( doc.domain_name!='github.com' && doc.domain_name!='www.npmjs.com' &&  doc.domain_name!='vimeo.com' && doc.domain_name!='www.youtube.com' && doc.domain_name!='slideshare.net')"
-                            ng-cloak>
+                        <article ng-repeat="doc in documents | filter:CatFilter| searchFor:searchString" class="document row-fluid" ng-if="( doc.reading_time > 0 && doc.reading_time < 5 )" ng-cloak>
 
                             <div class="article-img-container full col-xs-12 no-padding">
                                 <a ng-href="{{doc.path}}" target="_blank" ng-if="doc.preview_picture">
@@ -178,7 +177,7 @@
                 <div id="search-results-doc-left" class="col-md-3 pull-right left" ng-cloak>
                     <div class="">
 
-                        <article ng-repeat="doc in documents | searchFor:searchString" class="document row-fluid" ng-if="( doc.domain_name=='github.com' || doc.domain_name=='www.npmjs.com' )" ng-cloak>
+                        <article ng-repeat="doc in documents | searchFor:searchString" class="document row-fluid" ng-if="(  doc.reading_time == 0 )" ng-cloak>
 
                             <div class="article-img-container thumb col-xs-3 no-padding">
                                 <a ng-href="{{doc.url}}" target="_blank" ng-if="doc.preview_picture">
