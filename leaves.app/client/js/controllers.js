@@ -117,14 +117,13 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
 
 
 app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', function($scope, $http, $stateParams, $timeout, $rootScope, $state) {
-    var leafIdsList = String($stateParams.ids).split('%2C')
+    var leafIdsList = String($stateParams.ids).split(',')
     $rootScope.inboxLength = leafIdsList.length
     $scope.readerView = false
     $rootScope.isidexit = 1
 
     function leafHTTP(id) {
-        var param_list = $stateParams.ids.split('%2C');
-        //console.log(param_list)
+        var param_list = $stateParams.ids.split(',');
         $scope.active_id = id
         $http({
             method: 'GET',
@@ -147,8 +146,6 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             leafHTTP(leafIdsList[i])
         }
     } else {
-        // console.log(leafIdsList)
-        // console.log($rootScope.rm_id)
         if ($rootScope.rm_id) {
             leafHTTP(leafIdsList[leafIdsList.length - 1])
         }
@@ -168,7 +165,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         $rootScope.rm_id = false
         content_index = $rootScope.leaves.findIndex(i => i.id == item_id)
         $rootScope.leaves.splice(content_index, 1);
-        var param_list = $stateParams.ids.split('%2C');
+        var param_list = $stateParams.ids.split(',');
         var item_index = param_list.indexOf(String(item_id))
         if (item_index > -1) {
             param_list.splice(item_index, 1);
