@@ -173,7 +173,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         $rootScope.listArray = param_list
         //console.log(param_list)
         $state.go(sendTo, {
-            ids: window.encodeURIComponent(param_list)
+            ids: param_list
         })
         if (param_list.length == 0) {
             event.preventDefault();
