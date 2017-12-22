@@ -102,6 +102,8 @@ app.controller('DocCtrl', function($scope, $rootScope, $http, $location) {
 
 app.filter('searchFor', function() {
     return function(arr, searchString) {
+      console.log(searchString);
+
         if (!searchString) {
             return arr;
         }
@@ -110,10 +112,10 @@ app.filter('searchFor', function() {
         angular.forEach(arr, function(item) {
             if (item.title.toLowerCase().indexOf(searchString) !== -1) {
                 result.push(item);
-            } else if (item.name.toLowerCase().indexOf(searchString) !== -1) {
-                result.push(item);
             } else if (item.content.toLowerCase().indexOf(searchString) !== -1) {
                 result.push(item);
+            } else if (item.url.toLowerCase().indexOf(searchString) !== -1) {
+               result.push(item);
             }
             //else if (item.tags.toLowerCase().indexOf(searchString) !== -1) {
             //result.push(item);
@@ -123,13 +125,18 @@ app.filter('searchFor', function() {
     };
 });
 
+//TODO: look for multiple terms https://stackoverflow.com/questions/15519713/highlighting-a-filtered-result-in-angularjs
+//TODO: or implement lunr https://lunrjs.com/guides/getting_started.html
+//TODO : or just use Angular UI
+
 
 app.filter('highlightWord', function() {
-    return function(text, selectedWord) {
-        if (selectedWord) {
-            var pattern = new RegExp(selectedWord, "gi");
-            return text.replace(pattern, '<span class="highlighted">' + selectedWord + '</span>');
-        } else {
+    return function(text, searchString) {
+        if (searchString) {
+            var pattern = new RegExp(searchString, "gi");
+            var highlighted = text.replace(pattern, '<span class="highlighted">' + searchString + '</span>');
+            return highlighted;
+          } else {
             return text;
         }
     };
