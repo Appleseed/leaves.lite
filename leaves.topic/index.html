@@ -114,13 +114,15 @@
                 <!-- search results panel right-->
                 <div id="search-results-doc-right" class="col-md-5 pull-right right" ng-cloak>
                     <div class="">
-
+                        <h2>Medium to Long - Reading Time > 5 minutes</h2>
                         <article ng-repeat="doc in documents | filter: CatFilter | searchFor:searchString" class="document row-fluid" ng-if="( doc.reading_time > 5 )" ng-cloak>
 
                             <div class="article-img-container full col-xs-12 no-padding">
                                 <a ng-href="{{doc.url}}" target="_blank" ng-if="doc.preview_picture">
                                     <img src="{{doc.preview_picture}}" />
                                 </a>
+                                <a ng-href="{{doc.url}}" target="_blank" ng-if="!doc.preview_picture">
+                                  <img src="http://via.placeholder.com/400x300"  />
                             </div>
 
                             <div class="category col-xs-12">
@@ -130,12 +132,12 @@
                             <div class="title col-xs-12">
                                 <a ng-href="{{doc.path}}" target="_blank" ng-bind-html="doc.title | highlightWord : searchString"></a>
                             </div>
-
+                            <!--
                             <div class="content col-xs-12">
                                 <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString" ng-if="searchString"></p>
-                            </div>
+                            </div>-->
 
-                            <div class="source inline">{{doc.domain_name}}</div>
+                            <div class="source inline" ng-bind-html="doc.domain_name | highlightWord : searchString"/>
 
                         </article>
 
@@ -147,24 +149,26 @@
                 <!-- search results panel center-->
                 <div id="search-results-doc-center" class="col-md-4 pull-right center" ng-cloak>
                     <div class="">
-
+                        <h2>Quick Reads - Reading Time < 5 minutes</h2>
                         <article ng-repeat="doc in documents | filter:CatFilter| searchFor:searchString" class="document row-fluid" ng-if="( doc.reading_time > 0 && doc.reading_time < 5 )" ng-cloak>
 
                             <div class="article-img-container full col-xs-12 no-padding">
                                 <a ng-href="{{doc.path}}" target="_blank" ng-if="doc.preview_picture">
                                     <img src="{{doc.preview_picture}}" />
                                 </a>
+                                <a ng-href="{{doc.url}}" target="_blank" ng-if="!doc.preview_picture">
+                                  <img src="http://via.placeholder.com/300x225"  />
                             </div>
 
                             <div class="title col-xs-12">
                                 <a ng-href="{{doc.url}}" target="_blank" ng-bind-html="doc.title | highlightWord : searchString"></a>
                             </div>
 
-                            <div class="content col-xs-12">
-                                <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString"></p>
-                            </div>
+                            <!--<div class="content col-xs-12">
+                                <p class="doc-content" ng-bind-html="doc.content | highlightWord : searchString" ng-if="searchString"></p>
+                            </div>-->
 
-                            <div class="source inline">{{doc.domain_name}}</div>
+                            <div class="source inline" ng-bind-html="doc.domain_name | highlightWord : searchString"/>
 
                         </article>
 
@@ -176,13 +180,16 @@
                 <!-- search results panel left-->
                 <div id="search-results-doc-left" class="col-md-3 pull-right left" ng-cloak>
                     <div class="">
+                      <h2>Reading Time Unknown</h2>
+                        <article ng-repeat="doc in documents | searchFor : searchString" class="document row-fluid" ng-if="( doc.reading_time == 0 )"  ng-cloak>
 
-                        <article ng-repeat="doc in documents | searchFor:searchString" class="document row-fluid" ng-if="(  doc.reading_time == 0 )" ng-cloak>
-
-                            <div class="article-img-container thumb col-xs-3 no-padding">
+                            <div class="article-img-container thumb col-xs-3">
                                 <a ng-href="{{doc.url}}" target="_blank" ng-if="doc.preview_picture">
                                     <img src="{{doc.preview_picture}}" />
                                 </a>
+                                <a ng-href="{{doc.url}}" target="_blank" ng-if="!doc.preview_picture">
+                                  <img src="http://via.placeholder.com/100x75"  />
+                              </a>
                             </div>
 
 
@@ -190,7 +197,8 @@
                                 <a ng-href="{{doc.url}}" target="_blank" ng-bind-html="doc.title | highlightWord : searchString"></a>
                             </div>
 
-                            <div class="source inline">{{doc.domain_name}}</div>
+                            <div class="source inline" ng-bind-html="doc.domain_name | highlightWord : searchString"/>
+
 
                         </article>
 
