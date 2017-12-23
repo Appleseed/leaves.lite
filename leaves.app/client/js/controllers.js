@@ -70,7 +70,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
                 access_token: $scope.token,
                 sort: 'created',
                 limit: 12,
-                order: 'desc',
+                order: 'asc',
                 page: page,
                 tags: tagName
             }
