@@ -15,9 +15,9 @@
                     <div class="entry-meta">
                         <ul>
                             <li><i class="fa fa-user"></i> <span>{{item.user_name}}</span></li>
-                            <li ng-if="item.tags.length"><i class="fa fa-tags"></i>
+                            <li ng-if="item.tags.length">
                                 <span ng-repeat="tag in item.tags">
-                                <a ui-sref="home({tag:tag.label})">{{tag.label}}</a>
+                                  <i class="fa fa-tags"></i><a ui-sref="home({tag:tag.label})">{{tag.label}}</a>
                                 {{$last ? '':', '}}
                             </span>
                             </li>
