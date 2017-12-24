@@ -49,7 +49,7 @@ There's a bunch of stuff left to do.
 ## Interface:
 
 - TODO: add Component routing
-- TODO: migrate ideas from leaves.lite 0.2 (anant.co) layout
+- DONE: migrate ideas from leaves.lite 0.2 (anant.co) layout
 - DONE: add bootstrap or other responsive layout management
 
 ## Software:
