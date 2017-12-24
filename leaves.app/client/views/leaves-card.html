@@ -1,16 +1,16 @@
 <div class="card-div">
-	<div class="post-image-preview leaves-card" style="background-image: url({{data.preview_picture}});background-size: cover;background-position: center;">
-	<!-- <img src="{{data.preview_picture}}"> -->
-	<span ng-if="!data.preview_picture">{{(data.content | htmlToPlaintext) | limitTo: 300}}</span>
-	</div>
-	<div class="entry-meta">
-		<h4><a ng-click="getSingleLeaves(data.id,listarr)">{{data.title | limitTo: 70}} {{tempArray}}</a></h4>
-		<small>{{data.domain_name}}</small>
-		<ul>
-			<li><i class="fa fa-user"></i> <span>{{data.user_name}}</span></li>
-			<li><a href=""><i class="fa fa-clock-o"></i> <span ng-bind="added_date(data.created_at)"></span></a></li>
-			<li><a href="{{data.url}}" target="_blank"><i class="fa fa-external-link"></i> <span>link</span></a></li>
-			<li><a ng-click="getSingleLeaves(data.id,listarr)"><i class="fa fa-file-text-o"></i> <span>Read</span></a></li>
-		</ul>
-	</div>
+    <div class="post-image-preview leaves-card" style="background-image: url({{data.preview_picture}});background-size: cover;background-position: center;">
+        <!-- <img src="{{data.preview_picture}}"> -->
+        <span ng-if="!data.preview_picture">{{(data.content | htmlToPlaintext) | limitTo: 300}}</span>
+    </div>
+    <div class="entry-meta">
+        <h4><a ng-click="getSingleLeaves(data.id,listarr)">{{data.title | limitTo: 70}} {{tempArray}}</a></h4>
+        <small>{{data.domain_name}}</small>
+        <ul>
+            <li><i class="fa fa-user"></i> <span>{{data.user_name}}</span></li>
+            <li><a href=""><i class="fa fa-clock-o"></i> <span ng-bind="added_date(data.created_at)"></span></a></li>
+            <li><a href="{{data.url}}" target="_blank"><i class="fa fa-external-link"></i> <span>link</span></a></li>
+            <li><a ng-click="getSingleLeaves(data.id,listarr)"><i class="fa fa-file-text-o"></i> <span>Read</span></a></li>
+        </ul>
+    </div>
 </div>

@@ -65,12 +65,14 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
 
     function homeData(loadmore) {
         if ($stateParams.tag && $stateParams.tag != 'home') {
-            var tagName = $stateParams.tag.split('-').join(' ');
+            var tagName = $stateParams.tag;
+            if (tagName.includes('-')) tagName = tagName.split('-').join(' ');
+
             var param = {
                 access_token: $scope.token,
                 sort: 'created',
                 limit: 12,
-                order: 'desc',
+                order: 'asc',
                 page: page,
                 tags: tagName
             }
@@ -171,7 +173,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             param_list.splice(item_index, 1);
         }
         $rootScope.listArray = param_list
-        //console.log(param_list)
+            //console.log(param_list)
         $state.go(sendTo, {
             ids: param_list
         })

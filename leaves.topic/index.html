@@ -4,7 +4,7 @@
 <head>
     <!-- source -->
     <source charset="utf-8">
-    <title>Anant.co</title>
+    <title>Leaves.Lite Topic/title>
     <source name="author" content="Anant Corporation">
     <source name="description" content="Anant.Co - Dynamic Kono Page - Powered by Konotree">
     <source name="viewport" content="width=device-width, initial-scale=1.0">
@@ -115,7 +115,7 @@
                 <div id="search-results-doc-right" class="col-md-5 pull-right right" ng-cloak>
                     <div class="">
                         <h2>Medium to Long - Reading Time > 5 minutes</h2>
-                        <article ng-repeat="doc in documents | filter: CatFilter | searchFor:searchString" class="document row-fluid" ng-if="( doc.reading_time > 5 )" ng-cloak>
+                        <article ng-repeat="doc in documents | filter: CatFilter | searchFor:searchString" class="document row-fluid" ng-if="( doc.reading_time >= 5 )" ng-cloak>
 
                             <div class="article-img-container full col-xs-12 no-padding">
                                 <a ng-href="{{doc.url}}" target="_blank" ng-if="doc.preview_picture">
