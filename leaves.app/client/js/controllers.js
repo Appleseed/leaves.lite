@@ -1,4 +1,5 @@
 app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope', function($scope, $http, $state, $location, $rootScope) {
+
     $scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
     $scope.card_view = true
     $rootScope.listArray = []
@@ -12,21 +13,23 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
         })
         $rootScope.isidexit = 0
     }
-    $scope.save_it = function(url) {
+
+    $scope.newLeaf = function(incoming_url) {
         $http({
             method: 'POST',
             url: $scope.base_url + '/api/entries',
-            params: {
-                access_token: $scope.token,
-                url: url
-            }
+            params: { access_token: $scope.token },
+            data: $.param({
+                url: incoming_url
+            }),
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }
         }).then(function(success) {
             $scope.entries = success.data
             console.log('success')
         }).catch(function(response) {
             $scope.error = response
             console.log(response)
-        })
+        });
     }
 
     //$http.get call to get all tags json
@@ -53,6 +56,7 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
 }])
 
 app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$stateParams', function($scope, $rootScope, $http, $state, $stateParams) {
+
     $rootScope.isidexit = 0
     $scope.stateJson = $state.current
     var page = 1
