@@ -1,6 +1,7 @@
 LEAVES_WEB_URL=https://qrisp.eastus.cloudapp.azure.com
 LEAVES_API_URL=https://qrisp.eastus.cloudapp.azure.com
 LEAVES_API_TOKEN=
+MYSQL_USERNAME=root
 MYSQL_ROOT_PASSWORD=wallaroot
 SYMFONY__ENV__DATABASE_DRIVER=pdo_mysql
 SYMFONY__ENV__DATABASE_HOST=db

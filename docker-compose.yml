@@ -30,3 +30,10 @@ services:
   redis:
     image: redis:alpine
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db:db
+    ports:
+      - 83:80
+~

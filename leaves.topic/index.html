@@ -5,8 +5,8 @@
     <!-- source -->
     <source charset="utf-8">
     <title>Leaves.Lite Topic</title>
-    <source name="author" content="Anant Corporation">
-    <source name="description" content="Anant.Co - Dynamic Kono Page - Powered by Konotree">
+    <source name="author" content="Rahul Singh @ Anant Corporation">
+    <source name="description" content="Appleseed Leaves - Dynamic Knowledge Page - Topic Prototype">
     <source name="viewport" content="width=device-width, initial-scale=1.0">
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -14,12 +14,7 @@
     <!-- icons -->
 
     <link rel="shortcut icon" href="ico/favicon.ico" />
-    <!--
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144x144-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114x114-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72x72-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57x57-precomposed.png" />
-        -->
+
     <!-- stylesheets -->
     <style>
         [ng-cloak] {
@@ -28,20 +23,19 @@
     </style>
     <link rel="stylesheet" type="text/css" href="css/bootstrap/v3.3.7/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap/v3.3.7/bootstrap-theme.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/v3/browse.css" />
-    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-responsive.min.css" />-->
-    <link rel="stylesheet" type="text/css" href="css/solr-ajax/screen.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="css/solr-ajax/facp.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="css/jquery-ui-bootstrap/jquery-ui-1.10.0.custom.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="css/json/anantco.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/leaves.topic/browse.css" />
+    <link rel="stylesheet" type="text/css" href="css/leaves.topic/screen.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/leaves.topic/facp.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/leaves.topic/anantco.css" media="screen" />
 
     <!-- scripts -->
     <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="js/bootstrap/v3.3.7/bootstrap.min.js"></script>
-    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
-    <script type="text/javascript" src="lib/angular/angular-route.js"></script>
-    <script type="text/javascript" src="lib/angular/angular-sanitize.js"></script>
+    <script type="text/javascript" src="js/angular/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular/angular-route.js"></script>
+    <script type="text/javascript" src="js/angular/angular-sanitize.js"></script>
     <script type="text/javascript" src="js/ngfilters/angular-filter.js"></script>
 
     <!-- appCode -->
@@ -115,7 +109,7 @@
                 <div id="search-results-doc-right" class="col-md-5 pull-right right" ng-cloak>
                     <div class="">
                         <h2>Medium to Long - Reading Time > 5 minutes</h2>
-                        <article ng-repeat="doc in documents | filter: CatFilter | searchFor:searchString" class="document row-fluid" ng-if="( doc.reading_time >= 5 )" ng-cloak>
+                        <article ng-repeat="doc in documents | filter: CatFilter | searchFor:searchString" class="document row-fluid" ng-if="( doc.reading_time >= 5 && doc.reading_time < 15 )" ng-cloak>
 
                             <div class="article-img-container full col-xs-12 no-padding">
                                 <a ng-href="{{doc.url}}" target="_blank" ng-if="doc.preview_picture">
@@ -214,6 +208,46 @@
         <!-- /container -->
 
 
+        <div class="container-fluid">
+            <!-- /fatfooter row -->
+            <div class="row-fluid">
+
+                <!-- search results panel footer-right-->
+                <div id="search-results-doc-footer-right" class="col-md-6 pull-right footer-right" ng-cloak>
+                    <div class="">
+                        <article ng-repeat="doc in documents | searchFor : searchString" class="document row-fluid" ng-if="( doc.reading_time > 30 && doc.reading_time < 60 )" ng-cloak>
+                            <div class="source inline"><strong><span>{{doc.domain_name}}</span></strong></div>
+                            <blockquote class="embedly-card" data-card-width="100%">
+                                <h4><a href="{{doc.url}}">{{doc.title}}</a></h4>
+                                <p>
+                                    <a ng-href="{{doc.url}}" target="_blank">{{doc.title}}</a>
+                                </p>
+                            </blockquote>
+                        </article>
+
+                    </div>
+
+                </div>
+                <!-- /search results panel footer-right -->
+
+                <!-- search results panel footer-left-->
+                <div id="search-results-doc-footer-left" class="col-md-6 pull-right footer-left | searchFor:searchString" ng-cloak>
+                    <div class="">
+                        <article ng-repeat="doc in documents | searchFor : searchString" class="document row-fluid" ng-if="( doc.reading_time > 15 && doc.reading_time < 30 )" ng-cloak>
+                            <div class="source inline"><strong><span>{{doc.domain_name}}</span></strong></div>
+                            <blockquote class="embedly-card" data-card-width="100%">
+                                <h4><a href="{{doc.url}}">{{doc.title}}</a></h4>
+                                <p>
+                                    <a ng-href="{{doc.url}}" target="_blank">{{doc.title}}</a>
+                                </p>
+                            </blockquote>
+                        </article>
+                    </div>
+                </div>
+                <!-- /search results panel footer-left -->
+            </div>
+            <!-- /fatfooter row -->
+        </div>
         <!-- /container -->
     </section>
 
@@ -229,6 +263,8 @@
     </footer>
 
     <!-- scripts -->
+    <script async src="http://cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
 
 </body>
 
