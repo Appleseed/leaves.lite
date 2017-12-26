@@ -2,6 +2,7 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
 
     $scope.base_url = 'http://qrisp.eastus.cloudapp.azure.com'
     $scope.card_view = true
+    $rootScope.readerFromInbox = true
     $rootScope.listArray = []
     $rootScope.tempArray = []
     $rootScope.leaves = []
@@ -26,6 +27,8 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
         }).then(function(success) {
             $scope.entries = success.data
             console.log('success')
+            $scope.leavesurl = ''
+            document.getElementById('closeButton').click()
         }).catch(function(response) {
             $scope.error = response
             console.log(response)
@@ -53,6 +56,12 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
         $scope.error = response
     })
     $scope.tags = tags_list
+
+    $scope.inboxToReader = function(leafArray){
+        console.log(leafArray)
+        $rootScope.readerFromInbox = false
+        $state.go('home.reader', {ids:leafArray})
+    }
 }])
 
 app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$stateParams', function($scope, $rootScope, $http, $state, $stateParams) {
@@ -125,9 +134,10 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
 app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', function($scope, $http, $stateParams, $timeout, $rootScope, $state) {
     var leafIdsList = String($stateParams.ids).split(',')
     $rootScope.inboxLength = leafIdsList.length
+    $rootScope.inboxArray = leafIdsList
     $scope.readerView = false
     $rootScope.isidexit = 1
-
+    console.log($rootScope.readerFromInbox)
     function leafHTTP(id) {
         var param_list = $stateParams.ids.split(',');
         $scope.active_id = id
@@ -148,10 +158,13 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
     }
     if ($rootScope.flag == undefined) {
         $rootScope.listArray = leafIdsList
-        for (var i = 0; i < leafIdsList.length; i++) {
-            leafHTTP(leafIdsList[i])
+        if($rootScope.readerFromInbox){
+            for (var i = 0; i < leafIdsList.length; i++) {
+                leafHTTP(leafIdsList[i])
+            }
         }
-    } else {
+    } 
+    else {
         if ($rootScope.rm_id) {
             leafHTTP(leafIdsList[leafIdsList.length - 1])
         }
