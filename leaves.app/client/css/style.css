@@ -84,6 +84,10 @@ html {
     cursor: pointer;
 }
 
+.inboxButton, .add-leaf  {
+    cursor: pointer;
+}
+
 #menu-toggle i {
     font-size: 16px;
     color: #565454;
