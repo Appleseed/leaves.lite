@@ -3,6 +3,9 @@
 #######################################
 version: '2'
 services:
+#######################################
+#  Appleseed.Leaves.API
+#######################################
   wallabag:
     image: wallabag/wallabag
     environment:
@@ -36,4 +39,15 @@ services:
       - db:db
     ports:
       - 83:80
-~
+#######################################
+#  Appleseed.Leaves.App
+#######################################
+  app:
+    image: appleseed/leaves:latest
+    ports:
+      - 81:9000 
+  topic:
+    image: appleseed/leaves:topic-latest
+    ports:
+      - 82:8080
+
