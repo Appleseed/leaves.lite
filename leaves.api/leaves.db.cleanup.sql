@@ -37,3 +37,22 @@ create temporary table if not exists tag_counts as (select tag_id, count(entry_i
 
 /* deletes the associations of tags that weren't that frequent */
 delete from wallabag_entry_tag where tag_id in (select tag_id from tag_counts);
+
+/* show duplicates by title for a specific user -- if you don't specify you can delete other's links unknowingly */
+select id, user_id, count(*) as title_counts, title from wallabag_entry where user_id=1 group by title having count(title) >1;
+
+/*
++------+---------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| id   | user_id | title_counts | title                                                                                                                                                                |
++------+---------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 4328 |       1 |            2 | Your Application running on Private Clouds                                                                                                                           |
+|  599 |       1 |           10 | ZeeMee Engineering and the Quest for the Holy (Mobile Dev) Grail                                                                                                     |
+| 4360 |       1 |            2 | Zengineering Blog                                                                                                                                                    |
++------+---------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+*/
+
+/* create temporary table of [entry_]id, user_id, title_counts, title where count is greater than 1 */
+create temporary table if not exists title_counts as (select id, user_id, count(*) as title_counts, title from wallabag_entry where user_id=1 group by title having count(title) >1);
+
+/* deletes at least 1 duplicate entry that was found since the duplicate find query only gets 1 id of many */
+delete from wallabag_entry where id in (select id from title_counts);
