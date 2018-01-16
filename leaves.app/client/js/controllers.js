@@ -152,8 +152,12 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }).catch(function(response) {
             $scope.error = response
         }).finally(function() {
+            console.log($rootScope.leaves)
             $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
             $scope.readerView = true
+            if($rootScope.leaves.length > 1){
+                $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
+            }
         })
     }
     if ($rootScope.flag == undefined) {
