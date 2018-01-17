@@ -33,7 +33,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.directive('leavesNav', function() {
     return {
         restrict: 'E',
-        templateUrl: 'views/navbar.html'
+        templateUrl: 'views/navbar.html',
+        controller: 'navbarCtrl'
     }
 })
 
@@ -64,6 +65,28 @@ app.directive('leavesList', function() {
         controller: 'leavesListCtrl'
     }
 })
+
+app.controller('navbarCtrl',['$scope', function($scope){
+    $scope.barState = true
+    $scope.navCloseOpen = function(state){
+        if(state){
+            console.log('closed')
+            $scope.barState = false
+            document.getElementById('sideNav').style.width = '0'
+            document.getElementById('sideNav').style.display = 'none'
+
+            document.getElementById('cardSection').style.width = '100%'
+        }else{
+            console.log('open')
+            $scope.barState = true
+            document.getElementById('sideNav').style.width = '200px'
+            document.getElementById('sideNav').style.display = 'inline-block'
+            document.getElementById('cardSection').style.display = 'inline-block'
+            document.getElementById('cardSection').style.width = '80%'
+        }
+    }
+}])
+
 app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
     $scope.added_date = function(tm) {
         return moment(tm).startOf('hour').fromNow();

@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <scrollable-tabset show-tooltips="true">
             <uib-tabset class="tab-container" id="readerTabs">
-                <uib-tab ng-repeat="item in leaves" active="item.active">
+                <uib-tab ng-repeat="item in leaves" active="item.active" >
                     <uib-tab-heading title="{{item.title}}">
                         <span>{{item.title}}</span> <i class="glyphicon glyphicon-remove" ng-click="removeTab($event, $index, item.id)"></i>
                     </uib-tab-heading>

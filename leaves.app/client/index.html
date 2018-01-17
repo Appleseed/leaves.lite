@@ -20,8 +20,8 @@
 <body ng-controller="mainController" id="body">
     <leaves-nav></leaves-nav>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2">
+        <div class="main">
+            <div class="side-nav" id="sideNav">
                 <div class="side-tag-navbar">
                     <input type="text" ng-model="tag_name" placeholder="Search by tag">
                     <ul class="sidebar-nav">
@@ -29,7 +29,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-10 content-area">
+            <div class="card-section content-area" id="cardSection">
                 <ui-view id="injecter"></ui-view>
             </div>
         </div>

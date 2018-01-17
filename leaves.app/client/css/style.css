@@ -8,8 +8,21 @@ html {
     height: 100vh
 }
 
+.menu-icon {
+    margin: 0px 15px;
+    cursor: pointer;
+}
+
+.main .side-nav {
+    width: 200px;
+    display: inline-block;
+}
+
+.main .card-section {
+    display: inline-block;    
+}
+
 #injecter {
-    width: 100%;
     position: absolute;
     padding-bottom: 30px;
 }
