@@ -63,6 +63,7 @@ html {
     margin-top: -17px;
     border-left: 3px solid #eee;
     width: 55%;
+    right: 0;
 }
 
 .content img {
@@ -502,4 +503,50 @@ html {
     background-color: #777;
     color: #fff;
     padding: 2px 5px;
+}
+.options {
+    cursor: default;
+    list-style-type: none;
+    width: 310px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.options li {
+    cursor: pointer;
+    list-style: none;
+    border: 1px solid #CCC;
+    background: #F6F6F6;
+    color: #ff6a00;
+    margin: 5px;
+    padding: 5px;
+    height: 22px;
+}
+.components {
+    cursor: default;
+    list-style-type: none;
+    width: 100%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: -40px;
+}
+.components li {
+    cursor: pointer;
+    list-style: none;
+    border: 1px solid #CCC;
+    background: #F6F6F6;
+    color: #1C94C4;
+    margin: 5px;
+    padding: 5px;
+    height: 22px;
+}
+li.highlight {
+    background: #FEE25F;
+}
+li.components-placeholder {
+    border: 1px dashed #CCC;
+    background: none;
 }
