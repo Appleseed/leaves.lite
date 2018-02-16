@@ -89,7 +89,7 @@ app.controller('navbarCtrl',['$scope', function($scope){
 
 app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
     $scope.added_date = function(tm) {
-        return moment(tm).startOf('hour').fromNow();
+        return moment(tm).fromNow();
     }
     $scope.getSingleLeaves = function(id, listarr) {
         $rootScope.rm_id = true
@@ -104,7 +104,7 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
 }])
 app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
     $scope.added_date = function(tm) {
-        return moment(tm).startOf('hour').fromNow();
+        return moment(tm).fromNow();
     }
     $scope.getSingleLeaves = function(id, listarr) {
         $rootScope.rm_id = true
