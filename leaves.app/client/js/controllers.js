@@ -1,6 +1,6 @@
 app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope', function($scope, $http, $state, $location, $rootScope) {
 
-    $scope.base_url = 'http://leaves.anant.us:82/'
+    $scope.base_url = 'http://leaves.anant.us:82'
     $scope.card_view = true
     $rootScope.readerFromInbox = true
     $rootScope.listArray = []
