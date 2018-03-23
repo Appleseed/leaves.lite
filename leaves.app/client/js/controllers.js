@@ -237,4 +237,36 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         document.body.style.overflow = 'hidden';
     }
 
+
+
+    $scope.shareThisThread = function(){
+        var threadPath = encodeURIComponent(window.location.href)
+        var pathToHit = "https://api-ssl.bitly.com/v3/shorten?access_token=2902c7b1d82061bab0d8732473d3b37a4477a253&longUrl=" + threadPath
+        $http({
+            method: 'GET',
+            url: pathToHit
+        }).then(function(success) {
+            $scope.bitly_link = success.data.data.url
+        })
+
+
+        // var threadPath = window.location.href;
+        // var pathToHit = "https://api-ssl.bitly.com/v3/shorten?access_token=2902c7b1d82061bab0d8732473d3b37a4477a253&longUrl=" + encodeURIComponent(threadPath)
+        // var xhr = new XMLHttpRequest();
+        // xhr.open("POST", pathToHit);
+        // xhr.onreadystatechange = function() { 
+        // if(xhr.readyState == 4) { 
+        //     if(xhr.status==200) {       
+        //         var x = JSON.stringify(xhr.response) 
+        //         $scope.bitly_link = xhr.response.data
+        //         console.log(x.data)
+        //         console.log(xhr)
+        //     } else {
+        //             console.log("Oops", xhr);
+        //         }
+        //     } 
+        // }
+        // xhr.send();
+    }
+
 }])

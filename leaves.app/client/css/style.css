@@ -54,6 +54,12 @@ html {
     display: block;
 }
 
+.share-this-thread {
+    border:1.2px solid #333;
+    padding: 10px;
+    text-align: center;
+}
+
 .single-content {
     background-color: #fff;
     padding: 10px;

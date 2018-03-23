@@ -4,6 +4,10 @@
 
 <div class="row single-content" ng-if="leaves" ng-if="readerView">
     <div class="col-md-12">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-value="bitly_link" placeholder="Share this Thread" aria-describedby="basic-addon2">
+            <span class="input-group-addon" id="basic-addon2" ng-click="shareThisThread()"><i class="fa fa-clipboard"></i></span>
+        </div>
         <scrollable-tabset show-tooltips="true">
             <uib-tabset class="tab-container" id="readerTabs">
                 <uib-tab ng-repeat="item in leaves" active="item.active" >
@@ -16,8 +20,9 @@
                         <ul>
                             <li><i class="fa fa-user"></i> <span>{{item.user_name}}</span></li>
                             <li ng-if="item.tags.length">
+                                <i class="fa fa-tags"></i>
                                 <span ng-repeat="tag in item.tags">
-                                  <i class="fa fa-tags"></i><a ui-sref="home({tag:tag.label})">{{tag.label}}</a>
+                                  <a ui-sref="home({tag:tag.label})">{{tag.label}}</a>
                                 {{$last ? '':', '}}
                             </span>
                             </li>
