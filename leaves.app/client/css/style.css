@@ -25,6 +25,7 @@ html {
 #injecter {
     position: absolute;
     padding-bottom: 30px;
+    width: 85%;
 }
 
 .single-content h1,
