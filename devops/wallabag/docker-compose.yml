@@ -1,0 +1,37 @@
+version: '2'
+services:
+  wallabag:
+    image: wallabag/wallabag
+    environment:
+      - MYSQL_ROOT_PASSWORD=wallaroot
+      - SYMFONY__ENV__DATABASE_DRIVER=pdo_mysql
+      - SYMFONY__ENV__DATABASE_HOST=db
+      - SYMFONY__ENV__DATABASE_PORT=3306
+      - SYMFONY__ENV__DATABASE_NAME=wallabag
+      - SYMFONY__ENV__DATABASE_USER=wallabag
+      - SYMFONY__ENV__DATABASE_PASSWORD=PASSWORD
+      - SYMFONY__ENV__MAILER_HOST=127.0.0.1
+      - SYMFONY__ENV__MAILER_USER=~
+      - SYMFONY__ENV__MAILER_PASSWORD=~
+      - SYMFONY__ENV__FROM_EMAIL=YOUREMAIL
+      - SYMFONY__ENV__DOMAIN_NAME=http://YOURDOMAIN
+    ports:
+      - 80:80
+    volumes:
+      - /home/azureuser/data/images:/var/www/wallabag/web/assets/images
+  db:
+    image: mariadb
+    command: --character_set_client=utf8 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --character-set-client-handshake=FALSE
+    environment:
+      - MYSQL_ROOT_PASSWORD=ROOTPASSWORD
+    volumes:
+      - /home/azureuser/data/mysql:/var/lib/mysql
+  redis:
+    image: redis:alpine
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db:db
+    ports:
+      - 8080:80

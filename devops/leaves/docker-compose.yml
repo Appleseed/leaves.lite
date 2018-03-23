@@ -1,0 +1,10 @@
+version: '2'
+services:
+  app:
+    image: appleseed/leaves:latest
+    ports:
+      - 80:9000 
+  topic:
+    image: appleseed/leaves:topic-latest
+    ports:
+      - 81:8080
