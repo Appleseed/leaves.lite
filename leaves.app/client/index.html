@@ -40,27 +40,8 @@
         <div id="originalContent"></div>
     </div>
 </body>
-<script type="text/javascript" src="../js/vendor.bundle.js"></script>
-<script type="text/javascript" src="../js/app.bundle.js"></script>
-<!-- <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-<script type="text/javascript" src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script> -->
-
-<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>-->
-<!-- <script type="text/javascript" src="js/script.js"></script>
-<script type="text/javascript" src="js/controllers.js"></script>
-<script type="text/javascript" src="bower_components/angular-ui-sortable/sortable.js"></script>
-<script type="text/javascript" src="js/angular-ui-tab-scroll.js"></script> -->
-<!-- <script type="text/javascript" src="bower_components/angular-ui-tab-scroll/angular-ui-tab-scroll.js"></script> -->
-
-<!-- <script type="text/javascript" src="js/app.bundle.js"></script> -->
+<script type="text/javascript" src="js/vendor.bundle.js"></script>
+<script type="text/javascript" src="js/app.bundle.js"></script>
 <script>
     $(function() {
         $('#myTab a:last').tab('show')
@@ -70,6 +51,19 @@
         document.getElementById("contentInIframe").style.height = "0%";
         document.body.style.overflow = 'scroll';
         document.getElementById("originalContent").innerHTML = ''
+    }
+    function outerClickHide() {
+        document.getElementById('shareModal').style.display = "none";
+    }    
+
+    function copyThisShortLink() {
+        var copyText = document.getElementById("bitlyLink");
+        copyText.select();
+        document.execCommand("Copy");
+        document.getElementById("showCopiedMsg").innerHTML = 'copied'
+        setTimeout(function() {
+            $('#showCopiedMsg').fadeOut('fast');
+        }, 1000);
     }
 </script>
 

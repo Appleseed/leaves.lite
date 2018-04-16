@@ -14,6 +14,19 @@
             </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
+            <li class="copy-and-share"><a ng-click="makeBitlyLink()"><span class="down-arrow-css"><i class="fa fa-share-alt"></i> Share branch</span></a>
+                <div class="share-modal" id="shareModal">
+                    <div class="share-model-inner">
+                    <div class="share-modal-title">Share this resource link</div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-value="bitly_link" id="bitlyLink" placeholder="Share this Thread" aria-describedby="basic-addon2">
+                        <span class="input-group-addon" id="basic-addon2" onClick="copyThisShortLink()" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="fa fa-clipboard"></i></span>
+                        </div>
+                    </div>
+                    <div id="showCopiedMsg" class="coiped-msg"></div>
+                    <div class="share-modal-close" onClick="outerClickHide()">close</div>
+                </div>
+            </li>
             <li class="inboxButton"><a ng-click="inboxToReader(inboxArray)"><i class="fa fa-folder-open"></i> Inbox <span>{{inboxLength}}</span></a></li>
             <li><a data-toggle="modal" data-target="#addLeaf" class="add-leaf"><i class="fa fa-plus-circle"></i> Add Leaf</a></li>
             <li><a href="#">{{leavesTeamID}}</a></li>
