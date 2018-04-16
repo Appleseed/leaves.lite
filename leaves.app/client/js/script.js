@@ -1,6 +1,6 @@
 var app = angular.module('leavesNext', ['ui.router', 'ngSanitize', 'infinite-scroll', 'ui.bootstrap', 'ui.tab.scroll'])
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     $stateProvider
         .state('home', {
@@ -28,14 +28,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
     })
 
     $urlRouterProvider.otherwise('/?tag=home');
-})
+    // $locationProvider.html5Mode(true);
+}])
 
 app.directive('leavesNav', function() {
     return {
         restrict: 'E',
-        templateUrl: 'views/navbar.html'
+        templateUrl: 'views/navbar.html',
+        controller: 'navbarCtrl'
     }
 })
+
 
 app.directive('leavesCard', function() {
     return {
@@ -64,11 +67,34 @@ app.directive('leavesList', function() {
         controller: 'leavesListCtrl'
     }
 })
+
+app.controller('navbarCtrl',['$scope', function($scope){
+    $scope.barState = true
+    $scope.navCloseOpen = function(state){
+        if(state){
+            console.log('closed')
+            $scope.barState = false
+            document.getElementById('sideNav').style.width = '0'
+            document.getElementById('sideNav').style.display = 'none'
+
+            document.getElementById('cardSection').style.width = '100%'
+        }else{
+            console.log('open')
+            $scope.barState = true
+            document.getElementById('sideNav').style.width = '200px'
+            document.getElementById('sideNav').style.display = 'inline-block'
+            document.getElementById('cardSection').style.display = 'inline-block'
+            document.getElementById('cardSection').style.width = '80%'
+        }
+    }
+}])
+
 app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
     $scope.added_date = function(tm) {
-        return moment(tm).startOf('hour').fromNow();
+        return tm.split('T')[0]
     }
     $scope.getSingleLeaves = function(id, listarr) {
+        document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1
         if (listarr.indexOf(id) === -1) {
@@ -81,9 +107,10 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
 }])
 app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
     $scope.added_date = function(tm) {
-        return moment(tm).startOf('hour').fromNow();
+        return tm.split('T')[0]
     }
     $scope.getSingleLeaves = function(id, listarr) {
+        document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1
         if (listarr.indexOf(id) === -1) {
@@ -107,3 +134,4 @@ app.run(function($rootScope) {
 });
 
 // TODO make the tabs sortable
+

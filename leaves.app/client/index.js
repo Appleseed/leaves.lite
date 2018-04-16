@@ -1,10 +1,16 @@
-require('bower_components/jquery/dist/jquery.min');
-require('bower_components/bootstrap/dist/js/bootstrap.min');
-require('bower_components/angular/angular.min');
-require('bower_components/angular-ui-router/release/angular-ui-router.min');
-require('bower_components/moment/min/moment.min');
-require('bower_components/angular-sanitize/angular-sanitize.min');
-require('bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min');
-require('https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min');
-require('js/script');
-require('js/controllers');
+window.$ = window.jQuery = require('./bower_components/jquery/dist/jquery.min')
+require('moment')
+// require('./bower_components/jquery/dist/jquery.min')
+require('./bower_components/jquery-ui/jquery-ui.min')
+require('./bower_components/bootstrap/dist/js/bootstrap.min')
+require('./bower_components/angular-bootstrap/ui-bootstrap.min')
+require('./bower_components/angular-bootstrap/ui-bootstrap-tpls.min')
+require('./bower_components/angular-ui-router/release/angular-ui-router.min')
+// require('./bower_components/moment/min/moment.min')
+require('./bower_components/angular-sanitize/angular-sanitize.min')
+require('./bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min')
+require('./bower_components/angular-ui-tab-scroll/angular-ui-tab-scroll.js')
+
+require('./js/script')
+require('./js/controllers')
+// require('./bower_components/Sortable/Sortable.min')

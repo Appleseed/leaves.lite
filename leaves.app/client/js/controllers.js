@@ -1,4 +1,7 @@
-app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope', function($scope, $http, $state, $location, $rootScope) {
+var app = angular.module('leavesNext');
+(function(app){
+  "use strict";
+  app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope', function($scope, $http, $state, $location, $rootScope) {
 
     $scope.base_url = 'http://leaves.anant.us:82'
     $scope.card_view = true
@@ -62,7 +65,24 @@ app.controller('mainController', ['$scope', '$http', '$state', '$location', '$ro
         $rootScope.readerFromInbox = false
         $state.go('home.reader', {ids:leafArray})
     }
+
+    
+     $scope.makeBitlyLink = function(){
+        document.getElementById('shareModal').style.display = "block";
+        $scope.bitly_link = 'Loading...'
+        var threadPath = encodeURIComponent(window.location.href)
+        var pathToHit = "https://api-ssl.bitly.com/v3/shorten?access_token=2902c7b1d82061bab0d8732473d3b37a4477a253&longUrl=" + threadPath
+        $http({
+            method: 'GET',
+            url: pathToHit
+        }).then(function(success) {
+            $scope.bitly_link = success.data.data.url
+        })
+    }
+
 }])
+
+
 
 app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$stateParams', function($scope, $rootScope, $http, $state, $stateParams) {
 
@@ -152,8 +172,12 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }).catch(function(response) {
             $scope.error = response
         }).finally(function() {
+            console.log($rootScope.leaves)
             $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
             $scope.readerView = true
+            if($rootScope.leaves.length > 1){
+                $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
+            }
         })
     }
     if ($rootScope.flag == undefined) {
@@ -180,9 +204,17 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             var sendTo = 'list-view.reader'
             var sendToParent = 'list-view'
         }
+        var content_index;
 
         $rootScope.rm_id = false
-        content_index = $rootScope.leaves.findIndex(i => i.id == item_id)
+        var leavesArrayList = $rootScope.leaves
+        for (var i = 0; i < leavesArrayList.length; i++) {
+            if(leavesArrayList[i].id == item_id){
+                content_index = i
+            }            
+        }
+
+        // content_index = $rootScope.leaves.findIndex(i => i.id == item_id)
         $rootScope.leaves.splice(content_index, 1);
         var param_list = $stateParams.ids.split(',');
         var item_index = param_list.indexOf(String(item_id))
@@ -234,3 +266,4 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
     }
 
 }])
+})(app);
