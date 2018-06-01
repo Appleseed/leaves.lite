@@ -19,4 +19,4 @@ RUN \
 EXPOSE 9000
 
 # The command to run our app when the container is run
-CMD ["node", "server/app.js"]
+CMD ["npm", "run", "start"]
