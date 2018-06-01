@@ -16363,21 +16363,20 @@ webpackJsonp([0],[
 
 window.$ = window.jQuery = __webpack_require__(126)
 __webpack_require__(0)
-// require('./bower_components/jquery/dist/jquery.min')
+    // require('./bower_components/jquery/dist/jquery.min')
 __webpack_require__(130)
 __webpack_require__(132)
 __webpack_require__(133)
 __webpack_require__(134)
 __webpack_require__(135)
-// require('./bower_components/moment/min/moment.min')
+    // require('./bower_components/moment/min/moment.min')
 __webpack_require__(138)
 __webpack_require__(139)
 __webpack_require__(140)
 
 __webpack_require__(141)
 __webpack_require__(142)
-// require('./bower_components/Sortable/Sortable.min')
-
+    // require('./bower_components/Sortable/Sortable.min')
 
 /***/ }),
 /* 126 */
