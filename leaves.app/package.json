@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "bundle": "webpack --watch"
+        "watch": "webpack --watch",
+        "build": "webpack --config webpack.config.js"
     },
     "author": "Anant Corporation",
     "license": "Apache",

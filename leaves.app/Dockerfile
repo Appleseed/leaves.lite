@@ -12,7 +12,7 @@ RUN \
     npm install -g bower && \
     npm install && \
     bower install --config.interactive=false --allow-root && \
-    npm run bundle
+    npm run build
 
 
 # Tell Docker we are going to use this port
