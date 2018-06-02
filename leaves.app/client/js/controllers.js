@@ -66,7 +66,7 @@ var app = angular.module('leavesNext');
         $state.go('home.reader', {ids:leafArray})
     }
 
-    
+
      $scope.makeBitlyLink = function(){
         document.getElementById('shareModal').style.display = "block";
         $scope.bitly_link = 'Loading...'
@@ -187,7 +187,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
                 leafHTTP(leafIdsList[i])
             }
         }
-    } 
+    }
     else {
         if ($rootScope.rm_id) {
             leafHTTP(leafIdsList[leafIdsList.length - 1])
@@ -211,7 +211,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         for (var i = 0; i < leavesArrayList.length; i++) {
             if(leavesArrayList[i].id == item_id){
                 content_index = i
-            }            
+            }
         }
 
         // content_index = $rootScope.leaves.findIndex(i => i.id == item_id)

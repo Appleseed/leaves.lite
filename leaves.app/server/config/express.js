@@ -11,7 +11,7 @@ module.exports = function(app) {
     app.use(compression());
     //the leaves.app is mounted at the root currently
     app.use('/', express.static(path.join(config.root, 'client')));
-    app.set('appPath', path.join(config.root, 'client/app')); // define the path of our app inside express to use across the server if needed
+    app.set('appPath', path.join(config.root, 'client')); // define the path of our app inside express to use across the server if needed
     app.use(morgan('dev'));
     app.use(errorHandler()); // error handler
 
