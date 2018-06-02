@@ -105,7 +105,7 @@ html {
     cursor: pointer;
 }
 
-.inboxButton, .add-leaf  {
+.inboxButton, .add-leaf, .do-login {
     cursor: pointer;
 }
 
