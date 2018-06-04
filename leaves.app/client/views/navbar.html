@@ -89,29 +89,29 @@
         <div role="tabpanel" class="tab-pane active" id="home">
             <form>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <label for="loginEmail">Email address</label>
+                    <input type="email" class="form-control" id="loginEmail" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" class="form-control" id="loginPassword" placeholder="Password">
                 </div>
                 <button type="submit" class="btn btn-primary">Login Now</button>
             </form>
         </div>
         <div role="tabpanel" class="tab-pane" id="profile">
-            <form>
+            <form ng-submit="makeNewAccount()">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <label for="signupEmail">Email address</label>
+                    <input type="email" class="form-control" ng-model="email_address" id="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" class="form-control" ng-model="password" id="signupPassword" placeholder="Password" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" class="form-control" ng-model="confirm_password" id="signupConfirmPassword" placeholder="Password" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Singup</button>
             </form>

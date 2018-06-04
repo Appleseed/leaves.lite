@@ -147,7 +147,7 @@
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 134);
+/******/ 	return __webpack_require__(__webpack_require__.s = 142);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -155,13 +155,13 @@
 /***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(128);
+__webpack_require__(136);
 module.exports = angular;
 
 
 /***/ }),
 
-/***/ 128:
+/***/ 136:
 /***/ (function(module, exports) {
 
 /**
@@ -34526,7 +34526,7 @@ $provide.value("$locale", {
 
 /***/ }),
 
-/***/ 134:
+/***/ 142:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(1);

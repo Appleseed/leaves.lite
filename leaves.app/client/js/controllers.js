@@ -38,6 +38,9 @@ var app = angular.module('leavesNext');
         });
     }
 
+    var defaultDatabase = firebase.database();
+console.log(defaultDatabase);
+
     //$http.get call to get all tags json
     var tags_list = []
     $http({

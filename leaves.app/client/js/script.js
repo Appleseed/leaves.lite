@@ -1,4 +1,4 @@
-var app = angular.module('leavesNext', ['ui.router', 'ngSanitize', 'infinite-scroll', 'ui.bootstrap', 'ui.tab.scroll'])
+var app = angular.module('leavesNext', ['ui.router', 'ui.bootstrap', 'ui.tab.scroll'])
 
 app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -86,6 +86,20 @@ app.controller('navbarCtrl',['$scope', function($scope){
             document.getElementById('cardSection').style.display = 'inline-block'
             document.getElementById('cardSection').style.width = '80%'
         }
+    }
+
+    $scope.makeNewAccount = function() {
+        var password = document.getElementById("signupPassword");
+        var confirm_password = document.getElementById("signupConfirmPassword");
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            firebase.auth().createUserWithEmailAndPassword('mddanishyusuf@gmail.com', '1234qwer').catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+            });
+        }
+        
     }
 }])
 
