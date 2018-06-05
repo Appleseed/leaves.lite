@@ -9,4 +9,3 @@ require('./bower_components/angular-ui-tab-scroll/angular-ui-tab-scroll')
 require("firebase");
 require('./js/script')
 require('./js/controllers')
-require('./js/firebaseSDK')

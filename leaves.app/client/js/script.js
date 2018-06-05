@@ -69,6 +69,16 @@ app.directive('leavesList', function() {
 })
 
 app.controller('navbarCtrl',['$scope', function($scope){
+
+    $scope.userLoggedIn = false
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        $scope.userLoggedIn = true
+        // window.user = user; 
+        // user is undefined if no user signed in
+    });
+
+
     $scope.barState = true
     $scope.navCloseOpen = function(state){
         if(state){
@@ -100,6 +110,25 @@ app.controller('navbarCtrl',['$scope', function($scope){
             });
         }
         
+    }
+
+    $scope.loginMe = function(){
+        console.log('logging...')
+        firebase.auth().signInWithEmailAndPassword($scope.loginEmail, $scope.loginPassword)
+        .then(function(){
+            $('#doLogin').modal('hide');
+        })
+        .catch(function(err) {
+        // Handle errors
+        });
+    }
+
+    $scope.doLogout = function() {
+        firebase.auth().signOut()
+        .catch(function (err) {
+        // Handle errors
+        });
+        $scope.userLoggedIn = false
     }
 }])
 
