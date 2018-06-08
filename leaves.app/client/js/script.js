@@ -72,10 +72,22 @@ app.controller('navbarCtrl',['$scope', function($scope){
 
     $scope.userLoggedIn = false
 
+    $scope.openLeafForm = function() {
+        $('#addLeaf').modal('show');
+        firebase.auth().onAuthStateChanged(function(user){
+            if(!user){
+                document.getElementById("loginMsg").innerHTML = "Please logged In"
+            }
+        })
+        console.log($scope.loginMsg)
+    }
+
     firebase.auth().onAuthStateChanged(function(user) {
-        $scope.userLoggedIn = true
-        // window.user = user; 
-        // user is undefined if no user signed in
+        if(user){
+            $scope.userLoggedIn = true
+        }else {
+            $scope.userLoggedIn = false
+        }
     });
 
 
@@ -113,15 +125,56 @@ app.controller('navbarCtrl',['$scope', function($scope){
     }
 
     $scope.loginMe = function(){
-        console.log('logging...')
-        firebase.auth().signInWithEmailAndPassword($scope.loginEmail, $scope.loginPassword)
-        .then(function(){
-            $('#doLogin').modal('hide');
+        firebase.auth().onAuthStateChanged(function(user){
+             if(user){
+                $scope.userLoggedIn = true;
+            }else{
+                firebase.auth().signInWithEmailAndPassword($scope.loginEmail, $scope.loginPassword)
+                .then(function(){
+                    $('#doLogin').modal('hide');
+                    location.reload();
+                })
+                .catch(function(err) {
+                    // Handle errors
+                });
+            }
         })
-        .catch(function(err) {
-        // Handle errors
-        });
+
+
     }
+
+
+
+    $scope.googleLogin = function() {
+        firebase.auth().onAuthStateChanged(function(user){
+             if(user){
+                $scope.userLoggedIn = true;
+                console.log('You already logged In!');
+            }else{
+                var provider = new firebase.auth.GoogleAuthProvider();
+
+                firebase.auth().signInWithPopup(provider).then(function(result) {
+                        // This gives you a Google Access Token. You can use it to access the Google API.
+                        var token = result.credential.accessToken;
+                        // The signed-in user info.
+                        var user = result.user;
+                        $('#doLogin').modal('hide');
+                        location.reload();
+                        // ...
+                    }).catch(function(error) {
+                        // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        // The email of the user's account used.
+                        var email = error.email;
+                        // The firebase.auth.AuthCredential type that was used.
+                        var credential = error.credential;
+                        // ...
+                    });
+            }
+        })
+    }
+
 
     $scope.doLogout = function() {
         firebase.auth().signOut()

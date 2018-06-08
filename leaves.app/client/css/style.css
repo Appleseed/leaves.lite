@@ -607,3 +607,11 @@ li.components-placeholder {
     border-radius: 3px;
     margin: 10px;
 }
+.google-login-btn {
+    text-align: center;
+}
+
+.google-login-btn img {
+    width: 200px;
+    padding: 20px 0px;
+}

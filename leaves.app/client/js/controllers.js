@@ -19,23 +19,31 @@ var app = angular.module('leavesNext');
     }
 
     $scope.newLeaf = function(incoming_url) {
-        $http({
-            method: 'POST',
-            url: $scope.base_url + '/api/entries',
-            params: { access_token: $scope.token },
-            data: $.param({
-                url: incoming_url
-            }),
-            headers: { 'content-type': 'application/x-www-form-urlencoded' }
-        }).then(function(success) {
-            $scope.entries = success.data
-            console.log('success')
-            $scope.leavesurl = ''
-            document.getElementById('closeButton').click()
-        }).catch(function(response) {
-            $scope.error = response
-            console.log(response)
-        });
+        firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            $http({
+                method: 'POST',
+                url: $scope.base_url + '/api/entries',
+                params: { access_token: $scope.token },
+                data: $.param({
+                    url: incoming_url
+                }),
+                headers: { 'content-type': 'application/x-www-form-urlencoded' }
+            }).then(function(success) {
+                $scope.entries = success.data
+                console.log('success')
+                $scope.leavesurl = ''
+                document.getElementById('closeButton').click()
+            }).catch(function(response) {
+                $scope.error = response
+                console.log(response)
+            });
+        }else {
+            document.getElementById("addleafError").innerHTML = "Please Logged In!"
+            $scope.userLoggedIn = false
+        }
+    });
+        
     }
 
     //$http.get call to get all tags json
