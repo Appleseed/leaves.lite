@@ -1,0 +1,37 @@
+/*** AS-Search CSS overrides ***/
+
+.navbar .nav>li>a { 
+	text-shadow: none;
+  	padding-top: 10px;
+  	padding-bottom: 10px;
+  	line-height: 21px;
+}
+
+@media (min-width: 768px) {
+  .navbar .navbar-nav > li > a {
+    padding-top: 19.5px;
+    padding-bottom: 19.5px;
+  }
+}
+
+.navbar .nav.admin-menu-list>li>a {
+	font-weight: normal;
+    padding: 0 10px;
+    line-height: 50px;
+}
+
+.navbar .nav li.dropdown>.dropdown-toggle .caret {
+    border-top-color: #FFF;
+    border-bottom-color: #FFF;
+    margin-top: 0px;
+}
+
+@media (min-width: 768px) {
+	.navbar-collapse.collapse {
+	    overflow: hidden !important;
+	}
+}
+
+#test-panel {
+    display: none;
+}
