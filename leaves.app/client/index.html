@@ -24,10 +24,14 @@
         <div class="main">
             <div class="side-nav" id="sideNav">
                 <div class="side-tag-navbar">
-                    <input type="text" ng-model="tag_name" placeholder="Search by tag">
-                    <ul class="sidebar-nav">
-                        <li ng-repeat="tag in tags | filter:tag_name" ui-sref="home({tag:tag.slug})">{{tag.label}}</li>
-                    </ul>
+                    <div class="side-bar-tag-search">
+                        <input type="text" ng-model="tag_name" placeholder="Search by tag">
+                    </div>
+                    <div class="tag-section">
+                        <ul class="sidebar-nav">
+                            <li ng-repeat="tag in tags | filter:tag_name" ui-sref="home({tag:tag.slug})">{{tag.label}}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="card-section content-area" id="cardSection">
