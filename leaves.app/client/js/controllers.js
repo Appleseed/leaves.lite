@@ -170,7 +170,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
 }])
 
 
-app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', 'ENV', function($scope, $http, $stateParams, $timeout, $rootScope, $state, ENV) {
+app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', 'ENV', '$sce', function($scope, $http, $stateParams, $timeout, $rootScope, $state, ENV, $sce) {
     var leafIdsList = String($stateParams.ids).split(',')
     $rootScope.inboxLength = leafIdsList.length
     $rootScope.inboxArray = leafIdsList
@@ -278,11 +278,28 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }
     };
 
+    $scope.getExternalLink = function(item){
+        var link = item.url
+        var domain_name = item.domain_name
+        if(domain_name == 'www.youtube.com'){
+            var y_id = link.split('watch?v=')[1]
+            var r_link = 'https://www.youtube.com/watch?v='+y_id
+        }else{
+            var r_link = link
+        }
+        console.log(r_link)
+        return r_link;
+    }
+
     $scope.viewOriginalCOntent = function(original_link) {
         document.getElementById("contentInIframe").style.height = "100%";
         document.getElementById("originalContent").innerHTML = '<iframe src="' + original_link + '" frameborder="0" style="width:100%; height: 100vh;"></iframe>'
         document.body.style.overflow = 'hidden';
     }
+
+     $scope.deliberatelyTrustDangerousSnippet = function(content) {
+       return $sce.trustAsHtml(content);
+     };
 
 }])
 })(app);

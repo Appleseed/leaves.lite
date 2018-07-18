@@ -1,4 +1,4 @@
-var app = angular.module('leavesNext', ['ui.router', 'ui.bootstrap', 'ui.tab.scroll'])
+var app = angular.module('leavesNext', ['ui.router', 'ui.bootstrap', 'ui.tab.scroll','ngSanitize'])
 
 app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 
