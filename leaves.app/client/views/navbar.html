@@ -7,12 +7,12 @@
         <i class="fa fa-leaf"></i><span class="logo-title" ng-click="goToHome()">Leaves</span>
     </div>
     <div class="hidden-xs">
-        <form class="navbar-form navbar-left" role="search" style="width:50%">
+       <!--  <form class="navbar-form navbar-left" role="search" style="width:50%">
             <div class="inner-addon left-addon" style="width:100%">
                 <i class="fa fa-search"></i>
                 <input type="text" class="form-control" placeholder="Enter your search terms" style="width:100%" />
             </div>
-        </form>
+        </form> -->
         <ul class="nav navbar-nav navbar-right">
             <li class="copy-and-share"><a ng-click="makeBitlyLink()"><span class="down-arrow-css"><i class="fa fa-share-alt"></i> Share branch</span></a>
                 <div class="share-modal" id="shareModal">
@@ -40,7 +40,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 
-            <form name="addUrlForm">
+            <form name="addUrlForm" ng-submit="newLeaf(leavesurl)">
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="closeButton">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="newLeaf(leavesurl)">Save it</button>
+                    <button type="submit" class="btn btn-primary">Save it</button>
                 </div>
             </form>
         </div>

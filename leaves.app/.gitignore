@@ -6,3 +6,4 @@ client/bower_components/
 yarn.lock
 etc/*.yml
 .vscode/*.sql
+package-lock.json
