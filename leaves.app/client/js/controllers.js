@@ -124,7 +124,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
                 access_token: ENV.LEAVES_API_ACCESSTOKEN,
                 sort: 'created',
                 limit: 12,
-                order: 'asc',
+                order: 'desc',
                 page: page,
                 tags: tagName
             }
