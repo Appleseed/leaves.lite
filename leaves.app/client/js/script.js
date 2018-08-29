@@ -200,6 +200,16 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
             $state.go('list-view.reader', param)
         }
     }
+
+    $scope.getExternalLink = function(data){
+        var link;
+        if(data.domain_name === 'www.youtube.com'){
+            link = data.url.split("url=")[1]
+        }else{
+            link = data.url
+        }
+        return link;
+    }
 }])
 app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
     $scope.added_date = function(tm) {
@@ -215,6 +225,16 @@ app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($sc
             var param = { ids: listarr }
             $state.go('home.reader', param)
         }
+    }
+
+    $scope.getExternalLink = function(data){
+        var link;
+        if(data.domain_name === 'www.youtube.com'){
+            link = data.url.split("url=")[1]
+        }else{
+            link = data.url
+        }
+        return link;
     }
 }])
 

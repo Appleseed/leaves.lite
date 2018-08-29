@@ -287,7 +287,6 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }else{
             var r_link = link
         }
-        console.log(r_link)
         return r_link;
     }
 
