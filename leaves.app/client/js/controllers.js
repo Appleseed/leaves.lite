@@ -1,15 +1,26 @@
 var app = angular.module('leavesNext');
 (function(app){
   "use strict";
-  app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope', function($scope, $http, $state, $location, $rootScope) {
 
-    $scope.base_url = 'http://leaves.anant.us:82'
+  app.constant('ENV', {
+    LEAVES_API_URL: 'http://leaves.anant.us:82',
+    LEAVES_API_ACCESSTOKEN: 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw',
+    BITLY_API_ACCESSTOKEN: '2902c7b1d82061bab0d8732473d3b37a4477a253'
+  });
+
+  disableLogging.$inject = ['$logProvider', 'ENV'];
+
+// app config
+function disableLogging($logProvider, ENV) {
+  $logProvider.debugEnabled(ENV.ENABLEDEBUG);
+}
+
+  app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', function($scope, $http, $state, $location, $rootScope, ENV) {
     $scope.card_view = true
     $rootScope.readerFromInbox = true
     $rootScope.listArray = []
     $rootScope.tempArray = []
     $rootScope.leaves = []
-    $scope.token = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw'
 
     $scope.goToHome = function() {
         $state.go('home', {
@@ -19,32 +30,40 @@ var app = angular.module('leavesNext');
     }
 
     $scope.newLeaf = function(incoming_url) {
-        $http({
-            method: 'POST',
-            url: $scope.base_url + '/api/entries',
-            params: { access_token: $scope.token },
-            data: $.param({
-                url: incoming_url
-            }),
-            headers: { 'content-type': 'application/x-www-form-urlencoded' }
-        }).then(function(success) {
-            $scope.entries = success.data
-            console.log('success')
-            $scope.leavesurl = ''
-            document.getElementById('closeButton').click()
-        }).catch(function(response) {
-            $scope.error = response
-            console.log(response)
-        });
+        firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            $http({
+                method: 'POST',
+                url: ENV.LEAVES_API_URL + '/api/entries',
+                params: { access_token: ENV.LEAVES_API_ACCESSTOKEN },
+                data: $.param({
+                    url: incoming_url
+                }),
+                headers: { 'content-type': 'application/x-www-form-urlencoded' }
+            }).then(function(success) {
+                $scope.entries = success.data
+                console.log('success')
+                $scope.leavesurl = ''
+                document.getElementById('closeButton').click()
+            }).catch(function(response) {
+                $scope.error = response
+                console.log(response)
+            });
+        }else {
+            document.getElementById("addleafError").innerHTML = "Please Logged In!"
+            $scope.userLoggedIn = false
+        }
+    });
+        
     }
 
     //$http.get call to get all tags json
     var tags_list = []
     $http({
         method: 'GET',
-        url: $scope.base_url + '/api/tags',
+        url: ENV.LEAVES_API_URL + '/api/tags',
         params: {
-            access_token: $scope.token
+            access_token: ENV.LEAVES_API_ACCESSTOKEN
         }
     }).then(function(success) {
         angular.forEach(success.data, function(value) {
@@ -66,12 +85,12 @@ var app = angular.module('leavesNext');
         $state.go('home.reader', {ids:leafArray})
     }
 
-    
+
      $scope.makeBitlyLink = function(){
         document.getElementById('shareModal').style.display = "block";
         $scope.bitly_link = 'Loading...'
         var threadPath = encodeURIComponent(window.location.href)
-        var pathToHit = "https://api-ssl.bitly.com/v3/shorten?access_token=2902c7b1d82061bab0d8732473d3b37a4477a253&longUrl=" + threadPath
+        var pathToHit = "https://api-ssl.bitly.com/v3/shorten?access_token="+ENV.BITLY_API_ACCESSTOKEN+"&longUrl=" + threadPath
         $http({
             method: 'GET',
             url: pathToHit
@@ -84,7 +103,7 @@ var app = angular.module('leavesNext');
 
 
 
-app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$stateParams', function($scope, $rootScope, $http, $state, $stateParams) {
+app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$stateParams', 'ENV', function($scope, $rootScope, $http, $state, $stateParams, ENV) {
 
     $rootScope.isidexit = 0
     $scope.stateJson = $state.current
@@ -102,16 +121,16 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
             if (tagName.includes('-')) tagName = tagName.split('-').join(' ');
 
             var param = {
-                access_token: $scope.token,
+                access_token: ENV.LEAVES_API_ACCESSTOKEN,
                 sort: 'created',
                 limit: 12,
-                order: 'asc',
+                order: 'desc',
                 page: page,
                 tags: tagName
             }
         } else {
             var param = {
-                access_token: $scope.token,
+                access_token: ENV.LEAVES_API_ACCESSTOKEN,
                 sort: 'created',
                 limit: 12,
                 order: 'desc',
@@ -124,7 +143,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
         }
         $http({
             method: 'GET',
-            url: $scope.base_url + '/api/entries',
+            url: ENV.LEAVES_API_URL + '/api/entries',
             params: param
         }).then(function(success) {
             $scope.homeData = success
@@ -151,7 +170,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
 }])
 
 
-app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', function($scope, $http, $stateParams, $timeout, $rootScope, $state) {
+app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', 'ENV', '$sce', function($scope, $http, $stateParams, $timeout, $rootScope, $state, ENV, $sce) {
     var leafIdsList = String($stateParams.ids).split(',')
     $rootScope.inboxLength = leafIdsList.length
     $rootScope.inboxArray = leafIdsList
@@ -163,9 +182,9 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         $scope.active_id = id
         $http({
             method: 'GET',
-            url: $scope.base_url + '/api/entries/' + id,
+            url: ENV.LEAVES_API_URL + '/api/entries/' + id,
             params: {
-                access_token: $scope.token
+                access_token: ENV.LEAVES_API_ACCESSTOKEN
             }
         }).then(function(success) {
             $rootScope.leaves.push(success.data)
@@ -187,7 +206,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
                 leafHTTP(leafIdsList[i])
             }
         }
-    } 
+    }
     else {
         if ($rootScope.rm_id) {
             leafHTTP(leafIdsList[leafIdsList.length - 1])
@@ -211,7 +230,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         for (var i = 0; i < leavesArrayList.length; i++) {
             if(leavesArrayList[i].id == item_id){
                 content_index = i
-            }            
+            }
         }
 
         // content_index = $rootScope.leaves.findIndex(i => i.id == item_id)
@@ -259,11 +278,27 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }
     };
 
+    $scope.getExternalLink = function(item){
+        var link = item.url
+        var domain_name = item.domain_name
+        if(domain_name == 'www.youtube.com'){
+            var y_id = link.split('watch?v=')[1]
+            var r_link = 'https://www.youtube.com/watch?v='+y_id
+        }else{
+            var r_link = link
+        }
+        return r_link;
+    }
+
     $scope.viewOriginalCOntent = function(original_link) {
         document.getElementById("contentInIframe").style.height = "100%";
         document.getElementById("originalContent").innerHTML = '<iframe src="' + original_link + '" frameborder="0" style="width:100%; height: 100vh;"></iframe>'
         document.body.style.overflow = 'hidden';
     }
+
+     $scope.deliberatelyTrustDangerousSnippet = function(content) {
+       return $sce.trustAsHtml(content);
+     };
 
 }])
 })(app);

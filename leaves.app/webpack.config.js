@@ -6,7 +6,7 @@ module.exports = {
         app: './index.js',
         vendor: ['angular']
     },
-    watch: true,
+    watch: false,
     output: {
         path: __dirname + '/client/js',
         filename: 'app.bundle.js'

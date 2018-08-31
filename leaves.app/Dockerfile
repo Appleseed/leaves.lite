@@ -11,11 +11,12 @@ ADD . /client
 RUN \
     npm install -g bower && \
     npm install && \
-    bower install --config.interactive=false --allow-root
+    bower install --config.interactive=false --allow-root && \
+    npm run build
 
 
 # Tell Docker we are going to use this port
 EXPOSE 9000
 
 # The command to run our app when the container is run
-CMD ["node", "server/app.js"]
+CMD ["npm", "run", "start"]

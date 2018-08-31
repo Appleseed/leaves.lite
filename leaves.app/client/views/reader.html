@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <scrollable-tabset show-tooltips="true">
             <uib-tabset class="tab-container" id="readerTabs">
-                <uib-tab ng-repeat="item in leaves" active="item.active">
+                <uib-tab ng-repeat="item in leaves" active="item.active" >
                     <uib-tab-heading title="{{item.title}}">
                         <span>{{item.title}}</span> <i class="glyphicon glyphicon-remove" ng-click="removeTab($event, $index, item.id)"></i>
                     </uib-tab-heading>
@@ -16,16 +16,17 @@
                         <ul>
                             <li><i class="fa fa-user"></i> <span>{{item.user_name}}</span></li>
                             <li ng-if="item.tags.length">
+                                <i class="fa fa-tags"></i>
                                 <span ng-repeat="tag in item.tags">
-                                  <i class="fa fa-tags"></i><a ui-sref="home({tag:tag.label})">{{tag.label}}</a>
+                                  <a ui-sref="home({tag:tag.label})">{{tag.label}}</a>
                                 {{$last ? '':', '}}
                             </span>
                             </li>
-                            <li><a href="{{item.url}}" target="_blank"><i class="fa fa-external-link"></i> <span>link</span></a></li>
+                            <li><a href="{{getExternalLink(item)}}" target="_blank"><i class="fa fa-external-link"></i> <span>link</span></a></li>
                             <li><i class="fa fa-link"></i> <span ng-click="viewOriginalCOntent(item.url)">Original Content</span></li>
                         </ul>
                     </div>
-                    <p ng-bind-html="item.content" class="content"></p>
+                    <p ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>
                 </uib-tab>
             </uib-tabset>
         </scrollable-tabset>

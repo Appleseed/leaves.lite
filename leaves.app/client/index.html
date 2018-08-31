@@ -20,21 +20,20 @@
 
 <body ng-controller="mainController" id="body">
     <leaves-nav></leaves-nav>
-    <div class="container-fluid">
-        <div class="main">
-            <div class="side-nav" id="sideNav">
-                <div class="side-tag-navbar">
+        <div class="leaves-container">
+            <div class="side-tag-section" id="sideTagSection">
+            <br>
+                <div class="tag-search-input">
                     <input type="text" ng-model="tag_name" placeholder="Search by tag">
-                    <ul class="sidebar-nav">
-                        <li ng-repeat="tag in tags | filter:tag_name" ui-sref="home({tag:tag.slug})">{{tag.label}}</li>
-                    </ul>
                 </div>
+                <ul>
+                    <li ng-repeat="tag in tags | filter:tag_name" ui-sref="home({tag:tag.slug})">{{tag.label}}</li>
+                </ul>
             </div>
-            <div class="card-section content-area" id="cardSection">
+            <div class="leaves-cards" id="leavesCards">
                 <ui-view id="injecter"></ui-view>
             </div>
         </div>
-    </div>
     <div id="contentInIframe" class="second-layer">
         <center><button class="minimizeButton" type="submit" onclick="closeIframe()" title="minimize"><i class="fa fa-close"></i></button></center>
         <div id="originalContent"></div>
@@ -65,6 +64,21 @@
             $('#showCopiedMsg').fadeOut('fast');
         }, 1000);
     }
+</script>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBeK_YwXpRuv0qEXbmN8J7umHPbOZyi_J0",
+    authDomain: "anant-leaves-next.firebaseapp.com",
+    databaseURL: "https://anant-leaves-next.firebaseio.com",
+    projectId: "anant-leaves-next",
+    storageBucket: "anant-leaves-next.appspot.com",
+    messagingSenderId: "397443834338"
+    };
+  firebase.initializeApp(config);
 </script>
 
 </html>

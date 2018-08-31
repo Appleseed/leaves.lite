@@ -3,24 +3,24 @@
     <div class="navbar-header">
         <span class="menu-bar" id="menu-toggle" ng-click="navCloseOpen(barState)">
                 <i class="fa fa-bars"></i>
-            </span> 
+            </span>
         <i class="fa fa-leaf"></i><span class="logo-title" ng-click="goToHome()">Leaves</span>
     </div>
     <div class="hidden-xs">
-        <form class="navbar-form navbar-left" role="search" style="width:50%">
+       <!--  <form class="navbar-form navbar-left" role="search" style="width:50%">
             <div class="inner-addon left-addon" style="width:100%">
                 <i class="fa fa-search"></i>
                 <input type="text" class="form-control" placeholder="Enter your search terms" style="width:100%" />
             </div>
-        </form>
+        </form> -->
         <ul class="nav navbar-nav navbar-right">
             <li class="copy-and-share"><a ng-click="makeBitlyLink()"><span class="down-arrow-css"><i class="fa fa-share-alt"></i> Share branch</span></a>
                 <div class="share-modal" id="shareModal">
                     <div class="share-model-inner">
-                    <div class="share-modal-title">Share this resource link</div>
-                    <div class="input-group">
-                        <input type="text" class="form-control" ng-value="bitly_link" id="bitlyLink" placeholder="Share this Thread" aria-describedby="basic-addon2">
-                        <span class="input-group-addon" id="basic-addon2" onClick="copyThisShortLink()" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="fa fa-clipboard"></i></span>
+                        <div class="share-modal-title">Share this resource link</div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-value="bitly_link" id="bitlyLink" placeholder="Share this Thread" aria-describedby="basic-addon2">
+                            <span class="input-group-addon" id="basic-addon2" onClick="copyThisShortLink()" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="fa fa-clipboard"></i></span>
                         </div>
                     </div>
                     <div id="showCopiedMsg" class="coiped-msg"></div>
@@ -28,35 +28,113 @@
                 </div>
             </li>
             <li class="inboxButton"><a ng-click="inboxToReader(inboxArray)"><i class="fa fa-folder-open"></i> Inbox <span>{{inboxLength}}</span></a></li>
-            <li><a data-toggle="modal" data-target="#addLeaf" class="add-leaf"><i class="fa fa-plus-circle"></i> Add Leaf</a></li>
+            <li><a data-toggle="modal" ng-click="openLeafForm()" class="add-leaf"><i class="fa fa-plus-circle"></i> Add Leaf</a></li>
+            <li ng-if="!userLoggedIn"><a data-toggle="modal" data-target="#doLogin" class="do-login"> Login</a></li>
+            <li ng-if="userLoggedIn"><a ng-click="doLogout()" class="do-login"> Logout</a></li>
             <li><a href="#">{{leavesTeamID}}</a></li>
         </ul>
     </div>
 </nav>
 
-
 <div class="modal fade bs-example-modal-lg" id="addLeaf" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form name="addUrlForm">
+
+            <form name="addUrlForm" ng-submit="newLeaf(leavesurl)">
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="gridSystemModalLabel">Add New Leaf</h4>
                 </div>
                 <div class="modal-body">
+                    <div id="loginMsg" style="color: red;"></div>
                     <div class="form-group">
                         <label for="addUrl">Site URL</label>
                         <input type="url" class="form-control" name="leavesurl" ng-model="leavesurl" placeholder="Enter URl" required>
                     </div>
+                    <div id="addleafError" style="color: red;"></div>
                     {{error.data.error.message}}
                     <!-- <span ng-if="!addUrlForm.leavesurl.$valid">Enter Valid URL</span> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="closeButton">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="newLeaf(leavesurl)">Save it</button>
+                    <button type="submit" class="btn btn-primary">Save it</button>
                 </div>
             </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade bs-example-modal-lg" id="doLogin" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Login/Signup</h4>
+            </div>
+            <div class="modal-body">
+
+                <div>
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Login</a></li>
+                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Signup</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <div class="google-login-btn" ng-click="googleLogin()">
+                                <img src="./img/login-google.jpg">
+                                <br>
+                                OR
+                                <br>
+                            </div>
+                            <form ng-submit="loginMe()">
+                                <div class="form-group">
+                                    <label for="loginEmail">Email address</label>
+                                    <input type="email" class="form-control" ng-model="loginEmail" id="loginEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" ng-model="loginPassword" id="loginPassword" placeholder="Password"required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Login Now</button>
+                            </form>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile">
+                            <div class="google-login-btn" ng-click="googleLogin()">
+                                <img src="./img/login-google.jpg">
+                                <br>
+                                OR
+                                <br>
+                            </div>
+                            <form ng-submit="makeNewAccount()">
+                                <div class="form-group">
+                                    <label for="signupEmail">Email address</label>
+                                    <input type="email" class="form-control" ng-model="email_address" id="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" ng-model="password" id="signupPassword" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Confirm Password</label>
+                                    <input type="password" class="form-control" ng-model="confirm_password" id="signupConfirmPassword" placeholder="Password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Singup</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
         <!-- /.modal-content -->
     </div>

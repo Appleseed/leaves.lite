@@ -1,4 +1,4 @@
-var app = angular.module('leavesNext', ['ui.router', 'ngSanitize', 'infinite-scroll', 'ui.bootstrap', 'ui.tab.scroll'])
+var app = angular.module('leavesNext', ['ui.router', 'ui.bootstrap', 'ui.tab.scroll','ngSanitize'])
 
 app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -69,6 +69,28 @@ app.directive('leavesList', function() {
 })
 
 app.controller('navbarCtrl',['$scope', function($scope){
+
+    $scope.userLoggedIn = false
+
+    $scope.openLeafForm = function() {
+        $('#addLeaf').modal('show');
+        firebase.auth().onAuthStateChanged(function(user){
+            if(!user){
+                document.getElementById("loginMsg").innerHTML = "Please logged In"
+            }
+        })
+        console.log($scope.loginMsg)
+    }
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            $scope.userLoggedIn = true
+        }else {
+            $scope.userLoggedIn = false
+        }
+    });
+
+
     $scope.barState = true
     $scope.navCloseOpen = function(state){
         if(state){
@@ -87,6 +109,80 @@ app.controller('navbarCtrl',['$scope', function($scope){
             document.getElementById('cardSection').style.width = '80%'
         }
     }
+
+    $scope.makeNewAccount = function() {
+        var password = document.getElementById("signupPassword");
+        var confirm_password = document.getElementById("signupConfirmPassword");
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            firebase.auth().createUserWithEmailAndPassword('mddanishyusuf@gmail.com', '1234qwer').catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+            });
+        }
+        
+    }
+
+    $scope.loginMe = function(){
+        firebase.auth().onAuthStateChanged(function(user){
+             if(user){
+                $scope.userLoggedIn = true;
+            }else{
+                firebase.auth().signInWithEmailAndPassword($scope.loginEmail, $scope.loginPassword)
+                .then(function(){
+                    $('#doLogin').modal('hide');
+                    location.reload();
+                })
+                .catch(function(err) {
+                    // Handle errors
+                });
+            }
+        })
+
+
+    }
+
+
+
+    $scope.googleLogin = function() {
+        firebase.auth().onAuthStateChanged(function(user){
+             if(user){
+                $scope.userLoggedIn = true;
+                console.log('You already logged In!');
+            }else{
+                var provider = new firebase.auth.GoogleAuthProvider();
+
+                firebase.auth().signInWithPopup(provider).then(function(result) {
+                        // This gives you a Google Access Token. You can use it to access the Google API.
+                        var token = result.credential.accessToken;
+                        // The signed-in user info.
+                        var user = result.user;
+                        $('#doLogin').modal('hide');
+                        location.reload();
+                        // ...
+                    }).catch(function(error) {
+                        // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        // The email of the user's account used.
+                        var email = error.email;
+                        // The firebase.auth.AuthCredential type that was used.
+                        var credential = error.credential;
+                        // ...
+                    });
+            }
+        })
+    }
+
+
+    $scope.doLogout = function() {
+        firebase.auth().signOut()
+        .catch(function (err) {
+        // Handle errors
+        });
+        $scope.userLoggedIn = false
+    }
 }])
 
 app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
@@ -104,6 +200,16 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
             $state.go('list-view.reader', param)
         }
     }
+
+    $scope.getExternalLink = function(data){
+        var link;
+        if(data.domain_name === 'www.youtube.com'){
+            link = data.url.split("url=")[1]
+        }else{
+            link = data.url
+        }
+        return link;
+    }
 }])
 app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
     $scope.added_date = function(tm) {
@@ -119,6 +225,16 @@ app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($sc
             var param = { ids: listarr }
             $state.go('home.reader', param)
         }
+    }
+
+    $scope.getExternalLink = function(data){
+        var link;
+        if(data.domain_name === 'www.youtube.com'){
+            link = data.url.split("url=")[1]
+        }else{
+            link = data.url
+        }
+        return link;
     }
 }])
 
