@@ -27,7 +27,7 @@
                     <div class="share-modal-close" onClick="outerClickHide()">close</div>
                 </div>
             </li>
-            <li class="inboxButton"><a ng-click="inboxToReader(inboxArray)"><i class="fa fa-folder-open"></i> Inbox <span>{{inboxLength}}</span></a></li>
+            <li class="inboxButton"><a ng-click="inboxToReader(inboxArray)"><i class="fa fa-folder-open"></i> Reader <span>{{inboxLength}}</span></a></li>
             <li><a data-toggle="modal" ng-click="openLeafForm()" class="add-leaf"><i class="fa fa-plus-circle"></i> Add Leaf</a></li>
             <li ng-if="!userLoggedIn"><a data-toggle="modal" data-target="#doLogin" class="do-login"> Login</a></li>
             <li ng-if="userLoggedIn"><a ng-click="doLogout()" class="do-login"> Logout</a></li>
@@ -50,7 +50,7 @@
                     <div id="loginMsg" style="color: red;"></div>
                     <div class="form-group">
                         <label for="addUrl">Site URL</label>
-                        <input type="url" class="form-control" name="leavesurl" ng-model="leavesurl" placeholder="Enter URl" required>
+                        <input type="url" class="form-control" name="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
                     </div>
                     <div id="addleafError" style="color: red;"></div>
                     {{error.data.error.message}}

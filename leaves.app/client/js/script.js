@@ -193,6 +193,7 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
         document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1
+        console.log(id)
         if (listarr.indexOf(id) === -1) {
             listarr.push(id)
             $scope.listArray = listarr
@@ -216,14 +217,18 @@ app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($sc
         return tm.split('T')[0]
     }
     $scope.getSingleLeaves = function(id, listarr) {
+        var leave_id = String(id)
+        console.log('adding...')
         document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1
-        if (listarr.indexOf(id) === -1) {
-            listarr.push(id)
+        if (listarr.indexOf(leave_id) === -1) {
+            listarr.push(leave_id)
             $scope.listArray = listarr
             var param = { ids: listarr }
             $state.go('home.reader', param)
+        }else{
+            alert("Already Added.");
         }
     }
 

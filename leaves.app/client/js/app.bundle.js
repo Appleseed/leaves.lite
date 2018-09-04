@@ -91317,6 +91317,7 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
         document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1
+        console.log(id)
         if (listarr.indexOf(id) === -1) {
             listarr.push(id)
             $scope.listArray = listarr
@@ -91340,14 +91341,18 @@ app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($sc
         return tm.split('T')[0]
     }
     $scope.getSingleLeaves = function(id, listarr) {
+        var leave_id = String(id)
+        console.log('adding...')
         document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1
-        if (listarr.indexOf(id) === -1) {
-            listarr.push(id)
+        if (listarr.indexOf(leave_id) === -1) {
+            listarr.push(leave_id)
             $scope.listArray = listarr
             var param = { ids: listarr }
             $state.go('home.reader', param)
+        }else{
+            alert("Already Added.");
         }
     }
 
@@ -91559,7 +91564,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
     $rootScope.inboxArray = leafIdsList
     $scope.readerView = false
     $rootScope.isidexit = 1
-    console.log($rootScope.readerFromInbox)
+    // console.log($rootScope.readerFromInbox)
     function leafHTTP(id) {
         var param_list = $stateParams.ids.split(',');
         $scope.active_id = id
@@ -91574,7 +91579,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }).catch(function(response) {
             $scope.error = response
         }).finally(function() {
-            console.log($rootScope.leaves)
+            // console.log($rootScope.leaves)
             $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
             $scope.readerView = true
             if($rootScope.leaves.length > 1){

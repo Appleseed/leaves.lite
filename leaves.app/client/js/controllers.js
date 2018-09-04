@@ -176,7 +176,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
     $rootScope.inboxArray = leafIdsList
     $scope.readerView = false
     $rootScope.isidexit = 1
-    console.log($rootScope.readerFromInbox)
+    // console.log($rootScope.readerFromInbox)
     function leafHTTP(id) {
         var param_list = $stateParams.ids.split(',');
         $scope.active_id = id
@@ -191,7 +191,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }).catch(function(response) {
             $scope.error = response
         }).finally(function() {
-            console.log($rootScope.leaves)
+            // console.log($rootScope.leaves)
             $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
             $scope.readerView = true
             if($rootScope.leaves.length > 1){
