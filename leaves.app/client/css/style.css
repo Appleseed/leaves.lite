@@ -151,8 +151,10 @@ html {
     cursor: pointer;
 }
 
-.tag-search-input {
-    position: fixed;
+
+.tag-search-input input{
+    position: absolute;
+    width: 90%;
 }
 
 .side-tag-section input {
