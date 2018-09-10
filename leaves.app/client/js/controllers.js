@@ -6,7 +6,7 @@ var app = angular.module('leavesNext');
     LEAVES_API_URL: 'http://leaves.anant.us:82',
     LEAVES_API_ACCESSTOKEN: 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw',
     BITLY_API_ACCESSTOKEN: '2902c7b1d82061bab0d8732473d3b37a4477a253',
-    GOOGLE_ANALYTICS_CODE: 'GTM-KD9CDQS'
+    GOOGLE_ANALYTICS_CODE: false
   });
 
   disableLogging.$inject = ['$logProvider', 'ENV'];
@@ -17,7 +17,9 @@ function disableLogging($logProvider, ENV) {
 }
 
     app.controller('rootController',['ENV', function(ENV){
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',ENV.GOOGLE_ANALYTICS_CODE);    
+        if(ENV.GOOGLE_ANALYTICS_CODE){
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KD9CDQS');    
+        }
     }])
 
   app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', function($scope, $http, $state, $location, $rootScope, ENV) {
