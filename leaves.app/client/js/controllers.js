@@ -47,12 +47,10 @@ function disableLogging($logProvider, ENV) {
                 headers: { 'content-type': 'application/x-www-form-urlencoded' }
             }).then(function(success) {
                 $scope.entries = success.data
-                console.log('success')
                 $scope.leavesurl = ''
                 document.getElementById('closeButton').click()
             }).catch(function(response) {
                 $scope.error = response
-                console.log(response)
             });
         }else {
             document.getElementById("addleafError").innerHTML = "Please Logged In!"
@@ -85,7 +83,6 @@ function disableLogging($logProvider, ENV) {
     $scope.tags = tags_list
 
     $scope.inboxToReader = function(leafArray){
-        console.log(leafArray)
         $rootScope.readerFromInbox = false
         $state.go('home.reader', {ids:leafArray})
     }
@@ -181,7 +178,6 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
     $rootScope.inboxArray = leafIdsList
     $scope.readerView = false
     $rootScope.isidexit = 1
-    // console.log($rootScope.readerFromInbox)
     function leafHTTP(id) {
         var param_list = $stateParams.ids.split(',');
         $scope.active_id = id
@@ -196,7 +192,6 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }).catch(function(response) {
             $scope.error = response
         }).finally(function() {
-            // console.log($rootScope.leaves)
             $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
             $scope.readerView = true
             if($rootScope.leaves.length > 1){
@@ -246,7 +241,6 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             param_list.splice(item_index, 1);
         }
         $rootScope.listArray = param_list
-            //console.log(param_list)
         $state.go(sendTo, {
             ids: param_list
         })
@@ -269,7 +263,6 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             let orderedLeaves = currentLeaves.map(function(i) {
                 return i.id;
             }).join(',');
-            console.log('Update: ' + orderedLeaves);
         },
         stop: function(e, ui) {
             // this callback has the changed model
@@ -278,7 +271,6 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
                 return i.id;
             }).join(',');
 
-            console.log('Stop: ' + orderedLeaves2);
             //$state.go('home.reader', { ids: orderedLeave2s })
         }
     };
