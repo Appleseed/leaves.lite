@@ -91386,16 +91386,18 @@ app.run(function($rootScope) {
 /* 158 */
 /***/ (function(module, exports) {
 
+var env = {};
+
+// Import variables if present (from env.js)
+if(window){  
+  Object.assign(env, window.__env);
+}
+
 var app = angular.module('leavesNext');
 (function(app){
   "use strict";
 
-  app.constant('ENV', {
-    LEAVES_API_URL: 'http://leaves.anant.us:82',
-    LEAVES_API_ACCESSTOKEN: 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw',
-    BITLY_API_ACCESSTOKEN: '2902c7b1d82061bab0d8732473d3b37a4477a253',
-    GOOGLE_ANALYTICS_CODE: false
-  });
+  app.constant('ENV', env);
 
   disableLogging.$inject = ['$logProvider', 'ENV'];
 
@@ -91412,6 +91414,7 @@ function disableLogging($logProvider, ENV) {
     }])
 
   app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', function($scope, $http, $state, $location, $rootScope, ENV) {
+    console.log(ENV)
     $scope.card_view = true
     $rootScope.readerFromInbox = true
     $rootScope.listArray = []
