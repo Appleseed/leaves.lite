@@ -11,6 +11,4 @@
   // Setting this to false will disable console output
   window.__env.BITLY_API_ACCESSTOKEN = '2902c7b1d82061bab0d8732473d3b37a4477a253';
 
-  window.__env.GOOGLE_ANALYTICS_CODE = false;
-
 }(this));
