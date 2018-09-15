@@ -96,17 +96,18 @@ app.controller('navbarCtrl',['$scope', function($scope){
         if(state){
             console.log('closed')
             $scope.barState = false
-            document.getElementById('sideNav').style.width = '0'
-            document.getElementById('sideNav').style.display = 'none'
+            document.getElementById('sideTagSection').style.width = '0'
+            document.getElementById('sideTagSection').style.display = 'none'
 
-            document.getElementById('cardSection').style.width = '100%'
+            document.getElementById('cardView').style.width = '100%'
+            document.getElementById('cardView').style.margin = '0px 0px 0px -100px'
         }else{
             console.log('open')
             $scope.barState = true
-            document.getElementById('sideNav').style.width = '200px'
-            document.getElementById('sideNav').style.display = 'inline-block'
-            document.getElementById('cardSection').style.display = 'inline-block'
-            document.getElementById('cardSection').style.width = '80%'
+            document.getElementById('sideTagSection').style.width = '200px'
+            document.getElementById('sideTagSection').style.display = 'inline-block'
+            document.getElementById('cardView').style.display = 'inline-block'
+            document.getElementById('cardView').style.margin = '0px 0px 0px 0px'
         }
     }
 
