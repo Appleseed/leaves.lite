@@ -91555,7 +91555,27 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     $scope.loadMore = function() {
         homeData(1);
     }
+    
     $scope.entries = dataArray
+
+    $scope.searchLeaf = function(searchValue){
+        console.log(searchValue)
+        dataArray = []
+        $http({
+            method: 'GET',
+            url: 'https://ss346483-us-east-1-aws.searchstax.com/solr/leaves_anant_stage/select?q='+searchValue,
+        }).then(function(success) {
+            console.log(success.data.response.docs)
+            angular.forEach(success.data.response.docs, function(value) {
+                dataArray.push(value)
+            })
+        }).catch(function(response) {
+            $scope.error = response
+        }).finally(function() {
+
+        })
+        $scope.entries = dataArray
+    }
 }])
 
 
