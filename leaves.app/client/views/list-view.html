@@ -1,6 +1,13 @@
 <div class="container-fluid">
 <div class="row" id="cardView">
     <div ng-class="(isidexit == 0) ? 'col-md-12' : 'col-md-4'" id="grid">
+        <form class="navbar-form navbar-left search-box" ng-submit="searchLeaf(searchValue)" role="search" style="width:50%">
+                <div class="inner-addon left-addon" style="width:100%">
+                    <i class="fa fa-search"></i>
+                    <input type="text" ng-value="searchParams" ng-model="searchValue" class="form-control" placeholder="Enter your search query" style="width:100%" />
+                </div>
+            </form>
+        <h2>{{searchTagMessage}}</h2>
         <div class="card-view">
             <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
             <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
@@ -11,7 +18,7 @@
                 </div>
         </ul>
         <div class="text-center loading_button" ng-if="loading_button">              
-            <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+            <button class="btn btn-primary" ng-click="searching ? loadSearchQuery() : loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
         </div>
     </div>
     <div class="col-md-7" id="reader">

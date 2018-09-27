@@ -29,9 +29,9 @@ html {
 }
 .search-box {
     width: 50%;
-    position: absolute;
-    top: -50px;
-    left: 0;
+    position: fixed;
+    top: 0px;
+    left: 150px;
     z-index: 99;
 }
 .single-content h1,

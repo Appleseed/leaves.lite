@@ -111,6 +111,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     $scope.loading_button = false
     var dataArray = []
     var itemIds = []
+    $scope.searching = false
     $scope.current_params = {
         tag: $stateParams.tag
     }
@@ -168,25 +169,42 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     }
     
     $scope.entries = dataArray
+    var searchingPage = 1
+
 
     $scope.searchLeaf = function(searchValue){
-        console.log(searchValue)
+        $scope.searchTagMessage ="Search Tag: " + searchValue
+        $scope.searching = true
         dataArray = []
-        $http({
+        $scope.searchQuery = searchValue
+        $scope.loadSearchQuery(searchValue)
+    }
+    $scope.loadSearchQuery = function(){
+        $scope.loadingMessage = true
+        var searchParams = {
+            rows:30,
+            start: searchingPage * 30,
+            q: $scope.searchQuery
+        }
+         $http({
             method: 'GET',
-            url: 'https://ss346483-us-east-1-aws.searchstax.com/solr/leaves_anant_stage/select?q='+searchValue,
+            url: 'https://ss346483-us-east-1-aws.searchstax.com/solr/leaves_anant_stage/select',
+            params: searchParams
         }).then(function(success) {
-            console.log(success.data.response.docs)
+            var totalSearchFound = success.data.response.numFound
             angular.forEach(success.data.response.docs, function(value) {
                 dataArray.push(value)
             })
         }).catch(function(response) {
             $scope.error = response
         }).finally(function() {
-
+            $scope.loadingMessage = false
         })
+        searchingPage = searchingPage + 1
         $scope.entries = dataArray
     }
+
+
 }])
 
 
