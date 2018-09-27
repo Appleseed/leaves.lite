@@ -27,7 +27,13 @@ html {
     padding-bottom: 30px;
     width: 85%;
 }
-
+.search-box {
+    width: 50%;
+    position: fixed;
+    top: 0px;
+    left: 150px;
+    z-index: 99;
+}
 .single-content h1,
 .single-content p,
 .entry-meta h4,

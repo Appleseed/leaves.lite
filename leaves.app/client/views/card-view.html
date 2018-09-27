@@ -1,5 +1,12 @@
 <div class="row" style="margin-right: 10px" id="cardView">
     <div ng-class="isidexit ? 'col-md-4' : 'col-md-12'">
+        <form class="navbar-form navbar-left search-box" ng-submit="searchLeaf(searchValue)" role="search" style="width:50%">
+                <div class="inner-addon left-addon" style="width:100%">
+                    <i class="fa fa-search"></i>
+                    <input type="text" ng-value="searchParams" ng-model="searchValue" class="form-control" placeholder="Enter your search query" style="width:100%" />
+                </div>
+            </form>
+        <h2>{{searchTagMessage}}</h2>
         <div class="card-view">
             <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
             <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
@@ -10,7 +17,7 @@
             </div>
         </div>
         <div class="text-center loading_button" ng-if="loading_button && 'entries.length <= entries.total'">              
-            <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+            <button class="btn btn-primary" ng-click="searching ? loadSearchQuery() : loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
         </div>
     </div>
     <div class="col-md-7" id="reader">
