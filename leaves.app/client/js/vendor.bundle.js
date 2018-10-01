@@ -91,7 +91,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + chunkId + ".app.bundle.js";
+/******/ 		script.src = __webpack_require__.p + "" + chunkId + ".js/app.bundle.js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -147,7 +147,7 @@
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 158);
+/******/ 	return __webpack_require__(__webpack_require__.s = 159);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -34526,7 +34526,7 @@ $provide.value("$locale", {
 
 /***/ }),
 
-/***/ 158:
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(129);

@@ -96,17 +96,18 @@ app.controller('navbarCtrl',['$scope', function($scope){
         if(state){
             console.log('closed')
             $scope.barState = false
-            document.getElementById('sideNav').style.width = '0'
-            document.getElementById('sideNav').style.display = 'none'
+            document.getElementById('sideTagSection').style.width = '0'
+            document.getElementById('sideTagSection').style.display = 'none'
 
-            document.getElementById('cardSection').style.width = '100%'
+            document.getElementById('cardView').style.width = '100%'
+            document.getElementById('cardView').style.margin = '0px 0px 0px -100px'
         }else{
             console.log('open')
             $scope.barState = true
-            document.getElementById('sideNav').style.width = '200px'
-            document.getElementById('sideNav').style.display = 'inline-block'
-            document.getElementById('cardSection').style.display = 'inline-block'
-            document.getElementById('cardSection').style.width = '80%'
+            document.getElementById('sideTagSection').style.width = '200px'
+            document.getElementById('sideTagSection').style.display = 'inline-block'
+            document.getElementById('cardView').style.display = 'inline-block'
+            document.getElementById('cardView').style.margin = '0px 0px 0px 0px'
         }
     }
 
@@ -193,6 +194,7 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
         document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1
+        console.log(id)
         if (listarr.indexOf(id) === -1) {
             listarr.push(id)
             $scope.listArray = listarr
@@ -200,21 +202,45 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
             $state.go('list-view.reader', param)
         }
     }
+
+    $scope.getExternalLink = function(data){
+        var link;
+        if(data.domain_name === 'www.youtube.com'){
+            link = data.url.split("url=")[1]
+        }else{
+            link = data.url
+        }
+        return link;
+    }
 }])
 app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
     $scope.added_date = function(tm) {
         return tm.split('T')[0]
     }
     $scope.getSingleLeaves = function(id, listarr) {
+        var leave_id = String(id)
+        console.log('adding...')
         document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1
-        if (listarr.indexOf(id) === -1) {
-            listarr.push(id)
+        if (listarr.indexOf(leave_id) === -1) {
+            listarr.push(leave_id)
             $scope.listArray = listarr
             var param = { ids: listarr }
             $state.go('home.reader', param)
+        }else{
+            alert("Already Added.");
         }
+    }
+
+    $scope.getExternalLink = function(data){
+        var link;
+        if(data.domain_name === 'www.youtube.com'){
+            link = data.url.split("url=")[1]
+        }else{
+            link = data.url
+        }
+        return link;
     }
 }])
 

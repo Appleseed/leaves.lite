@@ -6,7 +6,7 @@
                 <i class="fa fa-list" ng-click="listView()"></i>
                 <i class="fa fa-th-large" ng-click="cardView()"></i>
             </div>
-            <div class="row" id="cardView">
+            <div class="row">
                 <div class="card-view col-lg-4" ng-repeat="entry in entries" ng-if="card_view">
                     <leaves-card data="entry" listarr="listArray"></leaves-card>
                 </div>

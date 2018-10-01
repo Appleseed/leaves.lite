@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Appleseed Leaves.Lite</title>
-    <link rel="icon" href="img/leaves-favicon.png" class="js-favicon">
 
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
@@ -17,9 +16,12 @@
     <link rel="stylesheet" type="text/css" href="css/chrome-tabs.css">
     <link href="https://fonts.googleapis.com/css?family=Vollkorn|Montserrat" rel="stylesheet">
     <!-- <base href="/"> -->
+    <%= htmlWebpackPlugin.options.GA %>
 </head>
-
 <body ng-controller="mainController" id="body">
+<script type="text/javascript">
+    <%= htmlWebpackPlugin.options.PTCODE %>
+</script>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KD9CDQS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <leaves-nav></leaves-nav>
         <div class="leaves-container">
@@ -40,7 +42,7 @@
         <center><button class="minimizeButton" type="submit" onclick="closeIframe()" title="minimize"><i class="fa fa-close"></i></button></center>
         <div id="originalContent"></div>
     </div>
-<script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="js/app.bundle.js"></script><script type="text/javascript" src="js/vendor.bundle.js"></script><script type="text/javascript" src="js/app.bundle.js"></script><script type="text/javascript" src="js/vendor.bundle.js"></script><script type="text/javascript" src="js/app.bundle.js"></script></body>
+<script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="js/app.bundle.js"></script><script type="text/javascript" src="js/vendor.bundle.js"></script><script type="text/javascript" src="js/app.bundle.js"></script></body>
 <script type="text/javascript" src="./env.js"></script>
 <script type="text/javascript" src="js/vendor.bundle.js"></script>
 <script type="text/javascript" src="js/app.bundle.js"></script>

@@ -8,7 +8,7 @@
                 <h3 class="mb-1">{{data.title}}</h3>
                 <small ng-bind="added_date(data.created_at)"></small>
             </div>
-            <small>{{data.url}}</small>
+            <small>{{getExternalLink(data)}}</small>
         </a>
     </div>
 </div>
