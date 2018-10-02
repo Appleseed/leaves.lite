@@ -79,7 +79,6 @@ app.controller('navbarCtrl',['$scope', function($scope){
                 document.getElementById("loginMsg").innerHTML = "Please logged In"
             }
         })
-        console.log($scope.loginMsg)
     }
 
     firebase.auth().onAuthStateChanged(function(user) {
@@ -94,7 +93,6 @@ app.controller('navbarCtrl',['$scope', function($scope){
     $scope.barState = true
     $scope.navCloseOpen = function(state){
         if(state){
-            console.log('closed')
             $scope.barState = false
             document.getElementById('sideTagSection').style.width = '0'
             document.getElementById('sideTagSection').style.display = 'none'
@@ -102,7 +100,6 @@ app.controller('navbarCtrl',['$scope', function($scope){
             document.getElementById('cardView').style.width = '100%'
             document.getElementById('cardView').style.margin = '0px 0px 0px -100px'
         }else{
-            console.log('open')
             $scope.barState = true
             document.getElementById('sideTagSection').style.width = '200px'
             document.getElementById('sideTagSection').style.display = 'inline-block'
@@ -150,7 +147,6 @@ app.controller('navbarCtrl',['$scope', function($scope){
         firebase.auth().onAuthStateChanged(function(user){
              if(user){
                 $scope.userLoggedIn = true;
-                console.log('You already logged In!');
             }else{
                 var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -194,7 +190,6 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
         document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1
-        console.log(id)
         if (listarr.indexOf(id) === -1) {
             listarr.push(id)
             $scope.listArray = listarr
@@ -219,7 +214,6 @@ app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($sc
     }
     $scope.getSingleLeaves = function(id, listarr) {
         var leave_id = String(id)
-        console.log('adding...')
         document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1

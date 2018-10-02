@@ -18,7 +18,6 @@ function disableLogging($logProvider, ENV) {
   $logProvider.debugEnabled(ENV.ENABLEDEBUG);
 }
   app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', function($scope, $http, $state, $location, $rootScope, ENV) {
-    console.log(ENV)
     $scope.card_view = true
     $rootScope.readerFromInbox = true
     $rootScope.listArray = []
@@ -30,32 +29,6 @@ function disableLogging($logProvider, ENV) {
             tag: 'home'
         })
         $rootScope.isidexit = 0
-    }
-
-    $scope.newLeaf = function(incoming_url) {
-        firebase.auth().onAuthStateChanged(function(user) {
-        if(user){
-            $http({
-                method: 'POST',
-                url: ENV.LEAVES_API_URL + '/api/entries',
-                params: { access_token: ENV.LEAVES_API_ACCESSTOKEN },
-                data: $.param({
-                    url: incoming_url
-                }),
-                headers: { 'content-type': 'application/x-www-form-urlencoded' }
-            }).then(function(success) {
-                $scope.entries = success.data
-                $scope.leavesurl = ''
-                document.getElementById('closeButton').click()
-            }).catch(function(response) {
-                $scope.error = response
-            });
-        }else {
-            document.getElementById("addleafError").innerHTML = "Please Logged In!"
-            $scope.userLoggedIn = false
-        }
-    });
-        
     }
 
     //$http.get call to get all tags json
@@ -109,7 +82,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     $scope.stateJson = $state.current
     var page = 1
     $scope.loading_button = false
-    var dataArray = []
+    $scope.entries = []
     var itemIds = []
     $scope.searching = false
     $scope.current_params = {
@@ -117,6 +90,10 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     }
 
     function homeData(loadmore) {
+        if(loadmore == 0){
+            page = 1
+            $scope.entries = []
+        }
         if ($stateParams.tag && $stateParams.tag != 'home') {
             var tagName = $stateParams.tag;
             if (tagName.includes('-')) tagName = tagName.split('-').join(' ');
@@ -138,6 +115,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
                 page: page
             }
         }
+        console.log(param)
         $scope.loadingMessage = true
         if (page >= 2) {
             $scope.loading_button = true
@@ -149,13 +127,13 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
         }).then(function(success) {
             $scope.homeData = success
             angular.forEach(success.data._embedded.items, function(value) {
-                dataArray.push(value)
+                $scope.entries.push(value)
             })
         }).catch(function(response) {
             $scope.error = response
         }).finally(function() {
             page = page + 1
-            if (dataArray.length < $scope.homeData.data.total) {
+            if ($scope.entries.length < $scope.homeData.data.total) {
                 $scope.loading_button = true
                 $scope.loadingMessage = false
             }
@@ -168,9 +146,40 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
         homeData(1);
     }
     
-    $scope.entries = dataArray
+    // $scope.entries = dataArray
     var searchingPage = 1
 
+    $scope.reLoadPage = function(){
+        console.log('re-loading')
+        homeData(0);
+    }
+
+    $scope.newLeaf = function(incoming_url) {
+        firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            $http({
+                method: 'POST',
+                url: ENV.LEAVES_API_URL + '/api/entries',
+                params: { access_token: ENV.LEAVES_API_ACCESSTOKEN },
+                data: $.param({
+                    url: incoming_url
+                }),
+                headers: { 'content-type': 'application/x-www-form-urlencoded' }
+            }).then(function(success) {
+                // $scope.entries = success.data
+                $scope.reLoadPage()
+                $scope.leavesurl = ''
+                document.getElementById('closeButton').click()
+            }).catch(function(response) {
+                $scope.error = response
+            });
+        }else {
+            document.getElementById("addleafError").innerHTML = "Please Logged In!"
+            $scope.userLoggedIn = false
+        }
+    })
+        
+    }
 
     $scope.searchLeaf = function(searchValue){
         $scope.searchTagMessage ="Search Tag: " + searchValue
