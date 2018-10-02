@@ -91497,7 +91497,6 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
                 page: page
             }
         }
-        console.log(param)
         $scope.loadingMessage = true
         if (page >= 2) {
             $scope.loading_button = true
