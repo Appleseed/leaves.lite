@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="leavesNext" ng-controller="rootController">
+<html ng-app="leavesNext">
 
 <head>
     <title>Leaves.Lite App</title>
@@ -16,9 +16,12 @@
     <link rel="stylesheet" type="text/css" href="css/chrome-tabs.css">
     <link href="https://fonts.googleapis.com/css?family=Vollkorn|Montserrat" rel="stylesheet">
     <!-- <base href="/"> -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125368255-3"></script><script>window.dataLayer=window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag("js", new Date()); gtag("config", "UA-125368255-3");</script>
 </head>
-
 <body ng-controller="mainController" id="body">
+<script type="text/javascript">
+    window._pt_lt=new Date().getTime(); window._pt_sp_2=[]; _pt_sp_2.push("setAccount,35ee64ef"); var _protocol=(("https:"==document.location.protocol) ? " https://" : " http://"); (function(){var atag=document.createElement("script"); atag.type="text/javascript"; atag.async=true; atag.src=_protocol + "cjs.ptengine.com/pta_en.js"; var s=document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(atag, s);})();
+</script>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KD9CDQS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <leaves-nav></leaves-nav>
         <div class="leaves-container">
@@ -39,14 +42,14 @@
         <center><button class="minimizeButton" type="submit" onclick="closeIframe()" title="minimize"><i class="fa fa-close"></i></button></center>
         <div id="originalContent"></div>
     </div>
-</body>
+<script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="js/app.bundle.js"></script><script type="text/javascript" src="js/vendor.bundle.js"></script><script type="text/javascript" src="js/app.bundle.js"></script><script type="text/javascript" src="js/vendor.bundle.js"></script><script type="text/javascript" src="js/app.bundle.js"></script></body>
+<script type="text/javascript" src="./env.js"></script>
 <script type="text/javascript" src="js/vendor.bundle.js"></script>
 <script type="text/javascript" src="js/app.bundle.js"></script>
 <script>
     $(function() {
         $('#myTab a:last').tab('show')
     })
-
     function closeIframe() {
         document.getElementById("contentInIframe").style.height = "0%";
         document.body.style.overflow = 'scroll';
@@ -55,7 +58,6 @@
     function outerClickHide() {
         document.getElementById('shareModal').style.display = "none";
     }    
-
     function copyThisShortLink() {
         var copyText = document.getElementById("bitlyLink");
         copyText.select();
