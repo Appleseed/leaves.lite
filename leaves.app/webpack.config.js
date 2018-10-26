@@ -8,10 +8,10 @@ module.exports = {
     },
     watch: false,
     output: {
-        path: __dirname + '/client/js',
-        filename: 'app.bundle.js'
+        path: __dirname + '/client',
+        filename: 'js/app.bundle.js'
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' })
+        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'js/vendor.bundle.js' })
     ]
 };
