@@ -52,6 +52,13 @@ html {
     display: inline-block;
 }
 
+.active-tag:after {
+    content: " \2713";
+    height: 5px;
+    width: 5px;
+    color: green;
+}
+
 .logo-title {
     cursor: pointer;
 }

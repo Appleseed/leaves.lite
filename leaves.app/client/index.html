@@ -28,11 +28,11 @@
                     <input type="text" ng-model="tag_name" placeholder="Search by tag">
                 </div>
                 <ul>
-                    <li ng-repeat="tag in tags | filter:tag_name" ui-sref="home({tag:tag.slug})">{{tag.label}}</li>
+                    <li ng-repeat="tag in tags | filter:tag_name" ng-class="{'active-tag': tag.active}" ng-click="multipleTagSelect(tagsString, tag.slug)">{{tag.label}}</li>
                 </ul>
             </div>
             <div class="leaves-cards" id="leavesCards">
-                <ui-view id="injecter"></ui-view>
+                <ui-view id="injecter"></ui-view>                
             </div>
         </div>
     <div id="contentInIframe" class="second-layer">

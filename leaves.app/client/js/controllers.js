@@ -29,6 +29,7 @@ function disableLogging($logProvider, ENV) {
             tag: 'home'
         })
         $rootScope.isidexit = 0
+        $scope.tagsArray = []
     }
 
     //$http.get call to get all tags json
@@ -45,7 +46,8 @@ function disableLogging($logProvider, ENV) {
             tags_list.push({
                 id: value.id,
                 label: value.label,
-                slug: slug
+                slug: slug,
+                active: false
             })
         })
     }).catch(function(response) {
@@ -58,6 +60,36 @@ function disableLogging($logProvider, ENV) {
         $state.go('home.reader', {ids:leafArray})
     }
 
+    $scope.tagsArray = []
+
+    function removeItem(items, i){
+        $scope.tagsArray.splice(i, 1)
+    }
+
+    function sortTagArray(){
+        $scope.tags.sort(function(x, y) {
+            // true values first
+            return (x.active === y.active)? 0 : x.active? -1 : 1;
+            // false values first
+            // return (x === y)? 0 : x? 1 : -1;
+        });
+    }
+
+    $scope.multipleTagSelect = function(tagsArrayValues, tagSlug){
+        var tagIndex = $scope.tagsArray.indexOf(tagSlug)
+        var slugIndex = $scope.tags.findIndex(obj => obj.slug == tagSlug);
+        console.log(slugIndex)
+        if(tagIndex < 0){
+            $scope.tagsArray.push(tagSlug)
+            $scope.tags[slugIndex]['active'] = true
+        }else{
+            removeItem($scope.tagsArray, tagIndex)
+            $scope.tags[slugIndex]['active'] = false
+        }
+        $state.go('home', {tag:$scope.tagsArray.join(',')})
+        sortTagArray()
+        console.log($scope.tagsArray)
+    }
 
      $scope.makeBitlyLink = function(){
         document.getElementById('shareModal').style.display = "block";
@@ -84,6 +116,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     $scope.loading_button = false
     $scope.entries = []
     var itemIds = []
+    var dataArray;
     $scope.searching = false
     $scope.current_params = {
         tag: $stateParams.tag
@@ -96,6 +129,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
         }
         if ($stateParams.tag && $stateParams.tag != 'home') {
             var tagName = $stateParams.tag;
+            console.log(tagName)
             if (tagName.includes('-')) tagName = tagName.split('-').join(' ');
 
             var param = {
@@ -106,6 +140,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
                 page: page,
                 tags: tagName
             }
+            console.log(param)
         } else {
             var param = {
                 access_token: ENV.LEAVES_API_ACCESSTOKEN,
@@ -196,9 +231,10 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
         }
          $http({
             method: 'GET',
-            url: 'https://ss346483-us-east-1-aws.searchstax.com/solr/leaves_anant_stage/select',
+            url: 'http://stage.leaves.anant.us/solr/',
             params: searchParams
         }).then(function(success) {
+            console.log(success)
             var totalSearchFound = success.data.response.numFound
             angular.forEach(success.data.response.docs, function(value) {
                 dataArray.push(value)
