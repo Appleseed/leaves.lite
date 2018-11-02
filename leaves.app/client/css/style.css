@@ -8,6 +8,117 @@ html {
     height: 100vh
 }
 
+.main-container {
+    display: -ms-flexbox;
+display: flex;
+}
+
+.leaves-header {
+    width: calc(100% - 240px);
+    top: 0;
+    left: auto;
+    right: 0;
+    position: fixed;
+}
+
+.responsive-side-navbar {
+    width: 240px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.responsive-side-navbar .responsive-xs-down {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+.responsive-side-navbar .responsive-xs-down .drawer-docker {
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+.responsive-side-navbar .responsive-xs-down .drawer-docker .drawer-box {
+    width: 240px;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    left: 0;
+    right: auto;
+    top: 0;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    height: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    z-index: 1200;
+    outline: none;
+    position: fixed;
+    overflow-y: auto;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-overflow-scrolling: touch;
+}
+
+.reader-content {
+    width: 100%;
+}
+
+.cards-reader {
+    display: grid;
+    grid-template-columns: 100%;
+}
+
+.reader-view {
+    height: calc(100vh - 50px);
+overflow-y: scroll;
+}
+
+.cards-reader .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    grid-gap: 10px;
+
+}
+
+@media only screen and (max-width: 800px) {
+
+    .responsive-side-navbar {
+        width: 0;
+    }
+
+    .responsive-xs-down .drawer-docker .drawer-box{
+        width: 0px;
+    }
+
+    .mobile-side-navbar {
+        width: 0;
+        height: 100vh;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 99;
+        position: fixed;
+    }
+
+    .mobile-side-navbar .responsive-xs-down .drawer-docker .drawer-box{
+        width: 0px;
+        background-color: #fff;
+    }
+
+    .leaves-header {
+        width: 100% !important;
+    }
+}
+
+.cards-reader-active {
+    height: calc(100vh - 50px);
+    overflow-y: scroll;
+}
+
+.cards-reader-active {
+    display: grid;
+    grid-template-columns: 30% 70%;    
+}
+
 .menu-icon {
     margin: 0px 15px;
     cursor: pointer;
@@ -25,7 +136,6 @@ html {
 #injecter {
     position: absolute;
     padding-bottom: 30px;
-    width: 85%;
 }
 .search-box {
     width: 50%;
@@ -106,6 +216,19 @@ html {
 .modal,
 .loadingMessage p {
     font-family: 'Montserrat', sans-serif;
+}
+
+@media only screen and (max-width: 900px) {
+    .side-tag-section {
+        width: 0px !important;
+    }
+    .leaves-cards {
+        width: 100% !important
+    }
+    .single-content {
+        position: absolute;
+
+    }
 }
 
 .single-content .leave-title {
@@ -397,7 +520,7 @@ html {
     font-family: 'Montserrat', sans-serif;
 }
 
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 900px) {
     .side-tag-navbar {
         display: none;
     }

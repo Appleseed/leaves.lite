@@ -1,4 +1,23 @@
-<div class="row" style="margin-right: 10px" id="cardView">
+<div class="cards-reader"  ng-class="isidexit ? 'cards-reader-active' : 'cards-reader'">
+
+    <div class="cards">
+        <div class="card-list" ng-repeat="entry in entries">
+            <leaves-card data="entry" listarr="listArray"></leaves-card>
+        </div>
+
+        <div class="text-center loading_button" ng-if="loading_button && 'entries.length <= entries.total'">              
+            <button class="btn btn-primary" ng-click="searching ? loadSearchQuery() : loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+        </div>
+    </div>
+
+    <div class="reader-view">
+        <div ui-view></div>
+    </div>
+
+</div>
+
+
+<!-- <div class="row" id="cardView">
     <div ng-class="isidexit ? 'col-md-4' : 'col-md-12'">
         <form class="navbar-form navbar-left search-box" ng-submit="searchLeaf(searchValue)" role="search" style="width:40%">
                 <div class="inner-addon left-addon" style="width:100%">
@@ -23,7 +42,7 @@
     <div class="col-md-7" id="reader">
         <div ui-view></div>
     </div>
-</div>
+</div> -->
 <div class="modal fade bs-example-modal-lg" id="addLeaf" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

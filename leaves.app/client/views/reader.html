@@ -2,9 +2,8 @@
     <li ng-repeat="item in leaves">{{ item.title }} </li>
 </ul>-->
 
-<div class="row single-content" ng-if="leaves" ng-if="readerView">
-    <div class="col-md-12">
-        <scrollable-tabset show-tooltips="true">
+<div ng-if="leaves" ng-if="readerView">
+<scrollable-tabset show-tooltips="true">
             <uib-tabset class="tab-container" id="readerTabs">
                 <uib-tab ng-repeat="item in leaves" active="item.active" >
                     <uib-tab-heading title="{{item.title}}">
@@ -30,5 +29,4 @@
                 </uib-tab>
             </uib-tabset>
         </scrollable-tabset>
-    </div>
 </div>
