@@ -2,7 +2,17 @@
     <li ng-repeat="item in leaves">{{ item.title }} </li>
 </ul>-->
 
-<div ng-if="leaves" ng-if="readerView">
+<div ng-if="leaves" ng-if="readerView"  ng-class="isidexit ? (isReaderActive ? 'mobile-reader-active' : 'mobile-reader') : ''">
+    <div class="reader-header">
+        <div class="maximize">
+            <button  ng-click="minReaderActive()" ng-if="isReaderActive">
+                <i class="fa fa-minus-square"></i>
+            </button>
+            <button  ng-click="maxReaderActive()" ng-if="!isReaderActive">
+                <i class="fa fa-window-maximize"></i>
+            </button>
+        </div>
+    </div>
 <scrollable-tabset show-tooltips="true">
             <uib-tabset class="tab-container" id="readerTabs">
                 <uib-tab ng-repeat="item in leaves" active="item.active" >

@@ -2,6 +2,7 @@ body {
     padding-top: 70px;
     background-color: #eeeeee;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 html {
@@ -67,18 +68,108 @@ display: flex;
 }
 
 .reader-view {
-    height: calc(100vh - 50px);
-overflow-y: scroll;
+    height: calc(100vh - 80px);
+    overflow-y: scroll;
 }
 
 .cards-reader .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
     grid-gap: 10px;
-
+    width: 100%;
+    height: calc(100vh - 80px);
+    overflow-y: scroll;
+    overflow-x: scroll;
 }
 
+.cards-reader .cards-list {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-gap: 10px;
+    width: 100%;
+    height: calc(100vh - 80px);
+    overflow-y: scroll;
+    overflow-x: scroll;
+}
+
+.cards-reader-active .cards {
+    height: calc(100vh - 80px);
+    overflow-y: scroll;    
+    overflow-x: hidden;
+}
+
+.cards-reader-active .cards-list {
+    height: calc(100vh - 80px);
+    overflow-y: scroll;    
+    overflow-x: hidden;
+}
+
+.reader-header {
+    display: none;
+    height: 0;
+}
 @media only screen and (max-width: 800px) {
+    .mobile-reader {
+        position: fixed;
+        bottom: 0;
+        left:0;
+        height: 70px;
+        width: 100%; 
+        background-color: #fff;   
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .mobile-reader-active {
+        position: fixed;
+        top: 0;
+        left:0;
+        height: 100vh;
+        width: 100%; 
+        background-color: #fff;   
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+    }
+
+
+.tab-container {
+    top: 30px;
+    position: relative;
+}
+    .cards-reader{
+
+    display: grid;
+    grid-template-columns: 100% !important;    
+    height: calc(100vh - 50px);
+    }
+.cards-reader-active {
+    display: grid;
+    grid-template-columns: 100% !important;    
+    height: calc(100vh - 50px);
+}
+
+.reader-header {
+     position: fixed;
+    right: 30px;
+    height: 30px;
+    display: block;
+    z-index: 999;
+}
+
+.ui-tabs-scrollable > .nav-button {
+    top: 27px !important;
+}
+.ui-tabs-scrollable > .dropdown > .dropdown-toggle {
+    top: 27px !important;
+}
+
+.reader-header .maximize i {
+    cursor: pointer;
+}
+}
+
+@media only screen and (max-width: 1100px) {
 
     .responsive-side-navbar {
         width: 0;
@@ -109,14 +200,11 @@ overflow-y: scroll;
     }
 }
 
-.cards-reader-active {
-    height: calc(100vh - 50px);
-    overflow-y: scroll;
-}
 
 .cards-reader-active {
     display: grid;
     grid-template-columns: 30% 70%;    
+    height: calc(100vh - 50px);
 }
 
 .menu-icon {
@@ -475,6 +563,7 @@ overflow-y: scroll;
     
     padding-bottom: 100px;
 }
+
 
 .tab-container .entry-meta {
     height: 40px;

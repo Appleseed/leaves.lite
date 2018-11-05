@@ -1,5 +1,10 @@
-<div class="cards-reader"  ng-class="isidexit ? 'cards-reader-active' : 'cards-reader'">
 
+     <!--    <h3 ng-if="searchTagMessage">{{searchTagMessage}}</h3>
+        <div class="card-view">
+            <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
+            <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
+        </div> -->
+<div class="cards-reader"  ng-class="isidexit ? 'cards-reader-active' : 'cards-reader'">
     <div class="cards">
         <div class="card-list" ng-repeat="entry in entries">
             <leaves-card data="entry" listarr="listArray"></leaves-card>

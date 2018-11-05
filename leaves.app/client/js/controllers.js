@@ -111,6 +111,7 @@ function disableLogging($logProvider, ENV) {
 app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$stateParams', 'ENV', function($scope, $rootScope, $http, $state, $stateParams, ENV) {
 
     $rootScope.isidexit = 0
+    $rootScope.isReaderActive = false
     $scope.stateJson = $state.current
     var page = 1
     $scope.loading_button = false
@@ -180,6 +181,14 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
         homeData(1);
     }
     
+    $scope.minReaderActive = function(){
+        $rootScope.isReaderActive = false
+    }
+    $scope.maxReaderActive = function(){
+        console.log($rootScope.isReaderActive)
+        $rootScope.isReaderActive = true
+    }
+
     // $scope.entries = dataArray
     var searchingPage = 1
 
@@ -274,6 +283,9 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         }).finally(function() {
             $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
             $scope.readerView = true
+            if(!$rootScope.isReaderActive){
+                $rootScope.isReaderActive = true
+            }
             if($rootScope.leaves.length > 1){
                 $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
             }

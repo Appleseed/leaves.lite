@@ -1,3 +1,31 @@
+    <!-- 
+        <h3 ng-if="searchTagMessage">{{searchTagMessage}}</h3>
+        <div class="card-view">
+            <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
+            <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
+        </div> -->
+<div class="cards-reader"  ng-class="isidexit ? 'cards-reader-active' : 'cards-reader'">
+    <div class="cards-list">
+        <ul class="list-group list-view">
+                <div  class="col-md-12" ng-repeat="entry in entries" style="margin-right: 10px;background-color: #fff">                        
+                    <leaves-list data="entry" listarr="listArray"></leaves-list>
+                </div>
+        </ul>
+
+        <div class="text-center loading_button" ng-if="loading_button && 'entries.length <= entries.total'">              
+            <button class="btn btn-primary" ng-click="searching ? loadSearchQuery() : loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+        </div>
+    </div>
+
+    <div class="reader-view">
+        <div ui-view></div>
+    </div>
+
+</div>
+
+
+<!-- 
+
 <div class="container-fluid">
 <div class="row" id="cardView">
     <div ng-class="(isidexit == 0) ? 'col-md-12' : 'col-md-4'" id="grid">
@@ -22,11 +50,10 @@
         </div>
     </div>
     <div class="col-md-7" id="reader">
-        <!-- <i class="fa fa-caret-square-o-right"></i> -->
         <div ui-view></div>
     </div>
 </div>
-</div>
+</div> -->
 <div class="modal fade bs-example-modal-lg" id="addLeaf" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
