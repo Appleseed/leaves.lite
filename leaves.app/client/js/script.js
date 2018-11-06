@@ -228,8 +228,14 @@ app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($sc
             var param = { ids: listarr }
             $state.go('home.reader', param)
         }else{
-            alert("Already Added.");
+            toastMessage()
         }
+    }
+
+    function toastMessage() {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
     }
 
     $scope.getExternalLink = function(data){
