@@ -3,7 +3,9 @@ body {
     background-color: #eeeeee;
     overflow-x: hidden;
     overflow-y: hidden;
+    font-family: 'Questrial', sans-serif;
 }
+
 
 html {
     height: 100vh
@@ -14,12 +16,18 @@ html {
 display: flex;
 }
 
+.modal-backdrop {
+    position: relative;
+}
+
 .leaves-header {
     width: calc(100% - 240px);
     top: 0;
     left: auto;
     right: 0;
     position: fixed;
+    background-color: #fafafa;
+border-bottom: 1px solid #ebebeb;
 }
 
 .responsive-side-navbar {
@@ -49,7 +57,7 @@ display: flex;
     height: 100%;
     display: -ms-flexbox;
     display: flex;
-    z-index: 1200;
+    z-index: 99;
     outline: none;
     position: fixed;
     overflow-y: auto;
@@ -60,11 +68,13 @@ display: flex;
 
 .reader-content {
     width: 100%;
+    margin-top: -20px;
 }
 
 .cards-reader {
     display: grid;
     grid-template-columns: 100%;
+    padding: 10px;
 }
 
 .reader-view {
@@ -77,7 +87,7 @@ display: flex;
     grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
     grid-gap: 10px;
     width: 100%;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 50px);
     overflow-y: scroll;
     overflow-x: scroll;
 }
@@ -116,8 +126,11 @@ display: flex;
         height: 70px;
         width: 100%; 
         background-color: #fff;   
-        overflow-y: scroll;
+        overflow-y: hidden;
         overflow-x: hidden;
+        background-color: #fafafa;
+        border-bottom: 1px solid #ebebeb;
+        box-shadow: 0 -5px 5px -5px rgba(0,0,0,.8);
     }
 
     .mobile-reader-active {
@@ -132,6 +145,13 @@ display: flex;
 
     }
 
+    .loading_button {
+        margin-bottom: 60px;
+    }
+
+.reader-content {
+   margin-top: -35px;
+}
 
 .tab-container {
     top: 30px;
@@ -154,7 +174,7 @@ display: flex;
     right: 30px;
     height: 30px;
     display: block;
-    z-index: 999;
+    z-index: 100;
 }
 
 .ui-tabs-scrollable > .nav-button {
@@ -170,6 +190,11 @@ display: flex;
 }
 
 @media only screen and (max-width: 1100px) {
+
+    .menu-bar {
+        cursor: pointer;
+        display: inline-block !important;
+    }
 
     .responsive-side-navbar {
         width: 0;
@@ -189,6 +214,21 @@ display: flex;
         z-index: 99;
         position: fixed;
     }
+    .mobile-side-navbar-active{
+        height: 100vh;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.4);
+        position: fixed;
+        z-index: 99;
+    }
+    .mobile-side-navbar-active .responsive-xs-down .drawer-docker .drawer-box{
+        width: 240px;
+        background-color: #fff;     
+    }
 
     .mobile-side-navbar .responsive-xs-down .drawer-docker .drawer-box{
         width: 0px;
@@ -198,6 +238,16 @@ display: flex;
     .leaves-header {
         width: 100% !important;
     }
+
+
+
+.navbar-header {
+           -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+              -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+                         box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+
+}
+
 }
 
 
@@ -240,7 +290,7 @@ display: flex;
 .modal,
 .loadingMessage p,
 .tag-state {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
 }
 
 .tag-state {
@@ -303,7 +353,7 @@ display: flex;
 .navbar,
 .modal,
 .loadingMessage p {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
 }
 
 @media only screen and (max-width: 900px) {
@@ -328,6 +378,7 @@ display: flex;
 
 .menu-bar {
     cursor: pointer;
+    display: none;
 }
 
 .inboxButton, .add-leaf, .do-login {
@@ -349,7 +400,7 @@ display: flex;
     height: 100vh;
     position: fixed;
     overflow-y: hidden;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
 }
 
@@ -375,10 +426,26 @@ display: flex;
     cursor: pointer;
 }
 
+.tags-list {
+    padding: 10px;
+    list-style: none;
+}
+
+.tags-list li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.tags-list li:hover {
+    background-color: #cdcdcd;
+}
 
 .tag-search-input input{
-    position: absolute;
-    width: 90%;
+    /*position: fixed;*/
+    margin: 10px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    width: inherit;
 }
 
 .side-tag-section input {
@@ -420,7 +487,7 @@ display: flex;
     right: -20px;
     overflow: auto;
     padding-bottom: 100px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
 }
 
 .navbar-default {
@@ -443,7 +510,6 @@ display: flex;
     padding: 5px;
     font-size: 24px;
 }
-
 .list-group-item {
     border: none;
     background-color: #eeeeee;
@@ -559,9 +625,9 @@ display: flex;
     overflow: hidden;
 }
 
-.tab-content {
-    
-    padding-bottom: 100px;
+.tab-content {    
+    padding: 20px 20px 100px 20px;
+    background-color: #fff;
 }
 
 
@@ -584,7 +650,7 @@ display: flex;
     padding: 10px;
     -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
 }
 
 .card-div a {
@@ -601,12 +667,12 @@ display: flex;
 .entry-meta li {
     float: left;
     padding: 0px 10px 0px 0px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
 }
 
 .side-tag-navbar {
     position: fixed;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
 }
 
 @media only screen and (max-width: 900px) {
@@ -685,7 +751,7 @@ width: 100%;
 }
 
 .sidenav p {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
     font-size: 20px;
 }
 
@@ -695,7 +761,7 @@ width: 100%;
 
 .sidenav .closebtn {
     position: fixed;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
     float: left;
     font-size: 16px;
     margin-left: 50px;
@@ -734,7 +800,7 @@ width: 100%;
 
 .list-group-item {
     background-color: #fff !important;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
 }
 
 .list-before-img img {
@@ -747,7 +813,7 @@ width: 100%;
     padding: 10px;
     -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
 }
 
 .list-content-date {
@@ -780,7 +846,8 @@ width: 100%;
 }
 
 .loading_button {
-    padding: 10px;
+    padding: 40px;
+    grid-column-start: 2;
 }
 
 .default-reader {

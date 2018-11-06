@@ -1,6 +1,6 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-        <span class="menu-bar" id="menu-toggle" ng-click="navCloseOpen(barState)">
+        <span class="menu-bar" id="menu-toggle" ng-click="navCloseOpen()">
                 <i class="fa fa-bars"></i>
             </span>
         <i class="fa fa-leaf"></i><span class="logo-title" ng-click="goToHome()">Leaves</span>
@@ -32,7 +32,7 @@
 
 <div class="modal fade bs-example-modal-lg" id="doLogin" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="z-index: 99999">
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

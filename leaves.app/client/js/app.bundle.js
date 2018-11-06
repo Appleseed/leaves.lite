@@ -91191,7 +91191,7 @@ app.directive('leavesList', function() {
     }
 })
 
-app.controller('navbarCtrl',['$scope', function($scope){
+app.controller('navbarCtrl',['$scope','$rootScope', function($scope, $rootScope){
 
     $scope.userLoggedIn = false
 
@@ -91213,22 +91213,14 @@ app.controller('navbarCtrl',['$scope', function($scope){
     });
 
 
-    $scope.barState = true
-    $scope.navCloseOpen = function(state){
-        if(state){
-            $scope.barState = false
-            document.getElementById('sideTagSection').style.width = '0'
-            document.getElementById('sideTagSection').style.display = 'none'
+     
+    $scope.navCloseOpen = function(){
+         $rootScope.sidenavBarOpen = $rootScope.sidenavBarOpen ? false : true
+        console.log($rootScope.sidenavBarOpen)
+    }
 
-            document.getElementById('cardView').style.width = '100%'
-            document.getElementById('cardView').style.margin = '0px 0px 0px -100px'
-        }else{
-            $scope.barState = true
-            document.getElementById('sideTagSection').style.width = '200px'
-            document.getElementById('sideTagSection').style.display = 'inline-block'
-            document.getElementById('cardView').style.display = 'inline-block'
-            document.getElementById('cardView').style.margin = '0px 0px 0px 0px'
-        }
+    $scope.closeDrawer = function(){
+        $rootScope.sidenavBarOpen = false
     }
 
     $scope.makeNewAccount = function() {
@@ -91405,6 +91397,7 @@ function disableLogging($logProvider, ENV) {
     $rootScope.listArray = []
     $rootScope.tempArray = []
     $rootScope.leaves = []
+    $rootScope.sidenavBarOpen = false
 
     $scope.goToHome = function() {
         $state.go('home', {
@@ -91686,6 +91679,8 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             leafHTTP(leafIdsList[leafIdsList.length - 1])
         }
     }
+
+    console.log($rootScope.leaves)
     var removeTab = function(event, index, item_id) {
         event.preventDefault();
         event.stopPropagation();

@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/chrome-tabs.css">
-    <link href="https://fonts.googleapis.com/css?family=Vollkorn|Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
     <!-- <base href="/"> -->
 </head>
 
@@ -24,7 +24,7 @@
         <header class="leaves-header">
             <leaves-nav></leaves-nav>
         </header>
-        <nav class="responsive-side-navbar mobile-side-navbar">
+        <nav ng-class="sidenavBarOpen ? 'responsive-side-navbar mobile-side-navbar-active' : 'responsive-side-navbar mobile-side-navbar'" ng-click="closeDrawer()">
 
             <div class="responsive-xs-down">
                 <div class="drawer-docker">
@@ -33,7 +33,7 @@
                         <div class="tag-search-input">
                             <input type="text" ng-model="tag_name" placeholder="Search by tag">
                         </div>
-                        <ul>
+                        <ul class="tags-list">
                             <li ng-repeat="tag in tags | filter:tag_name" ng-class="{'active-tag': tag.active}" ng-click="multipleTagSelect(tagsString, tag.slug)">{{tag.label}}</li>
                         </ul>    
 

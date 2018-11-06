@@ -23,6 +23,7 @@ function disableLogging($logProvider, ENV) {
     $rootScope.listArray = []
     $rootScope.tempArray = []
     $rootScope.leaves = []
+    $rootScope.sidenavBarOpen = false
 
     $scope.goToHome = function() {
         $state.go('home', {
@@ -304,6 +305,8 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             leafHTTP(leafIdsList[leafIdsList.length - 1])
         }
     }
+
+    console.log($rootScope.leaves)
     var removeTab = function(event, index, item_id) {
         event.preventDefault();
         event.stopPropagation();
