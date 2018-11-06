@@ -847,7 +847,6 @@ width: 100%;
 
 .loading_button {
     padding: 40px;
-    grid-column-start: 2;
 }
 
 .default-reader {
