@@ -9,8 +9,8 @@ body {
      height: 100vh 
 }
  .main-container {
-     display: -ms-flexbox;
      display: flex;
+     display: -ms-flexbox;
 }
  .modal-backdrop {
      position: relative;
@@ -26,16 +26,16 @@ body {
 }
  .responsive-side-navbar {
      width: 240px;
-     -ms-flex-negative: 0;
      flex-shrink: 0;
+     -ms-flex-negative: 0;
 }
  .responsive-side-navbar .responsive-xs-down {
      -webkit-box-sizing: inherit;
      box-sizing: inherit;
 }
  .responsive-side-navbar .responsive-xs-down .drawer-docker {
-     -ms-flex: 0 0 auto;
      flex: 0 0 auto;
+     -ms-flex: 0 0 auto;
 }
  .responsive-side-navbar .responsive-xs-down .drawer-docker .drawer-box {
      width: 240px;
@@ -43,17 +43,17 @@ body {
      left: 0;
      right: auto;
      top: 0;
-     -ms-flex: 1 0 auto;
      flex: 1 0 auto;
+     -ms-flex: 1 0 auto;
      height: 100%;
-     display: -ms-flexbox;
      display: flex;
+     display: -ms-flexbox;
      z-index: 99;
      outline: none;
      position: fixed;
      overflow-y: auto;
-     -ms-flex-direction: column;
      flex-direction: column;
+     -ms-flex-direction: column;
      -webkit-overflow-scrolling: touch;
 }
  .reader-content {
