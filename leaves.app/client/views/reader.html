@@ -13,7 +13,32 @@
             </button>
         </div>
     </div>
-        <scrollable-tabset show-tooltips="true">
+
+    <div class="scroll-reader">
+
+        <div class="reader-header-section">
+
+            <div class="left-move" ng-click="moveReaderLeft()">
+                <input type='button' value='<'>
+            </div>
+
+            <div class="reader-tabs" id="readerTabs">
+                <div class="tab" ng-repeat="item in leaves" ng-class="item.active ? 'active-reader-tab' : ''">
+                    <div class="title" title={{item.title}} ng-click="changeReaderTab($index)">{{item.title}}</div>
+                </div>
+            </div>
+
+            <div class="right-move" ng-click="moveReaderRight()">
+                <input type='button' value='>'>
+            </div>
+
+        </div>
+            <div class="tab" ng-repeat="item in leaves">
+                <p ng-if="item.active" ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>
+            </div>
+
+    </div>
+        <!-- <scrollable-tabset show-tooltips="true">
             <uib-tabset class="tab-container" id="readerTabs">
                 <uib-tab ng-repeat="item in leaves" active="item.active" >
                     <uib-tab-heading title="{{item.title}}">
@@ -38,5 +63,5 @@
                     <p ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>
                 </uib-tab>
             </uib-tabset>
-        </scrollable-tabset>
+        </scrollable-tabset> -->
 </div>
