@@ -354,6 +354,12 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             $rootScope.listArray = []
             $rootScope.isidexit = 0
         }
+
+        angular.forEach($rootScope.leaves, function(value, key) {
+            $rootScope.leaves[key].active = false
+        })
+
+        $rootScope.leaves[$rootScope.leaves.length - 1].active = true
     };
 
     $scope.removeTab = removeTab;

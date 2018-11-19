@@ -19,6 +19,7 @@ body {
     white-space: nowrap;
 }
 
+
 .active-reader-tab {
     background-color: #fff;
     border-bottom: 1px solid #070707;
@@ -82,16 +83,28 @@ div.reader-tabs {
     width: 200px;
     display: inline-block;
     white-space: nowrap;
-    cursor: pointer;
+    border: 1px solid #707070;
+    cursor: pointer;    
 }
 
 .reader-tabs .tab .title {
     white-space: nowrap; 
-    width: 200px; 
+    width: 170px; 
     overflow: hidden;
     text-overflow: ellipsis; 
-    border: 1px solid #707070;
     padding: 4px 6px;
+    display: inline-block;
+}
+.reader-tabs .tab .close-tab {
+    width: 19px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -15px;
+    background-color: #d0d0d0;
+    padding-left: 6px;
+    border-radius: 50%;
+    font-weight: 700;
+    color: #615c5c;
 }
 
  .reader-content {
