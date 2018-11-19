@@ -91150,6 +91150,12 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function(
         controller: 'singleLeaves'
     })
 
+    .state('profile', {
+        url: '/profile',
+        templateUrl: 'views/profile.html',
+        controller: 'profilePage'
+    })
+
     $urlRouterProvider.otherwise('/?tag=home');
     // $locationProvider.html5Mode(true);
 }])
@@ -91487,14 +91493,6 @@ function disableLogging($logProvider, ENV) {
         })
     }
 
-    firebase.auth().onAuthStateChanged(function(user){
-            if(user){
-                console.log(user)
-            }else{
-                console.log('hi')
-            }
-        })
-
 }])
 
 
@@ -91827,6 +91825,50 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
 
 
 }])
+
+app.controller('profilePage',['$scope', '$window', '$http', 'ENV', function($scope, $window, $http, ENV){
+
+    firebase.auth().onAuthStateChanged(function(user){
+            if(user){
+
+                $scope.$apply(function() {
+                    $scope.user = user.providerData[0]
+                console.log($scope.user)
+                });
+
+            }else{
+                // $window.location.href = '/'
+            }
+        })
+
+
+    $scope.addTagToProfile = function(tag){
+        console.log(tag)
+    }
+
+    var tags_list = []
+    $http({
+        method: 'GET',
+        url: ENV.LEAVES_API_URL + '/api/tags',
+        params: {
+            access_token: ENV.LEAVES_API_ACCESSTOKEN
+        }
+    }).then(function(success) {
+        angular.forEach(success.data, function(value) {
+            var slug = value.label.split(' ').join('-')
+            tags_list.push({
+                id: value.id,
+                label: value.label,
+                slug: slug,
+                active: false
+            })
+        })
+    }).catch(function(response) {
+        $scope.error = response
+    })
+    $scope.tags = tags_list
+}])
+
 })(app);
 
 

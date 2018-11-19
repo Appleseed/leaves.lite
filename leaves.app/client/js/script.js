@@ -27,6 +27,12 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function(
         controller: 'singleLeaves'
     })
 
+    .state('profile', {
+        url: '/profile',
+        templateUrl: 'views/profile.html',
+        controller: 'profilePage'
+    })
+
     $urlRouterProvider.otherwise('/?tag=home');
     // $locationProvider.html5Mode(true);
 }])
