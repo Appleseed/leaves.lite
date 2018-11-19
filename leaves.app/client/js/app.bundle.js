@@ -91261,6 +91261,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', function($scope, $rootScope)
     $scope.googleLogin = function() {
         firebase.auth().onAuthStateChanged(function(user){
              if(user){
+                console.log(user)
                 $scope.userLoggedIn = true;
             }else{
                 var provider = new firebase.auth.GoogleAuthProvider();
@@ -91485,6 +91486,14 @@ function disableLogging($logProvider, ENV) {
             $scope.bitly_link = success.data.data.url
         })
     }
+
+    firebase.auth().onAuthStateChanged(function(user){
+            if(user){
+                console.log(user)
+            }else{
+                console.log('hi')
+            }
+        })
 
 }])
 
