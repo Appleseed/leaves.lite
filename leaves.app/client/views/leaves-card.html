@@ -5,7 +5,7 @@
     </div>
     <div class="entry-meta">
         <h4><a ng-click="getSingleLeaves(data.id,listarr)">{{data.title | limitTo: 70}} {{tempArray}}</a></h4>
-        <small>{{data.domain_name}}</small>
+        <small>{{data.domain_name}} {{$index}}</small>
         <ul>
             <li><i class="fa fa-user"></i> <span>{{data.user_name}}</span></li>
             <li><a href=""><i class="fa fa-clock-o"></i> <span ng-bind="added_date(data.created_at)"></span></a></li>

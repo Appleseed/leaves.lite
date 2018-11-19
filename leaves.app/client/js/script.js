@@ -215,7 +215,14 @@ app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($sc
             var param = { ids: listarr }
             $state.go('home.reader', param)
         }else{
-            alert("Already Added.");
+            // alert("Already Added.");
+            var ind = $rootScope.leaves.findIndex( x => x.id == id )
+                
+            angular.forEach($rootScope.leaves, function(value, key) {
+                $rootScope.leaves[key].active = false
+            })
+             
+            $rootScope.leaves[ind].active = true
         }
     }
 
