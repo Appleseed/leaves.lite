@@ -8,6 +8,28 @@ body {
  html {
      height: 100vh 
 }
+
+.reader-header-section {
+    display: grid;
+    grid-template-columns: 30px auto 30px;
+}
+
+.reader-tabs {
+  overflow: auto;
+    white-space: nowrap;
+}
+
+
+.active-reader-tab {
+    background-color: #fff;
+    border-bottom: 1px solid #070707;
+}
+
+div.reader-tabs {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
  .main-container {
      display: flex;
      display: -ms-flexbox;
@@ -56,6 +78,35 @@ body {
      -ms-flex-direction: column;
      -webkit-overflow-scrolling: touch;
 }
+
+.reader-tabs .tab {
+    width: 200px;
+    display: inline-block;
+    white-space: nowrap;
+    border: 1px solid #707070;
+    cursor: pointer;    
+}
+
+.reader-tabs .tab .title {
+    white-space: nowrap; 
+    width: 170px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    padding: 4px 6px;
+    display: inline-block;
+}
+.reader-tabs .tab .close-tab {
+    width: 19px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -15px;
+    background-color: #d0d0d0;
+    padding-left: 6px;
+    border-radius: 50%;
+    font-weight: 700;
+    color: #615c5c;
+}
+
  .reader-content {
      width: 100%;
      margin-top: -20px;

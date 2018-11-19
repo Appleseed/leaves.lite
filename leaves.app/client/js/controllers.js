@@ -124,6 +124,8 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
         tag: $stateParams.tag
     }
 
+
+
     function homeData(loadmore) {
         if(loadmore == 0){
             page = 1
@@ -268,6 +270,8 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
     $rootScope.inboxArray = leafIdsList
     $scope.readerView = false
     $rootScope.isidexit = 1
+   
+
     function leafHTTP(id) {
         var param_list = $stateParams.ids.split(',');
         $scope.active_id = id
@@ -290,7 +294,9 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             if($rootScope.leaves.length > 1){
                 $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
             }
+            readerCountAndMove()
         })
+
     }
     if ($rootScope.flag == undefined) {
         $rootScope.listArray = leafIdsList
@@ -348,9 +354,36 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
             $rootScope.listArray = []
             $rootScope.isidexit = 0
         }
+
+        angular.forEach($rootScope.leaves, function(value, key) {
+            $rootScope.leaves[key].active = false
+        })
+
+        $rootScope.leaves[$rootScope.leaves.length - 1].active = true
     };
 
     $scope.removeTab = removeTab;
+    
+    function readerCountAndMove(){
+
+        var tabWidth = document.getElementById("readerTabs").offsetWidth
+
+        if(tabWidth < $rootScope.leaves.length * 200) {
+            console.log('move')
+            var leftPos = $('.reader-tabs').scrollLeft();
+            $(".reader-tabs").animate({scrollLeft: leftPos + $rootScope.leaves.length * 200}, 400);
+        }
+
+    }
+
+    $scope.changeReaderTab = function(index){
+        console.log(index)
+        for (var i = 0; i < $rootScope.leaves.length; i++) {
+            $rootScope.leaves[i].active = false
+        }
+
+        $rootScope.leaves[index].active = true
+    }
 
     $scope.sortableOptions = {
         update: function(e, ui) {
@@ -391,6 +424,17 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
      $scope.deliberatelyTrustDangerousSnippet = function(content) {
        return $sce.trustAsHtml(content);
      };
+
+     $scope.moveReaderRight = function(e){
+        var leftPos = $('.reader-tabs').scrollLeft();
+        $(".reader-tabs").animate({scrollLeft: leftPos + 200}, 400);
+     }
+
+      $scope.moveReaderLeft = function(){
+        var leftPos = $('.reader-tabs').scrollLeft();
+        $(".reader-tabs").animate({scrollLeft: leftPos - 200}, 400);
+     }
+
 
 }])
 })(app);
