@@ -91262,44 +91262,70 @@ app.controller('navbarCtrl',['$scope','$rootScope', function($scope, $rootScope)
 
     }
 
+    $scope.makeProfile = function(user){
+        console.log('user', user)
+        firebase.database().ref(`users/${user.uid}`).once('value', function(snapshot) {
+            var not_exists = (snapshot.val() === null);
+            if(not_exists) {
+                console.log('creating profile')
+                var userData = {
+                    name: user.displayName,
+                    email: user.email,
+                    user_photo: user.photoURL,
+                    provider_id: user.providerId,
+                    tags: [],
+                    user_id: user.uid
+                }
+
+                firebase.database().ref(`users/${user.uid}`).set(userData)
+                .then(function(responce){
+                    console.log('user registered')
+                    location.reload();
+                })
+            }else{
+                console.log('already registered')
+                location.reload();
+            }
+        });
+    }
+
 
 
     $scope.googleLogin = function() {
-        firebase.auth().onAuthStateChanged(function(user){
-             if(user){
-                console.log(user)
-                $scope.userLoggedIn = true;
-            }else{
-                var provider = new firebase.auth.GoogleAuthProvider();
+        console.log('logging...')
+        var provider = new firebase.auth.GoogleAuthProvider();
 
-                firebase.auth().signInWithPopup(provider).then(function(result) {
-                        // This gives you a Google Access Token. You can use it to access the Google API.
-                        var token = result.credential.accessToken;
-                        // The signed-in user info.
-                        var user = result.user;
-                        $('#doLogin').modal('hide');
-                        location.reload();
-                        // ...
-                    }).catch(function(error) {
-                        // Handle Errors here.
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        // The email of the user's account used.
-                        var email = error.email;
-                        // The firebase.auth.AuthCredential type that was used.
-                        var credential = error.credential;
-                        // ...
-                    });
-            }
-        })
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                $scope.$apply(function() {
+                    console.log('scope init')
+                    $scope.makeProfile(user)
+                });
+
+
+
+                $('#doLogin').modal('hide');
+                
+                // ...
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            });
     }
 
 
     $scope.doLogout = function() {
         firebase.auth().signOut()
-        .catch(function (err) {
-        // Handle errors
-        });
+        location.reload();
         $scope.userLoggedIn = false
     }
 }])
@@ -91826,24 +91852,60 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
 
 }])
 
-app.controller('profilePage',['$scope', '$window', '$http', 'ENV', function($scope, $window, $http, ENV){
+app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', function($scope, $window, $http, ENV, $state){
 
     firebase.auth().onAuthStateChanged(function(user){
             if(user){
-
-                $scope.$apply(function() {
-                    $scope.user = user.providerData[0]
-                console.log($scope.user)
+                firebase.database().ref(`/users/${user.uid}`).once('value').then((snapshot) => {
+                    var userData = snapshot.val()
+                        $scope.$apply(function() {
+                        $scope.user = userData
+                        if(userData.tags !== undefined){
+                            angular.forEach($scope.tags, function(value, key){
+                                if(userData.tags.findIndex(x => x.id === value.id) > -1){
+                                    $scope.tags[key].selected = true
+                                }else{
+                                    $scope.tags[key].selected = false
+                                }
+                            })
+                        }
+                    })
                 });
 
             }else{
-                // $window.location.href = '/'
+                
+                $state.go('home', {
+                    tag: 'home'
+                })
             }
         })
 
 
-    $scope.addTagToProfile = function(tag){
-        console.log(tag)
+
+    $scope.addTagToProfile = function(tag, tagIndex){
+        var tagObj = {"id": tag.id, "slug": tag.slug, "label": tag.label}
+        if($scope.user.tags === undefined){
+            $scope.user.tags = []
+            $scope.user.tags.push(tagObj)
+            $scope.tags[tagIndex].selected = true
+        }else{
+            var isTagAvailable = $scope.user.tags.findIndex( x => x.id === tag.id )
+            if(isTagAvailable > -1){
+                var tagArray = $scope.user.tags
+                tagArray.splice(isTagAvailable, 1)
+                $scope.user.tags = tagArray
+                $scope.tags[tagIndex].selected = false
+            }else{
+                $scope.user.tags.push(tagObj)
+                $scope.tags[tagIndex].selected = true
+            }
+        }
+    }
+
+    $scope.setTags = function(uid){
+        console.log($scope.tags)
+        console.log(uid)
+        firebase.database().ref(`/users/${uid}/tags`).set($scope.user.tags)
     }
 
     var tags_list = []
@@ -91867,6 +91929,19 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', function($sco
         $scope.error = response
     })
     $scope.tags = tags_list
+
+
+    function convertToArray(objData) {
+        var ArrayObj = [];
+        if(objData !== undefined){
+            Object.keys(objData).forEach((key) => { 
+                objData[key]['push_key'] = key
+                ArrayObj.push(objData[key])
+            })
+        }
+
+        return ArrayObj;
+    }
 }])
 
 })(app);

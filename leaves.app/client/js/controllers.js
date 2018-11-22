@@ -438,24 +438,60 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
 
 }])
 
-app.controller('profilePage',['$scope', '$window', '$http', 'ENV', function($scope, $window, $http, ENV){
+app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', function($scope, $window, $http, ENV, $state){
 
     firebase.auth().onAuthStateChanged(function(user){
             if(user){
-
-                $scope.$apply(function() {
-                    $scope.user = user.providerData[0]
-                console.log($scope.user)
+                firebase.database().ref(`/users/${user.uid}`).once('value').then((snapshot) => {
+                    var userData = snapshot.val()
+                        $scope.$apply(function() {
+                        $scope.user = userData
+                        if(userData.tags !== undefined){
+                            angular.forEach($scope.tags, function(value, key){
+                                if(userData.tags.findIndex(x => x.id === value.id) > -1){
+                                    $scope.tags[key].selected = true
+                                }else{
+                                    $scope.tags[key].selected = false
+                                }
+                            })
+                        }
+                    })
                 });
 
             }else{
-                // $window.location.href = '/'
+                
+                $state.go('home', {
+                    tag: 'home'
+                })
             }
         })
 
 
-    $scope.addTagToProfile = function(tag){
-        console.log(tag)
+
+    $scope.addTagToProfile = function(tag, tagIndex){
+        var tagObj = {"id": tag.id, "slug": tag.slug, "label": tag.label}
+        if($scope.user.tags === undefined){
+            $scope.user.tags = []
+            $scope.user.tags.push(tagObj)
+            $scope.tags[tagIndex].selected = true
+        }else{
+            var isTagAvailable = $scope.user.tags.findIndex( x => x.id === tag.id )
+            if(isTagAvailable > -1){
+                var tagArray = $scope.user.tags
+                tagArray.splice(isTagAvailable, 1)
+                $scope.user.tags = tagArray
+                $scope.tags[tagIndex].selected = false
+            }else{
+                $scope.user.tags.push(tagObj)
+                $scope.tags[tagIndex].selected = true
+            }
+        }
+    }
+
+    $scope.setTags = function(uid){
+        console.log($scope.tags)
+        console.log(uid)
+        firebase.database().ref(`/users/${uid}/tags`).set($scope.user.tags)
     }
 
     var tags_list = []
@@ -479,6 +515,19 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', function($sco
         $scope.error = response
     })
     $scope.tags = tags_list
+
+
+    function convertToArray(objData) {
+        var ArrayObj = [];
+        if(objData !== undefined){
+            Object.keys(objData).forEach((key) => { 
+                objData[key]['push_key'] = key
+                ArrayObj.push(objData[key])
+            })
+        }
+
+        return ArrayObj;
+    }
 }])
 
 })(app);

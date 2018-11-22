@@ -2,22 +2,24 @@
 <div class="user-profile">
 	<div class="row">
 		<div class="col-md-1 text-center">
-			<img src={{user.photoURL}} width="100px">
+			<img src={{user.user_photo}} width="100px">
 		</div>
 		<div class="col-md-10">
-			<h3>{{user.displayName}}</h3>
+			<h3>{{user.name}}</h3>
 		</div>
 	<hr>
 		<div class="col-md-12">
-			<h4>Your tags: {{0}}</h4>
+			<h4>Your tags: {{user.tags.length === undefined ? '0' : user.tags.length}}</h4>
 			<!-- <select ng-model="selected_by_reference" ng-options="tag as tag.label for tag in tags"> -->
 		</div>
-		<div class="col-md-12 tags-list">
+		<div class="col-md-12 tags-list" ng-show="user.tagSubmited === undefined">
+
 			<input type="text" ng-model="tag_name" placeholder="Search tag">
+			<input type="button" name="submit" value="submit" ng-click="setTags(user.user_id)">
 			<br>
 			<br>
 			<div class="row">
-				<div class="col-md-2 tag" ng-repeat="tag in tags | filter:tag_name" ng-click="addTagToProfile(tag)">{{tag.label}}</div>
+				<div ng-class="tag.selected ? 'col-md-2 tag selected' : 'col-md-2 tag'" ng-repeat="tag in tags | filter:tag_name" ng-click="addTagToProfile(tag, $index)">{{tag.label}}</div>
 			</div>
 		</div>
 		<br>

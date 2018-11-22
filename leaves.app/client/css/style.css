@@ -167,10 +167,15 @@ div.reader-tabs {
 .user-profile .tags-list .tag{
     border: 1px solid #070707;
     white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-padding: 5px;
-cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.user-profile .tags-list .tag.selected {
+    background-color: #333;
+    color: #fff;
 }
 
  @media only screen and (max-width: 800px) {
