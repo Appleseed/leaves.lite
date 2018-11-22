@@ -152,6 +152,32 @@ div.reader-tabs {
      display: none;
      height: 0;
 }
+
+.user-profile {
+    padding: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: calc(100vh);
+}
+
+.user-profile .tags-list {
+    padding: 40px 40px 100px 40px;
+}
+
+.user-profile .tags-list .tag{
+    border: 1px solid #070707;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.user-profile .tags-list .tag.selected {
+    background-color: #333;
+    color: #fff;
+}
+
  @media only screen and (max-width: 800px) {
      .mobile-reader {
          position: fixed;

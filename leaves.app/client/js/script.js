@@ -27,6 +27,12 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function(
         controller: 'singleLeaves'
     })
 
+    .state('profile', {
+        url: '/profile',
+        templateUrl: 'views/profile.html',
+        controller: 'profilePage'
+    })
+
     $urlRouterProvider.otherwise('/?tag=home');
     // $locationProvider.html5Mode(true);
 }])
@@ -133,43 +139,70 @@ app.controller('navbarCtrl',['$scope','$rootScope', function($scope, $rootScope)
 
     }
 
+    $scope.makeProfile = function(user){
+        console.log('user', user)
+        firebase.database().ref(`users/${user.uid}`).once('value', function(snapshot) {
+            var not_exists = (snapshot.val() === null);
+            if(not_exists) {
+                console.log('creating profile')
+                var userData = {
+                    name: user.displayName,
+                    email: user.email,
+                    user_photo: user.photoURL,
+                    provider_id: user.providerId,
+                    tags: [],
+                    user_id: user.uid
+                }
+
+                firebase.database().ref(`users/${user.uid}`).set(userData)
+                .then(function(responce){
+                    console.log('user registered')
+                    location.reload();
+                })
+            }else{
+                console.log('already registered')
+                location.reload();
+            }
+        });
+    }
+
 
 
     $scope.googleLogin = function() {
-        firebase.auth().onAuthStateChanged(function(user){
-             if(user){
-                $scope.userLoggedIn = true;
-            }else{
-                var provider = new firebase.auth.GoogleAuthProvider();
+        console.log('logging...')
+        var provider = new firebase.auth.GoogleAuthProvider();
 
-                firebase.auth().signInWithPopup(provider).then(function(result) {
-                        // This gives you a Google Access Token. You can use it to access the Google API.
-                        var token = result.credential.accessToken;
-                        // The signed-in user info.
-                        var user = result.user;
-                        $('#doLogin').modal('hide');
-                        location.reload();
-                        // ...
-                    }).catch(function(error) {
-                        // Handle Errors here.
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        // The email of the user's account used.
-                        var email = error.email;
-                        // The firebase.auth.AuthCredential type that was used.
-                        var credential = error.credential;
-                        // ...
-                    });
-            }
-        })
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                $scope.$apply(function() {
+                    console.log('scope init')
+                    $scope.makeProfile(user)
+                });
+
+
+
+                $('#doLogin').modal('hide');
+                
+                // ...
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            });
     }
 
 
     $scope.doLogout = function() {
         firebase.auth().signOut()
-        .catch(function (err) {
-        // Handle errors
-        });
+        location.reload();
         $scope.userLoggedIn = false
     }
 }])
