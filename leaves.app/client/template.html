@@ -23,7 +23,31 @@
     <%= htmlWebpackPlugin.options.PTCODE %>
 </script>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KD9CDQS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <leaves-nav></leaves-nav>
+    <div class="main-container">
+        <header class="leaves-header">
+            <leaves-nav></leaves-nav>
+        </header>
+        <nav ng-class="sidenavBarOpen ? 'responsive-side-navbar mobile-side-navbar-active' : 'responsive-side-navbar mobile-side-navbar'" ng-click="closeDrawer()">
+
+            <div class="responsive-xs-down">
+                <div class="drawer-docker">
+                    <div class="drawer-box">
+
+                        <div class="tag-search-input">
+                            <input type="text" ng-model="tag_name" placeholder="Search by tag">
+                        </div>
+                        <ul class="tags-list">
+                            <li ng-repeat="tag in tags | filter:tag_name" ng-class="{'active-tag': tag.active}" ng-click="multipleTagSelect(tagsString, tag.slug)">{{tag.label}}</li>
+                        </ul>    
+
+                    </div>      
+                </div>      
+            </div>  
+        </nav>
+        <div class="reader-content">
+            <ui-view></ui-view> 
+        </div>
+    </div>
         <div class="leaves-container">
             <div class="side-tag-section" id="sideTagSection">
             <br>
