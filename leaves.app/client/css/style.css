@@ -287,6 +287,9 @@ div.reader-tabs {
          -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
          box-shadow: 0px 0px 10px rgba(0,0,0,.8);
     }
+    .search-box {
+        margin-top: -5px
+    }
 }
  .cards-reader-active {
      display: grid;
@@ -312,8 +315,7 @@ div.reader-tabs {
      width: 50%;
      position: fixed;
      top: 0px;
-     left: 230px;
-     z-index: 99;
+     z-index: 9;
 }
  .single-content h1, .single-content p, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p, .tag-state {
      font-family: 'Questrial', sans-serif;
