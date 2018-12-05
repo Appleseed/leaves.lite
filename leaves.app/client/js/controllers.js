@@ -246,15 +246,21 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
             url: 'http://stage.leaves.anant.us/solr/',
             params: searchParams
         }).then(function(success) {
-            console.log(success)
             var totalSearchFound = success.data.response.numFound
+            $scope.searchData = success.data.response.numFound
             angular.forEach(success.data.response.docs, function(value) {
                 dataArray.push(value)
             })
+            if(dataArray.length < success.data.response.numFound) {
+                $scope.loading_button = true
+                $scope.loadingMessage = false
+
+            }
+            console.log(success.data.response.numFound)
         }).catch(function(response) {
             $scope.error = response
         }).finally(function() {
-            $scope.loadingMessage = false
+            page = page + 1
         })
         searchingPage = searchingPage + 1
         $scope.entries = dataArray
