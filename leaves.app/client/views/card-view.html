@@ -14,11 +14,11 @@
         <div class="card-list" ng-repeat="entry in entries">
             <leaves-card data="entry" listarr="listArray"></leaves-card>
         </div>
+    </div>
 
         <div class="text-center loading_button" ng-if="searching ? (loading_button && 'entries.length <= etotalSearchFound') : (loading_button && 'entries.length <= entries.total') ">              
             <button class="btn btn-primary" ng-click="searching ? loadSearchQuery() : loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
         </div>
-    </div>
 
     <div class="reader-view">
         <div ui-view></div>

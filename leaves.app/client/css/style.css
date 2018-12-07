@@ -112,9 +112,10 @@ div.reader-tabs {
      margin-top: -20px;
 }
  .cards-reader {
-     display: grid;
-     grid-template-columns: 100%;
      padding: 10px;
+     height: calc(100vh - 50px);
+     overflow-y: scroll;
+     overflow-x: scroll;
 }
  .reader-view {
      height: calc(100vh - 80px);
@@ -125,9 +126,6 @@ div.reader-tabs {
      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
      grid-gap: 10px;
      width: 100%;
-     height: calc(100vh - 50px);
-     overflow-y: scroll;
-     overflow-x: scroll;
 }
  .cards-reader .cards-list {
      display: grid;
