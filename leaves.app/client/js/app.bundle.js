@@ -95381,11 +95381,12 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     }
 
     $scope.searchLeaf = function(searchValue){
-        $scope.searchTagMessage ="Search Tag: " + searchValue
-        $scope.searching = true
-        dataArray = []
-        $scope.searchQuery = searchValue
-        $scope.loadSearchQuery(searchValue)
+        if(searchValue !== undefined && searchValue.trim().length > 0) {
+            $scope.searching = true
+            dataArray = []
+            $scope.searchQuery = searchValue.trim()
+            $scope.loadSearchQuery()
+        }
     }
     $scope.loadSearchQuery = function(){
         $scope.loadingMessage = true
@@ -95400,6 +95401,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
             params: searchParams
         }).then(function(success) {
             var totalSearchFound = success.data.response.numFound
+            $scope.searchTagMessage = totalSearchFound + ' Result Found: "' + $scope.searchQuery + '"'
             $scope.searchData = success.data.response.numFound
             angular.forEach(success.data.response.docs, function(value) {
                 dataArray.push(value)
