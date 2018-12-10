@@ -3,16 +3,6 @@
 </ul>-->
 
 <div ng-if="leaves" ng-if="readerView"  ng-class="isidexit ? (isReaderActive ? 'mobile-reader-active' : 'mobile-reader') : ''">
-    <div class="reader-header">
-        <div class="maximize">
-            <button  ng-click="minReaderActive()" ng-if="isReaderActive">
-                <i class="fa fa-minus-square"></i>
-            </button>
-            <button  ng-click="maxReaderActive()" ng-if="!isReaderActive">
-                <i class="fa fa-window-maximize"></i>
-            </button>
-        </div>
-    </div>
 
     <div class="scroll-reader">
 
@@ -32,9 +22,20 @@
             <div class="right-move" ng-click="moveReaderRight()">
                 <input type='button' value='>'>
             </div>
+            
+            <div class="reader-header">
+                <div class="maximize">
+                    <button  ng-click="minReaderActive()" ng-if="isReaderActive">
+                        <i class="fa fa-minus-square"></i>
+                    </button>
+                    <button  ng-click="maxReaderActive()" ng-if="!isReaderActive">
+                        <i class="fa fa-window-maximize"></i>
+                    </button>
+                </div>
+            </div>
 
         </div>
-            <div class="tab" ng-repeat="item in leaves">
+            <div class="tab" ng-repeat="item in leaves" style="border: 1px solid #707070">
                 <p ng-if="item.active" ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>
             </div>
 

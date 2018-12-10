@@ -11,7 +11,7 @@ body {
 
 .reader-header-section {
     display: grid;
-    grid-template-columns: 30px auto 30px;
+    grid-template-columns: 30px auto 30px 30px;
 }
 
 .reader-tabs {
@@ -111,7 +111,7 @@ div.reader-tabs {
      width: 100%;
      margin-top: -20px;
 }
- .cards-reader {
+ .cards-reader .card-outer{
      padding: 10px;
      height: calc(100vh - 50px);
      overflow-y: scroll;
@@ -136,7 +136,7 @@ div.reader-tabs {
      overflow-y: scroll;
      overflow-x: scroll;
 }
- .cards-reader-active .cards {
+ .cards-reader-active .card-outer {
      height: calc(100vh - 80px);
      overflow-y: scroll;
      overflow-x: hidden;
@@ -181,7 +181,7 @@ div.reader-tabs {
          position: fixed;
          bottom: 0;
          left:0;
-         height: 70px;
+         height: 38px;
          width: 100%;
          background-color: #fff;
          overflow-y: hidden;
@@ -189,6 +189,7 @@ div.reader-tabs {
          background-color: #fafafa;
          border-bottom: 1px solid #ebebeb;
          box-shadow: 0 -5px 5px -5px rgba(0,0,0,.8);
+         z-index: 99;
     }
      .mobile-reader-active {
          position: fixed;
@@ -199,6 +200,7 @@ div.reader-tabs {
          background-color: #fff;
          overflow-y: scroll;
          overflow-x: hidden;
+         z-index: 99;
     }
      .loading_button {
          margin-bottom: 60px;
@@ -222,10 +224,11 @@ div.reader-tabs {
     }
      .reader-header {
          position: fixed;
-         right: 30px;
+         right: 5px;
          height: 30px;
          display: block;
          z-index: 100;
+         font-size: 20px;
     }
      .ui-tabs-scrollable > .nav-button {
          top: 27px !important;
