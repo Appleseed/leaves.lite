@@ -2,7 +2,7 @@
   window.__env = window.__env || {};
 
   // API url
-  window.__env.LEAVES_API_URL = 'http://206.189.143.212:100';
+  window.__env.LEAVES_API_URL = 'http://stage.leaves.anant.us/wb';
 
   // Base url
   window.__env.LEAVES_API_ACCESSTOKEN = 'MjI0MjJlMjQ0ZjY0NzA2ZWIyOTljZTYxZDE1YjM1ZjVmYzU3ODMwMWFlYjgwZDY1MDNlYWJjYTBjNTEwMWE0Mg';
