@@ -94957,6 +94957,12 @@ app.controller('navbarCtrl',['$scope','$rootScope', function($scope, $rootScope)
         }
     });
 
+    $scope.mobileDropdownBox = false;
+
+    $scope.mobileDropdownToggle = function() {
+        $scope.mobileDropdownBox = $scope.mobileDropdownBox ? false : true;
+    }
+
 
      
     $scope.navCloseOpen = function(){
@@ -95428,11 +95434,6 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
 
 app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', 'ENV', '$sce', function($scope, $http, $stateParams, $timeout, $rootScope, $state, ENV, $sce) {
     var leafIdsList = String($stateParams.ids).split(',')
-    console.log(leafIdsList)
-    
-    if(leafIdsList.length !== $rootScope.leaves.length){
-        console.log('remove')
-    }
 
     $rootScope.inboxLength = leafIdsList.length
     $rootScope.inboxArray = leafIdsList
@@ -95441,7 +95442,6 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
    
 
     function leafHTTP(id) {
-        console.log('http')
         var param_list = $stateParams.ids.split(',');
         $scope.active_id = id
 
@@ -95467,7 +95467,6 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
                 if($rootScope.leaves.length > 1){
                     $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
                 }
-                console.log($rootScope.leaves.length)
                 readerCountAndMove()
             })
         }

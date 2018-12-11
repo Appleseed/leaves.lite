@@ -95,6 +95,12 @@ app.controller('navbarCtrl',['$scope','$rootScope', function($scope, $rootScope)
         }
     });
 
+    $scope.mobileDropdownBox = false;
+
+    $scope.mobileDropdownToggle = function() {
+        $scope.mobileDropdownBox = $scope.mobileDropdownBox ? false : true;
+    }
+
 
      
     $scope.navCloseOpen = function(){

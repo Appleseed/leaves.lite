@@ -323,6 +323,12 @@ div.reader-tabs {
     .search-box {
         margin-top: -5px
     }
+    .card-view {
+        display: none;
+    }
+    .mobile-dropdown{
+    display: block !important;
+}
 }
  @media only screen and (max-width: 1100px) {
      .menu-bar {
@@ -367,7 +373,40 @@ div.reader-tabs {
      .leaves-header {
          width: 100% !important;
     }   
+.mobile-nav-dummy{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+} 
 }
+
+
+.mobile-dropdown{
+    margin-top: -23px;
+    display: none;
+}
+.mobile-dropdown i{
+    font-size: 18px;
+    right: 30px;
+    position: relative;
+}
+
+.mobile-dropdown ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: absolute;
+    right: 29px;
+    width: 100px;
+    top: 30px;
+    background-color: #fff;
+    padding: 8px;
+}
+
+.mobile-dropdown ul li {
+    padding: 3px;
+}
+
  .cards-reader-active {
      display: grid;
      grid-template-columns: 30% 70%;
