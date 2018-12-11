@@ -18,6 +18,7 @@ function disableLogging($logProvider, ENV) {
   $logProvider.debugEnabled(ENV.ENABLEDEBUG);
 }
   app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', function($scope, $http, $state, $location, $rootScope, ENV) {
+    console.log('main')
     $scope.card_view = true
     $rootScope.readerFromInbox = true
     $rootScope.listArray = []
@@ -110,7 +111,7 @@ function disableLogging($logProvider, ENV) {
 
 
 app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$stateParams', 'ENV', function($scope, $rootScope, $http, $state, $stateParams, ENV) {
-
+    console.log('home')
     $rootScope.isidexit = 0
     $rootScope.isReaderActive = false
     $scope.stateJson = $state.current
@@ -274,6 +275,12 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
 
 app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', 'ENV', '$sce', function($scope, $http, $stateParams, $timeout, $rootScope, $state, ENV, $sce) {
     var leafIdsList = String($stateParams.ids).split(',')
+    console.log(leafIdsList)
+    
+    if(leafIdsList.length !== $rootScope.leaves.length){
+        console.log('remove')
+    }
+
     $rootScope.inboxLength = leafIdsList.length
     $rootScope.inboxArray = leafIdsList
     $scope.readerView = false
@@ -281,31 +288,41 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
    
 
     function leafHTTP(id) {
+        console.log('http')
         var param_list = $stateParams.ids.split(',');
         $scope.active_id = id
-        $http({
-            method: 'GET',
-            url: ENV.LEAVES_API_URL + '/api/entries/' + id,
-            params: {
-                access_token: ENV.LEAVES_API_ACCESSTOKEN
-            }
-        }).then(function(success) {
-            $rootScope.leaves.push(success.data)
-        }).catch(function(response) {
-            $scope.error = response
-        }).finally(function() {
-            $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
-            $scope.readerView = true
-            if(!$rootScope.isReaderActive){
-                $rootScope.isReaderActive = true
-            }
-            if($rootScope.leaves.length > 1){
-                $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
-            }
-            readerCountAndMove()
-        })
+
+        var idIndex = $rootScope.leaves.findIndex(x => x.id== id);
+        if(idIndex < 0) {
+            $http({
+                method: 'GET',
+                url: ENV.LEAVES_API_URL + '/api/entries/' + id,
+                params: {
+                    access_token: ENV.LEAVES_API_ACCESSTOKEN
+                }
+            }).then(function(success) {
+                $rootScope.leaves.push(success.data)
+
+            }).catch(function(response) {
+                $scope.error = response
+            }).finally(function() {
+                $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
+                $scope.readerView = true
+                if(!$rootScope.isReaderActive){
+                    $rootScope.isReaderActive = true
+                }
+                if($rootScope.leaves.length > 1){
+                    $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
+                }
+                console.log($rootScope.leaves.length)
+                readerCountAndMove()
+            })
+        }
 
     }
+
+    console.log('flag ' + $rootScope.flag)
+
     if ($rootScope.flag == undefined) {
         $rootScope.listArray = leafIdsList
         if($rootScope.readerFromInbox){
@@ -442,6 +459,16 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         var leftPos = $('.reader-tabs').scrollLeft();
         $(".reader-tabs").animate({scrollLeft: leftPos - 200}, 400);
      }
+
+     $scope.added_date = function(tm) {
+        return tm.split('T')[0]
+    }
+
+    $scope.tabDropdown = false;
+
+    $scope.toggleDropdown = function(){
+        $scope.tabDropdown = $scope.tabDropdown ? false : true
+    }
 
 
 }])

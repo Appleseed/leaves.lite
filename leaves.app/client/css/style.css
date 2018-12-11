@@ -11,7 +11,68 @@ body {
 
 .reader-header-section {
     display: grid;
-    grid-template-columns: 30px auto 30px 30px;
+    grid-template-columns: 30px auto 30px 30px 40px;
+}
+
+.reader-header-section .left-move input{
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+}
+
+.reader-header-section .right-move input{
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+}
+
+.tab-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.tab-dropdown ul li i {
+    font-size: 2rem;
+}
+
+.tab-dropdown ul li ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-width: 300px;
+    max-width: 500px;
+    background-color: #fff;
+    margin-top: 20px;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    position: absolute;
+    right: -10px;
+    top: 15px;
+}
+
+.tab-dropdown button {
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+    padding: 3px;   
+}
+
+.dropdown-dummy-bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+.tab-dropdown ul li ul li {
+    padding: 5px 15px;
+    cursor: pointer;
 }
 
 .reader-tabs {
@@ -23,6 +84,11 @@ body {
 .active-reader-tab {
     background-color: #fff;
     border-bottom: 1px solid #070707;
+}
+
+.active-reader-dropdown {
+    color: #fff;
+    background-color: #337ab7;
 }
 
 div.reader-tabs {
@@ -176,6 +242,21 @@ div.reader-tabs {
     color: #fff;
 }
 
+.reader-meta h2 {
+    margin: 0;
+}
+
+.reader-meta ul {
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 20px;
+}
+
+.reader-meta ul li {
+    padding: 3px 10px 3px 0px;
+    display: inline-block;
+}
+
  @media only screen and (max-width: 800px) {
      .mobile-reader {
          position: fixed;
@@ -239,6 +320,9 @@ div.reader-tabs {
      .reader-header .maximize i {
          cursor: pointer;
     }
+    .search-box {
+        margin-top: -5px
+    }
 }
  @media only screen and (max-width: 1100px) {
      .menu-bar {
@@ -282,15 +366,7 @@ div.reader-tabs {
     }
      .leaves-header {
          width: 100% !important;
-    }
-     .navbar-header {
-         -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
-         -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
-         box-shadow: 0px 0px 10px rgba(0,0,0,.8);
-    }
-    .search-box {
-        margin-top: -5px
-    }
+    }   
 }
  .cards-reader-active {
      display: grid;
@@ -357,6 +433,7 @@ div.reader-tabs {
      right: 0;
      margin-top: 20px;
 }
+
  .content img {
      max-width: 100%;
 }
@@ -520,7 +597,10 @@ div.reader-tabs {
 }
  .inner-addon input {
      border: none;
-     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+     background: rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0);
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
 }
  .inner-addon input:focus {
      outline: none;
