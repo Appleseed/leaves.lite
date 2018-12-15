@@ -31,10 +31,15 @@ body {
     margin: 0;
     padding: 0;
     position: relative;
+    z-index: 9999;
 }
 
 .tab-dropdown ul li i {
     font-size: 2rem;
+}
+
+.tab-dropdown-hide {
+    display: none;
 }
 
 .tab-dropdown ul li ul {
@@ -61,13 +66,20 @@ body {
     padding: 3px;   
 }
 
+.maximize button {
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+    padding: 3px;       
+}
+
 .dropdown-dummy-bg {
     width: 100%;
     height: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 999;
 }
 
 .tab-dropdown ul li ul li {
@@ -89,6 +101,10 @@ body {
 .active-reader-dropdown {
     color: #fff;
     background-color: #337ab7;
+}
+
+#doLogin {
+    margin-top: 20px;
 }
 
 div.reader-tabs {
@@ -257,7 +273,20 @@ div.reader-tabs {
     display: inline-block;
 }
 
+.dropdown-toggle ul {
+    z-index: 9999
+}
+
+.search-btn-handler {
+    display: hidden;
+}
+
  @media only screen and (max-width: 800px) {
+
+    .search-btn-handler {
+        display: block;
+    }
+
      .mobile-reader {
          position: fixed;
          bottom: 0;
@@ -283,6 +312,11 @@ div.reader-tabs {
          overflow-x: hidden;
          z-index: 99;
     }
+    .dropdown-dummy-bg {
+        display: none;
+    }
+
+
      .loading_button {
          margin-bottom: 60px;
     }
@@ -327,8 +361,8 @@ div.reader-tabs {
         display: none;
     }
     .mobile-dropdown{
-    display: block !important;
-}
+        display: block !important;
+    }
 }
  @media only screen and (max-width: 1100px) {
      .menu-bar {

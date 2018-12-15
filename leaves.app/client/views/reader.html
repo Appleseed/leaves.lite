@@ -24,13 +24,13 @@
             </div>
 
 
-            <div class="tab-dropdown">
+            <div ng-class="!isReaderActive ? 'tab-dropdown tab-dropdown-hide': 'tab-dropdown'">
                 <ul>
                     <li>
                         <button type="button" class="dropdown-toggle" ng-click="toggleDropdown()"><i class="fa fa-angle-down"></i></button>
                         
                         <ul ng-if="tabDropdown">
-                            <li  ng-class="item.active ? 'active-reader-dropdown' : ''" ng-repeat="item in leaves" ng-click="changeReaderTab($index)">{{item.title}}</li>
+                            <li ng-class="item.active ? 'active-reader-dropdown' : ''" ng-repeat="item in leaves" ng-click="changeReaderTab($index)">{{item.title}}</li>
                         </ul>
                     </li>
                 </ul>

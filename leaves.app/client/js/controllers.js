@@ -27,6 +27,7 @@ function disableLogging($logProvider, ENV) {
     $rootScope.sidenavBarOpen = false
 
     $scope.goToHome = function() {
+        console.log('home')
         $state.go('home', {
             tag: 'home'
         })
@@ -94,6 +95,7 @@ function disableLogging($logProvider, ENV) {
     }
 
      $scope.makeBitlyLink = function(){
+        console.log('short link')
         document.getElementById('shareModal').style.display = "block";
         $scope.bitly_link = 'Loading...'
         var threadPath = encodeURIComponent(window.location.href)
@@ -234,8 +236,19 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
             dataArray = []
             $scope.searchQuery = searchValue.trim()
             $scope.loadSearchQuery()
+            $state.go('home', {
+                tag: 'search'
+            })
         }
     }
+
+    $scope.mobileSearchBox = false
+
+    $scope.showMobileSearch = function() {
+        console.log('toggle search box')
+        $scope.mobileSearchBox = $scope.mobileSearchBox ? false : true
+    }
+
     $scope.loadSearchQuery = function(){
         $scope.loadingMessage = true
         var searchParams = {
