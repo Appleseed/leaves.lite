@@ -27,7 +27,8 @@
         <header class="leaves-header">
             <leaves-nav></leaves-nav>
         </header>
-        <nav ng-class="sidenavBarOpen ? 'responsive-side-navbar mobile-side-navbar-active' : 'responsive-side-navbar mobile-side-navbar'" ng-click="closeDrawer()">
+        <nav ng-class="sidenavBarOpen ? 'responsive-side-navbar mobile-side-navbar-active' : 'responsive-side-navbar mobile-side-navbar'">
+        <div class="mobile-nav-dummy" ng-click="closeDrawer()"></div>
 
             <div class="responsive-xs-down">
                 <div class="drawer-docker">
@@ -48,20 +49,6 @@
             <ui-view></ui-view> 
         </div>
     </div>
-        <div class="leaves-container">
-            <div class="side-tag-section" id="sideTagSection">
-            <br>
-                <div class="tag-search-input">
-                    <input type="text" ng-model="tag_name" placeholder="Search by tag">
-                </div>
-                <ul>
-                    <li ng-repeat="tag in tags | filter:tag_name" ng-class="{'active-tag': tag.active}" ng-click="multipleTagSelect(tagsString, tag.slug)">{{tag.label}}</li>
-                </ul>
-            </div>
-            <div class="leaves-cards" id="leavesCards">
-                <ui-view id="injecter"></ui-view>
-            </div>
-        </div>
     <div id="contentInIframe" class="second-layer">
         <center><button class="minimizeButton" type="submit" onclick="closeIframe()" title="minimize"><i class="fa fa-close"></i></button></center>
         <div id="originalContent"></div>
