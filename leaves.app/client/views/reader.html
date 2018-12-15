@@ -1,18 +1,8 @@
 <!--<ul ui-sortable="sortableOptions" ng-model="leaves">
     <li ng-repeat="item in leaves">{{ item.title }} </li>
 </ul>-->
-
+<div class="dropdown-dummy-bg" ng-if="tabDropdown" ng-click="toggleDropdown()"></div>
 <div ng-if="leaves" ng-if="readerView"  ng-class="isidexit ? (isReaderActive ? 'mobile-reader-active' : 'mobile-reader') : ''">
-    <div class="reader-header">
-        <div class="maximize">
-            <button  ng-click="minReaderActive()" ng-if="isReaderActive">
-                <i class="fa fa-minus-square"></i>
-            </button>
-            <button  ng-click="maxReaderActive()" ng-if="!isReaderActive">
-                <i class="fa fa-window-maximize"></i>
-            </button>
-        </div>
-    </div>
 
     <div class="scroll-reader">
 
@@ -33,36 +23,43 @@
                 <input type='button' value='>'>
             </div>
 
+
+            <div ng-class="!isReaderActive ? 'tab-dropdown tab-dropdown-hide': 'tab-dropdown'">
+                <ul>
+                    <li>
+                        <button type="button" class="dropdown-toggle" ng-click="toggleDropdown()"><i class="fa fa-angle-down"></i></button>
+                        
+                        <ul ng-if="tabDropdown">
+                            <li ng-class="item.active ? 'active-reader-dropdown' : ''" ng-repeat="item in leaves" ng-click="changeReaderTab($index)">{{item.title}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="reader-header">
+                <div class="maximize">
+                    <button  ng-click="minReaderActive()" ng-if="isReaderActive">
+                        <i class="fa fa-minus-square"></i>
+                    </button>
+                    <button  ng-click="maxReaderActive()" ng-if="!isReaderActive">
+                        <i class="fa fa-window-maximize"></i>
+                    </button>
+                </div>
+            </div>
+
         </div>
-            <div class="tab" ng-repeat="item in leaves">
+            <div class="tab" ng-repeat="item in leaves" style="border-left: 1px solid #707070;border-right: 1px solid #707070;background-color: #fff;padding: 0px 10px 0px 10px;">
+                <div class="reader-meta" ng-if="item.active">
+                    <h2>{{item.title}}</h2>
+                    <small>{{item.domain_name}}</small>
+                    <ul>
+                        <li><i class="fa fa-user"></i> {{item.user_name}}</li>
+                        <li><i class="fa fa-calendar-alt"></i> <span ng-bind="added_date(item.created_at)"></span></li>
+                        <li><i class="fa fa-link"></i> <a href={{item.link}} target="_blank">link</a></li>
+                    </ul>
+                </div>
                 <p ng-if="item.active" ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>
             </div>
 
     </div>
-        <!-- <scrollable-tabset show-tooltips="true">
-            <uib-tabset class="tab-container" id="readerTabs">
-                <uib-tab ng-repeat="item in leaves" active="item.active" >
-                    <uib-tab-heading title="{{item.title}}">
-                        <span>{{item.title}}</span> <i class="glyphicon glyphicon-remove" ng-click="removeTab($event, $index, item.id)"></i>
-                    </uib-tab-heading>
-                    <h1 class="leave-title">{{item.title}}</h1>
-                    <small>{{item.domain_name}}</small>
-                    <div class="entry-meta">
-                        <ul>
-                            <li><i class="fa fa-user"></i> <span>{{item.user_name}}</span></li>
-                            <li ng-if="item.tags.length">
-                                <i class="fa fa-tags"></i>
-                                <span ng-repeat="tag in item.tags">
-                                  <a ui-sref="home({tag:tag.label})">{{tag.label}}</a>
-                                {{$last ? '':', '}}
-                            </span>
-                            </li>
-                            <li><a href="{{getExternalLink(item)}}" target="_blank"><i class="fa fa-external-link"></i> <span>link</span></a></li>
-                            <li><i class="fa fa-link"></i> <span ng-click="viewOriginalCOntent(item.url)">Original Content</span></li>
-                        </ul>
-                    </div>
-                    <p ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>
-                </uib-tab>
-            </uib-tabset>
-        </scrollable-tabset> -->
 </div>

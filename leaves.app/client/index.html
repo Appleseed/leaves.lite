@@ -24,7 +24,8 @@
         <header class="leaves-header">
             <leaves-nav></leaves-nav>
         </header>
-        <nav ng-class="sidenavBarOpen ? 'responsive-side-navbar mobile-side-navbar-active' : 'responsive-side-navbar mobile-side-navbar'" ng-click="closeDrawer()">
+        <nav ng-class="sidenavBarOpen ? 'responsive-side-navbar mobile-side-navbar-active' : 'responsive-side-navbar mobile-side-navbar'">
+        <div class="mobile-nav-dummy" ng-click="closeDrawer()"></div>
 
             <div class="responsive-xs-down">
                 <div class="drawer-docker">

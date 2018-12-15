@@ -18,6 +18,7 @@ function disableLogging($logProvider, ENV) {
   $logProvider.debugEnabled(ENV.ENABLEDEBUG);
 }
   app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', function($scope, $http, $state, $location, $rootScope, ENV) {
+    console.log('main')
     $scope.card_view = true
     $rootScope.readerFromInbox = true
     $rootScope.listArray = []
@@ -26,6 +27,7 @@ function disableLogging($logProvider, ENV) {
     $rootScope.sidenavBarOpen = false
 
     $scope.goToHome = function() {
+        console.log('home')
         $state.go('home', {
             tag: 'home'
         })
@@ -93,6 +95,7 @@ function disableLogging($logProvider, ENV) {
     }
 
      $scope.makeBitlyLink = function(){
+        console.log('short link')
         document.getElementById('shareModal').style.display = "block";
         $scope.bitly_link = 'Loading...'
         var threadPath = encodeURIComponent(window.location.href)
@@ -110,7 +113,7 @@ function disableLogging($logProvider, ENV) {
 
 
 app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$stateParams', 'ENV', function($scope, $rootScope, $http, $state, $stateParams, ENV) {
-
+    console.log('home')
     $rootScope.isidexit = 0
     $rootScope.isReaderActive = false
     $scope.stateJson = $state.current
@@ -228,12 +231,24 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     }
 
     $scope.searchLeaf = function(searchValue){
-        $scope.searchTagMessage ="Search Tag: " + searchValue
-        $scope.searching = true
-        dataArray = []
-        $scope.searchQuery = searchValue
-        $scope.loadSearchQuery(searchValue)
+        if(searchValue !== undefined && searchValue.trim().length > 0) {
+            $scope.searching = true
+            dataArray = []
+            $scope.searchQuery = searchValue.trim()
+            $scope.loadSearchQuery()
+            $state.go('home', {
+                tag: 'search'
+            })
+        }
     }
+
+    $scope.mobileSearchBox = false
+
+    $scope.showMobileSearch = function() {
+        console.log('toggle search box')
+        $scope.mobileSearchBox = $scope.mobileSearchBox ? false : true
+    }
+
     $scope.loadSearchQuery = function(){
         $scope.loadingMessage = true
         var searchParams = {
@@ -246,15 +261,22 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
             url: 'http://stage.leaves.anant.us/solr/',
             params: searchParams
         }).then(function(success) {
-            console.log(success)
             var totalSearchFound = success.data.response.numFound
+            $scope.searchTagMessage = totalSearchFound + ' Result Found: "' + $scope.searchQuery + '"'
+            $scope.searchData = success.data.response.numFound
             angular.forEach(success.data.response.docs, function(value) {
                 dataArray.push(value)
             })
+            if(dataArray.length < success.data.response.numFound) {
+                $scope.loading_button = true
+                $scope.loadingMessage = false
+
+            }
+            console.log(success.data.response.numFound)
         }).catch(function(response) {
             $scope.error = response
         }).finally(function() {
-            $scope.loadingMessage = false
+            page = page + 1
         })
         searchingPage = searchingPage + 1
         $scope.entries = dataArray
@@ -266,6 +288,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
 
 app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', 'ENV', '$sce', function($scope, $http, $stateParams, $timeout, $rootScope, $state, ENV, $sce) {
     var leafIdsList = String($stateParams.ids).split(',')
+
     $rootScope.inboxLength = leafIdsList.length
     $rootScope.inboxArray = leafIdsList
     $scope.readerView = false
@@ -275,29 +298,37 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
     function leafHTTP(id) {
         var param_list = $stateParams.ids.split(',');
         $scope.active_id = id
-        $http({
-            method: 'GET',
-            url: ENV.LEAVES_API_URL + '/api/entries/' + id,
-            params: {
-                access_token: ENV.LEAVES_API_ACCESSTOKEN
-            }
-        }).then(function(success) {
-            $rootScope.leaves.push(success.data)
-        }).catch(function(response) {
-            $scope.error = response
-        }).finally(function() {
-            $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
-            $scope.readerView = true
-            if(!$rootScope.isReaderActive){
-                $rootScope.isReaderActive = true
-            }
-            if($rootScope.leaves.length > 1){
-                $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
-            }
-            readerCountAndMove()
-        })
+
+        var idIndex = $rootScope.leaves.findIndex(x => x.id== id);
+        if(idIndex < 0) {
+            $http({
+                method: 'GET',
+                url: ENV.LEAVES_API_URL + '/api/entries/' + id,
+                params: {
+                    access_token: ENV.LEAVES_API_ACCESSTOKEN
+                }
+            }).then(function(success) {
+                $rootScope.leaves.push(success.data)
+
+            }).catch(function(response) {
+                $scope.error = response
+            }).finally(function() {
+                $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
+                $scope.readerView = true
+                if(!$rootScope.isReaderActive){
+                    $rootScope.isReaderActive = true
+                }
+                if($rootScope.leaves.length > 1){
+                    $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
+                }
+                readerCountAndMove()
+            })
+        }
 
     }
+
+    console.log('flag ' + $rootScope.flag)
+
     if ($rootScope.flag == undefined) {
         $rootScope.listArray = leafIdsList
         if($rootScope.readerFromInbox){
@@ -434,6 +465,16 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
         var leftPos = $('.reader-tabs').scrollLeft();
         $(".reader-tabs").animate({scrollLeft: leftPos - 200}, 400);
      }
+
+     $scope.added_date = function(tm) {
+        return tm.split('T')[0]
+    }
+
+    $scope.tabDropdown = false;
+
+    $scope.toggleDropdown = function(){
+        $scope.tabDropdown = $scope.tabDropdown ? false : true
+    }
 
 
 }])

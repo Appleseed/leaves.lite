@@ -90,10 +90,19 @@ app.controller('navbarCtrl',['$scope','$rootScope', function($scope, $rootScope)
     firebase.auth().onAuthStateChanged(function(user) {
         if(user){
             $scope.userLoggedIn = true
+            $scope.userProfile = user
+            console.log('logged')
+            console.log($scope.userProfile)
         }else {
             $scope.userLoggedIn = false
         }
     });
+
+    $scope.mobileDropdownBox = false;
+
+    $scope.mobileDropdownToggle = function() {
+        $scope.mobileDropdownBox = $scope.mobileDropdownBox ? false : true;
+    }
 
 
      

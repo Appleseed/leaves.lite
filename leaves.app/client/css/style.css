@@ -11,7 +11,80 @@ body {
 
 .reader-header-section {
     display: grid;
-    grid-template-columns: 30px auto 30px;
+    grid-template-columns: 30px auto 30px 30px 40px;
+}
+
+.reader-header-section .left-move input{
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+}
+
+.reader-header-section .right-move input{
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+}
+
+.tab-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 9999;
+}
+
+.tab-dropdown ul li i {
+    font-size: 2rem;
+}
+
+.tab-dropdown-hide {
+    display: none;
+}
+
+.tab-dropdown ul li ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-width: 300px;
+    max-width: 500px;
+    background-color: #fff;
+    margin-top: 20px;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    position: absolute;
+    right: -10px;
+    top: 15px;
+}
+
+.tab-dropdown button {
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+    padding: 3px;   
+}
+
+.maximize button {
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+    padding: 3px;       
+}
+
+.dropdown-dummy-bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.tab-dropdown ul li ul li {
+    padding: 5px 15px;
+    cursor: pointer;
 }
 
 .reader-tabs {
@@ -23,6 +96,15 @@ body {
 .active-reader-tab {
     background-color: #fff;
     border-bottom: 1px solid #070707;
+}
+
+.active-reader-dropdown {
+    color: #fff;
+    background-color: #337ab7;
+}
+
+#doLogin {
+    margin-top: 20px;
 }
 
 div.reader-tabs {
@@ -111,10 +193,11 @@ div.reader-tabs {
      width: 100%;
      margin-top: -20px;
 }
- .cards-reader {
-     display: grid;
-     grid-template-columns: 100%;
+ .cards-reader .card-outer{
      padding: 10px;
+     height: calc(100vh - 50px);
+     overflow-y: scroll;
+     overflow-x: scroll;
 }
  .reader-view {
      height: calc(100vh - 80px);
@@ -125,9 +208,6 @@ div.reader-tabs {
      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
      grid-gap: 10px;
      width: 100%;
-     height: calc(100vh - 50px);
-     overflow-y: scroll;
-     overflow-x: scroll;
 }
  .cards-reader .cards-list {
      display: grid;
@@ -138,7 +218,7 @@ div.reader-tabs {
      overflow-y: scroll;
      overflow-x: scroll;
 }
- .cards-reader-active .cards {
+ .cards-reader-active .card-outer {
      height: calc(100vh - 80px);
      overflow-y: scroll;
      overflow-x: hidden;
@@ -178,12 +258,40 @@ div.reader-tabs {
     color: #fff;
 }
 
+.reader-meta h2 {
+    margin: 0;
+}
+
+.reader-meta ul {
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 20px;
+}
+
+.reader-meta ul li {
+    padding: 3px 10px 3px 0px;
+    display: inline-block;
+}
+
+.dropdown-toggle ul {
+    z-index: 9999
+}
+
+.search-btn-handler {
+    display: hidden;
+}
+
  @media only screen and (max-width: 800px) {
+
+    .search-btn-handler {
+        display: block;
+    }
+
      .mobile-reader {
          position: fixed;
          bottom: 0;
          left:0;
-         height: 70px;
+         height: 38px;
          width: 100%;
          background-color: #fff;
          overflow-y: hidden;
@@ -191,6 +299,7 @@ div.reader-tabs {
          background-color: #fafafa;
          border-bottom: 1px solid #ebebeb;
          box-shadow: 0 -5px 5px -5px rgba(0,0,0,.8);
+         z-index: 99;
     }
      .mobile-reader-active {
          position: fixed;
@@ -201,7 +310,13 @@ div.reader-tabs {
          background-color: #fff;
          overflow-y: scroll;
          overflow-x: hidden;
+         z-index: 99;
     }
+    .dropdown-dummy-bg {
+        display: none;
+    }
+
+
      .loading_button {
          margin-bottom: 60px;
     }
@@ -224,10 +339,11 @@ div.reader-tabs {
     }
      .reader-header {
          position: fixed;
-         right: 30px;
+         right: 5px;
          height: 30px;
          display: block;
          z-index: 100;
+         font-size: 20px;
     }
      .ui-tabs-scrollable > .nav-button {
          top: 27px !important;
@@ -237,6 +353,15 @@ div.reader-tabs {
     }
      .reader-header .maximize i {
          cursor: pointer;
+    }
+    .search-box {
+        margin-top: -5px
+    }
+    .card-view {
+        display: none;
+    }
+    .mobile-dropdown{
+        display: block !important;
     }
 }
  @media only screen and (max-width: 1100px) {
@@ -281,13 +406,41 @@ div.reader-tabs {
     }
      .leaves-header {
          width: 100% !important;
-    }
-     .navbar-header {
-         -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
-         -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
-         box-shadow: 0px 0px 10px rgba(0,0,0,.8);
-    }
+    }   
+.mobile-nav-dummy{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+} 
 }
+
+
+.mobile-dropdown{
+    margin-top: -23px;
+    display: none;
+}
+.mobile-dropdown i{
+    font-size: 18px;
+    right: 30px;
+    position: relative;
+}
+
+.mobile-dropdown ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: absolute;
+    right: 29px;
+    width: 100px;
+    top: 30px;
+    background-color: #fff;
+    padding: 8px;
+}
+
+.mobile-dropdown ul li {
+    padding: 3px;
+}
+
  .cards-reader-active {
      display: grid;
      grid-template-columns: 30% 70%;
@@ -312,8 +465,7 @@ div.reader-tabs {
      width: 50%;
      position: fixed;
      top: 0px;
-     left: 230px;
-     z-index: 99;
+     z-index: 9;
 }
  .single-content h1, .single-content p, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p, .tag-state {
      font-family: 'Questrial', sans-serif;
@@ -354,6 +506,7 @@ div.reader-tabs {
      right: 0;
      margin-top: 20px;
 }
+
  .content img {
      max-width: 100%;
 }
@@ -517,7 +670,10 @@ div.reader-tabs {
 }
  .inner-addon input {
      border: none;
-     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+     background: rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0);
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
 }
  .inner-addon input:focus {
      outline: none;
@@ -769,6 +925,7 @@ div.reader-tabs {
 }
  .loading_button {
      padding: 40px;
+     margin-bottom: 40px;
 }
  .default-reader {
      width: 100%;

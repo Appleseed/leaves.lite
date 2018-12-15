@@ -20,13 +20,27 @@
                     <div class="share-modal-close" onClick="outerClickHide()">close</div>
                 </div>
             </li>
-            <li class="inboxButton"><a ng-click="inboxToReader(inboxArray)"><i class="fa fa-folder-open"></i> Reader <span>{{inboxLength}}</span></a></li>
-            <li><a data-toggle="modal" ng-click="openLeafForm()" class="add-leaf"><i class="fa fa-plus-circle"></i> Add Leaf</a></li>
+            <!-- <li class="inboxButton"><a ng-click="inboxToReader(inboxArray)"><i class="fa fa-folder-open"></i> Reader <span>{{inboxLength}}</span></a></li> -->
+            <!-- <li><a  ng-click="goToHome()">Home</a></li> -->
+            <li><a data-toggle="modal" ng-click="openLeafForm()" class="add-leaf">Add Leaf</a></li>
             <li ng-if="!userLoggedIn"><a data-toggle="modal" data-target="#doLogin" class="do-login"> Login</a></li>
             <li ng-if="userLoggedIn"><a ng-click="doLogout()" class="do-login"> Logout</a></li>
-            <li><a ui-sref="profile">{{leavesTeamID}}</a></li>
+            
         </ul>
     </div>
+        <div style="float: right;">
+            
+        <ul style="position: relative;">
+            <li class="mobile-dropdown">
+                <i class="fa fa-bars" ng-click="mobileDropdownToggle()"></i>
+                <ul ng-if="mobileDropdownBox">
+                    <li><a data-toggle="modal" ng-click="openLeafForm()" class="add-leaf">Add Leaf</a></li>
+                    <li ng-if="!userLoggedIn"><a data-toggle="modal" data-target="#doLogin" class="do-login"> Login</a></li>
+                    <li ng-if="userLoggedIn"><a ng-click="doLogout()" class="do-login"> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        </div>
 
 
 

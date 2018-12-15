@@ -1,15 +1,23 @@
-        <h3 ng-if="searchTagMessage">{{searchTagMessage}}</h3>
+        <h4 ng-if="searchTagMessage">{{searchTagMessage}}</h4>
         <div class="card-view">
             <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
             <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
         </div>
 <div class="cards-reader"  ng-class="isidexit ? 'cards-reader-active' : 'cards-reader'">
-    <div class="cards">
-        <div class="card-list" ng-repeat="entry in entries">
-            <leaves-card data="entry" listarr="listArray"></leaves-card>
+    <div class="card-outer">
+        <div class="cards">
+            <form class="navbar-form navbar-left search-box" ng-submit="searchLeaf(searchValue)" role="search" style="max-width:400px;margin-left:125px">
+                    <div class="inner-addon left-addon" style="width:100%">
+                        <i class="fa fa-search"></i>
+                        <input type="text" ng-value="searchParams" ng-model="searchValue" class="form-control" placeholder="Enter your search query" style="width:100%" />
+                    </div>
+                </form>
+            <div class="card-list" ng-repeat="entry in entries">
+                <leaves-card data="entry" listarr="listArray"></leaves-card>
+            </div>
         </div>
 
-        <div class="text-center loading_button" ng-if="loading_button && 'entries.length <= entries.total'">              
+        <div class="text-center loading_button" ng-if="searching ? (loading_button && 'entries.length <= etotalSearchFound') : (loading_button && 'entries.length <= entries.total') ">              
             <button class="btn btn-primary" ng-click="searching ? loadSearchQuery() : loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
         </div>
     </div>
