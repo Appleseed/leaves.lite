@@ -467,6 +467,40 @@ div.reader-tabs {
      top: 0px;
      z-index: 9;
 }
+
+.search-box .close-icon {
+    border:1px solid transparent;
+    background-color: transparent;
+    display: inline-block;
+    vertical-align: middle;
+    outline: 0;
+    cursor: pointer;
+    right: 25px;
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    top: 5px;
+}
+
+.search-box .close-icon:after {
+    content: "X";
+    display: block;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-color: #333;
+    z-index:1;
+    top: 5px;
+    bottom: 0;
+    margin: auto;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-weight: normal;
+    font-size: 12px;
+    cursor: pointer;
+}
+
  .single-content h1, .single-content p, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p, .tag-state {
      font-family: 'Questrial', sans-serif;
 }
