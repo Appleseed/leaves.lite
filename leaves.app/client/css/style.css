@@ -133,6 +133,13 @@ div.reader-tabs {
      flex-shrink: 0;
      -ms-flex-negative: 0;
 }
+.navbar-nav li a:hover{
+    background-color: #fff !important;
+} 
+.navbar-nav li a span{
+    cursor: pointer;
+}
+
  .responsive-side-navbar .responsive-xs-down {
      -webkit-box-sizing: inherit;
      box-sizing: inherit;

@@ -74,7 +74,7 @@ app.directive('leavesList', function() {
     }
 })
 
-app.controller('navbarCtrl',['$scope','$rootScope', function($scope, $rootScope){
+app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $rootScope, $state){
 
     $scope.userLoggedIn = false
 
@@ -91,8 +91,6 @@ app.controller('navbarCtrl',['$scope','$rootScope', function($scope, $rootScope)
         if(user){
             $scope.userLoggedIn = true
             $scope.userProfile = user
-            console.log('logged')
-            console.log($scope.userProfile)
         }else {
             $scope.userLoggedIn = false
         }
@@ -208,6 +206,9 @@ app.controller('navbarCtrl',['$scope','$rootScope', function($scope, $rootScope)
             });
     }
 
+    $scope.goToProfile = function() {
+         $state.go('profile')
+    }
 
     $scope.doLogout = function() {
         firebase.auth().signOut()

@@ -24,7 +24,17 @@
             <!-- <li><a  ng-click="goToHome()">Home</a></li> -->
             <li><a data-toggle="modal" ng-click="openLeafForm()" class="add-leaf">Add Leaf</a></li>
             <li ng-if="!userLoggedIn"><a data-toggle="modal" data-target="#doLogin" class="do-login"> Login</a></li>
-            <li ng-if="userLoggedIn"><a ng-click="doLogout()" class="do-login"> Logout</a></li>
+            <li ng-if="userLoggedIn">
+                <a>
+                    <span ng-click="goToProfile()">
+                        <img src={{userProfile.photoURL}} width="20px" />
+                        {{userProfile.displayName.split(' ')[0]}}
+                    </span> &nbsp;&nbsp;
+                    <span ng-click="doLogout()">
+                        Logout
+                    </span>
+                </a>
+            </li>
             
         </ul>
     </div>
