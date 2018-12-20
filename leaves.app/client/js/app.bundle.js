@@ -91661,8 +91661,9 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
             $scope.searchQuery = searchValue.trim()
             $scope.loadSearchQuery()
             $state.go('home', {
-                tag: 'search'
+                tag: searchValue
             })
+            $scope.mobileSearchBox = false
         }
     }
 
@@ -91672,6 +91673,27 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
         console.log('toggle search box')
         $scope.mobileSearchBox = $scope.mobileSearchBox ? false : true
     }
+
+    $scope.searchValueReset = false
+
+    $scope.resetSearchValue = function() {
+        $scope.searchValueReset = false
+        $scope.searchValue = ''
+    }
+
+    $scope.fullSearchBox = false;
+
+    $scope.showFullSearchBox = function () {
+        $scope.fullSearchBox = $scope.fullSearchBox ? false : true
+    }
+
+    $scope.onSearchBoxChange = function(value){
+        if(value.length == 0){
+            $scope.searchValueReset = false
+        }else{
+            $scope.searchValueReset = true
+        }
+    }   
 
     $scope.loadSearchQuery = function(){
         $scope.loadingMessage = true

@@ -9,7 +9,7 @@
         <div class="reader-header-section">
 
             <div class="left-move" ng-click="moveReaderLeft()">
-                <input type='button' value='<'>
+                <input type='button' class="btn" value='<'>
             </div>
 
             <div class="reader-tabs" id="readerTabs">
@@ -20,14 +20,14 @@
             </div>
 
             <div class="right-move" ng-click="moveReaderRight()">
-                <input type='button' value='>'>
+                <input type='button' class="btn" value='>'>
             </div>
 
 
             <div ng-class="!isReaderActive ? 'tab-dropdown tab-dropdown-hide': 'tab-dropdown'">
                 <ul>
                     <li>
-                        <button type="button" class="dropdown-toggle" ng-click="toggleDropdown()"><i class="fa fa-angle-down"></i></button>
+                        <button type="button" class="btn dropdown-toggle" ng-click="toggleDropdown()"><i class="fa fa-angle-down"></i></button>
                         
                         <ul ng-if="tabDropdown">
                             <li ng-class="item.active ? 'active-reader-dropdown' : ''" ng-repeat="item in leaves" ng-click="changeReaderTab($index)">{{item.title}}</li>
@@ -38,10 +38,10 @@
             
             <div class="reader-header">
                 <div class="maximize">
-                    <button  ng-click="minReaderActive()" ng-if="isReaderActive">
+                    <button class="btn" ng-click="minReaderActive()" ng-if="isReaderActive">
                         <i class="fa fa-minus-square"></i>
                     </button>
-                    <button  ng-click="maxReaderActive()" ng-if="!isReaderActive">
+                    <button class="btn" ng-click="maxReaderActive()" ng-if="!isReaderActive">
                         <i class="fa fa-window-maximize"></i>
                     </button>
                 </div>
