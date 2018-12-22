@@ -1,8 +1,8 @@
 <!-- {{user | json}} -->
 <div class="user-profile">
 	<div class="row">
-		<div class="col-md-1 text-center">
-			<img src={{user.user_photo}} width="100px">
+		<div class="col-md-2 text-center">
+			<img src={{user.user_photo}} width="100%">
 		</div>
 		<div class="col-md-10">
 			<h3>{{user.name}}</h3>
@@ -13,13 +13,19 @@
 			<!-- <select ng-model="selected_by_reference" ng-options="tag as tag.label for tag in tags"> -->
 		</div>
 		<div class="col-md-12 tags-list" ng-show="user.tagSubmited === undefined">
-
-			<input type="text" ng-model="tag_name" placeholder="Search tag">
-			<input type="button" name="submit" value="submit" ng-click="setTags(user.user_id)">
+			<div class="search-input-div text-center">
+					<input type="search" ng-model="tag_name" placeholder="Search topics">
+					<input type="button" name="submit" value="reset" ng-click="resetSearchInput()">
+				</div>
 			<br>
 			<br>
+			<div ng-if="topic_add_msg">Topic Selected: {{event_on_tag}}</div>
+			<div ng-if="topic_remove_msg">Topic Removed: {{event_on_tag}}</div>
 			<div class="row">
-				<div ng-class="tag.selected ? 'col-md-2 tag selected' : 'col-md-2 tag'" ng-repeat="tag in tags | filter:tag_name" ng-click="addTagToProfile(tag, $index)">{{tag.label}}</div>
+				<div ng-class="tag.selected ? 'col-md-2 tag selected' : 'col-md-2 tag'" ng-repeat="tag in tags | filter:tag_name">
+					<div class="tag-name" ng-click="!tag.selected && addTagToProfile(tag, $index)"><span>{{tag.label}}</span></div>
+					<div class="tab-remove" ng-if="tag.selected" ng-click="addTagToProfile(tag, $index)"><span>x</span></div>
+				</div>
 			</div>
 		</div>
 		<br>

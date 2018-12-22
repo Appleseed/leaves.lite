@@ -518,6 +518,7 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', fun
                                 }
                             })
                         }
+                        sortArrayByBoolean()
                     })
                 });
 
@@ -529,10 +530,16 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', fun
             }
         })
 
-
+    function sortArrayByBoolean() {
+        $scope.tags.sort(function(x,y){
+            return (x.selected === y.selected)? 0 : x.selected ? -1 : 1;
+        })
+    }
 
     $scope.addTagToProfile = function(tag, tagIndex){
         var tagObj = {"id": tag.id, "slug": tag.slug, "label": tag.label}
+        $scope.event_on_tag = tag.label
+        console.log(tag.label)
         if($scope.user.tags === undefined){
             $scope.user.tags = []
             $scope.user.tags.push(tagObj)
@@ -544,17 +551,28 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', fun
                 tagArray.splice(isTagAvailable, 1)
                 $scope.user.tags = tagArray
                 $scope.tags[tagIndex].selected = false
+                $scope.topic_remove_msg = true
+                $scope.topic_add_msg = false
             }else{
                 $scope.user.tags.push(tagObj)
                 $scope.tags[tagIndex].selected = true
+                $scope.topic_add_msg = true
+                $scope.topic_remove_msg = false
             }
         }
+        $scope.setTags()
+        sortArrayByBoolean()
     }
 
-    $scope.setTags = function(uid){
-        console.log($scope.tags)
-        console.log(uid)
-        firebase.database().ref(`/users/${uid}/tags`).set($scope.user.tags)
+    $scope.topic_add_msg = false;
+    $scope.topic_remove_msg = false;
+
+    $scope.setTags = function(){
+        firebase.database().ref(`/users/${$scope.user.user_id}/tags`).set($scope.user.tags)
+    }
+
+    $scope.resetSearchInput = function(){
+        $scope.tag_name = ''
     }
 
     var tags_list = []

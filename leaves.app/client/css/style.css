@@ -255,20 +255,33 @@ div.reader-tabs {
 }
 
 .user-profile .tags-list {
-    padding: 40px 40px 100px 40px;
+    padding: 40px;
 }
 
 .user-profile .tags-list .tag{
-    border: 1px solid #070707;
+    border: 1px solid #333;
+    padding: 5px;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+.user-profile .tags-list .tag .tag-name {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 5px;
-    cursor: pointer;
+}
+.user-profile .tags-list .tag .tab-remove span {
+    float: right;
+    padding: 0px 6px;
+    background-color: #fff;
+    border-radius: 50%;
+    color: #010101;
+    text-align
 }
 
 .user-profile .tags-list .tag.selected {
-    background-color: #333;
+    background-color: #777;
     color: #fff;
 }
 
