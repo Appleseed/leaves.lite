@@ -121,7 +121,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     $scope.loading_button = false
     $scope.entries = []
     var itemIds = []
-    var dataArray;
+    var dataArray = [];
     $scope.searching = false
     $scope.current_params = {
         tag: $stateParams.tag
@@ -181,7 +181,12 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
         })
     }
 
-    homeData(0);
+    if($stateParams.search){
+        console.log('search')
+        searchLeaf($stateParams.search)
+    }else{
+        homeData(0);
+    }
 
     $scope.loadMore = function() {
         homeData(1);
@@ -231,13 +236,17 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     }
 
     $scope.searchLeaf = function(searchValue){
+        searchLeaf(searchValue)
+    }
+
+    function searchLeaf(searchValue){
         if(searchValue !== undefined && searchValue.trim().length > 0) {
             $scope.searching = true
             dataArray = []
             $scope.searchQuery = searchValue.trim()
-            $scope.loadSearchQuery()
-            $state.go('home', {
-                tag: searchValue
+            loadSearchQuery()
+            $state.go('search', {
+                search: searchValue
             })
             $scope.mobileSearchBox = false
         }
@@ -272,19 +281,24 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     }   
 
     $scope.loadSearchQuery = function(){
+        loadSearchQuery()
+    }
+
+    function loadSearchQuery(){
         $scope.loadingMessage = true
+        var searchQuery = $stateParams.search
         var searchParams = {
             rows:30,
-            start: searchingPage * 30,
-            q: $scope.searchQuery
+            start: page * 30,
+            q: searchQuery
         }
          $http({
             method: 'GET',
             url: 'http://stage.leaves.anant.us/solr/',
             params: searchParams
-        }).then(function(success) {
+        }).then((success) => {
             var totalSearchFound = success.data.response.numFound
-            $scope.searchTagMessage = totalSearchFound + ' Result Found: "' + $scope.searchQuery + '"'
+            $scope.searchTagMessage = totalSearchFound + ' Result Found: "' + searchQuery + '"'
             $scope.searchData = success.data.response.numFound
             angular.forEach(success.data.response.docs, function(value) {
                 dataArray.push(value)
@@ -295,13 +309,14 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
 
             }
             console.log(success.data.response.numFound)
+            console.log(dataArray)
+            $scope.entries = dataArray
         }).catch(function(response) {
             $scope.error = response
         }).finally(function() {
             page = page + 1
         })
         searchingPage = searchingPage + 1
-        $scope.entries = dataArray
     }
 
 

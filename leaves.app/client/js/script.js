@@ -3,11 +3,17 @@ var app = angular.module('leavesNext', ['ui.router', 'ui.bootstrap', 'ui.tab.scr
 app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     $stateProvider
-        .state('home', {
-            url: '/?tag',
-            templateUrl: 'views/card-view.html',
-            controller: 'homeController'
-        })
+    .state('home', {
+        url: '/?tag',
+        templateUrl: 'views/card-view.html',
+        controller: 'homeController'
+    })
+
+    .state('search', {
+        url: '/?search',
+        templateUrl: 'views/card-view.html',
+        controller: 'homeController'
+    })
 
     .state('home.reader', {
         url: 'leaf/:ids',

@@ -53,10 +53,11 @@
         <center><button class="minimizeButton" type="submit" onclick="closeIframe()" title="minimize"><i class="fa fa-close"></i></button></center>
         <div id="originalContent"></div>
     </div>
-<script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="js/app.bundle.js"></script><script type="text/javascript" src="js/vendor.bundle.js"></script><script type="text/javascript" src="js/app.bundle.js"></script></body>
+
 <script type="text/javascript" src="./env.js"></script>
 <script type="text/javascript" src="js/vendor.bundle.js"></script>
 <script type="text/javascript" src="js/app.bundle.js"></script>
+</body>
 <script>
     $(function() {
         $('#myTab a:last').tab('show')
@@ -82,17 +83,16 @@
     }
 
     $(".leftArrow").click(function (event) { 
-console.log('hi')
-event.preventDefault();
-  var leftPos = $('.scrollmenu').scrollLeft();
-  $(".scrollmenu").animate({scrollLeft: leftPos - 200}, 400);
-});
+        event.preventDefault();
+        var leftPos = $('.scrollmenu').scrollLeft();
+        $(".scrollmenu").animate({scrollLeft: leftPos - 200}, 400);
+    });
 
-$(".rightArrow").click(function (event) { 
-event.preventDefault();
-  var leftPos = $('.scrollmenu').scrollLeft();
-  $(".scrollmenu").animate({scrollLeft: leftPos + 200}, 400);
-});
+    $(".rightArrow").click(function (event) { 
+        event.preventDefault();
+        var leftPos = $('.scrollmenu').scrollLeft();
+        $(".scrollmenu").animate({scrollLeft: leftPos + 200}, 400);
+    });
 </script>
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
