@@ -8,23 +8,23 @@
     <div class="hidden-xs">
         <ul class="nav navbar-nav navbar-right">
             <li class="copy-and-share"><a ng-click="makeBitlyLink()"><span class="down-arrow-css"><i class="fa fa-share-alt"></i> Share branch</span></a>
-                <div class="share-modal" id="shareModal">
-                    <div class="share-model-inner">
-                        <div class="share-modal-title">Share this resource link</div>
-                        <div class="input-group">
-                            <input type="text" class="form-control" ng-value="bitly_link" id="bitlyLink" placeholder="Share this Thread" aria-describedby="basic-addon2">
-                            <span class="input-group-addon" id="basic-addon2" onClick="copyThisShortLink()" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="fa fa-clipboard"></i></span>
-                        </div>
-                    </div>
-                    <div id="showCopiedMsg" class="coiped-msg"></div>
-                    <div class="share-modal-close" onClick="outerClickHide()">close</div>
-                </div>
+                
             </li>
             <!-- <li class="inboxButton"><a ng-click="inboxToReader(inboxArray)"><i class="fa fa-folder-open"></i> Reader <span>{{inboxLength}}</span></a></li> -->
             <!-- <li><a  ng-click="goToHome()">Home</a></li> -->
             <li><a data-toggle="modal" ng-click="openLeafForm()" class="add-leaf">Add Leaf</a></li>
             <li ng-if="!userLoggedIn"><a data-toggle="modal" data-target="#doLogin" class="do-login"> Login</a></li>
-            <li ng-if="userLoggedIn">
+            <li  ng-if="userLoggedIn" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img src={{userProfile.photoURL}} width="20px" />
+                        {{userProfile.displayName.split(' ')[0]}}
+                 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a ng-click="goToProfile()">Profile</a></li>
+                    <li><a ng-click="doLogout()">Logout</a></li>
+                </ul>
+            </li>
+           <!--  <li ng-if="userLoggedIn">
                 <a>
                     <span ng-click="goToProfile()">
                         <img src={{userProfile.photoURL}} width="20px" />
@@ -34,7 +34,7 @@
                         Logout
                     </span>
                 </a>
-            </li>
+            </li> -->
             
         </ul>
     </div>
@@ -46,12 +46,35 @@
                 <ul ng-if="mobileDropdownBox">
                     <li><a data-toggle="modal" ng-click="openLeafForm()" class="add-leaf">Add Leaf</a></li>
                     <li ng-if="!userLoggedIn"><a data-toggle="modal" data-target="#doLogin" class="do-login"> Login</a></li>
-                    <li ng-if="userLoggedIn"><a ng-click="doLogout()" class="do-login"> Logout</a></li>
+                    <li ng-if="userLoggedIn"><a ng-click="goToProfile()">Profile</a></li>
+                    <li ng-if="userLoggedIn"><a ng-click="doLogout()" class="do-login">Logout</a></li>
                 </ul>
             </li>
         </ul>
         </div>
 
+<!-- Modal -->
+<div class="modal fade" id="shareBundle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Bundle Box</h4>
+      </div>
+      <div class="modal-body">
+       <div class="share-modal-title">Share this resource link</div>
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-value="bitly_link" id="bitlyLink" placeholder="Share this Thread" aria-describedby="basic-addon2">
+                    <span class="input-group-addon" id="basic-addon2" onClick="copyThisShortLink()" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="fa fa-clipboard"></i></span>
+                </div>
+                <div id="showCopiedMsg" class="coiped-msg"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <div class="modal fade bs-example-modal-lg" id="doLogin" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">

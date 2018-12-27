@@ -1,37 +1,62 @@
 <!-- {{user | json}} -->
 <div class="user-profile">
-	<div class="row">
-		<div class="col-md-2 text-center">
-			<img src={{user.user_photo}} width="100%">
-		</div>
-		<div class="col-md-10">
-			<h3>{{user.name}}</h3>
-		</div>
-	<hr>
-		<div class="col-md-12">
-			<h4>Your tags: {{user.tags.length === undefined ? '0' : user.tags.length}}</h4>
-			<!-- <select ng-model="selected_by_reference" ng-options="tag as tag.label for tag in tags"> -->
-		</div>
-		<div class="col-md-12 tags-list" ng-show="user.tagSubmited === undefined">
-			<div class="search-input-div text-center">
-					<input type="search" ng-model="tag_name" placeholder="Search topics">
-					<input type="button" name="submit" value="reset" ng-click="resetSearchInput()">
-				</div>
-			<br>
-			<br>
-			<div ng-if="topic_add_msg">Topic Selected: {{event_on_tag}}</div>
-			<div ng-if="topic_remove_msg">Topic Removed: {{event_on_tag}}</div>
-			<div class="row">
-				<div ng-class="tag.selected ? 'col-md-2 tag selected' : 'col-md-2 tag'" ng-repeat="tag in tags | filter:tag_name">
-					<div class="tag-name" ng-click="!tag.selected && addTagToProfile(tag, $index)"><span>{{tag.label}}</span></div>
-					<div class="tab-remove" ng-if="tag.selected" ng-click="addTagToProfile(tag, $index)"><span>x</span></div>
-				</div>
-			</div>
-		</div>
-		<br>
-		<br>
-		<br>
-	</div>
-	<div class="row">
-	</div>
+    <div class="row">
+        <div class="col-md-2 col-sm-4 col-xs-4 text-center">
+            <img src={{user.user_photo}} width="100%">
+        </div>
+        <div class="col-md-10 col-sm-8 col-xs-8">
+            <h3>{{user.name}}</h3>
+            <div>Your tags: {{user.tags.length === undefined ? '0' : user.tags.length}}</div>
+            <div>email notification: {{user.notification_type !== 'undefined' ? user.notification_type : 'weekly'}}</div>
+        </div>
+        <hr>
+
+        <br/>
+
+        <div class="col-md-12 heading-h3">
+            <ul>
+                <li>Select the topics you are interested to get an email notification every time a new item is added with that topic(s)</li>
+                <li>
+                	How often would you like this email notification: a) Daily b) Weekly 
+						<div class="radio">
+							<label>
+							<input type="radio" ng-model="notification_type" value="daily" ng-change="selectNotificationType(notification_type)" name="optionsRadios" id="optionsRadios1" ng-checked="user.notification_type === 'daily' ? true : false">
+								Daily
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" ng-model="notification_type" value="weekly" ng-change="selectNotificationType(notification_type)" name="optionsRadios" id="optionsRadios2" ng-checked="user.notification_type === 'weekly' ? true : false">
+								Weekly
+							</label>
+						</div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12 tags-list" ng-show="user.tagSubmited === undefined">
+            <div class="search-input-div text-center">
+                <input type="search" ng-model="tag_name" placeholder="Search topics" style="min-width: 300px">
+                <input type="button" name="submit" value="reset" ng-click="resetSearchInput()">
+            </div>
+            <br>
+            <br>
+            <br/>
+            <div ng-if="topic_add_msg">Topic Selected: {{event_on_tag}}</div>
+            <div ng-if="topic_remove_msg">Topic Removed: {{event_on_tag}}</div>
+            <div class="row">
+                <div ng-class="tag.selected ? 'col-md-2 tag selected' : 'col-md-2 tag'" ng-repeat="tag in tags | filter:tag_name">
+                    <div class="tag-name" ng-click="!tag.selected && addTagToProfile(tag, $index)"><span>{{tag.label}}</span></div>
+                    <div class="tab-remove" ng-if="tag.selected" ng-click="addTagToProfile(tag, $index)"><span>x</span></div>
+                </div>
+            </div>
+        <br>
+        <br>
+        <br>
+        </div>
+        <br>
+        <br>
+        <br>
+    </div>
+    <div class="row">
+    </div>
 </div>

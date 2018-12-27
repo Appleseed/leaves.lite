@@ -1105,6 +1105,10 @@ div.reader-tabs {
      padding: 5px;
      height: 22px;
 }
+.navbar-right {
+    margin-right: 0px !important;
+}
+
  li.highlight {
      background: #FEE25F;
 }
@@ -1131,15 +1135,7 @@ div.reader-tabs {
      transform: rotate(-45deg);
      -webkit-transform: rotate(-45deg);
 }
- .share-modal {
-     display: none;
-     position: absolute;
-     width: 352px;
-     background-color: #fff;
-     border: 1px solid rgba(27,31,35,0.15);
-     border-radius: 4px;
-     box-shadow: 0 3px 12px rgba(27,31,35,0.15);
-}
+
  .share-model-inner {
      padding: 10px;
 }

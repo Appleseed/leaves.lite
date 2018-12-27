@@ -228,7 +228,6 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
         return tm.split('T')[0]
     }
     $scope.getSingleLeaves = function(id, listarr) {
-        document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1
         if (listarr.indexOf(id) === -1) {
@@ -255,7 +254,6 @@ app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($sc
     }
     $scope.getSingleLeaves = function(id, listarr) {
         var leave_id = String(id)
-        document.getElementById('shareModal').style.display = "none";
         $rootScope.rm_id = true
         $rootScope.flag = 1
         if (listarr.indexOf(leave_id) === -1) {

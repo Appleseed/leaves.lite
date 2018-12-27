@@ -95,8 +95,7 @@ function disableLogging($logProvider, ENV) {
     }
 
      $scope.makeBitlyLink = function(){
-        console.log('short link')
-        document.getElementById('shareModal').style.display = "block";
+        $("#shareBundle").modal('show')
         $scope.bitly_link = 'Loading...'
         var threadPath = encodeURIComponent(window.location.href)
         var pathToHit = "https://api-ssl.bitly.com/v3/shorten?access_token="+ENV.BITLY_API_ACCESSTOKEN+"&longUrl=" + threadPath
@@ -533,7 +532,7 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', fun
                                 }
                             })
                         }
-                        sortArrayByBoolean()
+                        // sortArrayByBoolean()
                     })
                 });
 
@@ -576,7 +575,7 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', fun
             }
         }
         $scope.setTags()
-        sortArrayByBoolean()
+        // sortArrayByBoolean()
     }
 
     $scope.topic_add_msg = false;
@@ -612,6 +611,10 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', fun
     })
     $scope.tags = tags_list
 
+    $scope.selectNotificationType = function(v){
+        $scope.user.notification_type = v
+        firebase.database().ref(`/users/${$scope.user.user_id}/notification_type`).set(v)
+    }
 
     function convertToArray(objData) {
         var ArrayObj = [];
