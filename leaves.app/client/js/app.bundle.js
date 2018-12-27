@@ -91609,7 +91609,6 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     }
 
     if($stateParams.search){
-        console.log('search')
         searchLeaf($stateParams.search)
     }else{
         homeData(0);
@@ -91667,6 +91666,7 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
     }
 
     function searchLeaf(searchValue){
+
         if(searchValue !== undefined && searchValue.trim().length > 0) {
             $scope.searching = true
             dataArray = []

@@ -11,7 +11,7 @@ body {
 
 .reader-header-section {
     display: grid;
-    grid-template-columns: 30px auto 30px 30px 40px;
+    grid-template-columns: 30px auto 30px 30px;
 }
 
 .reader-header-section .btn {
@@ -382,6 +382,11 @@ div.reader-tabs {
          display: block;
          z-index: 100;
          font-size: 20px;
+    }
+    
+    .reader-header-section {
+        display: grid;
+        grid-template-columns: 30px auto 30px 30px 40px;
     }
      .ui-tabs-scrollable > .nav-button {
          top: 27px !important;
