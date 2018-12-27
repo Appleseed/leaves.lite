@@ -54,8 +54,8 @@
                     <small>{{item.domain_name}}</small>
                     <ul>
                         <li><i class="fa fa-user"></i> {{item.user_name}}</li>
-                        <li><i class="fa fa-calendar-alt"></i> <span ng-bind="added_date(item.created_at)"></span></li>
-                        <li><i class="fa fa-link"></i> <a href={{item.link}} target="_blank">link</a></li>
+                        <li><i class="fa fa-clock-o"></i> <span ng-bind="added_date(item.created_at)"></span></li>
+                        <li><i class="fa fa-link"></i> <a ng-href="{{getExternalLink(item)}}" target="_blank">link</a></li>
                     </ul>
                 </div>
                 <p ng-if="item.active" ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>
