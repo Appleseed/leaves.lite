@@ -134,6 +134,7 @@ div.reader-tabs {
      position: fixed;
      background-color: #fafafa;
      border-bottom: 1px solid #ebebeb;
+     z-index: 999;
 }
  .responsive-side-navbar {
      width: 240px;
@@ -505,10 +506,10 @@ div.reader-tabs {
     padding: 0;
     margin: 0;
     list-style: none;
-    position: absolute;
+    position: fixed;
     right: 29px;
     width: 100px;
-    top: 30px;
+    top: 50px;
     background-color: #fff;
     padding: 8px;
 }
@@ -577,6 +578,23 @@ div.reader-tabs {
     font-weight: normal;
     font-size: 12px;
     cursor: pointer;
+}
+
+.tags-items {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.tags-items .tag-item {
+    display: inline-block;
+    border: 1px solid #777;
+    margin: 5px;
+    padding: 3px 5px 0px 5px;
+}
+
+.tab-content {
+    padding: 20px !important
 }
 
  .single-content h1, .single-content p, .entry-meta h4, .logo-title, .navbar, .modal, .loadingMessage p, .tag-state {
@@ -703,6 +721,23 @@ div.reader-tabs {
 }
  .tags-list li:hover {
      background-color: #cdcdcd;
+}
+.user-profile-data {
+    margin-top: 20px;
+}
+.user-profile-data .picture img {
+    width: 80px;
+    border-radius: 50%;
+    padding: 5px;
+    margin-right: 10px;
+}
+.user-profile-data .picture, .user-profile-data .user-details{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.user-profile-data .user-details h3 {
+    margin:0;
 }
  .tag-search-input input{
     /*position: fixed;

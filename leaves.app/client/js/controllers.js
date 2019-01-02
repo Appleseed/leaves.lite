@@ -107,6 +107,29 @@ function disableLogging($logProvider, ENV) {
         })
     }
 
+    $scope.newsletterData = function() {
+        var obj = {
+            'name': $scope.user_name,
+            'email': $scope.email,
+            'tags': $scope.selectionTag
+        }
+        console.log(obj)
+    }
+
+    $scope.selectionTag=[];
+
+      $scope.toggleSelection = function toggleSelection(gender) {
+        var idx = $scope.selectionTag.indexOf(gender);
+        if (idx > -1) {
+          // is currently selected
+          $scope.selectionTag.splice(idx, 1);
+         }
+         else {
+           // is newly selected
+           $scope.selectionTag.push(gender);
+         }
+      };
+
 }])
 
 
@@ -517,6 +540,8 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
 
 app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', function($scope, $window, $http, ENV, $state){
 
+    $scope.loadingProfile = true;
+
     firebase.auth().onAuthStateChanged(function(user){
             if(user){
                 firebase.database().ref(`/users/${user.uid}`).once('value').then((snapshot) => {
@@ -525,6 +550,7 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', fun
                         $scope.user = userData
                         if(userData.tags !== undefined){
                             angular.forEach($scope.tags, function(value, key){
+                                $scope.tags[key].index_value = key
                                 if(userData.tags.findIndex(x => x.id === value.id) > -1){
                                     $scope.tags[key].selected = true
                                 }else{
@@ -532,6 +558,7 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', fun
                                 }
                             })
                         }
+                        $scope.loadingProfile = false;
                         // sortArrayByBoolean()
                     })
                 });

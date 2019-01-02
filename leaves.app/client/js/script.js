@@ -214,6 +214,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $
 
     $scope.goToProfile = function() {
          $state.go('profile')
+         $scope.mobileDropdownBox = false
     }
 
     $scope.doLogout = function() {
