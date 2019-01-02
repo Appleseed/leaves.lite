@@ -526,7 +526,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
      }
 
      $scope.added_date = function(tm) {
-        return tm.split('T')[0]
+        return moment(tm.split('T')[0], "YYYYMMDD").fromNow();
     }
 
     $scope.tabDropdown = false;

@@ -91349,7 +91349,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $
 
 app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
     $scope.added_date = function(tm) {
-        return tm.split('T')[0]
+        return moment(tm.split('T')[0], "YYYYMMDD").fromNow();
     }
     $scope.getSingleLeaves = function(id, listarr) {
         $rootScope.rm_id = true
@@ -91374,7 +91374,7 @@ app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($sc
 }])
 app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
     $scope.added_date = function(tm) {
-        return tm.split('T')[0]
+        return moment(tm.split('T')[0], "YYYYMMDD").fromNow();
     }
     $scope.getSingleLeaves = function(id, listarr) {
         var leave_id = String(id)
@@ -91955,7 +91955,7 @@ app.controller('singleLeaves', ['$scope', '$http', '$stateParams', '$timeout', '
      }
 
      $scope.added_date = function(tm) {
-        return tm.split('T')[0]
+        return moment(tm.split('T')[0], "YYYYMMDD").fromNow();
     }
 
     $scope.tabDropdown = false;
