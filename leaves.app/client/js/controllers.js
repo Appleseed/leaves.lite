@@ -274,6 +274,80 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
         }
     }
 
+    $scope.subsTagsArray = []
+
+    if($stateParams.tag !== 'home' && $stateParams.tag !== undefined){
+        firebase.auth().onAuthStateChanged(function(user) {
+            if(user){
+                 firebase.database().ref(`/users/${user.uid}`).once('value').then((snapshot) => {
+                    var userData = snapshot.val()
+                    $scope.$apply(function() {
+                        $scope.user = userData
+                        var tagsList = $stateParams.tag.split(',')
+                        console.log(userData.tags)
+                        for (var i = 0; i < tagsList.length; i++) {
+                            var tagIndexInArray = userData.tags.findIndex(x => x.slug === tagsList[i])
+                            if( tagIndexInArray > -1){
+                                $scope.subsTagsArray.push({label: userData.tags[tagIndexInArray].label, id: userData.tags[tagIndexInArray].id, slug: tagsList[i], isSub: true})
+                            }else{
+                                var indexInAllTags = $scope.tags.findIndex(x => x.slug === tagsList[i])
+                                $scope.subsTagsArray.push({label: $scope.tags[indexInAllTags].label, id: $scope.tags[indexInAllTags].id, slug: tagsList[i], isSub: false})
+                            }
+                        }
+                        
+                        // sortArrayByBoolean()
+                    })
+                });
+            }else {
+                var tagsList = $stateParams.tag.split(',')
+                for (var i = 0; i < tagsList.length; i++) {
+                    var tagIndex = $scope.tags.findIndex( x => x.slug === tagsList[i] )
+                    if(tagIndex > -1){
+                        $scope.subsTagsArray.push({slug: tagsList[i], label: $scope.tags[tagIndex].label, id: $scope.tags[tagIndex].id, isSub: false})
+                    }
+                }
+            }
+        })
+    }
+        
+
+   
+
+    $scope.subscribeTag = function(tag, subTagIndex) {
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if(user){
+                var tagObj = {"id": tag.id, "slug": tag.slug, "label": tag.label}
+                $scope.event_on_tag = tag.label
+                var tagIndex = $scope.tags.findIndex( x => x.id === tag.id )
+                if($scope.user.tags === undefined && tagIndex < 0) {
+                    $scope.user.tags = []
+                    $scope.user.tags.push(tagObj)
+                    $scope.tags[tagIndex].selected = true
+                    $scope.subsTagsArray[subTagIndex].isSub = true
+                }else{
+                    var isTagAvailable = $scope.user.tags.findIndex( x => x.id === tag.id )
+                    if(isTagAvailable > -1){
+                        var tagArray = $scope.user.tags
+                        tagArray.splice(isTagAvailable, 1)
+                        $scope.user.tags = tagArray
+                        $scope.tags[tagIndex].selected = false
+                        $scope.subsTagsArray[subTagIndex].isSub = false
+                    }else{
+                        $scope.user.tags.push(tagObj)
+                        $scope.tags[tagIndex].selected = true
+                        $scope.subsTagsArray[subTagIndex].isSub = true
+                    }
+                }
+                firebase.database().ref(`/users/${$scope.user.user_id}/tags`).set($scope.user.tags)
+                $scope.$apply();
+                console.log($scope.subsTagsArray)
+            }else {
+               $('#doLogin').modal('show');
+            }
+        })
+    }
+
     $scope.mobileSearchBox = false
 
     $scope.showMobileSearch = function() {
@@ -580,7 +654,6 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', fun
     $scope.addTagToProfile = function(tag, tagIndex){
         var tagObj = {"id": tag.id, "slug": tag.slug, "label": tag.label}
         $scope.event_on_tag = tag.label
-        console.log(tag.label)
         if($scope.user.tags === undefined){
             $scope.user.tags = []
             $scope.user.tags.push(tagObj)

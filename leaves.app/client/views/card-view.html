@@ -1,8 +1,19 @@
 <br/>
 <h4 ng-if="searchTagMessage">{{searchTagMessage}}</h4>
-<div class="card-view">
-    <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
-    <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
+<div class="card-header">
+    <div class="card-view">
+        <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
+        <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
+    </div>
+    <div class="sub-div" ng-if="current_params.tag !== 'home'">
+        <div class="sub-btn">
+            <button type="button" ng-click="subscribeTag(tag, $index)" class="btn btn-default" ng-repeat="tag in subsTagsArray">
+                <i class="fa fa-bell"></i> 
+                {{tag.slug}} 
+                <i class="fa fa-check-square" ng-if="tag.isSub" style="color: green"></i>
+            </button>
+        </div>
+    </div>
 </div>
 <div class="cards-reader"  ng-class="isidexit ? 'cards-reader-active' : 'cards-reader'">
     <div class="card-outer">
@@ -16,6 +27,7 @@
                         <button ng-if="searchValueReset" class="close-icon" ng-click="resetSearchValue()" type="reset"></button>
                     </div>
                 </form>
+
             <div class="card-list" ng-repeat="entry in entries">
                 <leaves-card data="entry" listarr="listArray"></leaves-card>
             </div>

@@ -426,6 +426,11 @@ div.reader-tabs {
     .card-view {
         display: none;
     }
+    .card-header {
+        display: grid;
+        grid-template-columns: 100% !important;
+    }
+
     .mobile-dropdown{
         display: block !important;
     }
@@ -1041,6 +1046,21 @@ div.reader-tabs {
      cursor: pointer;
      margin: 15px 3px 0px 8px;
 }
+.card-header{
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+} 
+.card-header .sub-div{
+    text-align: right;
+    padding-right: 20px;
+}
+
+.card-header .sub-div {
+
+}
+
+
  .list-view {
      margin-left: -10px;
 }
