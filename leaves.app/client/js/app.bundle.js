@@ -91206,6 +91206,7 @@ app.directive('leavesList', function() {
 app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $rootScope, $state){
 
     $scope.userLoggedIn = false
+    $scope.profileDropdownOpen = false
 
     $scope.openLeafForm = function() {
         $('#addLeaf').modal('show');
@@ -91214,6 +91215,10 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $
                 document.getElementById("loginMsg").innerHTML = "Please logged In"
             }
         })
+    }
+
+    $scope.openProfileDropdown = function() {
+        $scope.profileDropdownOpen = $scope.profileDropdownOpen ? false : true
     }
 
     firebase.auth().onAuthStateChanged(function(user) {
@@ -91770,7 +91775,6 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
                 }
                 firebase.database().ref(`/users/${$scope.user.user_id}/tags`).set($scope.user.tags)
                 $scope.$apply();
-                console.log($scope.subsTagsArray)
             }else {
                $('#doLogin').modal('show');
             }

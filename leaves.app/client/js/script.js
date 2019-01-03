@@ -83,6 +83,7 @@ app.directive('leavesList', function() {
 app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $rootScope, $state){
 
     $scope.userLoggedIn = false
+    $scope.profileDropdownOpen = false
 
     $scope.openLeafForm = function() {
         $('#addLeaf').modal('show');
@@ -91,6 +92,10 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $
                 document.getElementById("loginMsg").innerHTML = "Please logged In"
             }
         })
+    }
+
+    $scope.openProfileDropdown = function() {
+        $scope.profileDropdownOpen = $scope.profileDropdownOpen ? false : true
     }
 
     firebase.auth().onAuthStateChanged(function(user) {

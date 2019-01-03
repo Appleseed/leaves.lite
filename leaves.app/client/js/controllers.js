@@ -341,7 +341,6 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
                 }
                 firebase.database().ref(`/users/${$scope.user.user_id}/tags`).set($scope.user.tags)
                 $scope.$apply();
-                console.log($scope.subsTagsArray)
             }else {
                $('#doLogin').modal('show');
             }
