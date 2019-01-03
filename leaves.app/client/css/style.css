@@ -9,6 +9,17 @@ body {
      height: 100vh 
 }
 
+textarea,
+input,
+input.text,
+input[type="text"],
+input[type="button"],
+input[type="search"],
+input[type="submit"] {
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
 .reader-header-section {
     display: grid;
     grid-template-columns: 30px auto 30px 30px;
@@ -403,12 +414,14 @@ div.reader-tabs {
         width: 94% !important;
         margin-left: 0 !important;
         position: absolute;
+        z-index: 999;
         background-color: #eee;
     }
     .toggle-search {
         position: absolute;
         top: 20px;
         right: 60px;
+        z-index: 999;
     }
     .card-view {
         display: none;
@@ -542,7 +555,7 @@ div.reader-tabs {
      width: 50%;
      position: fixed;
      top: 6px;
-     z-index: 9;
+     z-index: 999;
      max-width:400px;
      margin-left:125px
 }
