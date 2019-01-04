@@ -91590,20 +91590,35 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
             page = 1
             $scope.entries = []
         }
+        var paramsArray = []
         if ($stateParams.tag && $stateParams.tag != 'home') {
-            var tagName = $stateParams.tag;
-            console.log(tagName)
-            if (tagName.includes('-')) tagName = tagName.split('-').join(' ');
+            var tagNamesArray = $stateParams.tag.split(',');
 
-            var param = {
-                access_token: ENV.LEAVES_API_ACCESSTOKEN,
-                sort: 'created',
-                limit: 12,
-                order: 'desc',
-                page: page,
-                tags: tagName
-            }
-            console.log(param)
+            angular.forEach(tagNamesArray, (tagName) => {
+                if (tagName.includes('-')) tagName = tagName.split('-').join(' ');
+
+                var param = {
+                    access_token: ENV.LEAVES_API_ACCESSTOKEN,
+                    sort: 'created',
+                    limit: 12,
+                    order: 'desc',
+                    page: page,
+                    tags: tagName
+                }
+
+                paramsArray.push(param)
+            })
+
+            
+
+            // var param = {
+            //     access_token: ENV.LEAVES_API_ACCESSTOKEN,
+            //     sort: 'created',
+            //     limit: 12,
+            //     order: 'desc',
+            //     page: page,
+            //     tags: tagName
+            // }
         } else {
             var param = {
                 access_token: ENV.LEAVES_API_ACCESSTOKEN,
@@ -91612,29 +91627,56 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$s
                 order: 'desc',
                 page: page
             }
+            paramsArray.push(param)
         }
         $scope.loadingMessage = true
         if (page >= 2) {
             $scope.loading_button = true
         }
-        $http({
-            method: 'GET',
-            url: ENV.LEAVES_API_URL + '/api/entries',
-            params: param
-        }).then(function(success) {
-            $scope.homeData = success
-            angular.forEach(success.data._embedded.items, function(value) {
-                $scope.entries.push(value)
+
+        console.log(tagNamesArray)
+
+        angular.forEach(paramsArray, (param) => {
+            $http({
+                method: 'GET',
+                url: ENV.LEAVES_API_URL + '/api/entries',
+                params: param
+            }).then(function(success) {
+                $scope.homeData = success
+                angular.forEach(success.data._embedded.items, function(value) {
+                    $scope.entries.push(value)
+                })
+            }).catch(function(response) {
+                $scope.error = response
+            }).finally(function() {
+                if ($scope.entries.length < $scope.homeData.data.total) {
+                    $scope.loading_button = true
+                    $scope.loadingMessage = false
+                }
             })
-        }).catch(function(response) {
-            $scope.error = response
-        }).finally(function() {
-            page = page + 1
-            if ($scope.entries.length < $scope.homeData.data.total) {
-                $scope.loading_button = true
-                $scope.loadingMessage = false
-            }
+            
         })
+
+        page = page + 1
+
+        // $http({
+        //     method: 'GET',
+        //     url: ENV.LEAVES_API_URL + '/api/entries',
+        //     params: param
+        // }).then(function(success) {
+        //     $scope.homeData = success
+        //     angular.forEach(success.data._embedded.items, function(value) {
+        //         $scope.entries.push(value)
+        //     })
+        // }).catch(function(response) {
+        //     $scope.error = response
+        // }).finally(function() {
+        //     page = page + 1
+        //     if ($scope.entries.length < $scope.homeData.data.total) {
+        //         $scope.loading_button = true
+        //         $scope.loadingMessage = false
+        //     }
+        // })
     }
 
     if($stateParams.search){
