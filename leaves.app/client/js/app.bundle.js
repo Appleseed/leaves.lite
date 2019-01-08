@@ -92126,7 +92126,7 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', fun
         })
     }
 
-    $scope.addTagToProfile = function(tag, tagIndex){
+    $scope.addTagToProfile = function(tag, tagIndex){   
         var tagObj = {"id": tag.id, "slug": tag.slug, "label": tag.label}
         $scope.event_on_tag = tag.label
         if($scope.user.tags === undefined){
@@ -92157,11 +92157,12 @@ app.controller('profilePage',['$scope', '$window', '$http', 'ENV', '$state', fun
     $scope.topic_remove_msg = false;
 
     $scope.setTags = function(){
-        firebase.database().ref(`/users/${$scope.user.user_id}/tags`).set($scope.user.tags)
-    }
-
-    $scope.resetSearchInput = function(){
-        $scope.tag_name = ''
+        var tagsForDB = []
+        angular.forEach($scope.user.tags, function(value, key){
+            tagsForDB.push({id: value.id, label: value.label, slug: value.slug})
+        })
+        var ref = '/users/' + $scope.user.user_id + '/tags'
+        firebase.database().ref(ref).set(tagsForDB)
     }
 
     var tags_list = []

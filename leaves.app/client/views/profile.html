@@ -29,7 +29,7 @@
             <ul>
                 <li>Select the topics you are interested to get an email notification every time a new item is added with that topic(s)</li>
                 <li>
-                    How often would you like this email notification: a) Daily b) Weekly 
+                    Choose: 
                         <div class="radio">
                             <label>
                             <input type="radio" ng-model="notification_type" value="daily" ng-change="selectNotificationType(notification_type)" name="optionsRadios" id="optionsRadios1" ng-checked="user.notification_type === 'daily' ? true : false">
@@ -48,15 +48,15 @@
 
         <div class="col-md-12">
             <div class="search-input-div text-center">
-                <input type="search" ng-model="tag_name" placeholder="Search topics" style="min-width: 300px">
-                <input type="button" name="submit" value="reset" ng-click="resetSearchInput()">
+                <input type="search" ng-model="tag_name" ng-value="tag_name" placeholder="Search topics" style="min-width: 300px">
+                <input type="button" name="submit" value="reset" ng-click="tag_name = ''">
             </div>
         </div>
 
         <div class="col-md-12 tags-list">
             <div ng-if="topic_add_msg">Topic Selected: {{event_on_tag}}</div>
             <div ng-if="topic_remove_msg">Topic Removed: {{event_on_tag}}</div>
-            <div class="row">
+            <div class="row" style="margin-bottom: 50px">
                 <div ng-class="tag.selected ? 'col-md-2 tag selected' : 'col-md-2 tag'" ng-repeat="tag in tags | filter:tag_name">
                     <div class="tag-name" ng-click="!tag.selected && addTagToProfile(tag, tag.index_value)"><span>{{tag.label}}</span></div>
                     <div class="tab-remove" ng-if="tag.selected" ng-click="addTagToProfile(tag, tag.index_value)"><span>x</span></div>

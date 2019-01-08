@@ -15,7 +15,7 @@
             <li><a data-toggle="modal" ng-click="openLeafForm()" class="add-leaf">Add Leaf</a></li>
             <li ng-if="!userLoggedIn"><a data-toggle="modal" data-target="#doLogin" class="do-login"> Login</a></li>
             <li  ng-if="userLoggedIn" ng-click="openProfileDropdown()" class="dropdown" ng-class="{'open': profileDropdownOpen}">
-                <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
                         <img src={{userProfile.photoURL}} width="20px" />
                         {{userProfile.displayName.split(' ')[0]}}
                  <span class="caret"></span></a>
@@ -26,7 +26,13 @@
             </li>
             
         </ul>
+        <div class="dropdown-bg-handler" ng-if="profileDropdownOpen" ng-click="openProfileDropdown()">
+
+        </div>
     </div>
+        <div class="dropdown-bg-handler" ng-if="mobileDropdownBox" ng-click="mobileDropdownToggle()">
+
+        </div>
         <div style="float: right;">
             
         <ul style="position: relative;">
