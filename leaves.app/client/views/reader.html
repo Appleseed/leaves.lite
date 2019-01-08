@@ -8,7 +8,7 @@
             <uib-tabset class="tab-container" id="readerTabs">
                 <uib-tab ng-repeat="item in leaves" active="item.active" >
                     <uib-tab-heading title="{{item.title}}">
-                        <span>{{item.title}}</span> <i class="glyphicon glyphicon-remove" ng-click="removeTab($event, $index, item.id)"></i>
+                        <span>{{item.title}}</span> <i class="glyphicon glyphicon-remove" id="click" ng-click="removeTab($event, $index, item.id)"></i>
                     </uib-tab-heading>
                     <h1 class="leave-title">{{item.title}}</h1>
                     <small>{{item.domain_name}}</small>
@@ -22,8 +22,8 @@
                                 {{$last ? '':', '}}
                             </span>
                             </li>
-                            <li><a href="{{getExternalLink(item)}}" target="_blank"><i class="fa fa-external-link"></i> <span>link</span></a></li>
-                            <li><i class="fa fa-link"></i> <span ng-click="viewOriginalCOntent(item.url)">Original Content</span></li>
+                            <li><a href="{{getExternalLink(item)}}" target="_blank"><i class="fa fa-external-link" id="link"></i> <span>link</span></a></li>
+                            <li><i class="fa fa-link"></i> <span id="click" ng-click="viewOriginalCOntent(item.url)">Original Content</span></li>
                         </ul>
                     </div>
                     <p ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>

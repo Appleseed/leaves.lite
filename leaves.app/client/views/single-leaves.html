@@ -4,7 +4,7 @@
             <uib-tabset class="tab-container" id="readerTabsSingle">
                 <uib-tab ng-repeat="item in leaves" active="item.active">
                     <uib-tab-heading title="{{item.title}}">
-                        <span>{{item.title}}</span> <i class="glyphicon glyphicon-remove" ng-click="removeTab($event, $index, item.id)"></i>
+                        <span>{{item.title}}</span> <i class="glyphicon glyphicon-remove" id="click" ng-click="removeTab($event, $index, item.id)"></i>
                     </uib-tab-heading>
                     <h1 class="leave-title">{{item.title}}</h1>
                     <div class="entry-meta">

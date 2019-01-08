@@ -1,5 +1,5 @@
 <div class="container-fluid">
-<div class="row">
+<div class="row" id="cardView">
     <div ng-class="(isidexit == 0) ? 'col-md-12' : 'col-md-4'" id="grid">
         <div class="card-view">
             <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
@@ -11,7 +11,7 @@
                 </div>
         </ul>
         <div class="text-center loading_button" ng-if="loading_button">              
-            <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+            <button class="btn btn-primary" id="loadMore" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
         </div>
     </div>
     <div class="col-md-7" id="reader">

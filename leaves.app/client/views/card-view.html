@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="text-center loading_button" ng-if="loading_button && 'entries.length <= entries.total'">              
-            <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+            <button class="btn btn-primary" id="loadMore" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
         </div>
     </div>
     <div class="col-md-7" id="reader">
