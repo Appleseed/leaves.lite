@@ -1,4 +1,4 @@
-<div class="container-fluid">
+] <div class="container-fluid">
     <div class="row" style="margin-right: 10px">
         <div class="col-lg-12" id="grid" ng-if="loading_button">
             <div class="card-view">
@@ -19,7 +19,7 @@
                 </ul>
             </div>
             <div class="text-center loading_button" ng-if="loading_button">
-                <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>
+                <button class="btn btn-primary" id="loadMore" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>
             </div>
         </div>
         <div class="col-lg-7" id="reader">

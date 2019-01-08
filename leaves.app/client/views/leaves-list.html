@@ -3,7 +3,7 @@
         <img src="{{data.preview_picture}}" />
     </div>
     <div class="col-md-10">
-        <a ng-click="getSingleLeaves(data.id,listarr)" class="list-group-item list-group-item-action flex-column align-items-start">
+        <a id="click" ng-click="getSingleLeaves(data.id,listarr)" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <h3 class="mb-1">{{data.title}}</h3>
                 <small ng-bind="added_date(data.created_at)"></small>
@@ -12,4 +12,3 @@
         </a>
     </div>
 </div>
-<hr>

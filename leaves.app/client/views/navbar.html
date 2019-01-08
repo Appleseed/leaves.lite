@@ -4,7 +4,7 @@
         <span class="menu-bar" id="menu-toggle" ng-click="navCloseOpen(barState)">
                 <i class="fa fa-bars"></i>
             </span>
-        <i class="fa fa-leaf"></i><span class="logo-title" ng-click="goToHome()">Leaves</span>
+        <i class="fa fa-leaf"></i><span class="logo-title" id="click" ng-click="goToHome()">Leaves</span>
     </div>
     <div class="hidden-xs">
        <!--  <form class="navbar-form navbar-left" role="search" style="width:50%">
@@ -14,7 +14,7 @@
             </div>
         </form> -->
         <ul class="nav navbar-nav navbar-right">
-            <li class="copy-and-share"><a ng-click="makeBitlyLink()"><span class="down-arrow-css"><i class="fa fa-share-alt"></i> Share branch</span></a>
+            <li class="copy-and-share"><a id="click" ng-click="makeBitlyLink()"><span class="down-arrow-css"><i class="fa fa-share-alt" id="shareModal"></i>Share branch</span></a>
                 <div class="share-modal" id="shareModal">
                     <div class="share-model-inner">
                         <div class="share-modal-title">Share this resource link</div>
@@ -24,13 +24,13 @@
                         </div>
                     </div>
                     <div id="showCopiedMsg" class="coiped-msg"></div>
-                    <div class="share-modal-close" onClick="outerClickHide()">close</div>
+                    <div class="share-modal-close" id="close" onClick="outerClickHide()">close</div>
                 </div>
             </li>
-            <li class="inboxButton"><a ng-click="inboxToReader(inboxArray)"><i class="fa fa-folder-open"></i> Reader <span>{{inboxLength}}</span></a></li>
-            <li><a data-toggle="modal" ng-click="openLeafForm()" class="add-leaf"><i class="fa fa-plus-circle"></i> Add Leaf</a></li>
-            <li ng-if="!userLoggedIn"><a data-toggle="modal" data-target="#doLogin" class="do-login"> Login</a></li>
-            <li ng-if="userLoggedIn"><a ng-click="doLogout()" class="do-login"> Logout</a></li>
+            <li class="inboxButton" id="inbox"><a id="click" ng-click="inboxToReader(inboxArray)"><i class="fa fa-folder-open"></i> Reader <span>{{inboxLength}}</span></a></li>
+            <li><a data-toggle="modal" ng-click="openLeafForm()" class="add-leaf" id="addLeaf"><i class="fa fa-plus-circle"></i> Add Leaf</a></li>
+            <li ng-if="!userLoggedIn"><a data-toggle="modal" data-target="#doLogin" class="do-login" id="login"> Login</a></li>
+            <li ng-if="userLoggedIn"><a ng-click="doLogout()" class="do-logout" id="logout"> Logout</a></li>
             <li><a href="#">{{leavesTeamID}}</a></li>
         </ul>
     </div>
@@ -40,11 +40,11 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" id="closeButton" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="gridSystemModalLabel">Add New Leaf</h4>
             </div>
             <div class="modal-body">
-                <div class="google-login-btn" ng-if="!userLoggedIn" ng-click="googleLogin()">
+                <div class="google-login-btn" id= "loginButton" ng-if="!userLoggedIn" ng-click="googleLogin()">
                     <div class="please-login-msg">Please log in to use this feature</div>
                     <img src="./img/login-google.jpg">
                 </div>
@@ -52,11 +52,11 @@
                     <form name="addUrlForm" ng-submit="newLeaf(leavesurl)">
                         <div class="form-group">
                             <label for="addUrl">Site URL</label>
-                            <input type="url" class="form-control" name="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
+                            <input type="url" id="inputURL" class="form-control" name="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
                         </div>
                         <div id="addleafError" style="color: red;"></div>
                         {{error.data.error.message}}
-                        <button type="submit" class="btn btn-primary">Save it</button>
+                        <button type="submit" id="submitButton" class="btn btn-primary">Save it</button>
                     </form>
                 </div>
                 <!-- <span ng-if="!addUrlForm.leavesurl.$valid">Enter Valid URL</span> -->
@@ -76,7 +76,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" id="closeButton" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="gridSystemModalLabel">Login/Signup</h4>
             </div>
             <div class="modal-body">
@@ -85,14 +85,14 @@
 
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Login</a></li>
-                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Signup</a></li>
+                        <li role="presentation" id="login" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Login</a></li>
+                        <li role="presentation" id="signUp"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Signup</a></li>
                     </ul>
 
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="home">
-                            <div class="google-login-btn" ng-click="googleLogin()">
+                            <div class="google-login-btn" id="click" ng-click="googleLogin()">
                                 <img src="./img/login-google.jpg">
                                 <br>
                                 OR
@@ -107,7 +107,7 @@
                                     <label for="exampleInputPassword1">Password</label>
                                     <input type="password" class="form-control" ng-model="loginPassword" id="loginPassword" placeholder="Password"required>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Login Now</button>
+                                <button type="submit" id="submitButton" class="btn btn-primary">Login Now</button>
                             </form>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="profile">
@@ -130,7 +130,7 @@
                                     <label for="exampleInputPassword1">Confirm Password</label>
                                     <input type="password" class="form-control" ng-model="confirm_password" id="signupConfirmPassword" placeholder="Password" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Singup</button>
+                                <button type="submit" id="submitButton" class="btn btn-primary">Singup</button>
                             </form>
                         </div>
                     </div>
