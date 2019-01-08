@@ -27,8 +27,8 @@
         <div class="leaves-container">
             <div class="side-tag-section" id="sideTagSection">
             <br>
-                <div class="tag-search-input">
-                    <input type="text" ng-model="tag_name" placeholder="Search by tag">
+                <div class="tag-search-input" id="searchInput">
+                    <input type="text" id="inputText" ng-model="tag_name" placeholder="Search by tag">
                 </div>
                 <ul>
                     <li ng-repeat="tag in tags | filter:tag_name" ui-sref="home({tag:tag.slug})">{{tag.label}}</li>
@@ -39,7 +39,7 @@
             </div>
         </div>
     <div id="contentInIframe" class="second-layer">
-        <center><button class="minimizeButton" type="submit" onclick="closeIframe()" title="minimize"><i class="fa fa-close"></i></button></center>
+        <center><button class="minimizeButton" id="minButton" type="submit" onclick="closeIframe()" title="minimize"><i class="fa fa-close"></i></button></center>
         <div id="originalContent"></div>
     </div>
     <div id="snackbar">It's already added. Check Reader Panel</div>
