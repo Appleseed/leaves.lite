@@ -374,6 +374,7 @@ div.reader-tabs {
     }
      .reader-content {
          margin-top: -35px;
+         z-index: 999;
     }
      .tab-container {
          top: 30px;
@@ -424,7 +425,7 @@ div.reader-tabs {
         position: absolute;
         top: 20px;
         right: 60px;
-        z-index: 999;
+        z-index: 99;
     }
     .card-view {
         display: none;
