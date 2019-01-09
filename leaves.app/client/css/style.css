@@ -219,6 +219,7 @@ div.reader-tabs {
  .reader-view {
      height: calc(100vh - 80px);
      overflow-y: scroll;
+     z-index: 999;
 }
  .cards-reader .cards {
      display: grid;
