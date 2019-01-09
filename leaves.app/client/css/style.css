@@ -220,6 +220,7 @@ div.reader-tabs {
      height: calc(100vh - 80px);
      overflow-y: scroll;
      z-index: 999;
+     -webkit-overflow-scrolling: touch;
 }
  .cards-reader .cards {
      display: grid;
@@ -292,6 +293,8 @@ div.reader-tabs {
 
 .reader-meta h2 {
     margin: 0;
+    line-height: 2.5rem;
+    font-weight: 500;
 }
 
 .reader-meta ul {
@@ -909,7 +912,7 @@ div.reader-tabs {
      background-position: 50%;
 }
  .entry-meta {
-     height: 110px;
+     height: 88px;
      overflow: hidden;
 }
  .tab-content {
@@ -925,6 +928,8 @@ div.reader-tabs {
 }
  .entry-meta h4 {
      margin-bottom: 0px;
+     max-height: 4rem;
+    overflow: hidden;
 }
  .card-div {
      margin: 15px 0px 0px 0px;
