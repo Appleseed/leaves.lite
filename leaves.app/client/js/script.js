@@ -1,3 +1,4 @@
+
 var app = angular.module('leavesNext', ['ui.router', 'ui.bootstrap', 'ui.tab.scroll','ngSanitize'])
 
 app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -21,6 +22,12 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function(
         controller: 'singleLeaves'
     })
 
+    .state('reader', {
+        url: '/read/:ids',
+        templateUrl: 'views/reader.html',
+        controller: 'readerController'
+    })
+
     .state('list-view', {
         url: '/list/?tag',
         templateUrl: 'views/list-view.html',
@@ -36,66 +43,97 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function(
     .state('profile', {
         url: '/profile',
         templateUrl: 'views/profile.html',
-        controller: 'profilePage'
+        controller: 'profileController'
     })
 
     $urlRouterProvider.otherwise('/?tag=home');
     // $locationProvider.html5Mode(true);
 }])
 
-app.directive('leavesNav', function() {
+app.directive('cardTemplate', function() {
     return {
         restrict: 'E',
-        templateUrl: 'views/navbar.html',
+        templateUrl: 'views/directives/card.html',
+        scope: {
+            data: '=',
+            state: "@state",
+            listarr: '='
+        },
+        controller: 'cardTemplateController'
+    }
+})
+
+app.controller('cardTemplateController', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
+
+    console.log('card')
+
+    $scope.added_date = function(tm) {
+        return tm.split('T')[0]
+    }
+
+    $scope.getSingleLeaves = function(id) {
+        console.log(id)
+    }
+
+    function toastMessage() {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+
+    $scope.getExternalLink = function(data){
+        var link;
+        if(data.domain_name === 'www.youtube.com'){
+            link = data.url.split("url=")[1]
+        }else{
+            link = data.url
+        }
+        return link;
+    }
+
+}])
+
+app.directive('headerNavbar', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'views/directives/navbar.html',
         controller: 'navbarCtrl'
-    }
-})
-
-
-app.directive('leavesCard', function() {
-    return {
-        restrict: 'E',
-        templateUrl: 'views/leaves-card.html',
-        scope: {
-            data: '=',
-            state: "@state",
-            listarr: '='
-        },
-        controller: 'leavesCardCtrl'
-    }
-})
-
-
-app.directive('leavesList', function() {
-    return {
-        restrict: 'E',
-        templateUrl: 'views/leaves-list.html',
-        scope: {
-            data: '=',
-            state: "@state",
-            listarr: '='
-
-        },
-        controller: 'leavesListCtrl'
     }
 })
 
 app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $rootScope, $state){
 
-    $scope.userLoggedIn = false
-    $scope.profileDropdownOpen = false
-
-    $scope.openLeafForm = function() {
-        $('#addLeaf').modal('show');
-        firebase.auth().onAuthStateChanged(function(user){
-            if(!user){
-                document.getElementById("loginMsg").innerHTML = "Please logged In"
-            }
-        })
+    if($(window).width() > 760){
+        $scope.header_logo = false
+    }else{
+        $scope.header_logo = true
     }
 
-    $scope.openProfileDropdown = function() {
-        $scope.profileDropdownOpen = $scope.profileDropdownOpen ? false : true
+    $scope.newLeaf = function(incoming_url) {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if(user){
+                $http({
+                    method: 'POST',
+                    url: ENV.LEAVES_API_URL + '/api/entries',
+                    params: { access_token: ENV.LEAVES_API_ACCESSTOKEN },
+                    data: $.param({
+                        url: incoming_url
+                    }),
+                    headers: { 'content-type': 'application/x-www-form-urlencoded' }
+                }).then(function(success) {
+                    // $scope.entries = success.data
+                    $scope.reLoadPage()
+                    $scope.leavesurl = ''
+                    $('#addLeaf').modal('hide')
+                }).catch(function(response) {
+                    $scope.error = response
+                });
+            }else {
+                document.getElementById("addleafError").innerHTML = "Please Logged In!"
+                $scope.userLoggedIn = false
+            }
+        })
+        
     }
 
     firebase.auth().onAuthStateChanged(function(user) {
@@ -107,58 +145,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $
         }
     });
 
-    $scope.mobileDropdownBox = false;
-
-    $scope.mobileDropdownToggle = function() {
-        $scope.mobileDropdownBox = $scope.mobileDropdownBox ? false : true;
-    }
-
-
-     
-    $scope.navCloseOpen = function(){
-         $rootScope.sidenavBarOpen = $rootScope.sidenavBarOpen ? false : true
-        console.log($rootScope.sidenavBarOpen)
-    }
-
-    $scope.closeDrawer = function(){
-        $rootScope.sidenavBarOpen = false
-    }
-
-    $scope.makeNewAccount = function() {
-        var password = document.getElementById("signupPassword");
-        var confirm_password = document.getElementById("signupConfirmPassword");
-        if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
-        } else {
-            firebase.auth().createUserWithEmailAndPassword('mddanishyusuf@gmail.com', '1234qwer').catch(function(error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-            });
-        }
-        
-    }
-
-    $scope.loginMe = function(){
-        firebase.auth().onAuthStateChanged(function(user){
-             if(user){
-                $scope.userLoggedIn = true;
-            }else{
-                firebase.auth().signInWithEmailAndPassword($scope.loginEmail, $scope.loginPassword)
-                .then(function(){
-                    $('#doLogin').modal('hide');
-                    location.reload();
-                })
-                .catch(function(err) {
-                    // Handle errors
-                });
-            }
-        })
-
-
-    }
-
     $scope.makeProfile = function(user){
-        console.log('user', user)
         firebase.database().ref(`users/${user.uid}`).once('value', function(snapshot) {
             var not_exists = (snapshot.val() === null);
             if(not_exists) {
@@ -183,8 +170,6 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $
             }
         });
     }
-
-
 
     $scope.googleLogin = function() {
         console.log('logging...')
@@ -217,89 +202,23 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $
             });
     }
 
-    $scope.goToProfile = function() {
-         $state.go('profile')
-         $scope.mobileDropdownBox = false
-    }
-
     $scope.doLogout = function() {
         firebase.auth().signOut()
         location.reload();
         $scope.userLoggedIn = false
     }
+
+    $scope.sidebarCollapse = function() {
+        $scope.header_logo = $scope.header_logo ? false : true
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    }
+
+    $(document).ready(function () {
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+    });
+
 }])
-
-app.controller('leavesListCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
-    $scope.added_date = function(tm) {
-        return moment(tm.split('T')[0], "YYYYMMDD").fromNow();
-    }
-    $scope.getSingleLeaves = function(id, listarr) {
-        $rootScope.rm_id = true
-        $rootScope.flag = 1
-        if (listarr.indexOf(id) === -1) {
-            listarr.push(id)
-            $scope.listArray = listarr
-            var param = { ids: listarr }
-            $state.go('list-view.reader', param)
-        }
-    }
-
-    $scope.getExternalLink = function(data){
-        var link;
-        if(data.domain_name === 'www.youtube.com'){
-            link = data.url.split("url=")[1]
-        }else{
-            link = data.url
-        }
-        return link;
-    }
-}])
-app.controller('leavesCardCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
-    $scope.added_date = function(tm) {
-        return moment(tm.split('T')[0], "YYYYMMDD").fromNow();
-    }
-    $scope.getSingleLeaves = function(id, listarr) {
-        var leave_id = String(id)
-        $rootScope.rm_id = true
-        $rootScope.flag = 1
-        if (listarr.indexOf(leave_id) === -1) {
-            listarr.push(leave_id)
-            $scope.listArray = listarr
-            var param = { ids: listarr }
-            $state.go('home.reader', param)
-        }else{
-            // alert("Already Added.");
-            var ind = $rootScope.leaves.findIndex( x => x.id == id )
-                
-            angular.forEach($rootScope.leaves, function(value, key) {
-                $rootScope.leaves[key].active = false
-            })
-             
-            $rootScope.leaves[ind].active = true
-        }
-    }
-
-    $scope.getExternalLink = function(data){
-        var link;
-        if(data.domain_name === 'www.youtube.com'){
-            link = data.url.split("url=")[1]
-        }else{
-            link = data.url
-        }
-        return link;
-    }
-}])
-
-app.filter('htmlToPlaintext', function() {
-    return function(text) {
-        return text ? String(text).replace(/<[^>]+>/gm, '') : '';
-    };
-})
-
-
-app.run(function($rootScope) {
-    $rootScope.leavesTeamID = "anantco";
-});
-
-// TODO make the tabs sortable
-
