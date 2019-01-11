@@ -349,12 +349,11 @@ function FieldFacetController($scope, $rootScope, $attrs, $location, $route, $ro
 
   };
   $scope.filterByword = function () {
-
     var word = '';
     word = document.getElementById('userquery').value;
     if (document.getElementById('Any_Words').checked) {
       if (word != "") {
-        urllocation = window.location.href + "&q=" + word + "&start=0";
+        urllocation = window.location.href + "&q=" + word + "&fq=title:&start=0";
         $scope.Userfilter(urllocation);
 
       }
@@ -366,7 +365,7 @@ function FieldFacetController($scope, $rootScope, $attrs, $location, $route, $ro
     }
     if (document.getElementById('All_Words').checked) {
       if (word != "") {
-        urllocation = window.location.href + "&fq=title:" + '"' + word + '"' + "&start=0";
+        urllocation = window.location.href + "&q=*:*&fq=title:" + '"' + word + '"' + "&start=0";
         $scope.Userfilter(urllocation);
 
       }
