@@ -60,3 +60,17 @@
     grid-template-columns: auto 40px;
     cursor: pointer;
 }
+
+.dropdown-leaves .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.dropdown-leaves .close-tab {
+    text-align: center;
+}
+
+.minimize-toggle-btn {
+    display: none;
+}

@@ -116,7 +116,8 @@ a:focus {
 #sidebar ul.components {
     padding-bottom: 20px;
     border-bottom: 1px solid #47748b;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 160px);
+    -webkit-overflow-scrolling: touch;
     width: 100%;
     overflow-y: scroll;
     padding-right: 17px;
@@ -212,6 +213,43 @@ a.article:hover {
   overflow-x: hidden;
 }
 
+.search-box {
+    position: relative;
+}
+
+.search-box .close-icon {
+    border:1px solid transparent;
+    background-color: transparent;
+    display: inline-block;
+    vertical-align: middle;
+    outline: 0;
+    cursor: pointer;
+    right: 25px;
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    top: 5px;
+}
+
+.search-box .close-icon:after {
+    content: "X";
+    display: block;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-color: #333;
+    z-index:1;
+    top: 5px;
+    bottom: 0;
+    margin: auto;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-weight: normal;
+    font-size: 12px;
+    cursor: pointer;
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -269,11 +307,28 @@ a.article:hover {
         top: 0;
         left: 0;
         padding-left: 0 !important;
+        height: 100vh;
     }
     .reader-header {
         padding-left: 0px !important
     }
     .reader-content {
         margin-left: 0 !important;
+    }
+    .minimize-toggle-btn {
+        display: block !important;
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        z-index: 9;
+        background-color: #495057;
+        border-radius: 50%;
+        color: #fff;
+        padding: 8px 12px;
+        box-shadow: 0px 1px 2px #000;
+        cursor: pointer;
+    }
+    .minimize-reader {
+        display: none;
     }
 }

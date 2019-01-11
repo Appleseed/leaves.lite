@@ -21,8 +21,8 @@
 		        <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
 		    </div>
 		</div>
-
-		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 reader">
+		<div class="minimize-toggle-btn" ng-click="minimizeToggle()"><i class="fa" ng-class="minimizeReader ? 'fa-window-restore' : 'fa-window-minimize'"></i></div>
+		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 reader" ng-class="minimizeReader ? 'minimize-reader' : ''">
 			<div ui-view></div>
 		</div>
 	</div>

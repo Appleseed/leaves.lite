@@ -76,6 +76,7 @@ app.controller('cardTemplateController', ['$scope', '$state', '$rootScope', '$st
     }
     $scope.getSingleLeaves = function(id, listarr) {
         $rootScope.cardViewActive = false
+        $rootScope.minimizeReader = false
         var leave_id = String(id)
         $rootScope.rm_id = true
         $rootScope.flag = 1
@@ -116,7 +117,7 @@ app.directive('headerNavbar', function() {
     }
 })
 
-app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $rootScope, $state){
+app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', function($scope, $rootScope, $state, $http, ENV){
     $scope.searchInputVisible = false
 
     if($(window).width() > 760){
@@ -126,7 +127,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $
     }
 
     $scope.newLeaf = function(incoming_url) {
-        firebase.auth().onAuthStateChanged(function(user) {
+        firebase.auth().onAuthStateChanged((user) => {
             if(user){
                 $http({
                     method: 'POST',
@@ -251,6 +252,21 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $
             $scope.mobileSearchBox = false
         }
     }
+
+    $scope.searchValueReset = false
+
+    $scope.resetSearchValue = function() {
+        $scope.searchValueReset = false
+        $scope.searchValue = ''
+    }
+
+    $scope.onSearchBoxChange = function(value){
+        if(value.length == 0){
+            $scope.searchValueReset = false
+        }else{
+            $scope.searchValueReset = true
+        }
+    }   
 
     $(document).ready(function () {
         $("#sidebar").mCustomScrollbar({

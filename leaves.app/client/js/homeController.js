@@ -27,6 +27,7 @@ var app = angular.module('leavesNext');
     var itemIds = []
     var dataArray = [];
     $scope.searching = false
+    $rootScope.minimizeReader = true
     $scope.current_params = {
         tag: $stateParams.tag
     }
@@ -209,8 +210,9 @@ var app = angular.module('leavesNext');
         })
     }
         
-
-   
+    $scope.minimizeToggle = function() {
+        $rootScope.minimizeReader = $rootScope.minimizeReader ? false : true
+    }
 
     $scope.subscribeTag = function(tag, subTagIndex) {
 

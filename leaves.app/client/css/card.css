@@ -52,6 +52,7 @@
 
 .card-hide-scroll {
   height: calc(100vh - 90px);
+  -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   overflow-x: hidden;
 }

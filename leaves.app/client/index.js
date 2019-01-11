@@ -1,4 +1,4 @@
-window.$ = window.jQuery = require('../node_modules/jquery/dist/jquery.slim.min');
+window.$ = window.jQuery = require('../node_modules/jquery/dist/jquery.min');
 require('../node_modules/moment/moment');
 require('jquery-ui');
 require('../node_modules/bootstrap/dist/js/bootstrap')
