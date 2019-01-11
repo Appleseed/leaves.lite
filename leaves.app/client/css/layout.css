@@ -88,6 +88,7 @@ a:focus {
     background: #495057;
     color: #fff;
     transition: all 0.3s;
+    overflow-x:hidden;
 }
 
 

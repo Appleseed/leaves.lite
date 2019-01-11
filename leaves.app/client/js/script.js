@@ -268,10 +268,10 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', fu
         }
     }   
 
-    $(document).ready(function () {
-        $("#sidebar").mCustomScrollbar({
-            theme: "minimal"
-        });
-    });
+    // $(document).ready(function () {
+    //     $("#sidebar").mCustomScrollbar({
+    //         theme: "minimal"
+    //     });
+    // });
 
 }])

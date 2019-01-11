@@ -2,8 +2,8 @@
   window.__env = window.__env || {};
 
   // development
-  window.__env.LEAVES_API_URL =  'http://dev.leaves.anant.us/wb';
-  window.__env.LEAVES_API_ACCESSTOKEN = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw';
+  // window.__env.LEAVES_API_URL =  'http://dev.leaves.anant.us/wb';
+  // window.__env.LEAVES_API_ACCESSTOKEN = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw';
 
   // staging
   // window.__env.LEAVES_API_URL = 'http://stage.leaves.anant.us/wb';
@@ -11,8 +11,8 @@
 
 
   // production  
-  // window.__env.LEAVES_API_URL = 'http://leaves.anant.us:82';
-  // window.__env.LEAVES_API_ACCESSTOKEN = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw';
+  window.__env.LEAVES_API_URL = 'http://leaves.anant.us:82';
+  window.__env.LEAVES_API_ACCESSTOKEN = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw';
 
   // Whether or not to enable debug mode
   // Setting this to false will disable console output
