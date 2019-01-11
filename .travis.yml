@@ -19,7 +19,7 @@ before_install:
 
 script:
 - docker build -t appleseed/leaves leaves.app
-- docker build -t appleseed/leaves.search search.web
+- docker build -t appleseed/leaves.search leaves.search
 
 #after_success:
 #  - if [ "$TRAVIS_BRANCH" == "master" ]; then
