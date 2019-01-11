@@ -1,0 +1,144 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+
+        <button type="button" ng-click="sidebarCollapse()" class="btn hamburgur">
+            <i class="fas fa-align-left"></i> <span ng-if="header_logo">Leaves Reader</span>
+        </button>
+
+        <i class="fa fa-search navbar-search-icon" ng-click="toggleSearchInput()"></i>
+
+        <div class="search-transparent-bg" ng-click="toggleSearchInput()" ng-if="searchInputVisible"></div>
+
+        <form class="search-box" ng-submit="searchLeaf(searchValue)" role="search">
+                <input type="search" ng-value="searchParams" ng-class="{'search-query-input-show': searchInputVisible}" id="tagSearchInput" ng-model="searchValue" ng-change="onSearchBoxChange(searchValue)" class="form-control search-query-input" placeholder="Enter your search query"/>
+                <button ng-if="searchValueReset" class="close-icon" ng-click="resetSearchValue()" type="reset"></button>
+        </form>
+
+        <!-- <input type="text" class="form-control search-query-input" ng-class="{'search-query-input-show': searchInputVisible}" id="tagSearchInput" ng-model="searchValue" placeholder="Search your query"> -->
+        
+        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-align-justify"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav navbar-nav ml-auto">
+                <li ng-if="!userLoggedIn">
+                    <a class="nav-link" data-toggle="modal" data-target="#doLogin" class="do-login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#addLeaf"><i class="fa fa-plus"></i> Add</a>
+                </li>
+                <li class="nav-item profile-list" ng-if="userLoggedIn">
+                    <a class="nav-link" ui-sref="profile">
+                        <img src={{userProfile.photoURL}} />
+                        {{userProfile.displayName.split(' ')[0]}}
+                    </a>
+                </li>
+                <li ng-if="userLoggedIn" class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#addLeaf"><i class="fa fa-circle-notch"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="modal fade bs-example-modal-lg" id="addLeaf" tabindex="-1" role="dialog" aria-labelledby="addLeaf" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Leaf</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="google-login-btn" ng-if="!userLoggedIn" ng-click="googleLogin()">
+                    <div class="please-login-msg">Please log in to use this feature</div>
+                    <img src="./img/login-google.jpg">
+                </div>
+                <div ng-if="userLoggedIn" class="add-leaf-form">
+                    <form name="addUrlForm" ng-submit="newLeaf(leavesurl)">
+                        <div class="form-group">
+                            <label for="addUrl">Site URL</label>
+                            <input type="url" class="form-control" name="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
+                        </div>
+                        <div id="addleafError" style="color: red;"></div>
+                        {{error.data.error.message}}
+                        <button type="submit" class="btn btn-primary">Save it</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="doLogin" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="z-index: 99999">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login/Signup</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div>
+
+                <ul class="nav nav-tabs" id="myTab" role="loginTab">
+                    <li class="nav-item">
+                    <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" id="signup-tab" data-toggle="tab" href="#signup" role="tab" aria-controls="signup" aria-selected="false">Signup</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="loginTab">
+                    <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <div class="google-login-btn" ng-click="googleLogin()">
+                                <img src="./img/login-google.jpg"><br>OR<br>
+                            </div>
+                            <form ng-submit="loginMe()">
+                                <div class="form-group">
+                                    <label for="loginEmail">Email address</label>
+                                    <input type="email" class="form-control" ng-model="loginEmail" id="loginEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" ng-model="loginPassword" id="loginPassword" placeholder="Password"required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Login Now</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                        <div class="google-login-btn" ng-click="googleLogin()">
+                                <img src="./img/login-google.jpg"><br>OR<br>
+                            </div>
+                            <form ng-submit="makeNewAccount()">
+                                <div class="form-group">
+                                    <label for="signupEmail">Email address</label>
+                                    <input type="email" class="form-control" ng-model="email_address" id="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" ng-model="password" id="signupPassword" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Confirm Password</label>
+                                    <input type="password" class="form-control" ng-model="confirm_password" id="signupConfirmPassword" placeholder="Password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Singup</button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

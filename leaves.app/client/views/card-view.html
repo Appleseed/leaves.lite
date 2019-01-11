@@ -1,79 +1,29 @@
-<br/>
-<h4 ng-if="searchTagMessage">{{searchTagMessage}}</h4>
-<div class="card-header">
-    <div class="card-view">
-        <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
-        <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
-    </div>
-    <div class="sub-div" ng-if="current_params.tag !== 'home'">
-        <div class="sub-btn">
-            <button type="button" ng-click="subscribeTag(tag, $index)" class="btn btn-default" ng-repeat="tag in subsTagsArray">
-                <i class="fa fa-bell"></i> 
-                {{tag.slug}} 
-                <i class="fa fa-check-square" ng-if="tag.isSub" style="color: green"></i>
-            </button>
-        </div>
-    </div>
+<div class="card-container">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<span ng-if="loading_icon" style="font-size: 1.5rem;">
+				Loading cards...<br/>
+				<i class="fas fa-circle-notch fa-lg fa-spin"></i>
+			</span>
+		</div>
+	</div>
+
+	<div class="row no-gutters">
+
+		<div ng-class="cardViewActive ? 'col-md-12' : 'col-xs-12 col-sm-4 col-md-4 col-lg-3'" class="card-hide-scroll">
+			<div class="row">
+				<div ng-class="cardViewActive ? 'col-xs-12 col-sm-6 col-md-3 col-lg-4' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'" class="card-template" style="padding: 0px 5px 5px 5px;" ng-repeat="entry in entries">
+					<card-template data="entry" listarr="listArray"></card-template>
+				</div>
+			</div>
+
+		    <div class="text-center loading_button" ng-if="loading_button && 'entries.length <= entries.total'">              
+		        <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+		    </div>
+		</div>
+		<div class="minimize-toggle-btn" ng-click="minimizeToggle()"><i class="fa" ng-class="minimizeReader ? 'fa-window-restore' : 'fa-window-minimize'"></i></div>
+		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 reader" ng-class="minimizeReader ? 'minimize-reader' : ''">
+			<div ui-view></div>
+		</div>
+	</div>
 </div>
-<div class="cards-reader"  ng-class="isidexit ? 'cards-reader-active' : 'cards-reader'">
-    <div class="card-outer">
-        <div class="cards">
-            <i class="fa fa-search toggle-search" ng-click="showFullSearchBox()"></i>
-            <div class="search-toggle-div" ng-if="fullSearchBox" ng-click="showFullSearchBox()"></div>
-            <form class="navbar-left search-box" ng-submit="searchLeaf(searchValue)" role="search">
-                    <div class="inner-addon left-addon" ng-class="fullSearchBox ? '' : 'hide-full-search-box'">
-                        <i class="fa fa-search"></i>
-                        <input type="search" ng-value="searchParams" ng-model="searchValue" ng-change="onSearchBoxChange(searchValue)" class="leaf-search form-control" placeholder="Enter your search query" style="width:100%" />
-                        <button ng-if="searchValueReset" class="close-icon" ng-click="resetSearchValue()" type="reset"></button>
-                    </div>
-                </form>
-
-            <div class="card-list" ng-repeat="entry in entries">
-                <leaves-card data="entry" listarr="listArray"></leaves-card>
-            </div>
-        </div>
-
-        <div class="text-center loading_button" ng-if="searching ? (loading_button && 'entries.length <= etotalSearchFound') : (loading_button && 'entries.length <= entries.total') ">              
-            <button class="btn btn-primary" ng-click="searching ? loadSearchQuery() : loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
-        </div>
-    </div>
-
-    <div class="reader-view">
-        <div ui-view></div>
-    </div>
-
-</div>
-<div class="modal fade bs-example-modal-lg" id="addLeaf" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="gridSystemModalLabel">Add New Leaf</h4>
-            </div>
-            <div class="modal-body">
-                <div class="google-login-btn" ng-if="!userLoggedIn" ng-click="googleLogin()">
-                    <div class="please-login-msg">Please log in to use this feature</div>
-                    <img src="./img/login-google.jpg">
-                </div>
-                <div ng-if="userLoggedIn" class="add-leaf-form">
-                    <form name="addUrlForm" ng-submit="newLeaf(leavesurl)">
-                        <div class="form-group">
-                            <label for="addUrl">Site URL</label>
-                            <input type="url" class="form-control" name="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
-                        </div>
-                        <div id="addleafError" style="color: red;"></div>
-                        {{error.data.error.message}}
-                        <button type="submit" class="btn btn-primary">Save it</button>
-                    </form>
-                </div>
-                <!-- <span ng-if="!addUrlForm.leavesurl.$valid">Enter Valid URL</span> -->
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" id="closeButton">Close</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->

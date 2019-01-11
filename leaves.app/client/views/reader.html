@@ -1,66 +1,23 @@
-<!--<ul ui-sortable="sortableOptions" ng-model="leaves">
-    <li ng-repeat="item in leaves">{{ item.title }} </li>
-</ul>-->
-<div class="dropdown-dummy-bg" ng-if="tabDropdown" ng-click="toggleDropdown()"></div>
-<div ng-if="leaves" ng-if="readerView"  ng-class="isidexit ? (isReaderActive ? 'mobile-reader-active' : 'mobile-reader') : ''">
-
-    <div class="scroll-reader">
-
-        <div class="reader-header-section">
-
-            <div class="left-move" ng-click="moveReaderLeft()">
-                <input type='button' class="btn" value='<'>
-            </div>
-
-            <div class="reader-tabs" id="readerTabs">
-                <div class="tab" ng-repeat="item in leaves" ng-class="item.active ? 'active-reader-tab' : ''">
-                    <div class="title" title={{item.title}} ng-click="changeReaderTab($index)">{{item.title}}</div>
-                    <div class="close-tab" ng-click="removeTab($event, $index, item.id)">x</div>
-                </div>
-            </div>
-
-            <div class="right-move" ng-click="moveReaderRight()">
-                <input type='button' class="btn" value='>'>
-            </div>
-
-
-            <div ng-class="!isReaderActive ? 'tab-dropdown tab-dropdown-hide': 'tab-dropdown'">
-                <ul>
-                    <li>
-                        <button type="button" class="btn dropdown-toggle" ng-click="toggleDropdown()"><i class="fa fa-angle-down"></i></button>
-                        
-                        <ul ng-if="tabDropdown">
-                            <li ng-class="item.active ? 'active-reader-dropdown' : ''" ng-repeat="item in leaves" ng-click="changeReaderTab($index)">{{item.title}}</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="reader-header">
-                <div class="maximize">
-                    <button class="btn" ng-click="minReaderActive()" ng-if="isReaderActive">
-                        <i class="fa fa-minus-square"></i>
-                    </button>
-                    <button class="btn" ng-click="maxReaderActive()" ng-if="!isReaderActive">
-                        <i class="fa fa-window-maximize"></i>
-                    </button>
-                </div>
-            </div>
-
-        </div>
-            <div class="tab" ng-repeat="item in leaves" style="border-left: 1px solid #707070;border-right: 1px solid #707070;background-color: #fff;padding: 0px 10px 0px 10px;">
-                <div class="reader-meta" ng-if="item.active">
-                    <br>
-                    <h2>{{item.title}}</h2>
-                    <small>{{item.domain_name}}</small>
-                    <ul>
-                        <li><i class="fa fa-user"></i> {{item.user_name}}</li>
-                        <li><i class="fa fa-clock-o"></i> <span ng-bind="added_date(item.created_at)"></span></li>
-                        <li><i class="fa fa-link"></i> <a ng-href="{{getExternalLink(item)}}" target="_blank">link</a></li>
-                    </ul>
-                </div>
-                <p ng-if="item.active" ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>
-            </div>
-
-    </div>
+<div class="reader-header">
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<span  ng-repeat="list in leaves" ng-if="list.active">{{list.title}}
+		</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<a class="dropdown-item dropdown-leaves" ng-repeat="item in leaves">
+				<div class="title" title={{item.title}} ng-click="changeReaderTab($index)">{{item.title}}</div>
+                <div class="close-tab" ng-click="removeTab($event, $index, item.id)">x</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="reader-content" ng-repeat="item in leaves" ng-if="item.active">
+	<h2>{{item.title}}</h2>
+    <small>{{item.domain_name}}</small>
+    <ul>
+        <li><i class="fa fa-user"></i> {{item.user_name}}</li>
+        <li><i class="fa fa-calendar-alt"></i> <span ng-bind="added_date(item.created_at)"></span></li>
+        <li><i class="fa fa-link"></i> <a ng-href="{{getExternalLink(item)}}" target="_blank">link</a></li>
+    </ul>
+	<p ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>
 </div>

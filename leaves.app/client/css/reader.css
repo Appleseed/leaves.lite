@@ -1,0 +1,76 @@
+.reader {
+	padding-left: 0px !important;	
+}
+
+.reader-header {
+    padding-left: 20px
+}
+
+.reader-header .dropdown button {
+    width: 100%;
+    background-color: #495057;
+    border-radius: 0;
+}
+
+.reader-header .dropdown button:focus {
+    box-shadow: none;
+}
+
+.reader-header .dropdown-menu{
+    border-radius: 0;
+    width: 100%;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+.reader-content {
+	background-color: #fff;
+	padding: 20px;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    margin-left: 20px;
+}
+
+.reader-content img{
+	max-width: 100%;
+}
+
+.reader-content h1 {
+	font-size: 1rem;
+}
+
+.reader-content h2 {
+    margin: 0;
+    line-height: 2.5rem;
+    font-weight: 500;
+}
+
+.reader-content ul {
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 20px;
+}
+
+.reader-content ul li {
+    padding: 3px 10px 3px 0px;
+    display: inline-block;
+    font-size: 0.9rem;
+}
+
+.dropdown-leaves {
+    display: grid;
+    grid-template-columns: auto 40px;
+    cursor: pointer;
+}
+
+.dropdown-leaves .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.dropdown-leaves .close-tab {
+    text-align: center;
+}
+
+.minimize-toggle-btn {
+    display: none;
+}
