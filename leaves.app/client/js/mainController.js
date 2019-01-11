@@ -19,7 +19,11 @@ var app = angular.module('leavesNext');
 
 	app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', function($scope, $http, $state, $location, $rootScope, ENV) {
 
+		$rootScope.isidexit = 0
+    	$rootScope.readerFromInbox = true
 		var tags_list = []
+    	$rootScope.listArray = []
+    	$rootScope.leaves = []
 		$scope.userLoggedIn = false
 
 	    $http({
@@ -46,6 +50,7 @@ var app = angular.module('leavesNext');
 	        $state.go('home', {
 	            tag: 'home'
 	        })
+            $rootScope.cardViewActive = true
 	    }
 
 }])

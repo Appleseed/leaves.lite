@@ -19,14 +19,20 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function(
     .state('home.reader', {
         url: 'leaf/:ids',
         templateUrl: 'views/reader.html',
-        controller: 'singleLeaves'
-    })
-
-    .state('reader', {
-        url: '/read/:ids',
-        templateUrl: 'views/reader.html',
         controller: 'readerController'
     })
+
+    // .state('reader', {
+    //     url: '/read?tag',
+    //     templateUrl: 'views/reader-view.html',
+    //     controller: 'readerViewController'
+    // })
+
+    // .state('reader.read', {
+    //     url: ':ids?tag',
+    //     templateUrl: 'views/reader.html',
+    //     controller: 'readerController'
+    // })
 
     .state('list-view', {
         url: '/list/?tag',
@@ -63,22 +69,31 @@ app.directive('cardTemplate', function() {
     }
 })
 
-app.controller('cardTemplateController', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
+app.controller('cardTemplateController', ['$scope', '$state', '$rootScope', '$stateParams', function($scope, $state, $rootScope, $stateParams) {
 
-    console.log('card')
-
-    $scope.added_date = function(tm) {
-        return tm.split('T')[0]
+   $scope.added_date = function(tm) {
+        return moment(tm.split('T')[0], "YYYYMMDD").fromNow();
     }
-
-    $scope.getSingleLeaves = function(id) {
-        console.log(id)
-    }
-
-    function toastMessage() {
-        var x = document.getElementById("snackbar");
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    $scope.getSingleLeaves = function(id, listarr) {
+        $rootScope.cardViewActive = false
+        var leave_id = String(id)
+        $rootScope.rm_id = true
+        $rootScope.flag = 1
+        if (listarr.indexOf(leave_id) === -1) {
+            listarr.push(leave_id)
+            $scope.listArray = listarr
+            var param = { ids: listarr }
+            $state.go('home.reader', param)
+        }else{
+            // alert("Already Added.");
+            var ind = $rootScope.leaves.findIndex( x => x.id == id )
+                
+            angular.forEach($rootScope.leaves, function(value, key) {
+                $rootScope.leaves[key].active = false
+            })
+             
+            $rootScope.leaves[ind].active = true
+        }
     }
 
     $scope.getExternalLink = function(data){
@@ -90,7 +105,7 @@ app.controller('cardTemplateController', ['$scope', '$state', '$rootScope', func
         }
         return link;
     }
-
+    
 }])
 
 app.directive('headerNavbar', function() {
@@ -102,6 +117,7 @@ app.directive('headerNavbar', function() {
 })
 
 app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $rootScope, $state){
+    $scope.searchInputVisible = false
 
     if($(window).width() > 760){
         $scope.header_logo = false
@@ -213,6 +229,27 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $
         $('#sidebar, #content').toggleClass('active');
         $('.collapse.in').toggleClass('in');
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    }
+
+    $scope.toggleSearchInput = function() {
+        $scope.searchInputVisible = $scope.searchInputVisible ? false : true
+    }
+
+    $scope.searchLeaf = function(searchValue){
+        searchLeaf(searchValue)
+    }
+
+    function searchLeaf(searchValue){
+
+        if(searchValue !== undefined && searchValue.trim().length > 0) {
+            $scope.searching = true
+            dataArray = []
+            $scope.searchQuery = searchValue.trim()
+            $state.go('search', {
+                search: searchValue
+            })
+            $scope.mobileSearchBox = false
+        }
     }
 
     $(document).ready(function () {

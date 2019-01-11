@@ -7,13 +7,23 @@
 			</span>
 		</div>
 	</div>
-	<div class="row no-gutters" ng-if="!loading_icon">
-		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 card-template" style="padding: 5px;" ng-repeat="entry in entries">
-			<card-template data="entry"></card-template>
+
+	<div class="row no-gutters">
+
+		<div ng-class="cardViewActive ? 'col-md-12' : 'col-xs-12 col-sm-4 col-md-4 col-lg-3'" class="card-hide-scroll">
+			<div class="row">
+				<div ng-class="cardViewActive ? 'col-xs-12 col-sm-6 col-md-3 col-lg-4' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'" class="card-template" style="padding: 0px 5px 5px 5px;" ng-repeat="entry in entries">
+					<card-template data="entry" listarr="listArray"></card-template>
+				</div>
+			</div>
+
+		    <div class="text-center loading_button" ng-if="loading_button && 'entries.length <= entries.total'">              
+		        <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+		    </div>
+		</div>
+
+		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 reader">
+			<div ui-view></div>
 		</div>
 	</div>
-
-    <div class="text-center loading_button" ng-if="loading_button && 'entries.length <= entries.total'">              
-        <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
-    </div>
 </div>

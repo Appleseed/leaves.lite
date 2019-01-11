@@ -49,3 +49,9 @@
 .loading_button {
     padding: 30px;
 }
+
+.card-hide-scroll {
+  height: calc(100vh - 90px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

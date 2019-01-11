@@ -1,37 +1,23 @@
-<div class="card-container">
-	<div class="row">
-		<div class="col-md-12 text-center">
-			<span ng-if="loading_entry && loading_entries" style="font-size: 1.5rem;">
-				Loading...<br/>
-				<i class="fas fa-circle-notch fa-lg fa-spin"></i>
-			</span>
+<div class="reader-header">
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<span  ng-repeat="list in leaves" ng-if="list.active">{{list.title}}
+		</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<a class="dropdown-item dropdown-leaves" ng-repeat="item in leaves">
+				<div class="title" title={{item.title}} ng-click="changeReaderTab($index)">{{item.title}}</div>
+                <div class="close-tab" ng-click="removeTab($event, $index, item.id)">x</div>
+			</a>
 		</div>
 	</div>
-	<div class="row no-gutters" ng-if="!loading_entry && !loading_entries">
-
-		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 card-template" style="padding: 5px;" ng-repeat="entry in entries">
-					<card-template data="entry"></card-template>
-				</div>
-			</div>
-
-		    <div class="text-center loading_button" ng-if="loading_button && 'entries.length <= entries.total'">              
-		        <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
-		    </div>
-		</div>
-
-		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 reader">
-			<div class="reader-content">
-				<h2>{{readersObj[0].title}}</h2>
-                <small>{{readersObj[0].domain_name}}</small>
-                <ul>
-                    <li><i class="fa fa-user"></i> {{readersObj[0].user_name}}</li>
-                    <li><i class="fa fa-calendar-alt"></i> <span ng-bind="added_date(readersObj[0].created_at)"></span></li>
-                    <li><i class="fa fa-link"></i> <a ng-href="{{getExternalLink(readersObj[0])}}" target="_blank">link</a></li>
-                </ul>
-				<p ng-bind-html="deliberatelyTrustDangerousSnippet(readersObj[0].content)" class="content"></p>
-			</div>
-		</div>
-	</div>
+</div>
+<div class="reader-content" ng-repeat="item in leaves" ng-if="item.active">
+	<h2>{{item.title}}</h2>
+    <small>{{item.domain_name}}</small>
+    <ul>
+        <li><i class="fa fa-user"></i> {{item.user_name}}</li>
+        <li><i class="fa fa-calendar-alt"></i> <span ng-bind="added_date(item.created_at)"></span></li>
+        <li><i class="fa fa-link"></i> <a ng-href="{{getExternalLink(item)}}" target="_blank">link</a></li>
+    </ul>
+	<p ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>
 </div>

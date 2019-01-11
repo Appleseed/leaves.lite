@@ -21,7 +21,7 @@
 
             <ul class="list-unstyled components">
                 <div class="tag-search-input">
-                    <input type="text" class="form-control" id="tagSearchInput" ng-model="tag_name" placeholder="Search by tag">
+                    <input type="text" class="form-control" id="querySearchInput" ng-model="tag_name" placeholder="Search by tag">
                 </div>
                 <li ng-repeat="tag in tags | filter:tag_name">
                     <a ui-sref="home({tag:tag.slug})">{{tag.label}}</a>
@@ -47,6 +47,7 @@
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
 <script type="text/javascript">
     var config = {
         apiKey: "AIzaSyBeK_YwXpRuv0qEXbmN8J7umHPbOZyi_J0",

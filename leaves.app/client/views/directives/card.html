@@ -4,7 +4,7 @@
     </div>
 	<div class="card-body">
 		<div class="entry-meta">
-	        <h2 title={{data.title}} ui-sref="reader({ids:data.id})">{{data.title}} {{tempArray}}</h2>
+	        <h2 title={{data.title}} ng-click="getSingleLeaves(data.id,listarr)">{{data.title}} {{tempArray}}</h2>
 	        <small>{{data.domain_name}}</small>
 	        <ul>
 	            <li><i class="fa fa-user"></i> <span>{{data.user_name}}</span></li>

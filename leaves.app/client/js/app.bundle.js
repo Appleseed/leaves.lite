@@ -95599,14 +95599,20 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function(
     .state('home.reader', {
         url: 'leaf/:ids',
         templateUrl: 'views/reader.html',
-        controller: 'singleLeaves'
-    })
-
-    .state('reader', {
-        url: '/read/:ids',
-        templateUrl: 'views/reader.html',
         controller: 'readerController'
     })
+
+    // .state('reader', {
+    //     url: '/read?tag',
+    //     templateUrl: 'views/reader-view.html',
+    //     controller: 'readerViewController'
+    // })
+
+    // .state('reader.read', {
+    //     url: ':ids?tag',
+    //     templateUrl: 'views/reader.html',
+    //     controller: 'readerController'
+    // })
 
     .state('list-view', {
         url: '/list/?tag',
@@ -95643,22 +95649,31 @@ app.directive('cardTemplate', function() {
     }
 })
 
-app.controller('cardTemplateController', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
+app.controller('cardTemplateController', ['$scope', '$state', '$rootScope', '$stateParams', function($scope, $state, $rootScope, $stateParams) {
 
-    console.log('card')
-
-    $scope.added_date = function(tm) {
-        return tm.split('T')[0]
+   $scope.added_date = function(tm) {
+        return moment(tm.split('T')[0], "YYYYMMDD").fromNow();
     }
-
-    $scope.getSingleLeaves = function(id) {
-        console.log(id)
-    }
-
-    function toastMessage() {
-        var x = document.getElementById("snackbar");
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    $scope.getSingleLeaves = function(id, listarr) {
+        $rootScope.cardViewActive = false
+        var leave_id = String(id)
+        $rootScope.rm_id = true
+        $rootScope.flag = 1
+        if (listarr.indexOf(leave_id) === -1) {
+            listarr.push(leave_id)
+            $scope.listArray = listarr
+            var param = { ids: listarr }
+            $state.go('home.reader', param)
+        }else{
+            // alert("Already Added.");
+            var ind = $rootScope.leaves.findIndex( x => x.id == id )
+                
+            angular.forEach($rootScope.leaves, function(value, key) {
+                $rootScope.leaves[key].active = false
+            })
+             
+            $rootScope.leaves[ind].active = true
+        }
     }
 
     $scope.getExternalLink = function(data){
@@ -95670,7 +95685,7 @@ app.controller('cardTemplateController', ['$scope', '$state', '$rootScope', func
         }
         return link;
     }
-
+    
 }])
 
 app.directive('headerNavbar', function() {
@@ -95682,6 +95697,7 @@ app.directive('headerNavbar', function() {
 })
 
 app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $rootScope, $state){
+    $scope.searchInputVisible = false
 
     if($(window).width() > 760){
         $scope.header_logo = false
@@ -95795,6 +95811,27 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', function($scope, $
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     }
 
+    $scope.toggleSearchInput = function() {
+        $scope.searchInputVisible = $scope.searchInputVisible ? false : true
+    }
+
+    $scope.searchLeaf = function(searchValue){
+        searchLeaf(searchValue)
+    }
+
+    function searchLeaf(searchValue){
+
+        if(searchValue !== undefined && searchValue.trim().length > 0) {
+            $scope.searching = true
+            dataArray = []
+            $scope.searchQuery = searchValue.trim()
+            $state.go('search', {
+                search: searchValue
+            })
+            $scope.mobileSearchBox = false
+        }
+    }
+
     $(document).ready(function () {
         $("#sidebar").mCustomScrollbar({
             theme: "minimal"
@@ -95852,7 +95889,11 @@ var app = angular.module('leavesNext');
 
 	app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', function($scope, $http, $state, $location, $rootScope, ENV) {
 
+		$rootScope.isidexit = 0
+    	$rootScope.readerFromInbox = true
 		var tags_list = []
+    	$rootScope.listArray = []
+    	$rootScope.leaves = []
 		$scope.userLoggedIn = false
 
 	    $http({
@@ -95879,6 +95920,7 @@ var app = angular.module('leavesNext');
 	        $state.go('home', {
 	            tag: 'home'
 	        })
+            $rootScope.cardViewActive = true
 	    }
 
 }])
@@ -95908,71 +95950,301 @@ var app = angular.module('leavesNext');
 	}
 
 	app.controller('homeController', ['$scope', '$rootScope', '$http', '$state', '$stateParams', 'ENV', function($scope, $rootScope, $http, $state, $stateParams, ENV) {
-		console.log('home')
+    $rootScope.isidexit = 0
+    $rootScope.isReaderActive = false
+    $scope.stateJson = $state.current
+    var page = 1
+    $scope.loading_button = false
+    $scope.entries = []
+    var itemIds = []
+    var dataArray = [];
+    $scope.searching = false
+    $scope.current_params = {
+        tag: $stateParams.tag
+    }
 
-		var entriesList = []
-		var pageNo = 1
-		$scope.loading_button = false
-		$scope.loading_icon = true
-		$scope.loadingMessage = true
+    $rootScope.cardViewActive = true
 
-		function getEntries() {
+    if($stateParams.ids !== undefined) {
+        $rootScope.cardViewActive = false
+    }
 
-			$scope.loadingMessage = true
 
-			if ($stateParams.tag && $stateParams.tag != 'home') {
-	            var tagName = $stateParams.tag;
-	            if (tagName.includes('-')) tagName = tagName.split('-').join(' ');
-	            var param = {
-	                access_token: ENV.LEAVES_API_ACCESSTOKEN,
-	                sort: 'created',
-	                order: 'desc',
-	                page: pageNo,
-	                tags: tagName,
-	                perPage: 36
-	            }
-	        } else {
-	            var param = {
-	                access_token: ENV.LEAVES_API_ACCESSTOKEN,
-	                sort: 'created',
-	                order: 'desc',
-	                page: pageNo,
-	                perPage: 36
-	            }
-	        }
+    function homeData(loadmore) {
+        if(loadmore == 0){
+            page = 1
+            $scope.entries = []
+        }
+        var paramsArray = []
+        if ($stateParams.tag && $stateParams.tag != 'home') {
+            var tagNamesArray = $stateParams.tag.split(',');
 
-	        if (pageNo >= 2) {
-	            $scope.loading_button = true
-	        }
+            angular.forEach(tagNamesArray, (tagName) => {
+                if (tagName.includes('-')) tagName = tagName.split('-').join(' ');
 
-			$http({
-	            method: 'GET',
-	            url: ENV.LEAVES_API_URL + '/api/entries',
-	            params: param
-	        }).then(function(success) {
-	            $scope.entriesData = success
-	            angular.forEach(success.data._embedded.items, function(value) {
-	                entriesList.push(value)
-	            })
-	        }).catch(function(response) {
-            	$scope.error = response
-	        }).finally(function() {
-				$scope.loading_icon = false
-	            pageNo = pageNo + 1
-	            if (entriesList.length < $scope.entriesData.data.total) {
-	                $scope.loading_button = true
-	                $scope.loadingMessage = false
-	            }
-	        })
-		}
+                var param = {
+                    access_token: ENV.LEAVES_API_ACCESSTOKEN,
+                    sort: 'created',
+                    limit: 12,
+                    order: 'desc',
+                    page: page,
+                    tags: tagName
+                }
 
-		getEntries()
+                paramsArray.push(param)
+            })
+        } else {
+            var param = {
+                access_token: ENV.LEAVES_API_ACCESSTOKEN,
+                sort: 'created',
+                limit: 12,
+                order: 'desc',
+                page: page
+            }
+            paramsArray.push(param)
+        }
+        $scope.loadingMessage = true
+        if (page >= 2) {
+            $scope.loading_button = true
+        }
 
- 		$scope.loadMore = function() {
-			getEntries();
-		}
+        console.log(tagNamesArray)
 
-		$scope.entries = entriesList
+        angular.forEach(paramsArray, (param) => {
+            $http({
+                method: 'GET',
+                url: ENV.LEAVES_API_URL + '/api/entries',
+                params: param
+            }).then(function(success) {
+                $scope.homeData = success
+                angular.forEach(success.data._embedded.items, function(value) {
+                    $scope.entries.push(value)
+                })
+            }).catch(function(response) {
+                $scope.error = response
+            }).finally(function() {
+                if ($scope.entries.length < $scope.homeData.data.total) {
+                    $scope.loading_button = true
+                    $scope.loadingMessage = false
+                }
+            })
+            
+        })
+
+        page = page + 1
+    }
+
+    if($stateParams.search){
+        searchLeaf($stateParams.search)
+    }else{
+        homeData(0);
+    }
+
+    $scope.loadMore = function() {
+        homeData(1);
+    }
+    
+    $scope.minReaderActive = function(){
+        $rootScope.isReaderActive = false
+    }
+    $scope.maxReaderActive = function(){
+        console.log($rootScope.isReaderActive)
+        $rootScope.isReaderActive = true
+    }
+
+    // $scope.entries = dataArray
+    var searchingPage = 1
+
+    $scope.reLoadPage = function(){
+        console.log('re-loading')
+        homeData(0);
+    }
+
+    $scope.newLeaf = function(incoming_url) {
+        firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            $http({
+                method: 'POST',
+                url: ENV.LEAVES_API_URL + '/api/entries',
+                params: { access_token: ENV.LEAVES_API_ACCESSTOKEN },
+                data: $.param({
+                    url: incoming_url
+                }),
+                headers: { 'content-type': 'application/x-www-form-urlencoded' }
+            }).then(function(success) {
+                // $scope.entries = success.data
+                $scope.reLoadPage()
+                $scope.leavesurl = ''
+                document.getElementById('closeButton').click()
+            }).catch(function(response) {
+                $scope.error = response
+            });
+        }else {
+            document.getElementById("addleafError").innerHTML = "Please Logged In!"
+            $scope.userLoggedIn = false
+        }
+    })
+        
+    }
+
+    $scope.searchLeaf = function(searchValue){
+        searchLeaf(searchValue)
+    }
+
+    function searchLeaf(searchValue){
+
+        if(searchValue !== undefined && searchValue.trim().length > 0) {
+            $scope.searching = true
+            dataArray = []
+            $scope.searchQuery = searchValue.trim()
+            loadSearchQuery()
+            $state.go('search', {
+                search: searchValue
+            })
+            $scope.mobileSearchBox = false
+        }
+    }
+
+    $scope.subsTagsArray = []
+
+    if($stateParams.tag !== 'home' && $stateParams.tag !== undefined){
+        firebase.auth().onAuthStateChanged(function(user) {
+            if(user){
+                 firebase.database().ref(`/users/${user.uid}`).once('value').then((snapshot) => {
+                    var userData = snapshot.val()
+                    $scope.$apply(function() {
+                        $scope.user = userData
+                        var tagsList = $stateParams.tag.split(',')
+                        console.log(userData.tags)
+                        for (var i = 0; i < tagsList.length; i++) {
+                            var tagIndexInArray = userData.tags.findIndex(x => x.slug === tagsList[i])
+                            if( tagIndexInArray > -1){
+                                $scope.subsTagsArray.push({label: userData.tags[tagIndexInArray].label, id: userData.tags[tagIndexInArray].id, slug: tagsList[i], isSub: true})
+                            }else{
+                                var indexInAllTags = $scope.tags.findIndex(x => x.slug === tagsList[i])
+                                $scope.subsTagsArray.push({label: $scope.tags[indexInAllTags].label, id: $scope.tags[indexInAllTags].id, slug: tagsList[i], isSub: false})
+                            }
+                        }
+                        
+                        // sortArrayByBoolean()
+                    })
+                });
+            }else {
+                var tagsList = $stateParams.tag.split(',')
+                for (var i = 0; i < tagsList.length; i++) {
+                    var tagIndex = $scope.tags.findIndex( x => x.slug === tagsList[i] )
+                    if(tagIndex > -1){
+                        $scope.subsTagsArray.push({slug: tagsList[i], label: $scope.tags[tagIndex].label, id: $scope.tags[tagIndex].id, isSub: false})
+                    }
+                }
+            }
+        })
+    }
+        
+
+   
+
+    $scope.subscribeTag = function(tag, subTagIndex) {
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if(user){
+                var tagObj = {"id": tag.id, "slug": tag.slug, "label": tag.label}
+                $scope.event_on_tag = tag.label
+                var tagIndex = $scope.tags.findIndex( x => x.id === tag.id )
+                if($scope.user.tags === undefined && tagIndex < 0) {
+                    $scope.user.tags = []
+                    $scope.user.tags.push(tagObj)
+                    $scope.tags[tagIndex].selected = true
+                    $scope.subsTagsArray[subTagIndex].isSub = true
+                }else{
+                    var isTagAvailable = $scope.user.tags.findIndex( x => x.id === tag.id )
+                    if(isTagAvailable > -1){
+                        var tagArray = $scope.user.tags
+                        tagArray.splice(isTagAvailable, 1)
+                        $scope.user.tags = tagArray
+                        $scope.tags[tagIndex].selected = false
+                        $scope.subsTagsArray[subTagIndex].isSub = false
+                    }else{
+                        $scope.user.tags.push(tagObj)
+                        $scope.tags[tagIndex].selected = true
+                        $scope.subsTagsArray[subTagIndex].isSub = true
+                    }
+                }
+                firebase.database().ref(`/users/${$scope.user.user_id}/tags`).set($scope.user.tags)
+                $scope.$apply();
+            }else {
+               $('#doLogin').modal('show');
+            }
+        })
+    }
+
+    $scope.mobileSearchBox = false
+
+    $scope.showMobileSearch = function() {
+        console.log('toggle search box')
+        $scope.mobileSearchBox = $scope.mobileSearchBox ? false : true
+    }
+
+    $scope.searchValueReset = false
+
+    $scope.resetSearchValue = function() {
+        $scope.searchValueReset = false
+        $scope.searchValue = ''
+    }
+
+    $scope.fullSearchBox = false;
+
+    $scope.showFullSearchBox = function () {
+        $scope.fullSearchBox = $scope.fullSearchBox ? false : true
+    }
+
+    $scope.onSearchBoxChange = function(value){
+        if(value.length == 0){
+            $scope.searchValueReset = false
+        }else{
+            $scope.searchValueReset = true
+        }
+    }   
+
+    $scope.loadSearchQuery = function(){
+        loadSearchQuery()
+    }
+
+    function loadSearchQuery(){
+        $scope.loadingMessage = true
+        var searchQuery = $stateParams.search
+        var searchParams = {
+            rows:30,
+            start: page * 30,
+            q: searchQuery
+        }
+         $http({
+            method: 'GET',
+            url: 'http://stage.leaves.anant.us/solr/',
+            params: searchParams
+        }).then((success) => {
+            var totalSearchFound = success.data.response.numFound
+            $scope.searchTagMessage = totalSearchFound + ' Result Found: "' + searchQuery + '"'
+            $scope.searchData = success.data.response.numFound
+            angular.forEach(success.data.response.docs, function(value) {
+                dataArray.push(value)
+            })
+            if(dataArray.length < success.data.response.numFound) {
+                $scope.loading_button = true
+                $scope.loadingMessage = false
+
+            }
+            console.log(success.data.response.numFound)
+            console.log(dataArray)
+            $scope.entries = dataArray
+        }).catch(function(response) {
+            $scope.error = response
+        }).finally(function() {
+            page = page + 1
+        })
+        searchingPage = searchingPage + 1
+    }
+
 	}])
 
 })(app);
@@ -96002,128 +96274,196 @@ var app = angular.module('leavesNext');
 
 	app.controller('readerController', ['$scope', '$http', '$stateParams', '$timeout', '$rootScope', '$state', 'ENV', '$sce', function($scope, $http, $stateParams, $timeout, $rootScope, $state, ENV, $sce) {
 
-		console.log('reader')
+	 var leafIdsList = String($stateParams.ids).split(',')
 
-		var entriesList = []
-		var pageNo = 1
-		$scope.loading_button = false
-		$scope.loadingMessage = true
-		$scope.loading_entry = true
-    	$scope.loading_entries = true
-		$scope.readersObj = []
+    $rootScope.inboxLength = leafIdsList.length
+    $rootScope.inboxArray = leafIdsList
+    $scope.readerView = false
+    $rootScope.isidexit = 1
+   
 
-		function getEntries() {
+    function leafHTTP(id) {
+        var param_list = $stateParams.ids.split(',');
+        $scope.active_id = id
 
-			$scope.loadingMessage = true
+        var idIndex = $rootScope.leaves.findIndex(x => x.id== id);
+        if(idIndex < 0) {
+            $http({
+                method: 'GET',
+                url: ENV.LEAVES_API_URL + '/api/entries/' + id,
+                params: {
+                    access_token: ENV.LEAVES_API_ACCESSTOKEN
+                }
+            }).then(function(success) {
+                $rootScope.leaves.push(success.data)
 
-			if ($stateParams.tag && $stateParams.tag != 'home') {
-	            var tagName = $stateParams.tag;
-	            if (tagName.includes('-')) tagName = tagName.split('-').join(' ');
-
-	            var param = {
-	                access_token: ENV.LEAVES_API_ACCESSTOKEN,
-	                sort: 'created',
-	                order: 'desc',
-	                page: pageNo,
-	                tags: tagName,
-	                perPage: 36
-	            }
-	        } else {
-	            var param = {
-	                access_token: ENV.LEAVES_API_ACCESSTOKEN,
-	                sort: 'created',
-	                order: 'desc',
-	                page: pageNo,
-	                perPage: 36
-	            }
-	        }
-
-	        if (pageNo >= 2) {
-	            $scope.loading_button = true
-	        }
-
-			$http({
-	            method: 'GET',
-	            url: ENV.LEAVES_API_URL + '/api/entries',
-	            params: param
-	        }).then(function(success) {
-	            $scope.entriesData = success
-	            angular.forEach(success.data._embedded.items, function(value) {
-	                entriesList.push(value)
-	            })
-	        }).catch(function(response) {
-	            $scope.error = response
-	        }).finally(function() {
-	        	$scope.loading_entries = false
-	            pageNo = pageNo + 1
-	            if (entriesList.length < $scope.entriesData.data.total) {
-	                $scope.loading_button = true
-	                $scope.loadingMessage = false
-	            }
-	        })
-		}
-
-		getEntries()
-
- 		$scope.loadMore = function() {
-			getEntries();
-		}
-
-		$scope.entries = entriesList
-
-		// $scope.entries = entriesList
-
-
-		function getReaderEntries() {
-	        var param_list = $stateParams.ids.split(',');
-	        // $scope.active_id = id
-	        console.log(param_list)
-	        console.log(typeof($stateParams.ids))
-	        console.log($stateParams.ids)
-	        $http({
-	            method: 'GET',
-	            url: ENV.LEAVES_API_URL + '/api/entries/' + $stateParams.ids,
-	            params: {
-	                access_token: ENV.LEAVES_API_ACCESSTOKEN
-	            }
-	        }).then(function(success) {
-	        	console.log(success.data)
-	            $scope.readersObj.push(success.data)
-	        }).catch(function(response) {
-	            $scope.error = response
-	        }).finally(function() {
-	        	$scope.loading_entry = false
-	            // $scope.readersObj[$scope.readersObj.length - 1].active = true;
-	            // $scope.readerView = true
-	            // if($scope.readersObj.length > 1){
-	            //     $scope.readersObj[$scope.readersObj.length - 2].active = false;
-	            // }
-	        })
-	    }
-
-	    getReaderEntries()
-
-	    $scope.deliberatelyTrustDangerousSnippet = function(content) {
-           return $sce.trustAsHtml(content);
+            }).catch(function(response) {
+                $scope.error = response
+            }).finally(function() {
+                $rootScope.leaves[$rootScope.leaves.length - 1].active = true;
+                $scope.readerView = true
+                if(!$rootScope.isReaderActive){
+                    $rootScope.isReaderActive = true
+                }
+                if($rootScope.leaves.length > 1){
+                    $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
+                }
+                readerCountAndMove()
+            })
         }
 
-        $scope.added_date = function(tm) {
-        	if(tm !== undefined){
-		        return tm.split('T')[0]
-        	}
-	    }
+    }
 
-	    $scope.getExternalLink = function(data){
-	        var link;
-	    	if(data !== undefined) {
-		        if(data.domain_name === 'www.youtube.com'){
-		            link = data.url.split("url=")[1]
-		        }else{
-		            link = data.url
-		        }
-	    	}
-	        return link;
-	    }
+    console.log('flag ' + $rootScope.flag)
+
+    if ($rootScope.flag == undefined) {
+        $rootScope.listArray = leafIdsList
+        if($rootScope.readerFromInbox){
+            for (var i = 0; i < leafIdsList.length; i++) {
+                leafHTTP(leafIdsList[i])
+            }
+        }
+    }
+    else {
+        if ($rootScope.rm_id) {
+            leafHTTP(leafIdsList[leafIdsList.length - 1])
+        }
+    }
+
+    console.log($rootScope.leaves)
+    var removeTab = function(event, index, item_id) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if ($state.current.name == 'home.reader') {
+            var sendTo = 'home.reader'
+            var sendToParent = 'home'
+        } else {
+            var sendTo = 'list-view.reader'
+            var sendToParent = 'list-view'
+        }
+        var content_index;
+
+        $rootScope.rm_id = false
+        var leavesArrayList = $rootScope.leaves
+        for (var i = 0; i < leavesArrayList.length; i++) {
+            if(leavesArrayList[i].id == item_id){
+                content_index = i
+            }
+        }
+
+        // content_index = $rootScope.leaves.findIndex(i => i.id == item_id)
+        $rootScope.leaves.splice(content_index, 1);
+        var param_list = $stateParams.ids.split(',');
+        var item_index = param_list.indexOf(String(item_id))
+        if (item_index > -1) {
+            param_list.splice(item_index, 1);
+        }
+        $rootScope.listArray = param_list
+        $state.go(sendTo, {
+            ids: param_list
+        })
+        if (param_list.length == 0) {
+            event.preventDefault();
+            event.stopPropagation();
+            $state.go(sendToParent, {
+                ids: $stateParams.tag
+            })
+            $rootScope.listArray = []
+            $rootScope.isidexit = 0
+            $rootScope.cardViewActive = true
+        }
+
+        angular.forEach($rootScope.leaves, function(value, key) {
+            $rootScope.leaves[key].active = false
+        })
+
+        $rootScope.leaves[$rootScope.leaves.length - 1].active = true
+    };
+
+    $scope.removeTab = removeTab;
+    
+    function readerCountAndMove(){
+
+        var tabWidth = document.getElementById("readerTabs").offsetWidth
+
+        if(tabWidth < $rootScope.leaves.length * 200) {
+            console.log('move')
+            var leftPos = $('.reader-tabs').scrollLeft();
+            $(".reader-tabs").animate({scrollLeft: leftPos + $rootScope.leaves.length * 200}, 400);
+        }
+
+    }
+
+    $scope.changeReaderTab = function(index){
+        console.log(index)
+        for (var i = 0; i < $rootScope.leaves.length; i++) {
+            $rootScope.leaves[i].active = false
+        }
+
+        $rootScope.leaves[index].active = true
+    }
+
+    $scope.sortableOptions = {
+        update: function(e, ui) {
+            let currentLeaves = $rootScope.leaves
+            let orderedLeaves = currentLeaves.map(function(i) {
+                return i.id;
+            }).join(',');
+        },
+        stop: function(e, ui) {
+            // this callback has the changed model
+            let currentLeaves2 = $rootScope.leaves
+            let orderedLeaves2 = currentLeaves2.map(function(i) {
+                return i.id;
+            }).join(',');
+
+            //$state.go('home.reader', { ids: orderedLeave2s })
+        }
+    };
+
+    $scope.getExternalLink = function(item){
+        var link = item.url
+        var domain_name = item.domain_name
+        if(domain_name == 'www.youtube.com'){
+            var y_id = link.split('watch?v=')[1]
+            var r_link = 'https://www.youtube.com/watch?v='+y_id
+        }else{
+            var r_link = link
+        }
+        return r_link;
+    }
+
+    $scope.viewOriginalCOntent = function(original_link) {
+        document.getElementById("contentInIframe").style.height = "100%";
+        document.getElementById("originalContent").innerHTML = '<iframe src="' + original_link + '" frameborder="0" style="width:100%; height: 100vh;"></iframe>'
+        document.body.style.overflow = 'hidden';
+    }
+
+     $scope.deliberatelyTrustDangerousSnippet = function(content) {
+       return $sce.trustAsHtml(content);
+     };
+
+     $scope.moveReaderRight = function(e){
+        var leftPos = $('.reader-tabs').scrollLeft();
+        $(".reader-tabs").animate({scrollLeft: leftPos + 200}, 400);
+     }
+
+      $scope.moveReaderLeft = function(){
+        var leftPos = $('.reader-tabs').scrollLeft();
+        $(".reader-tabs").animate({scrollLeft: leftPos - 200}, 400);
+     }
+
+     $scope.added_date = function(tm) {
+        return moment(tm.split('T')[0], "YYYYMMDD").fromNow();
+    }
+
+    $scope.tabDropdown = false;
+
+    $scope.toggleDropdown = function(){
+        $scope.tabDropdown = $scope.tabDropdown ? false : true
+    }
+
 
 	}])
 
