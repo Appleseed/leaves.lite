@@ -8,18 +8,10 @@ services:
 env:
   - DOCKER_COMPOSE_VERSION=1.4.2
 
-before_install:
-- docker pull mariadb
-- docker pull redis:alpine
-- docker pull postgres
-- docker pull nornagon/postgres
-- docker pull wallabag/wallabag
-- docker pull rabbitmq
-- docker pull clue/ttrss
+#before_install:
 
 script:
 - docker build -t appleseed/leaves leaves.app
-
 
 #after_success:
 #  - if [ "$TRAVIS_BRANCH" == "master" ]; then
