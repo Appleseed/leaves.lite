@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="solr-ajax">
+
+<head>
+  <!-- meta -->
+  <meta charset="utf-8">
+  <title>Appleseed Search : Search.Web.User : Documents</title>
+  <meta name="author" content="Anant Corporation">
+  <meta name="description" content="AJAX web interface to Appleseed Search">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+  <!-- icons -->
+  <!--
+      <link rel="shortcut icon" href="ico/favicon.ico" />
+      <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144x144-precomposed.png" />
+      <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114x114-precomposed.png" />
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72x72-precomposed.png" />
+      <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57x57-precomposed.png" />
+      -->
+  <!-- stylesheets -->
+  <style>
+    [ng-cloak] {
+      display: none;
+    }
+  </style>
+
+  <!---- New CSS For Ipad Responcive ---->
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/custom.css" rel="stylesheet" />
+
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
+  <!--<link href="css/bootstrap/bootstrap.css" type="text/css" rel="stylesheet" />-->
+  <!--<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />-->
+  <!--<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-responsive.min.css" />-->
+  <link rel="stylesheet" type="text/css" href="css/solr-ajax/screen.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="css/solr-ajax/facp.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="css/solr-ajax/hints.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui-bootstrap/jquery-ui-1.10.0.custom.css" media="screen" />
+  <!--<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />-->
+  <!--<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-responsive.min.css" />-->
+  <link rel="stylesheet" type="text/css" href="css/chosen/chosen.css" />
+  <link rel="stylesheet" type="text/css" href="css/chosen/chosen-spinner.css" />
+
+  <!-- scripts -->
+  <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/d3js/d3.v3.min.js"></script>
+
+  <!-- scripts - angular -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+
+  <script type="text/javascript" src="lib/angular/angular-route.js"></script>
+  <script type="text/javascript" src="lib/angular/angular-sanitize.js"></script>
+  <!-- scripts - chosen -->
+  <script type="text/javascript" src="js/chosen/chosen.jquery.js"></script>
+  <script type="text/javascript" src="js/chosen/angular-chosen.js"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <!-- scripts - date picker -->
+  <script src="http://www.datejs.com/build/date.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script src="js/customjs/blockUI.js"></script>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark ht">
+    <a class="brand-title" href="#"> <i class="fa fa-leaf"></i><span class="logo-title logcolor" ng-click="">Leaves</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav mr-auto"></ul>
+      <form class="form-inline my-2 my-lg-0">
+
+        <div class="mr-sm-3"><i class="fa fa-share-alt fafacolor" aria-hidden="true"></i></div>
+        <div class="mr-sm-3"><i class="fa fa-envelope-open fafacolor" aria-hidden="true"></i></div>
+        <div class="mr-sm-3"><i class="fa fa-plus fafacolor" aria-hidden="true"></i></div>
+        <div class="mr-sm-3"> <i class="fa fa-user fafacolor" aria-hidden="true"></i></div>
+      </form>
+    </div>
+  </nav>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3">
+        <section id="content">
+          <div class="container-fluid">
+            <div class="row-fluid">
+              <!-- search panel -->
+              <div id="search-panel" class="span2 column-240 bs-docs-sidebar">
+                <div data-source="{{appleseedsSearchSolrProxy}}" ng-controller="FacetSelectionController">
+                  <!-- facet selection controller -->
+                  <ul class="facet-panel" ng-show="items.length>0" ng-cloak>
+                    <li class="facet-heading">
+                      <p>Filtering By</p>
+                    </li>
+                    <li>
+                      <ul class="items unstyled">
+                        <li class="facet" ng-repeat="item in items">
+                          <i ng-model="$scope.item1"></i>
+
+                          <i class="icon-tag"></i>
+                          <a ng-click="remove($index)">
+                            <span class="value">{{item | prettyFacetLabel | swapFacetLabels }}</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <!-- /facet selection controller -->
+                  <ul class="facet-panel" ng-show="items.length==0">
+                    <li class="facet-heading">
+                      <p>No Filters Applied</p>
+                    </li>
+                  </ul>
+                  <ul class="facet-panel refine-results refine-clear hidden-mobile hidden-tablet">
+                    <li>
+                      <span ng-controller="FacetClearSelectionController" data-source="{{appleseedsSearchSolrProxy}}" ng-cloak>
+                        <a href='' ng-click="clearFilters()"> Clear All Filters</a>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <!-- /chosen type facet controller -->
+                <!-- source facet controller -->
+                <ul id="source-panel" class="facet-panel" ng-controller="FieldFacetController" ng-hide="selected" data-exclusive="true" data-field="domain_name" data-source="{{appleseedsSearchSolrProxy}}" ng-cloak>
+                  <li class="facet-heading">
+                    <p>Source</p>
+                  </li>
+                  <li>
+                    <ul class="facets unstyled">
+                      <li ng-repeat="item in items" ng-show="items">
+                        <span class="facet-name"><a href="#" ng-click="add($event,$index)">{{item.value | cleanFacetLabel }}</a></span>
+                        <span class="facet-score" ng-show="item.score">({{item.score}})</span>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <!-- source facet controller -->
+                <ul id="tags-panel" class="facet-panel" ng-controller="FieldFacetController" ng-hide="selected" data-exclusive="true" data-field="tags" data-source="{{appleseedsSearchSolrProxy}}" ng-cloak>
+                  <li class="facet-heading">
+                    <p>Tags</p>
+                  </li>
+                  <li>
+                    <ul class="facets unstyled readmore">
+                      <li ng-repeat="item in items" ng-show="items">
+                        <span class="facet-name"><a href="#" ng-click="add($event,$index)">{{item.value | cleanFacetLabel }}</a></span>
+                        <span class="facet-score" ng-show="item.score">({{item.score}})</span>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- display results on map -->
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="locations-links">
+                  <a href="locations.html"><img src="img/map-results-32.png" class="thumbnail" style="width:50px;height:auto"></a>
+                  <span class="locations-text-link">
+                    <a href="locations.html">Show search results on map</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- /display results on map -->
+          </div>
+        </section>
+      </div>
+
+
+
+      <div class="col-lg-9">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <section id="content">
+                <div class="container-fluid">
+                  <div class="row-fluid">
+                    <form ng-controller="FieldFacetController" ng-submit="filterByword()" data-near-match="true" data-search-hints-field="" data-source="{{appleseedsSearchSolrProxy}}">
+                      <input name="q" class="form-control searchbox" type="text" placeholder="Keyword or placename" ng-model="userquery" id="userquery" searchbox />
+                      <i class="fa fa-search searchbutton" ng-click="filterByword()" searchbutton aria-hidden="true"></i>
+                    </form>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+
+
+        <section class="MatchWordssection">
+          <div class="container-fluid">
+            <div class="row-fluid row">
+              <div class="col-lg-3"></div>
+              <div class="col-lg-3">
+                <div ng-controller="FieldFacetController" ng-hide="selected" data-field="Any_Words" data-exclusive="true" data-source="{{appleseedsSearchSolrProxy}}" ng-cloak>
+                  <input id="Any_Words" type="radio" name="Words" ng-click="filterByword()" checked /> Match Any Words
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div ng-controller="FieldFacetController" ng-hide="selected" data-field="All_Words" data-exclusive="true" data-source="{{appleseedsSearchSolrProxy}}" ng-cloak>
+                  <input id="All_Words" type="radio" name="Words" ng-click="filterByword()" /> Match All Words
+                </div>
+              </div>
+              <div class="col-lg-3"></div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="container-fluid">
+            <div class="row-fluid">
+              <div class="row">
+                <div class="col-lg-2 ipad-controler">
+                  <div class="facets unstyled">
+                    <div ng-controller="FieldFacetController" ng-hide="selected" data-exclusive="true" data-field="user_name" data-source="{{appleseedsSearchSolrProxy}}" ng-cloak id="ddl_user">
+                      <select class="form-control" ng-model="user_name" ng-change="filterByUser()" id="user_name">
+                        <option value="">All User</option>
+                        <option value="0">admin</option>
+                        <option value="1">jsbilgi</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-2 ipad-controler">
+                  <div ng-controller="FieldFacetController" ng-hide="selected" data-exclusive="true" data-field="createdDate" data-source="{{appleseedsSearchSolrProxy}}" ng-cloak>
+                    <select class="form-control" ng-change="filterByDay()" ng-model="days" id="created_at">
+                      <option value=""> All Days</option>
+                      <option value="0">Today</option>
+                      <option value="1">This week</option>
+                      <option value="2">This month</option>
+                      <option value="3">This year</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 ipad-controler">
+                  <div ng-controller="FieldFacetController" ng-hide="selected" data-exclusive="true" data-field="startDate" data-source="{{appleseedsSearchSolrProxy}}" ng-cloak>
+                    <input id="fromDate" name="startDate" class="form-control" type="text" size="4" onchange="onChangeDate()" placeholder="From : yyyy-mm-dd" readonly />
+                  </div>
+                </div>
+                <div class="col-lg-3 ipad-controler">
+                  <div ng-controller="FieldFacetController" ng-hide="selected" data-exclusive="true" data-field="endDate" data-source="{{appleseedsSearchSolrProxy}}" ng-cloak>
+                    <input id="endDate" name="endDate" class="form-control" type="text" size="4" onchange="onChangeDate()" placeholder="To : yyyy--mm-dd" readonly />
+                    <label id="errorMsg" class="errorMsg">Todate should be less than From date</label>
+                  </div>
+                </div>
+                <div class="col-lg-2 ipad-controler">
+                  <div ng-controller="FieldFacetController" ng-hide="selected" data-exclusive="true" data-field="rows" data-source="{{appleseedsSearchSolrProxy}}" ng-cloak>
+                    <select class="form-control" ng-change="filterbyrow()" ng-model="rows">
+                      <option value="" selected="selected">Results Page</option>
+                      <option value="20">20</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <br />
+        </section>
+        <section>
+          <div class="container-fluid">
+            <div class="row-fluid">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div id="search-results"
+                       ng-controller="DocumentSearchResultsController"
+                       data-fields="*"
+                       data-source="{{appleseedsSearchSolrProxy}}"
+                       documents-per-page="25"
+                       ng-cloak>
+                    <h5 class="summary"><span count-to="{{totalResults}}" duration="1" count-from="1"></span> Results</h5>
+                    <div class="summary" ng-show="documents.length > 0" ng-controller="SearchHistoryController" ng-cloak>
+                      <div class="results-bar">
+                        <span>Search Results </span>
+                        <span class="bold" ng-repeat="page in pagesOnly" ng-show="page.isCurrent">{{(page.name * documentsPerPage)-(documentsPerPage-1)}}</span>
+                        <span class="bold">-</span>
+                        <span class="bold" ng-repeat="page in pagesOnly" ng-show="page.isCurrent"> {{(page.name *documentsPerPage)<(totalResults)?(page.name * documentsPerPage):(totalResults)}} </span>
+                        <span>of </span>
+                        <span class="bold">{{totalResults}} </span>
+                        <span>found for </span>
+                        <span class="bold latest-query" ng-repeat="query in queries" ng-show="$first">{{query.getUserQuery()}}</span>
+                      </div>
+                      <div class="alert alert-error" ng-show="error">{{error}}</div>
+                      <div class="alert alert-info" ng-show="message">{{message}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6"></div>
+              </div>
+              <div class="row">
+
+                <div class="col-lg-6">
+                  <div id="search-results"
+                       ng-controller="DocumentSearchResultsController"
+                       data-fields="*"
+                       data-source="{{appleseedsSearchSolrProxy}}"
+                       documents-per-page="25"
+                       ng-cloak>
+                    <div class="summary" ng-show="documents.length > 0" ng-controller="SearchHistoryController" ng-cloak>
+                      <div class="alert alert-error" ng-show="error">{{error}}</div>
+                      <div class="alert alert-info" ng-show="message">{{message}}</div>
+                    </div>
+                    <div class="pagination" ng-hide="error || userquery &&!loading && documents.length == 0" ng-cloak>
+                      <ul class="pagination" ng-show="totalResults > documentsPerPage">
+                        <li class="page-item" ng-repeat="page in pages">
+                          <a class="page-link" ng-class="{iscurrent:page.isCurrent}" ng-click="$parent.handleSetPage(page.number)">{{page.name}}</a>
+                        </li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-3">
+                  <div id="search-results"
+                       class=""
+                       ng-controller="FieldFacetController"
+                       data-fields="*"
+                       data-source="{{appleseedsSearchSolrProxy}}"
+                       documents-per-page="25"
+                       ng-cloak>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-secondary">
+                        <a ng-click="sortdate('asc')" autocomplete="off">Date&nbsp; <i class="fa fa-angle-double-up"></i></a>
+                      </label>
+                      <label class="btn btn-secondary">
+                        <a ng-click="sortdate('desc')" autocomplete="off">Date&nbsp; <i class="fa fa-angle-double-down"></i></a>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div id="search-results"
+                       class=""
+                       ng-controller="FieldFacetController"
+                       data-fields="*"
+                       data-source="{{appleseedsSearchSolrProxy}}"
+                       documents-per-page="25"
+                       ng-cloak>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-secondary" id="AZ">
+                        <a ng-click="sortchar('asc')">(A-Z)</a>
+                      </label>
+                      <label class="btn btn-secondary" id="ZA">
+                        <a ng-click="sortchar('desc')">(Z-A)</a>
+                      </label>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </section>
+        <!-- search results paging-->
+
+        <section id="" class="MatchWordssection">
+          <div id="search-results"
+               class="span5"
+               ng-controller="DocumentSearchResultsController"
+               data-fields="*"
+               data-source="{{appleseedsSearchSolrProxy}}"
+               documents-per-page="25"
+               ng-cloak>
+
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-5"></div>
+                <div class="col-lg-2">
+
+                  <div class="loading" ng-show="loading" ng-cloak>
+                    <img src="img/giphy.gif" alt="Loading search results" class="loderimg"/>
+                  </div>
+
+                </div>
+                <div class="col-lg-5"></div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div class="row-fluid">
+              <div class="container">
+                <div class="row">
+                  <div id="search-results" ng-controller="DocumentSearchResultsController" data-fields="*" data-source="{{appleseedsSearchSolrProxy}}" documents-per-page="25" ng-cloak>
+                    <div class="row">
+                      <article ng-repeat="doc in documents" class="documen col-lg-4">
+                        <div class="thumb" ng-if="doc.preview_picture[0]=='' || doc.preview_picture[0]==null">
+                          <div class="card-header iPad">
+                            <div class="card border-secondary mb-3">
+                              <div class="">
+                                <a ng-href="{{doc.name}}" class="thumbnail">
+                                  <img src="img/noimagefound.png" alt="{{doc.title[0]}}" />
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="thumb" ng-show="doc.preview_picture[0]">
+                          <div class="card-header iPad" style="height:204px;">
+                            <div class="card border-secondary mb-3">
+                              <div class="">
+                                <a ng-href="{{doc.name}}" class="thumbnail">
+                                  <img ng-src="{{doc.preview_picture}}" alt="{{doc.title[0]}}" />
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div ng-show="doc.is_public" class="meta inline">
+                          <div ng-switch="doc.source[0]">
+                            <div ng-switch-when="Featured" class="region">Featured</div>
+                            <div ng-switch-default></div>
+                          </div>
+                        </div>
+                        <div class="text">
+                          <div class="text" ng-repeat="contentitem in doc.content">{{contentitem | truncate:250}}</div>
+                        </div>
+                        <div class="meta inline">
+                          <span class="region doc-type" ng-show="doc.type">{{doc.type}}</span>
+                          <div class="existdates">
+                            <span ng-href="{{doc.path[0]}}" class="title">{{doc.title}}</span><br />
+                            <a ng-href="{{doc.url}}" target="_blank" class="title">{{doc.domain_name}}</a><br />
+                            <span><i class="fa fa-user"></i>&nbsp; {{doc.user_name}}</span>
+                            <span ng-show="doc.toDate">&ndash;</span>
+                            <span class=""><i class="fas fa-clock" aria-hidden="true"></i>&nbsp; {{doc.created_at}}</span>
+
+                          </div>
+
+                        </div>
+                      </article>
+                    </div>
+
+
+                    <div class="loading" ng-show="scrollLoading && scrollInfinite" ng-cloak>
+                      lo
+                      lI
+                      cl
+                      g
+                      g
+
+                      <p>
+                        g
+
+                        cl
+                        Load
+                        in
+                        g more search results ...
+                      </p>
+                      <img src="img/ajax-loader-bar.gif" alt="Loading more search results" />
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+        </section>
+
+        <!-- search results paging-->
+        <div id="search-results"
+             class="span5"
+             ng-controller="DocumentSearchResultsController"
+             data-fields="*"
+             data-source="{{appleseedsSearchSolrProxy}}"
+             documents-per-page="25"
+             ng-cloak>
+
+          <div class="column-512">
+
+            <div class="summary" ng-show="documents.length > 0" ng-controller="SearchHistoryController" ng-cloak>
+              <div class="alert alert-error" ng-show="error">{{error}}</div>
+              <div class="alert alert-info" ng-show="message">{{message}}</div>
+            </div>
+
+            <div class="no-results-message" ng-show="userquery &&!loading && documents.length == 0" ng-cloak>
+              <h4>No results were found.</h4>
+            </div>
+
+
+
+            <div class="pagination" ng-hide="error || userquery &&!loading && documents.length == 0" ng-cloak>
+              <ul class="pagination" ng-show="totalResults > documentsPerPage">
+                <li class="page-item" ng-repeat="page in pages">
+                  <a class="page-link" ng-class="{iscurrent:page.isCurrent}" ng-click="$parent.handleSetPage(page.number)">{{page.name}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- search results paging-->
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <footer id="footer">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div>
+          Appleseed Search Web User Angular, a project of
+          <a href="http://www.anant.us/">Anant</a>.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- scripts -->
+  <script type="text/javascript" src="js/solr-ajax/controllers/DateFacetController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/DateFacetHistogramController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/DateRangeFacetController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/DocumentSearchHighlightMLTResultsController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/DocumentSearchResultsController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/DocumentSearchFeaturedResultController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/FacetClearSelectionController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/FacetSelectionController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/FieldFacetController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/FieldChosenFacetController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/FieldCheckboxFacetController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/FieldAlphaFilterFacetController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/SearchBoxController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/controllers/SearchHistoryController.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/directives/autocomplete.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/directives/searchbox.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/directives/count-to.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/filters/textfilters.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/services/selection.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/services/solr.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/services/utils.js"></script>
+  <script type="text/javascript" src="js/solr-ajax/app/document.js"></script>
+  <script type="text/javascript" src="js/customjs/custom.js"></script>
+</body>
+
+</html>
