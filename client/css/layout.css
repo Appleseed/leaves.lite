@@ -280,10 +280,10 @@ a.article:hover {
     }
     .search-query-input {
         position: absolute;
-        top:-50px;
+        top:-80px;
     }
     .search-query-input-show {
-        position: absolute;   
+        position: fixed;   
         top:0;
         width: 100%;    
         left: 0;
