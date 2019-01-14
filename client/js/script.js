@@ -121,9 +121,9 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', fu
     $scope.searchInputVisible = false
 
     if($(window).width() > 760){
-        $scope.header_logo = false
+        $rootScope.header_logo = false
     }else{
-        $scope.header_logo = true
+        $rootScope.header_logo = true
     }
 
     $scope.newLeaf = function(incoming_url) {
@@ -226,7 +226,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', fu
     }
 
     $scope.sidebarCollapse = function() {
-        $scope.header_logo = $scope.header_logo ? false : true
+        $rootScope.header_logo = $rootScope.header_logo ? false : true
         $('#sidebar, #content').toggleClass('active');
         $('.collapse.in').toggleClass('in');
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');

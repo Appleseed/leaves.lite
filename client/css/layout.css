@@ -78,6 +78,13 @@ a:focus {
     width: 100%;
 }
 
+.sidebar-bg {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
 #sidebar {
     width: 230px;
     position: fixed;
@@ -117,17 +124,17 @@ a:focus {
 #sidebar ul.components {
     padding-bottom: 20px;
     border-bottom: 1px solid #47748b;
-    height: calc(100vh - 160px);
+    height: calc(100vh - 200px);
     -webkit-overflow-scrolling: touch;
     width: 100%;
     overflow-y: scroll;
     padding-right: 17px;
     box-sizing: content-box;
 }
-#sidebar ul .tag-search-input {
-    padding: 5px;
+#sidebar .tag-search-input {
+    padding: 5px 10px;
 }
-#sidebar ul .tag-search-input input {
+#sidebar .tag-search-input input {
     color: #000;
     font-size: 0.8rem;
     border: 0;
@@ -217,9 +224,10 @@ a.article:hover {
 }
 
 .reader {
-    height: calc(100vh - 90px);
-  overflow-y: scroll;
-  overflow-x: hidden;
+height: calc(100vh - 90px);
+overflow-y: scroll;
+overflow-x: hidden;
+-webkit-overflow-scrolling: touch;
 }
 
 .search-box {

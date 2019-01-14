@@ -66,6 +66,7 @@ var app = angular.module('leavesNext');
 	    }
 
 	    $scope.multipleTagSelect = function(tagsArrayValues, tagSlug){
+
 	        var tagIndex = $scope.tagsArray.indexOf(tagSlug)
 	        var slugIndex = $scope.tags.findIndex(obj => obj.slug == tagSlug);
 	        if(tagIndex < 0){
@@ -77,6 +78,13 @@ var app = angular.module('leavesNext');
 	        }
 	        $state.go('home', {tag:$scope.tagsArray.join(',')})
 	        sortTagArray()
+
+	    	if($(window).width() <= 760){
+        		$rootScope.header_logo = true
+		        $('#sidebar, #content').toggleClass('active');
+		        $('.collapse.in').toggleClass('in');
+		        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+		    }
 	    }
 
 	    function removeItem(items, i){

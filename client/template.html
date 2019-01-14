@@ -24,11 +24,10 @@
             <div class="sidebar-header logo" ng-click="goToHome()">
                 <h3>Leaves<br/>Reader</h3>
             </div>
-
+            <div class="tag-search-input">
+                <input type="text" class="form-control" id="querySearchInput" ng-model="tag_name" placeholder="Search by tag">
+            </div>
             <ul class="list-unstyled components">
-                <div class="tag-search-input">
-                    <input type="text" class="form-control" id="querySearchInput" ng-model="tag_name" placeholder="Search by tag">
-                </div>
                 <li ng-repeat="tag in tags | filter:tag_name" ng-class="{'active-tag': tag.active}">
                     <a  ng-click="multipleTagSelect(tagsString, tag.slug)">{{tag.label}}</a>
                 </li>
