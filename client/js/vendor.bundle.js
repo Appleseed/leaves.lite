@@ -106,13 +106,13 @@
 /***/ 165:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(188);
+__webpack_require__(186);
 module.exports = angular;
 
 
 /***/ }),
 
-/***/ 188:
+/***/ 186:
 /***/ (function(module, exports) {
 
 /**

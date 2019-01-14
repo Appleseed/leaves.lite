@@ -23,6 +23,7 @@ var app = angular.module('leavesNext');
     $scope.stateJson = $state.current
     var page = 1
     $scope.loading_button = false
+    $scope.loading_icon = true
     $scope.entries = []
     var itemIds = []
     var dataArray = [];
@@ -76,9 +77,6 @@ var app = angular.module('leavesNext');
         if (page >= 2) {
             $scope.loading_button = true
         }
-
-        console.log(tagNamesArray)
-
         angular.forEach(paramsArray, (param) => {
             $http({
                 method: 'GET',
@@ -92,6 +90,7 @@ var app = angular.module('leavesNext');
             }).catch(function(response) {
                 $scope.error = response
             }).finally(function() {
+                $scope.loading_icon = false
                 if ($scope.entries.length < $scope.homeData.data.total) {
                     $scope.loading_button = true
                     $scope.loadingMessage = false
@@ -183,8 +182,9 @@ var app = angular.module('leavesNext');
                     var userData = snapshot.val()
                     $scope.$apply(function() {
                         $scope.user = userData
+                        console.log('tags', $stateParams.tag)
                         var tagsList = $stateParams.tag.split(',')
-                        console.log(userData.tags)
+                        console.log('tags')
                         for (var i = 0; i < tagsList.length; i++) {
                             var tagIndexInArray = userData.tags.findIndex(x => x.slug === tagsList[i])
                             if( tagIndexInArray > -1){
@@ -199,6 +199,7 @@ var app = angular.module('leavesNext');
                     })
                 });
             }else {
+                console.log('home')
                 var tagsList = $stateParams.tag.split(',')
                 for (var i = 0; i < tagsList.length; i++) {
                     var tagIndex = $scope.tags.findIndex( x => x.slug === tagsList[i] )

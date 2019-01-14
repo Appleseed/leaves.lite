@@ -7,9 +7,17 @@
 			</span>
 		</div>
 	</div>
+	<div class="sub-div text-right" ng-if="current_params.tag !== 'home'">
+        <div class="sub-btn">
+            <button type="button" ng-click="subscribeTag(tag, $index)" class="btn btn-outline-dark" ng-repeat="tag in subsTagsArray">
+                <i class="fa fa-bell"></i> 
+                {{tag.slug}} 
+                <i class="fa fa-check-square" ng-if="tag.isSub" style="color: green"></i>
+            </button>
+        </div>
+    </div>
 
 	<div class="row no-gutters">
-
 		<div ng-class="cardViewActive ? 'col-md-12' : 'col-xs-12 col-sm-4 col-md-4 col-lg-3'" class="card-hide-scroll">
 			<div class="row">
 				<div ng-class="cardViewActive ? 'col-xs-12 col-sm-6 col-md-3 col-lg-4' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'" class="card-template" style="padding: 0px 5px 5px 5px;" ng-repeat="entry in entries">
@@ -21,9 +29,9 @@
 		        <button class="btn btn-primary" ng-click="loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
 		    </div>
 		</div>
-		<div class="minimize-toggle-btn" ng-click="minimizeToggle()"><i class="fa" ng-class="minimizeReader ? 'fa-window-restore' : 'fa-window-minimize'"></i></div>
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 reader" ng-class="minimizeReader ? 'minimize-reader' : ''">
 			<div ui-view></div>
+			<div class="minimize-toggle-btn" ng-click="minimizeToggle()"><i class="fa" ng-class="minimizeReader ? 'fa-window-restore' : 'fa-window-minimize'"></i></div>
 		</div>
 	</div>
 </div>

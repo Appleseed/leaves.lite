@@ -25,6 +25,7 @@ var app = angular.module('leavesNext');
     	$rootScope.listArray = []
     	$rootScope.leaves = []
 		$scope.userLoggedIn = false
+	    $scope.tagsArray = []
 
 	    $http({
 	        method: 'GET',
@@ -38,7 +39,8 @@ var app = angular.module('leavesNext');
 	            tags_list.push({
 	                id: value.id,
 	                label: value.label,
-	                slug: slug
+	                slug: slug,
+                	active: false
 	            })
 	        })
 	    }).catch(function(response) {
@@ -51,7 +53,49 @@ var app = angular.module('leavesNext');
 	            tag: 'home'
 	        })
             $rootScope.cardViewActive = true
+        	$scope.tagsArray = []
 	    }
+
+	    function sortTagArray(){
+	        $scope.tags.sort(function(x, y) {
+	            // true values first
+	            return (x.active === y.active)? 0 : x.active? -1 : 1;
+	            // false values first
+	            // return (x === y)? 0 : x? 1 : -1;
+	        });
+	    }
+
+	    $scope.multipleTagSelect = function(tagsArrayValues, tagSlug){
+	        var tagIndex = $scope.tagsArray.indexOf(tagSlug)
+	        var slugIndex = $scope.tags.findIndex(obj => obj.slug == tagSlug);
+	        if(tagIndex < 0){
+	            $scope.tagsArray.push(tagSlug)
+	            $scope.tags[slugIndex]['active'] = true
+	        }else{
+	            removeItem($scope.tagsArray, tagIndex)
+	            $scope.tags[slugIndex]['active'] = false
+	        }
+	        $state.go('home', {tag:$scope.tagsArray.join(',')})
+	        sortTagArray()
+	    }
+
+	    function removeItem(items, i){
+	        $scope.tagsArray.splice(i, 1)
+	    }
+
+	    $scope.selectionTag=[];
+
+		$scope.toggleSelection = function toggleSelection(gender) {
+			var idx = $scope.selectionTag.indexOf(gender);
+			if (idx > -1) {
+				// is currently selected
+				$scope.selectionTag.splice(idx, 1);
+			}
+			else {
+				// is newly selected
+				$scope.selectionTag.push(gender);
+			}
+		};
 
 }])
 })(app);

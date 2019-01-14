@@ -137,6 +137,7 @@ a:focus {
     padding: 5px 10px;
     font-size: 0.9em;
     display: block;
+    cursor: pointer;
 }
 
 #sidebar ul li a:hover {
@@ -189,6 +190,13 @@ a.article,
 a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
+}
+
+.active-tag a:after {
+     content: " \2713";
+     height: 5px;
+     width: 5px;
+     color: green;
 }
 
 /* ---------------------------------------------------
