@@ -29,8 +29,8 @@
                 <div class="tag-search-input">
                     <input type="text" class="form-control" id="querySearchInput" ng-model="tag_name" placeholder="Search by tag">
                 </div>
-                <li ng-repeat="tag in tags | filter:tag_name">
-                    <a ui-sref="home({tag:tag.slug})">{{tag.label}}</a>
+                <li ng-repeat="tag in tags | filter:tag_name" ng-class="{'active-tag': tag.active}">
+                    <a  ng-click="multipleTagSelect(tagsString, tag.slug)">{{tag.label}}</a>
                 </li>
             </ul>
         </nav>
