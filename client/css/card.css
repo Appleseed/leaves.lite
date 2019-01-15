@@ -51,10 +51,16 @@
 }
 
 .card-hide-scroll {
-  height: calc(100vh - 90px);
+  height: calc(100vh - 70px);
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.card-hide-scroll:hover {
+    padding-right: 0px;
+    transform: scale(1);
+    transition: 0.3s all ease;  
 }
 
 .sub-div {

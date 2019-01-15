@@ -105,5 +105,28 @@ var app = angular.module('leavesNext');
 			}
 		};
 
+	 	$scope.makeBitlyLink = function(){
+	        $("#shareBundle").modal('show')
+	        $scope.bitly_link = 'Loading...'
+	        var threadPath = encodeURIComponent(window.location.href)
+	        var pathToHit = "https://api-ssl.bitly.com/v3/shorten?access_token="+ENV.BITLY_API_ACCESSTOKEN+"&longUrl=" + threadPath
+	        $http({
+	            method: 'GET',
+	            url: pathToHit
+	        }).then(function(success) {
+	            $scope.bitly_link = success.data.data.url
+	        })
+	    }
+
+	    $scope.copyThisShortLink = function() {
+    	 	var copyText = document.getElementById("bitlyLink");
+	        copyText.select();
+	        document.execCommand("Copy");
+	        document.getElementById("showCopiedMsg").innerHTML = 'copied'
+	        setTimeout(function() {
+	            $('#showCopiedMsg').fadeOut('fast');
+	        }, 1000);
+	    }
+
 }])
 })(app);

@@ -22,11 +22,14 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto">
-                <li ng-if="!userLoggedIn">
-                    <a class="nav-link" data-toggle="modal" data-target="#doLogin" class="do-login">Login</a>
+                <li class="nav-item">
+                    <a class="nav-link" ng-click="makeBitlyLink()"><i class="fa fa-share-alt"></i> Share branch</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#addLeaf"><i class="fa fa-plus"></i> Add</a>
+                    <a class="nav-link" data-toggle="modal" data-target="#addLeaf"><i class="fa fa-plus-circle"></i> Add Leaf</a>
+                </li>
+                <li ng-if="!userLoggedIn">
+                    <a class="nav-link" data-toggle="modal" data-target="#doLogin" class="do-login"><i class="fa fa-sign-in-alt "></i> Login</a>
                 </li>
                 <li class="nav-item profile-list" ng-if="userLoggedIn">
                     <a class="nav-link" ui-sref="profile">
@@ -138,6 +141,32 @@
                     </div>
                 </div>
             </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="shareBundle" tabindex="-1" role="dialog" aria-labelledby="shareBundle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bundle Box</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="share-modal-title">Share this resource link</div>
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-value="bitly_link" id="bitlyLink" placeholder="Share this Thread" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2" ng-click="copyThisShortLink()" title="Clipboard Link"><i class="fa fa-clipboard"></i></span>
+                    </div>
+                </div>
+                <div id="showCopiedMsg" class="coiped-msg"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

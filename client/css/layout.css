@@ -6,9 +6,10 @@
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
     overflow-y: hidden;
 }
+
 
 p {
     font-family: 'Poppins', sans-serif;
@@ -21,6 +22,10 @@ a:focus {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
+}
+
+.btn {
+    font-size: 0.9rem;
 }
 
 .main-body {
@@ -37,6 +42,8 @@ a:focus {
 
 .search-query-input {
     width: auto;
+    font-size: 0.9rem;
+    margin-left: 10px;
 }
 
 .navbar-search-icon {
@@ -109,6 +116,7 @@ a:focus {
 
 .navbar-nav li a {
     cursor: pointer;
+    font-size: 0.9rem;
 }
 
 #sidebar.active {
@@ -128,9 +136,17 @@ a:focus {
     -webkit-overflow-scrolling: touch;
     width: 100%;
     overflow-y: scroll;
+    overflow-x: hidden;
     padding-right: 17px;
     box-sizing: content-box;
 }
+
+#sidebar ul.components:hover {
+    padding-right: 0px;
+    transform: scale(1);
+    transition: 0.3s all ease;  
+}
+
 #sidebar .tag-search-input {
     padding: 5px 10px;
 }
@@ -217,6 +233,7 @@ a.article:hover {
     position: absolute;
     top: 0;
     right: 0;
+    overflow-x: hidden;
 }
 
 #content.active {
@@ -272,6 +289,9 @@ overflow-x: hidden;
 ----------------------------------------------------- */
 
 @media (max-width: 768px) {
+    html,body {
+        overflow-x: hidden !important;
+    }
     #sidebar {
         margin-left: -230px;
     }
@@ -296,13 +316,13 @@ overflow-x: hidden;
     }
     .search-query-input {
         position: absolute;
-        top:-80px;
+        top:-100px;
     }
     .search-query-input-show {
         position: fixed;   
         top:0;
         width: 100%;    
-        left: 0;
+        left: -10px;
         right: 0;
         height: 68px;
     }
@@ -320,7 +340,7 @@ overflow-x: hidden;
 
 @media (max-width: 558px) {
     .reader {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         padding-left: 0 !important;
@@ -334,9 +354,9 @@ overflow-x: hidden;
     }
     .minimize-toggle-btn {
         display: block !important;
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
+        position: absolute;
+        bottom: 10%;
+        text-align: center;
         z-index: 9;
         background-color: #495057;
         border-radius: 50%;
@@ -344,6 +364,7 @@ overflow-x: hidden;
         padding: 8px 12px;
         box-shadow: 0px 1px 2px #000;
         cursor: pointer;
+        left: 50%;
     }
     .minimize-reader {
         display: none;
