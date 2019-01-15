@@ -24,7 +24,7 @@ a:focus {
     transition: all 0.3s;
 }
 
-.btn {
+.btn, .alert {
     font-size: 0.9rem;
 }
 

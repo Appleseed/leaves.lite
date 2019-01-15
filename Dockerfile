@@ -9,9 +9,7 @@ ADD . /client
 
 # Install dependencies
 RUN \
-    npm install -g bower && \
     npm install && \
-    bower install --config.interactive=false --allow-root && \
     npm run build
 
 

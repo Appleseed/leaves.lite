@@ -93377,6 +93377,36 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', fu
             });
     }
 
+    $scope.loginWithEmail = function() {
+        firebase.auth().signInWithEmailAndPassword($scope.loginEmail, $scope.loginPassword).catch((error)=> {
+            console.log(error)
+            $scope.$apply(function () {
+                $scope.errorMessage = error.message;
+            });
+            var errorCode = error.code;
+        });
+
+    }
+
+    $scope.makeNewAccountWithEmail = function() {
+        firebase.auth().createUserWithEmailAndPassword($scope.email_address, $scope.password).then(function(result){
+             // This gives you a Google Access Token. You can use it to access the Google API.
+                // The signed-in user info.
+                var user = result.user;
+                $scope.$apply(function() {
+                    $scope.makeProfile(user)
+                });
+
+                $('#doLogin').modal('hide');
+        }).catch((error)=> {
+            console.log(error)
+            $scope.$apply(function () {
+                $scope.errorMessage = error.message;
+            });
+            var errorCode = error.code;
+        });
+    }
+
     $scope.doLogout = function() {
         firebase.auth().signOut()
         location.reload();
