@@ -33,6 +33,7 @@ var app = angular.module('leavesNext');
         tag: $stateParams.tag
     }
 
+
     $rootScope.cardViewActive = true
 
     if($stateParams.ids !== undefined) {

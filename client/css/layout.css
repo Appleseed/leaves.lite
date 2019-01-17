@@ -41,7 +41,7 @@ a:focus {
 }
 
 .search-query-input {
-    width: auto;
+    max-width: auto;
     font-size: 0.9rem;
     margin-left: 10px;
 }

@@ -17,7 +17,7 @@ var app = angular.module('leavesNext');
 		$logProvider.debugEnabled(ENV.ENABLEDEBUG);
 	}
 
-	app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', function($scope, $http, $state, $location, $rootScope, ENV) {
+	app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', '$stateParams', function($scope, $http, $state, $location, $rootScope, ENV, $stateParams) {
 
 		$rootScope.isidexit = 0
     	$rootScope.readerFromInbox = true
@@ -26,6 +26,7 @@ var app = angular.module('leavesNext');
     	$rootScope.leaves = []
 		$scope.userLoggedIn = false
 	    $scope.tagsArray = []
+
 
 	    $http({
 	        method: 'GET',
