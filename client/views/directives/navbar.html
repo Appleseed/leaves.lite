@@ -31,16 +31,27 @@
                 <li ng-if="!userLoggedIn">
                     <a class="nav-link" data-toggle="modal" data-target="#doLogin" class="do-login"><i class="fa fa-sign-in-alt "></i> Login</a>
                 </li>
-                <li class="nav-item profile-list" ng-if="userLoggedIn">
+                <li class="nav-item dropdown profile-list" ng-if="userLoggedIn">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src={{userProfile.photoURL}} ng-if="userProfile.displayName.split(' ')[0]" />
+                        <i class="fa fa-user" ng-if="!userProfile.displayName.split(' ')[0]"></i>
+                        {{userProfile.displayName.split(' ')[0] ? userProfile.displayName.split(' ')[0] : 'profile'}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" ui-sref="profile">Profile</a>
+                        <a class="dropdown-item" ng-click="doLogout()">Logout</a>
+                    </div>
+                </li>
+               <!--  <li class="nav-item profile-list" ng-if="userLoggedIn">
                     <a class="nav-link" ui-sref="profile">
                         <img src={{userProfile.photoURL}} ng-if="userProfile.displayName.split(' ')[0]" />
                         <i class="fa fa-user" ng-if="!userProfile.displayName.split(' ')[0]"></i>
                         {{userProfile.displayName.split(' ')[0] ? userProfile.displayName.split(' ')[0] : 'profile'}}
                     </a>
-                </li>
-                <li ng-if="userLoggedIn" class="nav-item">
+                </li> -->
+               <!--  <li ng-if="userLoggedIn" class="nav-item">
                     <a class="nav-link" ng-click="doLogout()"><i class="fa fa-circle-notch"></i> Logout</a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

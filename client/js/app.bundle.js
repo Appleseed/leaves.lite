@@ -93920,7 +93920,9 @@ var app = angular.module('leavesNext');
         var searchParams = {
             rows:30,
             start: page * 30,
-            q: searchQuery
+            q: searchQuery,
+            df: 'title',
+            df: 'content'
         }
          $http({
             method: 'GET',
@@ -93933,8 +93935,13 @@ var app = angular.module('leavesNext');
             angular.forEach(success.data.response.docs, function(value) {
                 dataArray.push(value)
             })
+
+            if(totalSearchFound == 0) {
+                $scope.loading_icon = false
+            }
+
             if(dataArray.length < success.data.response.numFound) {
-                $scope.loading_button = true
+                $scope.loading_icon = false
                 $scope.loadingMessage = false
 
             }
