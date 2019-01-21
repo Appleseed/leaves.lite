@@ -32,7 +32,7 @@
                     <a class="nav-link" data-toggle="modal" data-target="#doLogin" class="do-login"><i class="fa fa-sign-in-alt "></i> Login</a>
                 </li>
                 <li class="nav-item dropdown profile-list" ng-if="userLoggedIn">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src={{userProfile.photoURL}} ng-if="userProfile.displayName.split(' ')[0]" />
                         <i class="fa fa-user" ng-if="!userProfile.displayName.split(' ')[0]"></i>
                         {{userProfile.displayName.split(' ')[0] ? userProfile.displayName.split(' ')[0] : 'profile'}}

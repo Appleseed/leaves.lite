@@ -33,7 +33,6 @@ var app = angular.module('leavesNext');
         tag: $stateParams.tag
     }
 
-
     $rootScope.cardViewActive = true
 
     if($stateParams.ids !== undefined) {
@@ -183,16 +182,21 @@ var app = angular.module('leavesNext');
                     var userData = snapshot.val()
                     $scope.$apply(function() {
                         $scope.user = userData
-                        console.log('tags', $stateParams.tag)
                         var tagsList = $stateParams.tag.split(',')
-                        console.log('tags')
                         for (var i = 0; i < tagsList.length; i++) {
-                            var tagIndexInArray = userData.tags.findIndex(x => x.slug === tagsList[i])
-                            if( tagIndexInArray > -1){
-                                $scope.subsTagsArray.push({label: userData.tags[tagIndexInArray].label, id: userData.tags[tagIndexInArray].id, slug: tagsList[i], isSub: true})
+                            if(userData.tags !== undefined){
+                                var tagIndexInArray = userData.tags.findIndex(x => x.slug === tagsList[i])
+                                if( tagIndexInArray > -1){
+                                    $scope.subsTagsArray.push({label: userData.tags[tagIndexInArray].label, id: userData.tags[tagIndexInArray].id, slug: tagsList[i], isSub: true})
+                                }else{
+                                    var indexInAllTags = $scope.tags.findIndex(x => x.slug === tagsList[i])
+                                    $scope.subsTagsArray.push({label: $scope.tags[indexInAllTags].label, id: $scope.tags[indexInAllTags].id, slug: tagsList[i], isSub: false})
+                                }
                             }else{
-                                var indexInAllTags = $scope.tags.findIndex(x => x.slug === tagsList[i])
-                                $scope.subsTagsArray.push({label: $scope.tags[indexInAllTags].label, id: $scope.tags[indexInAllTags].id, slug: tagsList[i], isSub: false})
+                                var tagIndex = $scope.tags.findIndex( x => x.slug === tagsList[i] )
+                                if(tagIndex > -1){
+                                    $scope.subsTagsArray.push({slug: tagsList[i], label: $scope.tags[tagIndex].label, id: $scope.tags[tagIndex].id, isSub: false})
+                                }
                             }
                         }
                         
@@ -200,7 +204,6 @@ var app = angular.module('leavesNext');
                     })
                 });
             }else {
-                console.log('home')
                 var tagsList = $stateParams.tag.split(',')
                 for (var i = 0; i < tagsList.length; i++) {
                     var tagIndex = $scope.tags.findIndex( x => x.slug === tagsList[i] )
@@ -211,6 +214,8 @@ var app = angular.module('leavesNext');
             }
         })
     }
+
+    console.log($scope.subsTagsArray)
         
     $scope.minimizeToggle = function() {
         $rootScope.minimizeReader = $rootScope.minimizeReader ? false : true

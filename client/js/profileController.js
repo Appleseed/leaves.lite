@@ -26,19 +26,23 @@ var app = angular.module('leavesNext');
     firebase.auth().onAuthStateChanged(function(user){
             if(user){
                 firebase.database().ref(`/users/${user.uid}`).once('value').then((snapshot) => {
-                    var userData = snapshot.val()
+                        var userData = snapshot.val()
+                        console.log(userData)
                         $scope.$apply(function() {
                         $scope.user = userData
-                        if(userData.tags !== undefined){
-                            angular.forEach($scope.tags, function(value, key){
-                                $scope.tags[key].index_value = key
+                        console.log(userData.tags)
+                         angular.forEach($scope.tags, function(value, key){
+                            $scope.tags[key].index_value = key
+                            if(userData.tags !== undefined){
                                 if(userData.tags.findIndex(x => x.id === value.id) > -1){
                                     $scope.tags[key].selected = true
                                 }else{
                                     $scope.tags[key].selected = false
                                 }
-                            })
-                        }
+                            }else{
+                                $scope.tags[key].selected = false
+                            }
+                        })
                         $scope.loadingProfile = false;
                         // sortArrayByBoolean()
                     })
@@ -59,6 +63,8 @@ var app = angular.module('leavesNext');
     }
 
     $scope.addTagToProfile = function(tag, tagIndex){   
+        console.log(tagIndex)
+        console.log($scope.tags)
         var tagObj = {"id": tag.id, "slug": tag.slug, "label": tag.label}
         $scope.event_on_tag = tag.label
         if($scope.user.tags === undefined){
