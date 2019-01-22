@@ -53,7 +53,12 @@ var app = angular.module('leavesNext');
                 if($rootScope.leaves.length > 1){
                     $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
                 }
-                readerCountAndMove()
+
+                setTimeout(() => {
+                    console.log('scroll to top')
+                    var elmnt = document.getElementById("readerElement");
+                    elmnt.scrollIntoView(true);
+                }, 1000)
             })
         }
 

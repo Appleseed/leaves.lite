@@ -94,6 +94,12 @@ app.controller('cardTemplateController', ['$scope', '$state', '$rootScope', '$st
             })
              
             $rootScope.leaves[ind].active = true
+
+            setTimeout(() => {
+                console.log('scroll to top')
+                var elmnt = document.getElementById("readerElement");
+                elmnt.scrollIntoView({ behavior: 'smooth' });
+            }, 2000)
         }
     }
 

@@ -91,6 +91,10 @@ var app = angular.module('leavesNext');
                 $scope.error = response
             }).finally(function() {
                 $scope.loading_icon = false
+                // var parent = document.getElementById("readerElement");
+                // var element = document.getElementById("childReaderEle");
+                // $(parent).animate({ scrollTop: $(element).offset().top - $(parent).offset().top }, { duration: 'slow', easing: 'swing'});
+               
                 if ($scope.entries.length < $scope.homeData.data.total) {
                     $scope.loading_button = true
                     $scope.loadingMessage = false
@@ -318,8 +322,6 @@ var app = angular.module('leavesNext');
                 $scope.loadingMessage = false
 
             }
-            console.log(success.data.response.numFound)
-            console.log(dataArray)
             $scope.entries = dataArray
         }).catch(function(response) {
             $scope.error = response

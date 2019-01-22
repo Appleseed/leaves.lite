@@ -93252,6 +93252,12 @@ app.controller('cardTemplateController', ['$scope', '$state', '$rootScope', '$st
             })
              
             $rootScope.leaves[ind].active = true
+
+            setTimeout(() => {
+                console.log('scroll to top')
+                var elmnt = document.getElementById("readerElement");
+                elmnt.scrollIntoView({ behavior: 'smooth' });
+            }, 2000)
         }
     }
 
@@ -93723,6 +93729,10 @@ var app = angular.module('leavesNext');
                 $scope.error = response
             }).finally(function() {
                 $scope.loading_icon = false
+                // var parent = document.getElementById("readerElement");
+                // var element = document.getElementById("childReaderEle");
+                // $(parent).animate({ scrollTop: $(element).offset().top - $(parent).offset().top }, { duration: 'slow', easing: 'swing'});
+               
                 if ($scope.entries.length < $scope.homeData.data.total) {
                     $scope.loading_button = true
                     $scope.loadingMessage = false
@@ -93950,8 +93960,6 @@ var app = angular.module('leavesNext');
                 $scope.loadingMessage = false
 
             }
-            console.log(success.data.response.numFound)
-            console.log(dataArray)
             $scope.entries = dataArray
         }).catch(function(response) {
             $scope.error = response
@@ -94024,7 +94032,12 @@ var app = angular.module('leavesNext');
                 if($rootScope.leaves.length > 1){
                     $rootScope.leaves[$rootScope.leaves.length - 2].active = false;
                 }
-                readerCountAndMove()
+
+                setTimeout(() => {
+                    console.log('scroll to top')
+                    var elmnt = document.getElementById("readerElement");
+                    elmnt.scrollIntoView(true);
+                }, 1000)
             })
         }
 

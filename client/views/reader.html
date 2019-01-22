@@ -1,7 +1,7 @@
-<div class="reader-header">
+<div class="reader-header" id="readerElement">
 	<div class="dropdown">
 		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			<span  ng-repeat="list in leaves" ng-if="list.active">{{list.title}}
+			<span  ng-repeat="list in leaves" ng-if="list.active">{{list.title}}</span>
 		</button>
 		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 			<a class="dropdown-item dropdown-leaves" ng-repeat="item in leaves">
