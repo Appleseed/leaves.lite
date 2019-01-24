@@ -7,3 +7,5 @@ yarn.lock
 etc/*.yml
 .vscode/*.sql
 package-lock.json
+js/app.bundle.js
+js/vendor.bundle.js

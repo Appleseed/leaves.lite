@@ -2,14 +2,14 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    context: __dirname + '/client',
+    context: __dirname,
     entry: {
         app: './index.js',
         vendor: ['angular']
     },
     watch: false,
     output: {
-        path: __dirname + '/client',
+        path: __dirname,
         filename: 'js/app.bundle.js'
     },
     plugins: [

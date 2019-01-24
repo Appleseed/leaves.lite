@@ -2,10 +2,10 @@
 FROM node:latest
 
 # Set in what directory commands will run
-WORKDIR /client
+WORKDIR /
 
 # Put all our code inside that directory that lives in the container
-ADD . /client
+ADD . /
 
 # Install dependencies
 RUN \
