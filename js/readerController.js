@@ -58,7 +58,7 @@ var app = angular.module('leavesNext');
                     console.log('scroll to top')
                     var elmnt = document.getElementById("readerElement");
                     elmnt.scrollIntoView(true);
-                }, 1000)
+                }, 200)
             })
         }
 

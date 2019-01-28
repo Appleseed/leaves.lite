@@ -347,7 +347,7 @@ overflow-x: hidden;
     }
     .reader-content {
         margin-left: 0 !important;
-        min-height: calc(100vh - 70px);
+        min-height: calc(100vh - 35px);
     }
     .minimize-toggle-btn {
         display: block !important;
