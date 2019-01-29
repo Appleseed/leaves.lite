@@ -120,7 +120,6 @@ var app = angular.module('leavesNext');
         $rootScope.isReaderActive = false
     }
     $scope.maxReaderActive = function(){
-        console.log($rootScope.isReaderActive)
         $rootScope.isReaderActive = true
     }
 
@@ -128,7 +127,6 @@ var app = angular.module('leavesNext');
     var searchingPage = 1
 
     $scope.reLoadPage = function(){
-        console.log('re-loading')
         homeData(0);
     }
 
@@ -219,11 +217,9 @@ var app = angular.module('leavesNext');
         })
     }
 
-    console.log($stateParams.tag)
 
     if($stateParams.tag === 'home') {
 
-        console.log('reset tags')
         var tagsListArray = $scope.tags
 
         for (var i = 0; i < tagsListArray.length; i++) {
@@ -233,7 +229,6 @@ var app = angular.module('leavesNext');
         $scope.tags = tagsListArray
     }
 
-    console.log($scope.tags)
         
     $scope.minimizeToggle = function() {
         $rootScope.minimizeReader = $rootScope.minimizeReader ? false : true
@@ -276,7 +271,6 @@ var app = angular.module('leavesNext');
     $scope.mobileSearchBox = false
 
     $scope.showMobileSearch = function() {
-        console.log('toggle search box')
         $scope.mobileSearchBox = $scope.mobileSearchBox ? false : true
     }
 

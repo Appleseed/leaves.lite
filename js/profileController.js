@@ -19,34 +19,41 @@ var app = angular.module('leavesNext');
 	}
 
 
-	app.controller('profileController',['$scope', '$window', '$http', 'ENV', '$state', function($scope, $window, $http, ENV, $state){
+	app.controller('profileController',['$scope', '$window', '$http', 'ENV', '$state', '$rootScope', function($scope, $window, $http, ENV, $state, $rootScope){
 
 		$scope.loadingProfile = true;
 
-    firebase.auth().onAuthStateChanged(function(user){
+    firebase.auth().onAuthStateChanged((user) =>{
             if(user){
-                firebase.database().ref(`/users/${user.uid}`).once('value').then((snapshot) => {
-                        var userData = snapshot.val()
-                        console.log(userData)
-                        $scope.$apply(function() {
-                        $scope.user = userData
-                        console.log(userData.tags)
-                         angular.forEach($scope.tags, function(value, key){
-                            $scope.tags[key].index_value = key
-                            if(userData.tags !== undefined){
-                                if(userData.tags.findIndex(x => x.id === value.id) > -1){
-                                    $scope.tags[key].selected = true
-                                }else{
-                                    $scope.tags[key].selected = false
-                                }
-                            }else{
-                                $scope.tags[key].selected = false
-                            }
-                        })
-                        $scope.loadingProfile = false;
-                        // sortArrayByBoolean()
-                    })
-                });
+                if($scope.user === undefined) {
+                    firebase.database().ref(`/users/${user.uid}`).once('value').then((snapshot) => {
+                            var userData = snapshot.val()
+                            setTimeout(function(){
+                                $scope.$apply(function() {
+                                $scope.user = userData
+                                $rootScope.userDataRoot = userData
+                                 angular.forEach($scope.tags, function(value, key){
+                                    $scope.tags[key].index_value = key
+                                    if($rootScope.userDataRoot.tags !== undefined){
+                                        if($scope.user.tags.findIndex(x => x.id === value.id) > -1){
+                                            $scope.tags[key].selected = true
+                                        }else{
+                                            $scope.tags[key].selected = false
+                                        }
+                                    }else{
+                                        $scope.tags[key].selected = false
+                                    }
+                                })
+                                $scope.loadingProfile = false;
+                                // sortArrayByBoolean()
+                            })
+                            }, 1000)
+                            
+                    });
+                    console.log('firebase data  ',$rootScope.userDataRoot)
+                }else{
+                    console.log('my users ',$rootScope.userDataRoot)
+                }
 
             }else{
                 
@@ -55,6 +62,8 @@ var app = angular.module('leavesNext');
                 })
             }
         })
+
+
 
     function sortArrayByBoolean() {
         $scope.tags.sort(function(x,y){

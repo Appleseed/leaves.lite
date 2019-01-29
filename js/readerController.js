@@ -31,9 +31,6 @@ var app = angular.module('leavesNext');
         $rootScope.minimizeReader = false
     }
 
-    console.log(leafIdsList.length)
-   
-
     function leafHTTP(id) {
         var param_list = $stateParams.ids.split(',');
         $scope.active_id = id
