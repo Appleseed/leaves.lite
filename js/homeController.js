@@ -219,7 +219,21 @@ var app = angular.module('leavesNext');
         })
     }
 
-    console.log($scope.subsTagsArray)
+    console.log($stateParams.tag)
+
+    if($stateParams.tag === 'home') {
+
+        console.log('reset tags')
+        var tagsListArray = $scope.tags
+
+        for (var i = 0; i < tagsListArray.length; i++) {
+            tagsListArray[i].active = false
+        }
+
+        $scope.tags = tagsListArray
+    }
+
+    console.log($scope.tags)
         
     $scope.minimizeToggle = function() {
         $rootScope.minimizeReader = $rootScope.minimizeReader ? false : true

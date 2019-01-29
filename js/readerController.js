@@ -25,6 +25,13 @@ var app = angular.module('leavesNext');
     $rootScope.inboxArray = leafIdsList
     $scope.readerView = false
     $rootScope.isidexit = 1
+
+
+    if(leafIdsList.length > 0) {
+        $rootScope.minimizeReader = false
+    }
+
+    console.log(leafIdsList.length)
    
 
     function leafHTTP(id) {
