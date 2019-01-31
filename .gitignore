@@ -6,4 +6,10 @@ client/bower_components/
 yarn.lock
 etc/*.yml
 .vscode/*.sql
+<<<<<<< HEAD
 package-lock.json
+=======
+package-lock.json
+js/app.bundle.js
+js/vendor.bundle.js
+>>>>>>> dev
