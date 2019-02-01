@@ -39,7 +39,7 @@ var app = angular.module('leavesNext');
         if(idIndex < 0) {
             $http({
                 method: 'GET',
-                url: ENV.LEAVES_API_URL + '?id=' + id,
+                url: ENV.LEAVES_API_URL + '/params?id=' + id,
                 params: {
                     access_token: ENV.LEAVES_API_ACCESSTOKEN
                 }
