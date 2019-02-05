@@ -80,7 +80,7 @@ var app = angular.module('leavesNext');
         angular.forEach(paramsArray, (param) => {
             $http({
                 method: 'GET',
-                url: ENV.LEAVES_API_URL + '/',
+                url: ENV.LEAVES_API_URL + '/api/entries',
                 params: param
             }).then(function(success) {
                 $scope.homeData = success

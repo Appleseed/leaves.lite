@@ -185,6 +185,17 @@ a[data-toggle="collapse"] {
     transform: translateY(-50%);
 }
 
+.dropdown .dropdown-menu .close-tab:hover {
+    background-color: #212529;
+    color: #fff;
+    border-radius: 50%;
+}
+
+.dropdown-arrow {
+    position: absolute;
+    right: 20px;
+}
+
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
@@ -239,7 +250,7 @@ a.article:hover {
     width: 100%;
 }
 
-.reader {
+.reader-content {
 height: calc(100vh - 90px);
 overflow-y: scroll;
 overflow-x: hidden;

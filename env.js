@@ -11,7 +11,7 @@
 
 
   // production  
-  window.__env.LEAVES_API_URL = 'http://stage.leaves.anant.us/api/cassandra';
+  window.__env.LEAVES_API_URL = 'http://leaves.anant.us:82';
   window.__env.LEAVES_API_ACCESSTOKEN = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw';
 
   // Whether or not to enable debug mode

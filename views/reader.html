@@ -1,11 +1,12 @@
 <div class="reader-header" id="readerElement">
 	<div class="dropdown">
 		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			<span  ng-repeat="list in leaves" ng-if="list.active">{{list.title}}</span>
+			<span  ng-repeat="list in leaves track by $index" ng-if="list.active">({{$index+1}}/{{leaves.length}})- {{list.title}}</span>
+			<span class="dropdown-arrow"><i class="fa fa-chevron-down"></i></span>
 		</button>
 		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 			<a class="dropdown-item dropdown-leaves" ng-repeat="item in leaves">
-				<div class="title" title={{item.title}} ng-click="changeReaderTab($index)">{{item.title}}</div>
+				<div class="title" title={{item.title}} ng-click="changeReaderTab($index)">({{$index+1}})- {{item.title}}</div>
                 <div class="close-tab" ng-click="removeTab($event, $index, item.id)">x</div>
 			</a>
 		</div>
