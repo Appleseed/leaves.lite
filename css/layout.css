@@ -294,6 +294,23 @@ overflow-x: hidden;
     cursor: pointer;
 }
 
+.nav-tabs li a{
+    cursor: pointer;
+}
+
+.social-login-section{
+    padding-top: 30px;
+}
+
+.social-login-section .col-md-12 {
+    padding-bottom: 10px;
+    color: #fff;
+}
+
+.email-pwd-section {
+    padding: 30px 10px 10px 10px;
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */

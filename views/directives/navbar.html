@@ -105,53 +105,91 @@
 
                 <ul class="nav nav-tabs" id="myTab" role="loginTab">
                     <li class="nav-item">
-                    <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
+                    <a class="nav-link active" id="login-tab" data-toggle="tab" data-target="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" id="signup-tab" data-toggle="tab" href="#signup" role="tab" aria-controls="signup" aria-selected="false">Signup</a>
+                    <a class="nav-link" id="signup-tab" data-toggle="tab" data-target="#signup" role="tab" aria-controls="signup" aria-selected="false">Signup</a>
                     </li>
                 </ul>
 
                 <div class="tab-content" id="loginTab">
                     <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
                         <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-                            <div class="google-login-btn" ng-click="googleLogin()">
-                                <img src="./img/login-google.jpg"><br>OR<br>
+
+                            <div class="row">
+                                <div class="col-md-6 email-pwd-section">
+                                    <form ng-submit="loginWithEmail()">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                            </div>
+                                            <input type="email" class="form-control" ng-model="loginEmail" id="loginEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
+                                            </div>
+                                            <input type="password" class="form-control" ng-model="loginPassword" id="loginPassword" placeholder="Password"required>
+                                        </div>
+                                        <div ng-if="errorMessage" class="alert alert-primary alert-dismissible fade show" role="alert">
+                                            {{errorMessage}}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Login Now</button>
+                                    </form>
+                                </div>
+                                <div class="col-md-6 social-login-section">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-block btn-social btn-facebook " ng-click="googleLogin()">
+                                                <i class="fa fa-facebook-square"></i> Sign in with Facebook
+                                              </a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <a class="btn btn-block btn-social btn-google " ng-click="googleLogin()">
+                                                <i class="fa fa-google "></i> Sign in with Google
+                                              </a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <a class="btn btn-block btn-social btn-github  " ng-click="googleLogin()">
+                                                <i class="fa fa-github  "></i> Sign in with GitHub
+                                              </a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <a class="btn btn-block btn-social btn-linkedin " ng-click="googleLogin()">
+                                                <i class="fa fa-linkedin "></i> Sign in with Linkedin
+                                              </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <form ng-submit="loginWithEmail()">
-                                <div class="form-group">
-                                    <label for="loginEmail">Email address</label>
-                                    <input type="email" class="form-control" ng-model="loginEmail" id="loginEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" ng-model="loginPassword" id="loginPassword" placeholder="Password"required>
-                                </div>
-                                <div ng-if="errorMessage" class="alert alert-primary alert-dismissible fade show" role="alert">
-                                    {{errorMessage}}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Login Now</button>
-                            </form>
+                            
                         </div>
                     </div>
                     <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
-                        <div class="google-login-btn" ng-click="googleLogin()">
-                                <img src="./img/login-google.jpg"><br>OR<br>
-                            </div>
-                            <form ng-submit="makeNewAccountWithEmail()">
-                                <div class="form-group">
-                                    <label for="signupEmail">Email address</label>
+
+                        <div class="row">
+                                <div class="col-md-6 email-pwd-section">
+                                    <form ng-submit="makeNewAccountWithEmail()">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                    </div>
                                     <input type="email" class="form-control" ng-model="email_address" id="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
+                                    </div>
                                     <input type="password" class="form-control" ng-model="password" id="signupPassword" placeholder="Password" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Confirm Password</label>
+                                <div class="input-group mb-3">
+                                     <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
+                                    </div>
                                     <input type="password" class="form-control" ng-model="confirm_password" id="signupConfirmPassword" placeholder="Password" required>
                                 </div>
                                 <div ng-if="errorMessage" class="alert alert-primary alert-dismissible fade show" role="alert">
@@ -163,6 +201,33 @@
                                 <br>
                                 <button type="submit" class="btn btn-primary">Singup</button>
                             </form>
+                                </div>
+                                <div class="col-md-6 social-login-section">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-block btn-social btn-facebook " ng-click="googleLogin()">
+                                                <i class="fa fa-facebook-square"></i> Sign-up with Facebook
+                                              </a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <a class="btn btn-block btn-social btn-google " ng-click="googleLogin()">
+                                                <i class="fa fa-google "></i> Sign-up with Google
+                                              </a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <a class="btn btn-block btn-social btn-github  " ng-click="googleLogin()">
+                                                <i class="fa fa-github  "></i> Sign-up with GitHub
+                                              </a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <a class="btn btn-block btn-social btn-linkedin " ng-click="googleLogin()">
+                                                <i class="fa fa-linkedin "></i> Sign-up with Linkedin
+                                              </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
