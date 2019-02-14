@@ -194,12 +194,24 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', fu
         });
     }
 
-    $scope.googleLogin = function() {
-        console.log('logging...')
-        var provider = new firebase.auth.GoogleAuthProvider();
+    $scope.loginFn = function(type) {
+
+        var provider;
+
+        if(type === 'google'){
+            provider = new firebase.auth.GoogleAuthProvider();
+        }else if(type === 'facebook'){
+            provider = new firebase.auth.FacebookAuthProvider();
+        }else if(type === 'twitter'){
+            provider = new firebase.auth.TwitterAuthProvider();
+        }else{
+            provider = new firebase.auth.GithubAuthProvider();
+        }
+
+        console.log(provider)
 
         firebase.auth().signInWithPopup(provider).then(function(result) {
-                // This gives you a Google Access Token. You can use it to access the Google API.
+          // This gives you a Google Access Token. You can use it to access the Google API.
                 var token = result.credential.accessToken;
                 // The signed-in user info.
                 var user = result.user;
@@ -211,10 +223,8 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', fu
 
 
                 $('#doLogin').modal('hide');
-                
-                // ...
-            }).catch(function(error) {
-                // Handle Errors here.
+        }).catch(function(error) {
+           // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 // The email of the user's account used.
@@ -222,7 +232,33 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', fu
                 // The firebase.auth.AuthCredential type that was used.
                 var credential = error.credential;
                 // ...
-            });
+        });
+
+        // firebase.auth().signInWithPopup(provider).then(function(result) {
+        //         // This gives you a Google Access Token. You can use it to access the Google API.
+        //         var token = result.credential.accessToken;
+        //         // The signed-in user info.
+        //         var user = result.user;
+        //         $scope.$apply(function() {
+        //             console.log('scope init')
+        //             $scope.makeProfile(user)
+        //         });
+
+
+
+        //         $('#doLogin').modal('hide');
+                
+        //         // ...
+        //     }).catch(function(error) {
+        //         // Handle Errors here.
+        //         var errorCode = error.code;
+        //         var errorMessage = error.message;
+        //         // The email of the user's account used.
+        //         var email = error.email;
+        //         // The firebase.auth.AuthCredential type that was used.
+        //         var credential = error.credential;
+        //         // ...
+        //     });
     }
 
     $scope.loginWithEmail = function() {
