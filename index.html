@@ -1,68 +1,106 @@
 <!DOCTYPE html>
 <html ng-app="leavesNext">
-<head>
+  <head>
     <title>Leaves.Lite Reader</title>
-    <meta charset="utf-8">
-    <link rel="icon" href="img/favicon.ico" class="js-favicon">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/regular.min.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-social/assets/css/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-<body ng-controller="mainController" id="body">
-
+    <meta charset="utf-8" />
+    <link rel="icon" href="img/favicon.ico" class="js-favicon" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"
+    />
+    <link
+      rel="stylesheet"
+      href="node_modules/@fortawesome/fontawesome-free/css/regular.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="node_modules/bootstrap-social/bootstrap-social.css"
+    />
+    <link
+      rel="stylesheet"
+      href="node_modules/bootstrap-social/assets/css/font-awesome.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body ng-controller="mainController" id="body">
     <div class="wrapper">
-        <!-- Sidebar  -->
-        <nav id="sidebar">
-            <div class="sidebar-header logo" ng-click="goToHome()">
-                <h3>Leaves<br/>Reader</h3>
-            </div>
-            <div class="tag-search-input">
-                <input type="text" class="form-control" id="querySearchInput" ng-model="tag_name" placeholder="Search by tag">
-            </div>
-
-            <ul class="list-unstyled components">
-                <li ng-repeat="tag in tags | filter:tag_name" ng-class="{'active-tag': tag.active}">
-                    <a  ng-click="multipleTagSelect(tagsString, tag.slug)">{{tag.label}}</a>
-                </li>
-            </ul>
-        </nav>
-
-        <!-- Page Content  -->
-        <div id="content">
-
-            <header-navbar></header-navbar>
-
-            <div class="container-fluid main-body">
-                <ui-view id="injecter"></ui-view>
-            </div>
+      <!-- Sidebar  -->
+      <nav id="sidebar">
+        <div class="sidebar-header logo" ng-click="goToHome()">
+          <h3>Leaves<br />Reader</h3>
         </div>
+        <div class="tag-search-input">
+          <input
+            type="text"
+            class="form-control"
+            id="querySearchInput"
+            ng-model="tag_name"
+            placeholder="Search by tag"
+          />
+        </div>
+
+        <ul class="list-unstyled components">
+          <li
+            ng-repeat="tag in tags | filter:tag_name"
+            ng-class="{'active-tag': tag.active}"
+          >
+            <a ng-click="multipleTagSelect(tagsString, tag.slug)">{{
+              tag.label
+            }}</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Page Content  -->
+      <div id="content">
+        <header-navbar></header-navbar>
+
+        <div class="container-fluid main-body">
+          <ui-view id="injecter"></ui-view>
+        </div>
+      </div>
     </div>
 
-
-<script type="text/javascript" src="./env.js"></script>
-<script type="text/javascript" src="js/vendor.bundle.js"></script>
-<script type="text/javascript" src="js/app.bundle.js"></script>
-<script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script type="text/javascript">
-    var config = {
+    <script type="text/javascript" src="./env.js"></script>
+    <script type="text/javascript" src="js/vendor.bundle.js"></script>
+    <script type="text/javascript" src="js/app.bundle.js"></script>
+    <script
+      type="text/javascript"
+      src="js/jquery.mCustomScrollbar.concat.min.js"
+    ></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      var config = {
         apiKey: "AIzaSyBeK_YwXpRuv0qEXbmN8J7umHPbOZyi_J0",
         authDomain: "anant-leaves-next.firebaseapp.com",
         databaseURL: "https://anant-leaves-next.firebaseio.com",
         projectId: "anant-leaves-next",
         storageBucket: "anant-leaves-next.appspot.com",
         messagingSenderId: "397443834338"
-    };
-    firebase.initializeApp(config);
-</script>
-</body>
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <!-- Tooltip JQuery Start, added by Alok-->
+    <script>
+      $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+    <!-- Tooltip JQuery End-->
+  </body>
 </html>
