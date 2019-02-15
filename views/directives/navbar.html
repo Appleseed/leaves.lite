@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
 
-        <button type="button" ng-click="sidebarCollapse()" class="btn hamburgur">
+        <button type="button" ng-click="sidebarCollapse()" class="btn hamburgur" data-toggle="tooltip" title="Toggle tag menu">
             <i class="fas fa-align-left"></i> <span ng-if="header_logo">Leaves Reader</span>
         </button>
 
@@ -23,13 +23,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" ng-click="makeBitlyLink()"><i class="fa fa-share-alt"></i> Share branch</span></a>
+                    <a class="nav-link" ng-click="makeBitlyLink()" data-toggle="tooltip" title="Share branch"><i class="fa fa-share-alt"></i> Share branch</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#addLeaf"><i class="fa fa-plus-circle"></i> Add Leaf</a>
+                    <a class="nav-link" data-toggle="modal" data-tooltip="tooltip" data-target="#addLeaf"  title="New leaf"><i class="fa fa-plus-circle"></i> Add Leaf</a>
                 </li>
                 <li ng-if="!userLoggedIn">
-                    <a class="nav-link" data-toggle="modal" data-target="#doLogin" class="do-login"><i class="fa fa-sign-in-alt "></i> Login</a>
+                    <a class="nav-link" data-toggle="modal" data-target="#doLogin" class="do-login" data-tooltip="tooltip" title="Login"><i class="fa fa-sign-in-alt "></i> Login</a>
                 </li>
                 <li class="nav-item dropdown profile-list" ng-if="userLoggedIn">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

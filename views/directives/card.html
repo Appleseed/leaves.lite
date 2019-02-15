@@ -1,16 +1,36 @@
 <div class="card">
-	<div class="card-image post-image-preview" style="background-image: url({{data.preview_picture}});background-size: cover;background-position: center;">
-        <!-- <span ng-if="!data.preview_picture">{{(data.content | htmlToPlaintext) | limitTo: 300}}</span> -->
+  <div
+    class="card-image post-image-preview"
+    style="background-image: url({{
+      data.preview_picture
+    }});background-size: cover;background-position: center;"
+  >
+    <!-- <span ng-if="!data.preview_picture">{{(data.content | htmlToPlaintext) | limitTo: 300}}</span> -->
+  </div>
+  <div class="card-body">
+    <div class="entry-meta">
+      <h2 title="{{ data.title }}" ng-click="getSingleLeaves(data.id,listarr)">
+        {{ data.title }} {{ tempArray }}
+      </h2>
+      <small>{{ data.domain_name }}</small>
+      <ul>
+        <li>
+          <i class="fa fa-user" title="{{ data.user_name }}"></i>
+          <span>{{ data.user_name }}</span>
+        </li>
+        <li>
+          <a href=""
+            ><i class="fa fa-calendar-alt"></i>
+            <span ng-bind="added_date(data.created_at)"></span
+          ></a>
+        </li>
+        <li>
+          <a ng-href="{{ getExternalLink(data) }}" target="_blank"
+            ><i class="fa fa-link" title="Go to article"></i>
+            <span>link</span></a
+          >
+        </li>
+      </ul>
     </div>
-	<div class="card-body">
-		<div class="entry-meta">
-	        <h2 title={{data.title}} ng-click="getSingleLeaves(data.id,listarr)">{{data.title}} {{tempArray}}</h2>
-	        <small>{{data.domain_name}}</small>
-	        <ul>
-	            <li><i class="fa fa-user"></i> <span>{{data.user_name}}</span></li>
-	            <li><a href=""><i class="fa fa-calendar-alt"></i> <span ng-bind="added_date(data.created_at)"></span></a></li>
-	            <li><a ng-href="{{getExternalLink(data)}}" target="_blank"><i class="fa fa-link"></i> <span>link</span></a></li>
-	        </ul>
-	    </div>
-	</div>
+  </div>
 </div>
