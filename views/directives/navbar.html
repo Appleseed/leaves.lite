@@ -10,7 +10,7 @@
         <div class="search-transparent-bg" ng-click="toggleSearchInput()" ng-if="searchInputVisible"></div>
 
         <form class="search-box" ng-submit="searchLeaf(searchValue)" role="search">
-                <input type="search" ng-value="searchParams" ng-class="{'search-query-input-show': searchInputVisible}" id="tagSearchInput" ng-model="searchValue" ng-change="onSearchBoxChange(searchValue)" class="form-control search-query-input" placeholder="Enter your search query"/>
+                <input type="search" ng-value="searchParams"  data-intro='Search your query here!' ng-class="{'search-query-input-show': searchInputVisible}" id="tagSearchInput" ng-model="searchValue" ng-change="onSearchBoxChange(searchValue)" class="form-control search-query-input" placeholder="Enter your search query"/>
                 <button ng-if="searchValueReset" class="close-icon" ng-click="resetSearchValue()" type="reset"></button>
         </form>
 
@@ -23,13 +23,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" ng-click="makeBitlyLink()"><i class="fa fa-share-alt"></i> Share branch</span></a>
+                    <a class="nav-link" data-intro='Share the branch' ng-click="makeBitlyLink()"><i class="fa fa-share-alt"></i> Share branch</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#addLeaf"><i class="fa fa-plus-circle"></i> Add Leaf</a>
+                    <a class="nav-link" data-toggle="modal" data-intro='If you have good resource then you can add!' data-target="#addLeaf"><i class="fa fa-plus-circle"></i> Add Leaf</a>
                 </li>
                 <li ng-if="!userLoggedIn">
-                    <a class="nav-link" data-toggle="modal" data-target="#doLogin" class="do-login"><i class="fa fa-sign-in-alt "></i> Login</a>
+                    <a class="nav-link" data-toggle="modal" data-intro='Login' data-target="#doLogin" class="do-login"><i class="fa fa-sign-in-alt "></i> Login</a>
                 </li>
                 <li class="nav-item dropdown profile-list" ng-if="userLoggedIn">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

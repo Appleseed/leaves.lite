@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/regular.min.css">
     <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
     <link rel="stylesheet" href="node_modules/bootstrap-social/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="node_modules/intro.js/minified/introjs.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body ng-controller="mainController" id="body">
@@ -17,11 +18,11 @@
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar">
-            <div class="sidebar-header logo" ng-click="goToHome()">
+            <div class="sidebar-header logo" ng-click="goToHome()" id="e0">
                 <h3>Leaves<br/>Reader</h3>
             </div>
-            <div class="tag-search-input">
-                <input type="text" class="form-control" id="querySearchInput" ng-model="tag_name" placeholder="Search by tag">
+            <div class="tag-search-input magic-button">
+                <input type="text" class="form-control" data-intro='Search tag here!' id="querySearchInput" ng-model="tag_name" placeholder="Search by tag">
             </div>
 
             <ul class="list-unstyled components">
@@ -41,6 +42,11 @@
             </div>
         </div>
     </div>
+<tour step="currentStep">
+  <span tourtip="tip 1"> Highlighted </span>
+  <span tourtip="tip 2"> Elements </span>
+  <input tourtip="or add it as an attribute to your element" />
+</tour>
 
 
 <script type="text/javascript" src="./env.js"></script>
@@ -52,6 +58,7 @@
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="node_modules/intro.js/intro.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
     var config = {
