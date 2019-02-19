@@ -123,7 +123,7 @@ app.directive('headerNavbar', function() {
     }
 })
 
-app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', function($scope, $rootScope, $state, $http, ENV){
+app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$cookies', function($scope, $rootScope, $state, $http, ENV, $cookies){
     $scope.searchInputVisible = false
 
     if($(window).width() > 760){
@@ -345,5 +345,11 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', fu
     //         theme: "minimal"
     //     });
     // });
+
+
+    $scope.takeTour = function() {
+        $cookies.put('webTour', 0)
+        introJs().start();
+    }
 
 }])
