@@ -17,7 +17,7 @@ var app = angular.module('leavesNext');
 		$logProvider.debugEnabled(ENV.ENABLEDEBUG);
 	}
 
-	app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', '$stateParams', function($scope, $http, $state, $location, $rootScope, ENV, $stateParams) {
+	app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', '$stateParams', '$cookies', function($scope, $http, $state, $location, $rootScope, ENV, $stateParams, $cookies) {
 
 		$rootScope.isidexit = 0
     	$rootScope.readerFromInbox = true
@@ -26,6 +26,33 @@ var app = angular.module('leavesNext');
     	$rootScope.leaves = []
 		$scope.userLoggedIn = false
 	    $scope.tagsArray = []
+
+	    
+
+		var webTour = $cookies.get('webTour') || 0;
+		if(!parseInt(webTour)) {
+			setTimeout(function(){
+				introJs().start();
+			}, 2000)
+		}
+
+		setTimeout(function(){
+			$(".introjs-skipbutton").on('click', (event)=>{
+				$cookies.put('webTour', 1)
+			});
+
+			$('.introjs-donebutton').on('click', (event)=>{
+				$cookies.put('webTour', 1)
+			})
+
+			$(document).keyup(function(e) {
+				if (e.keyCode === 27){
+					$cookies.put('webTour', 1)
+				}
+			});
+		}, 2000)
+
+	
 
 
 	    $http({
