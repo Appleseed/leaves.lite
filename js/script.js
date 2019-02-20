@@ -133,8 +133,10 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
     }
 
     $scope.newLeaf = function(incoming_url) {
+        console.log(incoming_url)
         firebase.auth().onAuthStateChanged((user) => {
             if(user){
+                $scope.addingMsg = "Adding..."
                 $http({
                     method: 'POST',
                     url: ENV.LEAVES_API_URL + '/api/entries',
@@ -143,11 +145,17 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                         url: incoming_url
                     }),
                     headers: { 'content-type': 'application/x-www-form-urlencoded' }
-                }).then(function(success) {
+                }).then((success) => {
                     // $scope.entries = success.data
-                    $scope.reLoadPage()
+                    $scope.linkAdded = "Link added"
+                    $scope.addingMsg = ""
                     $scope.leavesurl = ''
-                    $('#addLeaf').modal('hide')
+                    document.getElementById('leavesurl').value = ''
+                    setTimeout(()=>{
+                        $scope.linkAdded = ""
+                        document.getElementById('closeButton').click()
+                    }, 1000)
+                    
                 }).catch(function(response) {
                     $scope.error = response
                 });

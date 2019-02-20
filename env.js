@@ -5,6 +5,7 @@
   window.__env.LEAVES_API_URL =  'https://dev.leaves.anant.us/wb';
   window.__env.LEAVES_API_ACCESSTOKEN = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw';
 
+  window.__env.LEAVES_TAG_API_URL =  'https://dev.leaves.anant.us/';
   // staging
   // window.__env.LEAVES_API_URL = 'http://stage.leaves.anant.us/wb';
   // window.__env.LEAVES_API_ACCESSTOKEN = 'MjI0MjJlMjQ0ZjY0NzA2ZWIyOTljZTYxZDE1YjM1ZjVmYzU3ODMwMWFlYjgwZDY1MDNlYWJjYTBjNTEwMWE0Mg';

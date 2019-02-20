@@ -66,7 +66,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add New Leaf</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" id="closeButton">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -78,11 +78,12 @@
                     <form name="addUrlForm" ng-submit="newLeaf(leavesurl)">
                         <div class="form-group">
                             <label for="addUrl">Site URL</label>
-                            <input type="url" class="form-control" name="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
+                            <input type="url" class="form-control" name="leavesurl" id="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
                         </div>
                         <div id="addleafError" style="color: red;"></div>
-                        {{error.data.error.message}}
-                        <button type="submit" class="btn btn-primary">Save it</button>
+                        <div>{{error.data.error.message}}</div>
+                        <div>{{linkAdded}} {{addingMsg}}</div>
+                        <input type="submit" value="Save it" class="btn btn-primary"/>
                     </form>
                 </div>
             </div>
