@@ -17,6 +17,7 @@
     "angular-cookies": "^1.7.7",
     "angular-route": "^1.6.9",
     "angular-sanitize": "^1.6.9",
+    "angular-socialshare": "^2.3.11",
     "angular-ui-bootstrap": "^2.5.6",
     "angular-ui-sortable": "^0.18.0",
     "angular-ui-tab-scroll": "^2.3.4",

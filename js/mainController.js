@@ -135,7 +135,8 @@ var app = angular.module('leavesNext');
 
 	 	$scope.makeBitlyLink = function(){
 	        $("#shareBundle").modal('show')
-	        $scope.bitly_link = 'Loading...'
+	        $rootScope.bitly_link = 'Loading...'
+	        $scope.longURL = encodeURIComponent(window.location.href)
 	        var threadPath = encodeURIComponent(window.location.href)
 	        var pathToHit = "https://api-ssl.bitly.com/v3/shorten?access_token="+ENV.BITLY_API_ACCESSTOKEN+"&longUrl=" + threadPath
 	        $http({

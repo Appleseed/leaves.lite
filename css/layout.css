@@ -39,6 +39,17 @@ a:focus {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.social-btn > .social-share-btn {
+        box-sizing: border-box;
+    float: left;
+    clear: right;
+    padding: 10px 10px 10px 0px
+}
+
+.social-btn > .social-share-btn button{ 
+    background-color: #dee2e6 !important;
+}
+
 .search-query-input {
     max-width: auto;
     font-size: 0.9rem;

@@ -6,10 +6,25 @@
     padding-left: 20px
 }
 
-.reader-header .dropdown button {
-    width: 100%;
+.reader-header .dropdown .dropdown-toggle{
+        display: grid;
+    grid-template-columns: auto 30px;
+    grid-gap: 10;
+    padding: 5px 10px;
+    cursor: pointer;
     background-color: #495057;
+    color: #fff;
+}
+
+.reader-header .dropdown .dropdown-toggle {
+    width: 100%;
     border-radius: 0;
+}
+
+.reader-header .dropdown .title-tab {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .reader-header .dropdown button:focus {
