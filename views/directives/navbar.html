@@ -78,7 +78,7 @@
                     <form name="addUrlForm" ng-submit="newLeaf(leavesurl)">
                         <div class="form-group">
                             <label for="addUrl">Site URL</label>
-                            <input type="url" class="form-control" name="leavesurl" id="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
+                            <input type="url" class="form-control" ng-change="getPreviewData(leavesurl)" name="leavesurl" id="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
                             <input type="text" class="form-control" name="tagsLists" id="tagsLists" ng-model="tagsLists" placeholder="Tags with comma seprated(optional)" required>
                         </div>
                         <div id="addleafError" style="color: red;"></div>
@@ -86,6 +86,19 @@
                         <div>{{linkAdded}} {{addingMsg}}</div>
                         <input type="submit" value="Save it" class="btn btn-primary"/>
                     </form>
+                    <p ng-if="loading_preview">Loading preview...</p>
+                    <div class="card" ng-if="!loading_preview">
+                        <div class="card-image post-image-preview" style="background-image: url({{preview_data.top_image}});background-size: cover;background-position: center;">
+                            <!-- <span ng-if="!data.preview_picture">{{(data.content | htmlToPlaintext) | limitTo: 300}}</span> -->
+                        </div>
+                        <div class="card-body">
+                            <div class="entry-meta preview_summary_meta">
+                                <h2 title={{preview_data.title}}>{{preview_data.title}}</h2>
+                                <small>{{preview_data.source_url}}</small>
+                                <p class="preview_summary">{{preview_data.summary}}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

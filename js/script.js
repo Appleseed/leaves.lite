@@ -206,6 +206,21 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
         });
     }
 
+    $scope.getPreviewData = function(url) {
+        $scope.loading_preview = true
+        $http({
+            method: 'GET',
+            url: 'https://anant-spider.herokuapp.com/scrap',
+            params: { url: url },
+        }).then((success) => {
+            $scope.loading_preview = false
+            $scope.preview_data = success.data
+            console.log(success)                    
+        }).catch(function(response) {
+            $scope.error = response
+        });
+    }
+
     $scope.loginFn = function(type) {
 
         var provider;

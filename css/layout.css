@@ -91,6 +91,17 @@ a:focus {
     margin-bottom: 10px;
 }
 
+.preview_summary {
+    height: 50px;
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.preview_summary_meta h2{
+    height: 3rem;
+    margin-bottom: 0 !important;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
