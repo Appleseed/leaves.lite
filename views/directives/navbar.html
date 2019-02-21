@@ -79,6 +79,7 @@
                         <div class="form-group">
                             <label for="addUrl">Site URL</label>
                             <input type="url" class="form-control" name="leavesurl" id="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
+                            <input type="text" class="form-control" name="tagsLists" id="tagsLists" ng-model="tagsLists" placeholder="Tags with comma seprated(optional)" required>
                         </div>
                         <div id="addleafError" style="color: red;"></div>
                         <div>{{error.data.error.message}}</div>
@@ -258,7 +259,7 @@
                     </div>
                 </div>
                 <div id="showCopiedMsg" class="coiped-msg"></div>
-                <br/>
+                <hr/>
                 <div class="share-modal-title">Share this bundle link on your social network</div>
                 <div class="social-btn">
 

@@ -123,7 +123,7 @@ app.directive('headerNavbar', function() {
     }
 })
 
-app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$cookies', function($scope, $rootScope, $state, $http, ENV, $cookies){
+app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$cookies', '$stateParams', function($scope, $rootScope, $state, $http, ENV, $cookies, $stateParams){
     $scope.searchInputVisible = false
 
     if($(window).width() > 760){
@@ -137,13 +137,17 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
         firebase.auth().onAuthStateChanged((user) => {
             if(user){
                 $scope.addingMsg = "Adding..."
+                var params = {
+                    url: incoming_url
+                }
+                if($stateParams.tag !== undefined && $stateParams.tag !== 'home'){
+                    params['tags'] = $stateParams.tag
+                }
                 $http({
                     method: 'POST',
                     url: ENV.LEAVES_API_URL + '/api/entries',
                     params: { access_token: ENV.LEAVES_API_ACCESSTOKEN },
-                    data: $.param({
-                        url: incoming_url
-                    }),
+                    data: $.param(params),
                     headers: { 'content-type': 'application/x-www-form-urlencoded' }
                 }).then((success) => {
                     // $scope.entries = success.data

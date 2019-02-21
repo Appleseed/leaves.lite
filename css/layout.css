@@ -86,6 +86,11 @@ a:focus {
     margin: 40px 0;
 }
 
+.add-leaf-form input {
+    font-size: 14px !important;
+    margin-bottom: 10px;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
