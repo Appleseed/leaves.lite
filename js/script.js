@@ -143,6 +143,28 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                 if($stateParams.tag !== undefined && $stateParams.tag !== 'home'){
                     params['tags'] = $stateParams.tag
                 }
+
+                var keywordsArray = []
+
+                for (var i = 0; i < $scope.preview_data_tags.length; i++) {
+                    if($scope.preview_data_tags[i].selected){
+                        keywordsArray.push($scope.preview_data_tags[i].name)
+                    }
+                    
+                }
+
+                keywordsArray.join(',')
+
+                if(keywordsArray.length > 0){
+                    if($stateParams.tag !== undefined && $stateParams.tag !== 'home'){
+                        params['tags'] = params['tags'] +','+ keywordsArray
+                    }else {
+                        params['tags'] = keywordsArray
+                    }
+                    
+                }
+
+
                 $http({
                     method: 'POST',
                     url: ENV.LEAVES_API_URL + '/api/entries',
@@ -158,6 +180,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                     setTimeout(()=>{
                         $scope.linkAdded = ""
                         document.getElementById('closeButton').click()
+                            window.location.reload();
                     }, 1000)
                     
                 }).catch(function(response) {
@@ -215,7 +238,12 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
         }).then((success) => {
             $scope.loading_preview = false
             $scope.preview_data = success.data
-            console.log(success)                    
+            var scrappedKeyword = success.data.keywords
+            var keyObjArray = []
+            for (var i = 0; i < scrappedKeyword.length; i++) {
+                keyObjArray.push({'name': scrappedKeyword[i], 'selected': false})
+            }
+            $scope.preview_data_tags = keyObjArray
         }).catch(function(response) {
             $scope.error = response
         });
@@ -366,6 +394,11 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
             $scope.searchValueReset = true
         }
     }   
+
+    $scope.pickTheTag = function(tag, index) {
+        var statusValue = $scope.preview_data_tags[index].selected
+        $scope.preview_data_tags[index].selected = statusValue ? false : true
+    }
 
     // $(document).ready(function () {
     //     $("#sidebar").mCustomScrollbar({
