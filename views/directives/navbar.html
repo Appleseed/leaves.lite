@@ -64,7 +64,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Leaf</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add a New Leaf</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" id="closeButton">&times;</span>
                 </button>
@@ -78,8 +78,12 @@
                     <form name="addUrlForm" ng-submit="newLeaf(leavesurl)">
                         <div class="form-group">
                             <label for="addUrl">Site URL</label>
-                            <input type="url" class="form-control" ng-change="getPreviewData(leavesurl)" name="leavesurl" id="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
-                            <input type="text" class="form-control" name="tagsLists" id="tagsLists" ng-model="tagsLists" placeholder="Tags with comma seprated(optional)">
+                            <input type="url" class="form-control" ng-change="getPreviewData(leavesurl)" name="leavesurl" id="leavesurl" ng-model="leavesurl" placeholder="Enter the URL" required>
+                            
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="tagsLists" id="tagsLists" ng-model="tagsLists" placeholder="Enter tags appropriate for the leaf content(optional)">
+                            <small id="tagsLists" class="form-text text-muted">For multiple tags, separate each with a comma</small>
                         </div>
                         <div class="select-tags">
                             <div class="tag-name" ng-click="pickTheTag(tag, $index)" ng-repeat="tag in preview_data_tags track by $index" ng-class="{selected_tag: tag.selected}">
@@ -89,7 +93,7 @@
                         <div id="addleafError" style="color: red;"></div>
                         <div>{{error.data.error.message}}</div>
                         <div>{{linkAdded}} {{addingMsg}}</div>
-                        <input type="submit" value="Save it" class="btn btn-primary"/>
+                        <input type="submit" value="Add" class="btn btn-primary"/>
                     </form>
                     <p ng-if="loading_preview">Loading preview...</p>
                     <div class="card" ng-if="!loading_preview">
@@ -107,7 +111,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
@@ -268,7 +272,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body share-modal">
                 <div class="share-modal-title">Share this resource link</div>
                 <div class="input-group">
                     <input type="text" class="form-control" ng-value="bitly_link" id="bitlyLink" placeholder="Share this Thread" aria-describedby="basic-addon2">
@@ -277,6 +281,16 @@
                     </div>
                 </div>
                 <div id="showCopiedMsg" class="coiped-msg"></div>
+                <hr/>
+                
+                <div class="share-modal-title">Save this branch</div>
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-value="branch_custom_title" id="branchCustomTitle" placeholder="Give the name and save to profile" ng-model="branch_custom_title" ng-change="trimCustomBranchName(branch_custom_title)" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2" ng-click="copyThisShortLink()" title="Save to Profile">Save to Profile</span>
+                    </div>
+                </div>
+
                 <hr/>
                 <div class="share-modal-title">Share this bundle link on your social network</div>
                 <div class="social-btn">

@@ -43,11 +43,17 @@ a:focus {
         box-sizing: border-box;
     float: left;
     clear: right;
-    padding: 10px 10px 10px 0px
+    padding: 10px 10px 10px 0px;
 }
 
 .social-btn > .social-share-btn button{ 
     background-color: #dee2e6 !important;
+    font-size: 13px !important;
+}
+
+.input-group-append span{
+    font-size: 13px !important;
+    cursor: pointer;
 }
 
 .search-query-input {
@@ -121,6 +127,10 @@ a:focus {
     background-color: #6c757d;
     color: #fff;
     border-radius: 3px;
+}
+
+.share-modal input {
+    font-size: 13px !important;
 }
 
 /* ---------------------------------------------------

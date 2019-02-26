@@ -393,7 +393,13 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
         }else{
             $scope.searchValueReset = true
         }
-    }   
+    }  
+
+    $scope.branch_custom_title = ""
+
+    $scope.trimCustomBranchName = function(title) {
+        console.log(title)
+    } 
 
     $scope.pickTheTag = function(tag, index) {
         var statusValue = $scope.preview_data_tags[index].selected
