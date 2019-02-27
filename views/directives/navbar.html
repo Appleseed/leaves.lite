@@ -32,7 +32,7 @@
                     <a class="nav-link" data-intro='Click to check the tour' ng-click="takeTour()">Tour</a>
                 </li>
                 <li ng-if="!userLoggedIn">
-                    <a class="nav-link" data-toggle="modal" data-intro='Login' data-target="#doLogin" class="do-login"><i class="fa fa-sign-in-alt "></i> Login</a>
+                    <a class="nav-link" data-toggle="modal" data-intro='Login' data-target="#doLogin" class="do-login">Login</a>
                 </li>
                 <li class="nav-item dropdown profile-list" ng-if="userLoggedIn">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -82,8 +82,8 @@
                             
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="tagsLists" id="tagsLists" ng-model="tagsLists" placeholder="Enter tags appropriate for the leaf content(optional)">
-                            <small id="tagsLists" class="form-text text-muted">For multiple tags, separate each with a comma</small>
+                            <input type="text" class="form-control" name="routeTags" id="routeTags" ng-model="routeTags" placeholder="Enter tags appropriate for the leaf content(optional)">
+                            <small id="routeTags" class="form-text text-muted">For multiple tags, separate each with a comma</small>
                         </div>
                         <div class="select-tags">
                             <div class="tag-name" ng-click="pickTheTag(tag, $index)" ng-repeat="tag in preview_data_tags track by $index" ng-class="{selected_tag: tag.selected}">
@@ -116,6 +116,7 @@
         </div>
     </div>
 </div>
+<div id="snackbar">Link added.</div>
 
 <div class="modal fade bs-example-modal-lg" id="doLogin" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">

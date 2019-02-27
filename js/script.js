@@ -132,8 +132,19 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
         $rootScope.header_logo = true
     }
 
+    function showToast() {
+  // Get the snackbar DIV
+  var x = document.getElementById("snackbar");
+
+  // Add the "show" class to DIV
+  x.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+
     $scope.newLeaf = function(incoming_url) {
-        console.log(incoming_url)
         firebase.auth().onAuthStateChanged((user) => {
             if(user){
                 $scope.addingMsg = "Adding..."
@@ -142,6 +153,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                 }
                 if($stateParams.tag !== undefined && $stateParams.tag !== 'home'){
                     params['tags'] = $stateParams.tag
+                    $scope.routeTags = $stateParams.tag
                 }
 
                 var keywordsArray = []
@@ -177,11 +189,22 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                     $scope.addingMsg = ""
                     $scope.leavesurl = ''
                     document.getElementById('leavesurl').value = ''
+                    $scope.preview_data = {
+                        'source_url': '',
+                        'title': '',
+                        'summary': '',
+
+                    }
+                    $scope.preview_data_tags = []
                     setTimeout(()=>{
                         $scope.linkAdded = ""
                         document.getElementById('closeButton').click()
-                            window.location.reload();
+                            // window.location.reload();
                     }, 1000)
+
+                    setTimeout(()=>{
+                        showToast()
+                    }, 2000)
                     
                 }).catch(function(response) {
                     $scope.error = response
@@ -230,6 +253,11 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
     }
 
     $scope.getPreviewData = function(url) {
+        if($stateParams.tag !== undefined && $stateParams.tag !== 'home'){
+            console.log('taa')
+            $scope.routeTags = $stateParams.tag
+        }
+
         $scope.loading_preview = true
         $http({
             method: 'GET',
@@ -263,7 +291,6 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
             provider = new firebase.auth.GithubAuthProvider();
         }
 
-        console.log(provider)
 
         firebase.auth().signInWithPopup(provider).then(function(result) {
           // This gives you a Google Access Token. You can use it to access the Google API.
