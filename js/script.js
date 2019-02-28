@@ -252,6 +252,47 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
         });
     }
 
+    $scope.saveBranchLinkToProfile = function(){
+        $scope.saveBundleMsg = ""
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user){
+                if($scope.branch_custom_title.trim().length === 0){
+                    $scope.$apply(()=> {
+                        $scope.saveBundleMsg = "Please input the branch name"
+                    });
+                }else{
+                    if($scope.bitly_link !== undefined){
+                        console.log($scope.bitly_link, $scope.branch_custom_title)
+                        var newKey =  firebase.database().ref(`users/${user.uid}/saved-links`).push()
+                        var id = newKey.key
+                        var branchObj = {
+                            'name': $scope.branch_custom_title,
+                            'short_link': $scope.bitly_link,
+                            'id': id
+                        }
+                        firebase.database().ref(`users/${user.uid}/saved-links/${id}`).set(branchObj)
+                        .then((responce)=>{
+                            $scope.$apply(()=> {
+                                $scope.saveBundleSuccesMsg = "Successfully! Saved."
+                                setTimeout(()=>{
+                                    $scope.saveBundleSuccesMsg = ""
+                                },2000)
+                            });
+                        })
+                    }else{
+                        $scope.$apply(()=> {
+                            $scope.saveBundleMsg = "Please try again or refresh the page."
+                        });
+                    }
+                }
+            }else {
+                $scope.$apply(()=> {
+                    $scope.saveBundleMsg = "First, Login to save the branch link"
+                });
+            }
+        });
+    }
+
     $scope.getPreviewData = function(url) {
         if($stateParams.tag !== undefined && $stateParams.tag !== 'home'){
             console.log('taa')

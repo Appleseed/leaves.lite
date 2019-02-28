@@ -288,10 +288,12 @@
                 <div class="input-group">
                     <input type="text" class="form-control" ng-value="branch_custom_title" id="branchCustomTitle" placeholder="Give the name and save to profile" ng-model="branch_custom_title" ng-change="trimCustomBranchName(branch_custom_title)" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <span class="input-group-text" id="basic-addon2" ng-click="copyThisShortLink()" title="Save to Profile">Save to Profile</span>
+                        <span class="input-group-text" id="basic-addon2" ng-click="saveBranchLinkToProfile()" title="Save to Profile">Save to Profile</span>
                     </div>
                 </div>
-
+                <small style="color:red">{{saveBundleMsg}}</small>
+                <small style="color:green">{{saveBundleSuccesMsg}}</small>
+                
                 <hr/>
                 <div class="share-modal-title">Share this bundle link on your social network</div>
                 <div class="social-btn">
