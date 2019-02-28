@@ -125,6 +125,7 @@ app.directive('headerNavbar', function() {
 
 app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$cookies', '$stateParams', function($scope, $rootScope, $state, $http, ENV, $cookies, $stateParams){
     $scope.searchInputVisible = false
+    $scope.showLinksDrawer = false;
 
     if($(window).width() > 760){
         $rootScope.header_logo = false
@@ -217,10 +218,27 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
         
     }
 
+    function snapToArray(snapshot){
+        const articles = Object.entries(snapshot).map(article => {
+            return Object.assign({}, { id: article[0] }, article[1]);
+        });
+        return articles
+    }
+
     firebase.auth().onAuthStateChanged(function(user) {
-        if(user){
-            $scope.userLoggedIn = true
-            $scope.userProfile = user
+        if(user){            
+            $scope.$apply(()=> {
+                $scope.userLoggedIn = true
+                $scope.userProfile = user
+            });
+            firebase.database().ref(`users/${user.uid}`).once('value', function(snapshot) {
+                var fireData = snapshot.val()
+                $scope.$apply(()=> {
+                    $scope.savedLinks = snapToArray(fireData['saved-links'])
+                });
+                
+                
+            });
         }else {
             $scope.userLoggedIn = false
         }
@@ -291,6 +309,10 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                 });
             }
         });
+    }
+
+    $scope.showSavedLinks = function() {
+        $scope.showLinksDrawer = $scope.showLinksDrawer ? false : true
     }
 
     $scope.getPreviewData = function(url) {

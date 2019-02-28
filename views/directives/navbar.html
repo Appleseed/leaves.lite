@@ -23,10 +23,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" data-intro='Share the branch' ng-click="makeBitlyLink()"><i class="fa fa-share-alt"></i> Share branch</span></a>
+                    <a class="nav-link" data-intro='Share the branch' ng-click="makeBitlyLink()"><i class="fa fa-share-alt"></i> Branch</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-intro='If you have good resource then you can add!' data-target="#addLeaf"><i class="fa fa-plus-circle"></i> Add Leaf</a>
+                    <a class="nav-link" data-toggle="modal" data-intro='If you have good resource then you can add!' data-target="#addLeaf"><i class="fa fa-plus-circle"></i> Leaf</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-intro='Click to check the tour' ng-click="takeTour()">Tour</a>
@@ -42,6 +42,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" ui-sref="profile">Profile</a>
+                        <a class="dropdown-item" ng-click="showSavedLinks()">Saved Links</a>
                         <a class="dropdown-item" ng-click="doLogout()">Logout</a>
                     </div>
                 </li>
@@ -59,6 +60,22 @@
         </div>
     </div>
 </nav>
+
+<div class="saved-links" ng-if="showLinksDrawer">
+    <div class="links-section">
+        <h4 class="title">Saved Links({{savedLinks.length}})</h4>
+        <div class="close-saved-links" ng-click="showSavedLinks()">X</div>
+        <div class="list-group">
+            <a href={{item.short_link}} target="_blank" class="list-group-item list-group-item-action" ng-repeat="item in savedLinks">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{item.name}}</h5>
+                <small>{{item.added_date}}</small>
+                </div>
+                <small>{{item.short_link}}</small>
+            </a>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade bs-example-modal-lg" id="addLeaf" tabindex="-1" role="dialog" aria-labelledby="addLeaf" aria-hidden="true">
     <div class="modal-dialog" role="document">
