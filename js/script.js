@@ -274,6 +274,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
 
     $scope.saveBranchLinkToProfile = function(){
         $scope.saveBundleMsg = ""
+        var re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
         firebase.auth().onAuthStateChanged((user) => {
             if(user){
                 if($scope.branch_custom_title.trim().length === 0){
@@ -281,8 +282,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                         $scope.saveBundleMsg = "Please input the branch name"
                     });
                 }else{
-                    if($scope.bitly_link !== undefined){
-                        console.log($scope.bitly_link, $scope.branch_custom_title)
+                    if($scope.bitly_link !== undefined && re.test($scope.bitly_link)){
                         var newKey =  firebase.database().ref(`users/${user.uid}/saved-links`).push()
                         var id = newKey.key
                         var branchObj = {
