@@ -270,6 +270,8 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
         });
     }
 
+    console.log($rootScope.userProfile)
+
     $scope.saveBranchLinkToProfile = function(){
         $scope.saveBundleMsg = ""
         firebase.auth().onAuthStateChanged((user) => {
@@ -294,6 +296,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                                 $scope.saveBundleSuccesMsg = "Successfully! Saved."
                                 setTimeout(()=>{
                                     $scope.saveBundleSuccesMsg = ""
+                                    $scope.savedLinks.push(branchObj)
                                 },2000)
                             });
                         })
@@ -309,6 +312,24 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                 });
             }
         });
+    }
+
+    $scope.removeTheBranch = function(id, index) {
+        console.log(id)
+        firebase.auth().onAuthStateChanged(function(user) {
+        if(user){            
+            firebase.database().ref(`users/${user.uid}/saved-links/${id}`).remove()
+            .then((responce)=>{
+                console.log('link removed')
+                    $scope.$apply(()=> {
+                        $scope.savedLinks.splice(index, 1)
+                    });
+            })
+        }else {
+            $scope.userLoggedIn = false
+        }
+    });
+        
     }
 
     $scope.showSavedLinks = function() {

@@ -29,6 +29,7 @@ a:focus {
 
 .main-body {
     padding-top: 10px;
+    height: calc(100vh - 90px);
 }
 
 .navbar {
@@ -70,6 +71,10 @@ a:focus {
     padding: 10px 20px;
     color: rgba(0,0,0,.5);
     font-size: 18px;
+}
+
+.links-section .badge {
+    cursor: pointer;
 }
 
 .close-saved-links {

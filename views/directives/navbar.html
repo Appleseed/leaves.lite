@@ -65,15 +65,17 @@
     <div class="links-section">
         <h4 class="title">Saved Links({{savedLinks.length}})</h4>
         <div class="close-saved-links" ng-click="showSavedLinks()">X</div>
-        <div class="list-group">
-            <a href={{item.short_link}} target="_blank" class="list-group-item list-group-item-action" ng-repeat="item in savedLinks">
-                <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{item.name}}</h5>
-                <small>{{item.added_date}}</small>
-                </div>
+
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="item in savedLinks track by $index">
+                <a href={{item.short_link}} target="_blank">
+                {{item.name}}
+                <br>
                 <small>{{item.short_link}}</small>
-            </a>
-        </div>
+                </a>
+            <span class="badge badge-secondary badge-pill" ng-click="removeTheBranch(item.id, $index)"> <i class="fa fa-trash"></i></span>
+            </li>
+        </ul>
     </div>
 </div>
 
