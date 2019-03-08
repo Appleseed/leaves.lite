@@ -57,7 +57,7 @@ var app = angular.module('leavesNext');
 
 	    $http({
 	        method: 'GET',
-	        url: ENV.LEAVES_API_URL + '/api/tags',
+	        url: ENV.LEAVES_TAG_API_URL + '/api/leaves/gettagcount',
 	        params: {
 	            access_token: ENV.LEAVES_API_ACCESSTOKEN
 	        }
@@ -68,7 +68,8 @@ var app = angular.module('leavesNext');
 	                id: value.id,
 	                label: value.label,
 	                slug: slug,
-                	active: false
+                	active: false,
+                	no_of_links: value.no_of_links
 	            })
 	        })
 	    }).catch(function(response) {

@@ -32,7 +32,7 @@
             </div>
             <ul class="list-unstyled components">
                 <li ng-repeat="tag in tags | filter:tag_name" ng-class="{'active-tag': tag.active}">
-                    <a  ng-click="multipleTagSelect(tagsString, tag.slug)">{{tag.label}}</a>
+                    <a  ng-click="multipleTagSelect(tagsString, tag.slug)">{{tag.label}} ({{tag.no_of_links}})</a>
                 </li>
             </ul>
         </nav>
