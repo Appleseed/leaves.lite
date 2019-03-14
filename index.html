@@ -6,10 +6,8 @@
     <link rel="icon" href="img/favicon.ico" class="js-favicon">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
     <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-social/assets/css/font-awesome.css">
+    <!-- <link rel="stylesheet" href="node_modules/bootstrap-social/assets/css/font-awesome.css"> -->
     <link rel="stylesheet" href="node_modules/intro.js/minified/introjs.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -60,6 +58,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="node_modules/intro.js/intro.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/feather.min.js"></script>
+
 <script type="text/javascript">
     var config = {
         apiKey: "AIzaSyBeK_YwXpRuv0qEXbmN8J7umHPbOZyi_J0",
@@ -70,6 +70,7 @@
         messagingSenderId: "397443834338"
     };
     firebase.initializeApp(config);
+    $(document).ready(function() {feather.replace()});
 </script>
 </body>
 </html>

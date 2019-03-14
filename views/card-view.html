@@ -3,16 +3,16 @@
 		<div class="col-md-12 text-center">
 			<span ng-if="loading_icon" style="font-size: 1.5rem;">
 				Loading cards...<br/>
-				<i class="fas fa-circle-notch fa-lg fa-spin"></i>
+				<i data-feather="loader"></i>
 			</span>
 		</div>
 	</div>
 	<div class="sub-div text-right" ng-if="current_params.tag !== 'home'">
         <div class="sub-btn">
             <button type="button" ng-click="subscribeTag(tag, $index)" class="btn btn-outline-dark" ng-repeat="tag in subsTagsArray">
-                <i class="fa fa-bell"></i> 
+                <i data-feather="bell" width="16"></i>
                 {{tag.slug}} 
-                <i class="fa fa-check-square" ng-if="tag.isSub" style="color: green"></i>
+                <i ng-if="tag.isSub" data-feather="bell" width="16" fill="green"></i>
             </button>
         </div>
     </div>

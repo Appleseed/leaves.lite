@@ -108,7 +108,7 @@ a:focus {
 }
 
 .search-query-input {
-    max-width: auto;
+    min-width: 300px;
     font-size: 0.9rem;
     margin-left: 10px;
 }
