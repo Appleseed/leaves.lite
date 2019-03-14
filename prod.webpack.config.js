@@ -46,8 +46,13 @@ module.exports = {
             template: './template.html',
             filename: './index.html',
             minify: {
-                collapseWhitespace: true
-            }
+                collapseWhitespace: true,
+                removeComments: true,
+                removeRedundantAttributes: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                useShortDoctype: true
+            },
         })
     ]
 };
