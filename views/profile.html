@@ -10,7 +10,6 @@
 	<div class="row">
 
         <div class="col-md-12">
-            
             <div class="user-profile-data">
                 <div class="picture">
                     <img src={{user.user_photo}}>
@@ -18,7 +17,6 @@
                 <div class="user-details">
                     <h3>{{user.name}}</h3>
                     <div>You have subscribed for {{user.tags.length === undefined ? '0' : user.tags.length}} topics: <span ng-repeat="tag in user.tags"><u ui-sref="home({tag:tag.slug})">{{tag.label}}</u> {{$last ? '' : ', '}}</span> </div>
-                    <!-- <div>Your tags: {{user.tags.length === undefined ? '0' : user.tags.length}}</div> -->
                     <div>email notification: <b>{{user.notification_type !== 'undefined' ? user.notification_type : 'weekly'}}</b></div>
                 </div>
             </div>

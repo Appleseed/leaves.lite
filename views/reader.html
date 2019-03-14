@@ -1,7 +1,7 @@
 <div class="reader-header" id="readerElement">
 	<div class="dropdown">
 		<div class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			<div  ng-repeat="list in leaves track by $index" class="title-tab" ng-if="list.active">({{$index+1}}/{{leaves.length}})- {{list.title}}</div>
+			<div ng-repeat="list in leaves track by $index" class="title-tab" ng-if="list.active">({{$index+1}}/{{leaves.length}})- {{list.title}}</div>
 			<div class="dropdown-arrow"><i class="fa fa-chevron-down"></i></div>
 		</div>
 		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -16,9 +16,17 @@
 	<h2>{{item.title}}</h2>
     <small>{{item.domain_name}}</small>
     <ul>
-        <li><i data-feather="user" width="16"></i> {{item.user_name}}</li>
-        <li><i data-feather="calendar" width="16"></i>  <span ng-bind="added_date(item.created_at)"></span></li>
-        <li><i data-feather="link" width="16"></i>  <a ng-href="{{getExternalLink(item)}}" target="_blank">link</a></li>
+        <li>
+        	<i data-feather="user" width="16"></i> {{item.user_name}}
+        </li>
+        <li>
+        	<i data-feather="calendar" width="16"></i>  
+        	<span ng-bind="added_date(item.created_at)"></span>
+        </li>
+        <li>
+        	<i data-feather="link" width="16"></i>  
+        	<a ng-href="{{getExternalLink(item)}}" target="_blank">link</a>
+        </li>
     </ul>
     <hr>
 	<p ng-bind-html="deliberatelyTrustDangerousSnippet(item.content)" class="content"></p>

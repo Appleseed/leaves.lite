@@ -3,15 +3,27 @@
 
 <head>
     <title>Leaves.Lite Reader</title>
-    <meta charset="utf-8">
     <link rel="icon" href="img/favicon.ico" class="js-favicon">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-social/assets/css/font-awesome.css">
-    <link rel="stylesheet" href="node_modules/intro.js/minified/introjs.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta name="author" content="Anant Corporation Team | anant.us">
+
+    <meta name="title" content="Leaves.Lite Reader | anant.us">
+    <meta name="description" content="Leaves.Lite presents a searchable web interface to links and bookmarks curated/organized in JSON or fed by a REST API.">
+    <meta name="keywords" content="curated, knowledge, organized, leaves, interface, high, quality content, links, free, open data, respources, data analytics resources, cassandra resources, databse, devops respources, development respources">
+    
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://leaves.anant.us">
+    <meta property="og:title" content="Leaves.Lite Reader | anant.us">
+    <meta property="og:description" content="Leaves.Lite presents a searchable web interface to links and bookmarks curated/organized in JSON or fed by a REST API.">
+
+    <meta property="twitter:url" content="https://leaves.anant.us">
+    <meta property="twitter:title" content="Leaves.Lite Reader | anant.us">
+    <meta property="twitter:description" content="Leaves.Lite presents a searchable web interface to links and bookmarks curated/organized in JSON or fed by a REST API.">
+
+    <link rel="stylesheet" type="text/css" href="dist/bundle.min.css">
     <!-- <base href="/"> -->
     <%= htmlWebpackPlugin.options.GA %>
 </head>
@@ -47,27 +59,20 @@
         </div>
     </div>
 <script type="text/javascript" src="./env.js"></script>
-<script type="text/javascript" src="js/vendor.bundle.js"></script>
-<script type="text/javascript" src="js/app.bundle.js"></script>
-<script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="dist/vendor.bundle.js"></script>
+<script type="text/javascript" src="dist/app.bundle.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 <script src="node_modules/intro.js/intro.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/feather.min.js"></script>
+
 <script type="text/javascript">
-    var config = {
-        apiKey: "AIzaSyBeK_YwXpRuv0qEXbmN8J7umHPbOZyi_J0",
-        authDomain: "anant-leaves-next.firebaseapp.com",
-        databaseURL: "https://anant-leaves-next.firebaseio.com",
-        projectId: "anant-leaves-next",
-        storageBucket: "anant-leaves-next.appspot.com",
-        messagingSenderId: "397443834338"
-    };
-    firebase.initializeApp(config);
+var config={apiKey:"AIzaSyBeK_YwXpRuv0qEXbmN8J7umHPbOZyi_J0",authDomain:"anant-leaves-next.firebaseapp.com",databaseURL:"https://anant-leaves-next.firebaseio.com"};firebase.initializeApp(config),$(document).ready(function(){feather.replace()});
 </script>
 </body>
-
 </html>

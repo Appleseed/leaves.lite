@@ -2,9 +2,26 @@
 <html ng-app="leavesNext">
 <head>
     <title>Leaves.Lite Reader</title>
-    <meta charset="utf-8">
     <link rel="icon" href="img/favicon.ico" class="js-favicon">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Anant Corporation Team | anant.us">
+
+    <meta name="title" content="Leaves.Lite Reader | anant.us">
+    <meta name="description" content="Leaves.Lite presents a searchable web interface to links and bookmarks curated/organized in JSON or fed by a REST API.">
+    <meta name="keywords" content="curated, knowledge, organized, leaves, interface, high, quality content, links, free, open data, respources, data analytics resources, cassandra resources, databse, devops respources, development respources">
+    
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://leaves.anant.us">
+    <meta property="og:title" content="Leaves.Lite Reader | anant.us">
+    <meta property="og:description" content="Leaves.Lite presents a searchable web interface to links and bookmarks curated/organized in JSON or fed by a REST API.">
+
+    <meta property="twitter:url" content="https://leaves.anant.us">
+    <meta property="twitter:title" content="Leaves.Lite Reader | anant.us">
+    <meta property="twitter:description" content="Leaves.Lite presents a searchable web interface to links and bookmarks curated/organized in JSON or fed by a REST API.">
+
     <link rel="stylesheet" type="text/css" href="dist/bundle.min.css">
 </head>
 <body ng-controller="mainController" id="body">
@@ -36,12 +53,6 @@
             </div>
         </div>
     </div>
-<tour step="currentStep">
-  <span tourtip="tip 1"> Highlighted </span>
-  <span tourtip="tip 2"> Elements </span>
-  <input tourtip="or add it as an attribute to your element" />
-</tour>
-
 
 <script type="text/javascript" src="./env.js"></script>
 <script type="text/javascript" src="dist/vendor.bundle.js"></script>
@@ -57,16 +68,7 @@
 <script src="js/feather.min.js"></script>
 
 <script type="text/javascript">
-    var config = {
-        apiKey: "AIzaSyBeK_YwXpRuv0qEXbmN8J7umHPbOZyi_J0",
-        authDomain: "anant-leaves-next.firebaseapp.com",
-        databaseURL: "https://anant-leaves-next.firebaseio.com",
-        projectId: "anant-leaves-next",
-        storageBucket: "anant-leaves-next.appspot.com",
-        messagingSenderId: "397443834338"
-    };
-    firebase.initializeApp(config);
-    $(document).ready(function() {feather.replace()});
+var config={apiKey:"AIzaSyBeK_YwXpRuv0qEXbmN8J7umHPbOZyi_J0",authDomain:"anant-leaves-next.firebaseapp.com",databaseURL:"https://anant-leaves-next.firebaseio.com"};firebase.initializeApp(config),$(document).ready(function(){feather.replace()});
 </script>
 </body>
 </html>

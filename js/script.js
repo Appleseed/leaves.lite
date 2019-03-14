@@ -1,4 +1,3 @@
-
 var app = angular.module('leavesNext', ['ui.router','ngSanitize','ngCookies','720kb.socialshare'])
 
 app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {

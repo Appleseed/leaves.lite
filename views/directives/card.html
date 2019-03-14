@@ -1,15 +1,26 @@
 <div class="card">
 	<div class="card-image post-image-preview" style="background-image: url({{data.preview_picture}});background-size: cover;background-position: center;">
-        <!-- <span ng-if="!data.preview_picture">{{(data.content | htmlToPlaintext) | limitTo: 300}}</span> -->
     </div>
 	<div class="card-body">
 		<div class="entry-meta">
-	        <h2 title={{data.title}} ng-click="getSingleLeaves(data.id,listarr)">{{data.title}} {{tempArray}}</h2>
+	        <h2 title={{data.title}} ng-click="getSingleLeaves(data.id,listarr)">{{data.title}}</h2>
 	        <small>{{data.domain_name}}</small>
 	        <ul>
-	            <li><i data-feather="user" width="16"></i> <span>{{data.user_name}}</span></li>
-	            <li><i data-feather="calendar" width="16"></i> <span ng-bind="added_date(data.created_at)"></span></a></li>
-	            <li><a ng-href="{{getExternalLink(data)}}" target="_blank"><i data-feather="link" width="16"></i> <span>link</span></a></li>
+	            <li>
+	            	<i data-feather="user" width="16"></i> 
+	            	<span>{{data.user_name}}</span>
+	            </li>
+	            <li>
+	            	<i data-feather="calendar" width="16"></i>
+	            		<span ng-bind="added_date(data.created_at)"></span> 
+	            	</a>
+	            </li>
+	            <li>
+	            	<a ng-href="{{getExternalLink(data)}}" target="_blank">
+	            		<i data-feather="link" width="16"></i> 
+            			<span>link</span>
+            		</a>
+            	</li>
 	        </ul>
 	    </div>
 	</div>

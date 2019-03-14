@@ -1,13 +1,9 @@
 const path = require('path');
-var webpack = require('webpack');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     context: __dirname,
-    // entry: {
-    //     app: './index.js',
-    //     vendor: ['angular']
-    // },
     entry: {
         'bundle.min.css': [
             path.resolve(__dirname, './css/style.css'),
@@ -39,12 +35,8 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.css']      
     },
-    // output: {
-    //     path: __dirname,
-    //     filename: 'js/app.bundle.js'
-    // },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
-        new ExtractTextPlugin("bundle.min.css")
+        new ExtractTextPlugin("bundle.min.css"),
     ]
 };
