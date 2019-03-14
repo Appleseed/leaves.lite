@@ -27,34 +27,6 @@ var app = angular.module('leavesNext');
 		$scope.userLoggedIn = false
 	    $scope.tagsArray = []
 
-	    
-
-		// var webTour = $cookies.get('webTour') || 0;
-		// if(!parseInt(webTour)) {
-		// 	setTimeout(function(){
-		// 		introJs().start();
-		// 	}, 2000)
-		// }
-
-		// setTimeout(function(){
-		// 	$(".introjs-skipbutton").on('click', (event)=>{
-		// 		$cookies.put('webTour', 1)
-		// 	});
-
-		// 	$('.introjs-donebutton').on('click', (event)=>{
-		// 		$cookies.put('webTour', 1)
-		// 	})
-
-		// 	$(document).keyup(function(e) {
-		// 		if (e.keyCode === 27){
-		// 			$cookies.put('webTour', 1)
-		// 		}
-		// 	});
-		// }, 2000)
-
-	
-
-
 	    $http({
 	        method: 'GET',
 	        url: ENV.LEAVES_TAG_API_URL + '/api/leaves/gettagcount',
@@ -87,10 +59,7 @@ var app = angular.module('leavesNext');
 
 	    function sortTagArray(){
 	        $scope.tags.sort(function(x, y) {
-	            // true values first
 	            return (x.active === y.active)? 0 : x.active? -1 : 1;
-	            // false values first
-	            // return (x === y)? 0 : x? 1 : -1;
 	        });
 	    }
 
@@ -125,11 +94,9 @@ var app = angular.module('leavesNext');
 		$scope.toggleSelection = function toggleSelection(gender) {
 			var idx = $scope.selectionTag.indexOf(gender);
 			if (idx > -1) {
-				// is currently selected
 				$scope.selectionTag.splice(idx, 1);
 			}
 			else {
-				// is newly selected
 				$scope.selectionTag.push(gender);
 			}
 		};

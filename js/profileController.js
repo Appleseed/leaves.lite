@@ -13,7 +13,6 @@ var app = angular.module('leavesNext');
 
 	disableLogging.$inject = ['$logProvider', 'ENV'];
 
-	// app config
 	function disableLogging($logProvider, ENV) {
 		$logProvider.debugEnabled(ENV.ENABLEDEBUG);
 	}
@@ -45,14 +44,11 @@ var app = angular.module('leavesNext');
                                     }
                                 })
                                 $scope.loadingProfile = false;
-                                // sortArrayByBoolean()
                             })
                             }, 1000)
                             
                     });
-                    console.log('firebase data  ',$rootScope.userDataRoot)
                 }else{
-                    console.log('my users ',$rootScope.userDataRoot)
                 }
 
             }else{
@@ -71,9 +67,7 @@ var app = angular.module('leavesNext');
         })
     }
 
-    $scope.addTagToProfile = function(tag, tagIndex){   
-        console.log(tagIndex)
-        console.log($scope.tags)
+    $scope.addTagToProfile = function(tag, tagIndex){  
         var tagObj = {"id": tag.id, "slug": tag.slug, "label": tag.label}
         $scope.event_on_tag = tag.label
         if($scope.user.tags === undefined){
@@ -97,7 +91,6 @@ var app = angular.module('leavesNext');
             }
         }
         $scope.setTags()
-        // sortArrayByBoolean()
     }
 
     $scope.topic_add_msg = false;

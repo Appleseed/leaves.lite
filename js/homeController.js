@@ -12,7 +12,6 @@ var app = angular.module('leavesNext');
 
 	disableLogging.$inject = ['$logProvider', 'ENV'];
 
-	// app config
 	function disableLogging($logProvider, ENV) {
 		$logProvider.debugEnabled(ENV.ENABLEDEBUG);
 	}
@@ -91,10 +90,6 @@ var app = angular.module('leavesNext');
                 $scope.error = response
             }).finally(function() {
                 $scope.loading_icon = false
-                // var parent = document.getElementById("readerElement");
-                // var element = document.getElementById("childReaderEle");
-                // $(parent).animate({ scrollTop: $(element).offset().top - $(parent).offset().top }, { duration: 'slow', easing: 'swing'});
-               
                 if ($scope.entries.length < $scope.homeData.data.total) {
                     $scope.loading_button = true
                     $scope.loadingMessage = false
@@ -123,7 +118,6 @@ var app = angular.module('leavesNext');
         $rootScope.isReaderActive = true
     }
 
-    // $scope.entries = dataArray
     var searchingPage = 1
 
     $scope.reLoadPage = function(){
@@ -142,7 +136,6 @@ var app = angular.module('leavesNext');
                 }),
                 headers: { 'content-type': 'application/x-www-form-urlencoded' }
             }).then(function(success) {
-                // $scope.entries = success.data
                 $scope.reLoadPage()
                 $scope.leavesurl = ''
                 document.getElementById('closeButton').click()
@@ -201,8 +194,6 @@ var app = angular.module('leavesNext');
                                 }
                             }
                         }
-                        
-                        // sortArrayByBoolean()
                     })
                 });
             }else {

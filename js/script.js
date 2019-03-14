@@ -21,18 +21,6 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function(
         controller: 'readerController'
     })
 
-    // .state('reader', {
-    //     url: '/read?tag',
-    //     templateUrl: 'views/reader-view.html',
-    //     controller: 'readerViewController'
-    // })
-
-    // .state('reader.read', {
-    //     url: ':ids?tag',
-    //     templateUrl: 'views/reader.html',
-    //     controller: 'readerController'
-    // })
-
     .state('list-view', {
         url: '/list/?tag',
         templateUrl: 'views/list-view.html',
@@ -52,7 +40,6 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider', function(
     })
 
     $urlRouterProvider.otherwise('/?tag=home');
-    // $locationProvider.html5Mode(true);
 }])
 
 app.directive('cardTemplate', function() {
@@ -95,7 +82,6 @@ app.controller('cardTemplateController', ['$scope', '$state', '$rootScope', '$st
             $rootScope.leaves[ind].active = true
 
             setTimeout(() => {
-                console.log('scroll to top')
                 var elmnt = document.getElementById("readerElement");
                 elmnt.scrollIntoView({ behavior: 'smooth' });
             }, 2000)
@@ -248,7 +234,6 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
         firebase.database().ref(`users/${user.uid}`).once('value', function(snapshot) {
             var not_exists = (snapshot.val() === null);
             if(not_exists) {
-                console.log('creating profile')
                 var userData = {
                     name: user.displayName,
                     email: user.email,
@@ -260,17 +245,14 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
 
                 firebase.database().ref(`users/${user.uid}`).set(userData)
                 .then(function(responce){
-                    console.log('user registered')
                     location.reload();
                 })
             }else{
-                console.log('already registered')
                 location.reload();
             }
         });
     }
 
-    console.log($rootScope.userProfile)
 
     $scope.saveBranchLinkToProfile = function(){
         $scope.saveBundleMsg = ""
@@ -315,12 +297,10 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
     }
 
     $scope.removeTheBranch = function(id, index) {
-        console.log(id)
         firebase.auth().onAuthStateChanged(function(user) {
         if(user){            
             firebase.database().ref(`users/${user.uid}/saved-links/${id}`).remove()
             .then((responce)=>{
-                console.log('link removed')
                     $scope.$apply(()=> {
                         $scope.savedLinks.splice(index, 1)
                     });
@@ -338,7 +318,6 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
 
     $scope.getPreviewData = function(url) {
         if($stateParams.tag !== undefined && $stateParams.tag !== 'home'){
-            console.log('taa')
             $scope.routeTags = $stateParams.tag
         }
 
@@ -382,7 +361,6 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                 // The signed-in user info.
                 var user = result.user;
                 $scope.$apply(function() {
-                    console.log('scope init')
                     $scope.makeProfile(user)
                 });
 
@@ -399,37 +377,10 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                 var credential = error.credential;
                 // ...
         });
-
-        // firebase.auth().signInWithPopup(provider).then(function(result) {
-        //         // This gives you a Google Access Token. You can use it to access the Google API.
-        //         var token = result.credential.accessToken;
-        //         // The signed-in user info.
-        //         var user = result.user;
-        //         $scope.$apply(function() {
-        //             console.log('scope init')
-        //             $scope.makeProfile(user)
-        //         });
-
-
-
-        //         $('#doLogin').modal('hide');
-                
-        //         // ...
-        //     }).catch(function(error) {
-        //         // Handle Errors here.
-        //         var errorCode = error.code;
-        //         var errorMessage = error.message;
-        //         // The email of the user's account used.
-        //         var email = error.email;
-        //         // The firebase.auth.AuthCredential type that was used.
-        //         var credential = error.credential;
-        //         // ...
-        //     });
     }
 
     $scope.loginWithEmail = function() {
         firebase.auth().signInWithEmailAndPassword($scope.loginEmail, $scope.loginPassword).catch((error)=> {
-            console.log(error)
             $scope.$apply(function () {
                 $scope.errorMessage = error.message;
             });
@@ -449,7 +400,6 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
 
                 $('#doLogin').modal('hide');
         }).catch((error)=> {
-            console.log(error)
             $scope.$apply(function () {
                 $scope.errorMessage = error.message;
             });
@@ -509,20 +459,12 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
     $scope.branch_custom_title = ""
 
     $scope.trimCustomBranchName = function(title) {
-        console.log(title)
     } 
 
     $scope.pickTheTag = function(tag, index) {
         var statusValue = $scope.preview_data_tags[index].selected
         $scope.preview_data_tags[index].selected = statusValue ? false : true
     }
-
-    // $(document).ready(function () {
-    //     $("#sidebar").mCustomScrollbar({
-    //         theme: "minimal"
-    //     });
-    // });
-
 
     $scope.takeTour = function() {
         $cookies.put('webTour', 0)

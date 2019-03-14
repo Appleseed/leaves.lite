@@ -12,7 +12,6 @@ var app = angular.module('leavesNext');
 
 	disableLogging.$inject = ['$logProvider', 'ENV'];
 
-	// app config
 	function disableLogging($logProvider, ENV) {
 		$logProvider.debugEnabled(ENV.ENABLEDEBUG);
 	}
@@ -59,7 +58,6 @@ var app = angular.module('leavesNext');
                 }
 
                 setTimeout(() => {
-                    console.log('scroll to top')
                     var elmnt = document.getElementById("readerElement");
                     elmnt.scrollIntoView(true);
                 }, 200)
@@ -68,7 +66,6 @@ var app = angular.module('leavesNext');
 
     }
 
-    console.log('flag ' + $rootScope.flag)
 
     if ($rootScope.flag == undefined) {
         $rootScope.listArray = leafIdsList
@@ -84,7 +81,6 @@ var app = angular.module('leavesNext');
         }
     }
 
-    console.log($rootScope.leaves)
     var removeTab = function(event, index, item_id) {
         event.preventDefault();
         event.stopPropagation();
@@ -142,7 +138,6 @@ var app = angular.module('leavesNext');
         var tabWidth = document.getElementById("readerTabs").offsetWidth
 
         if(tabWidth < $rootScope.leaves.length * 200) {
-            console.log('move')
             var leftPos = $('.reader-tabs').scrollLeft();
             $(".reader-tabs").animate({scrollLeft: leftPos + $rootScope.leaves.length * 200}, 400);
         }
@@ -150,7 +145,6 @@ var app = angular.module('leavesNext');
     }
 
     $scope.changeReaderTab = function(index){
-        console.log(index)
         for (var i = 0; i < $rootScope.leaves.length; i++) {
             $rootScope.leaves[i].active = false
         }
@@ -166,13 +160,10 @@ var app = angular.module('leavesNext');
             }).join(',');
         },
         stop: function(e, ui) {
-            // this callback has the changed model
             let currentLeaves2 = $rootScope.leaves
             let orderedLeaves2 = currentLeaves2.map(function(i) {
                 return i.id;
             }).join(',');
-
-            //$state.go('home.reader', { ids: orderedLeave2s })
         }
     };
 
