@@ -45,7 +45,9 @@ module.exports = {
             PTCODE: 'window._pt_lt=(new Date).getTime(),window._pt_sp_2=[],_pt_sp_2.push("setAccount,18d76dd8");var _protocol="https:"==document.location.protocol?" https://":" http://";!function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=_protocol+"cjs.ptengine.com/pta_en.js";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}();',
             template: './template.html',
             filename: './index.html',
-            minify: true
+            minify: {
+                collapseWhitespace: true
+            }
         })
     ]
 };
