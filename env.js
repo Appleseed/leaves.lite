@@ -2,8 +2,10 @@
   window.__env = window.__env || {};
 
   // development
-  window.__env.LEAVES_API_URL =  'https://dev.leaves.anant.us/wb';
-  window.__env.LEAVES_API_ACCESSTOKEN = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw';
+  //window.__env.LEAVES_API_URL =  'https://dev.leaves.anant.us/wb';
+  //window.__env.LEAVES_API_ACCESSTOKEN = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw';
+  window.__env.LEAVES_API_URL = process.env.LEAVES_API_URL
+  window.__env.LEAVES_API_ACCESSTOKEN = process.env.LEAVES_API_ACCESSTOKEN;
 
   window.__env.LEAVES_TAG_API_URL =  'https://dev.leaves.anant.us/';
   // staging
