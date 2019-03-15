@@ -1,0 +1,21 @@
+<div class="row single-content" ng-if="leaves">
+    <div class="col-md-12">
+        <scrollable-tabset show-tooltips="true">
+            <uib-tabset class="tab-container" id="readerTabsSingle">
+                <uib-tab ng-repeat="item in leaves" active="item.active">
+                    <uib-tab-heading title="{{item.title}}">
+                        <span>{{item.title}}</span> <i class="glyphicon glyphicon-remove" ng-click="removeTab($event, $index, item.id)"></i>
+                    </uib-tab-heading>
+                    <h1 class="leave-title">{{item.title}}</h1>
+                    <div class="entry-meta">
+                        <ul>
+                            <li><i class="fa fa-user"></i> <span>{{item.user_name}}</span></li>
+                            <li><a href="{{item.url}}" target="_blank"><i class="fa fa-external-link"></i> <span>link</span></a></li>
+                        </ul>
+                    </div>
+                    <p ng-bind-html="item.content" class="content"></p>
+                </uib-tab>
+            </uib-tabset>
+        </scrollable-tabset>
+    </div>
+</div>

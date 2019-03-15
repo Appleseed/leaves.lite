@@ -1,0 +1,96 @@
+    
+        <h3 ng-if="searchTagMessage">{{searchTagMessage}}</h3>
+        <div class="card-view">
+            <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
+            <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
+        </div>
+<div class="cards-reader"  ng-class="isidexit ? 'cards-reader-active' : 'cards-reader'">
+    <div class="cards-list">
+            <form class="navbar-form navbar-left search-box" ng-submit="searchLeaf(searchValue)" role="search" style="max-width:400px;margin-left:125px">
+                    <div class="inner-addon left-addon" style="width:100%">
+                        <i class="fa fa-search"></i>
+                        <input type="text" ng-value="searchParams" ng-model="searchValue" class="form-control" placeholder="Enter your search query" style="width:100%" />
+                    </div>
+                </form>
+        <ul class="list-group list-view">
+                <div  class="col-md-12" ng-repeat="entry in entries" style="margin-right: 10px;background-color: #fff">                        
+                    <leaves-list data="entry" listarr="listArray"></leaves-list>
+                </div>
+        </ul>
+
+        <div class="text-center loading_button" ng-if="loading_button && 'entries.length <= entries.total'">              
+            <button class="btn btn-primary" ng-click="searching ? loadSearchQuery() : loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+        </div>
+    </div>
+
+    <div class="reader-view">
+        <div ui-view></div>
+    </div>
+
+</div>
+
+
+<!-- 
+
+<div class="container-fluid">
+<div class="row" id="cardView">
+    <div ng-class="(isidexit == 0) ? 'col-md-12' : 'col-md-4'" id="grid">
+        <form class="navbar-form navbar-left search-box" ng-submit="searchLeaf(searchValue)" role="search" style="width:50%">
+                <div class="inner-addon left-addon" style="width:100%">
+                    <i class="fa fa-search"></i>
+                    <input type="text" ng-value="searchParams" ng-model="searchValue" class="form-control" placeholder="Enter your search query" style="width:100%" />
+                </div>
+            </form>
+        <h2>{{searchTagMessage}}</h2>
+        <div class="card-view">
+            <i class="fa fa-list" ui-sref="list-view(current_params)"></i>
+            <i class="fa fa-th-large" ui-sref="home(current_params)"></i>
+        </div>
+        <ul class="list-group list-view">
+                <div  class="col-md-12" ng-repeat="entry in entries" style="margin-right: 10px;background-color: #fff">                        
+                    <leaves-list data="entry" listarr="listArray"></leaves-list>
+                </div>
+        </ul>
+        <div class="text-center loading_button" ng-if="loading_button">              
+            <button class="btn btn-primary" ng-click="searching ? loadSearchQuery() : loadMore()">{{loadingMessage ? 'Loading...' : 'Load More'}}</button>      
+        </div>
+    </div>
+    <div class="col-md-7" id="reader">
+        <div ui-view></div>
+    </div>
+</div>
+</div> -->
+<div class="modal fade bs-example-modal-lg" id="addLeaf" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Add New Leaf</h4>
+            </div>
+            <div class="modal-body">
+                <div class="google-login-btn" ng-if="!userLoggedIn" ng-click="googleLogin()">
+                    <div class="please-login-msg">Please log in to use this feature</div>
+                    <img src="./img/login-google.jpg">
+                </div>
+                <div ng-if="userLoggedIn" class="add-leaf-form">
+                    <form name="addUrlForm" ng-submit="newLeaf(leavesurl)">
+                        <div class="form-group">
+                            <label for="addUrl">Site URL</label>
+                            <input type="url" class="form-control" name="leavesurl" ng-model="leavesurl" placeholder="Enter URL" required>
+                        </div>
+                        <div id="addleafError" style="color: red;"></div>
+                        {{error.data.error.message}}
+                        <button type="submit" class="btn btn-primary">Save it</button>
+                    </form>
+                </div>
+                <!-- <span ng-if="!addUrlForm.leavesurl.$valid">Enter Valid URL</span> -->
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="closeButton">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
