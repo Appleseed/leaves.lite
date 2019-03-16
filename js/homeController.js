@@ -330,6 +330,10 @@ var app = angular.module('leavesNext');
         searchingPage = searchingPage + 1
     }
 
+    $scope.paginationFuntion = function(){
+        homeData(1)
+    }
+
 	}])
 
 })(app);
