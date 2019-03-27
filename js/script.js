@@ -109,6 +109,19 @@ app.directive('headerNavbar', function() {
     }
 })
 
+app.directive('whenScrolled', function() {
+    return function(scope, elm, attr) {
+        var raw = elm[0];
+
+        elm.bind('scroll', function() {
+            console.log('scrolling')
+            if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+                scope.$apply(attr.whenScrolled);
+            }
+        });
+    };
+});
+
 app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$cookies', '$stateParams', function($scope, $rootScope, $state, $http, ENV, $cookies, $stateParams){
     $scope.searchInputVisible = false
     $scope.showLinksDrawer = false;
