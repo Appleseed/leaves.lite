@@ -16,9 +16,9 @@
     // production  
     // window.__env.LEAVES_API_URL = 'https://leaves.anant.us:82';
     // window.__env.LEAVES_API_ACCESSTOKEN = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw';
-    GA_ID = 'UA-125628317-1';
+    GA_ID = 'UA-125368255-3';
 
-    PTCODE_ID = '18d76dd8';
+    PTCODE_ID = '35ee64ef';
     // Whether or not to enable debug mode
     // Setting this to false will disable console output
     window.__env.BITLY_API_ACCESSTOKEN = '2902c7b1d82061bab0d8732473d3b37a4477a253';
