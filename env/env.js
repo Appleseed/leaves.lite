@@ -16,7 +16,9 @@
     // production  
     // window.__env.LEAVES_API_URL = 'https://leaves.anant.us:82';
     // window.__env.LEAVES_API_ACCESSTOKEN = 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw';
-    GA_ID = 'UA-125368255-3';
+    PROD_GA_ID = 'UA-125368255-3';
+    STAGE_GA_ID = 'UA-125628317-1';
+    DEV_GA_ID = 'UA-657559-23';
 
     PTCODE_ID = '35ee64ef';
     // Whether or not to enable debug mode
