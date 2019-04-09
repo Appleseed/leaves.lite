@@ -5,16 +5,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const dotenv = require('dotenv').config({path: __dirname + '/env/env.js'});
 const env = dotenv.parsed
-// const currentENV = process.env.NODE_ENV
-// var GA_CODE, PTCODE=env.PTCODE_ID;
+const currentENV = process.env.NODE_ENV
+var GA_CODE, PTCODE=env.PTCODE_ID;
 
-// if(currentENV === 'production'){
-//     GA_CODE=env.PROD_GA_ID
-// }else if(currentENV === 'staging'){
-//     GA_CODE=env.STAGE_GA_ID
-// }else if(currentENV === 'devlopment'){
-//     GA_CODE=env.DEV_GA_ID
-// }
+if(currentENV === 'production'){
+    GA_CODE=env.PROD_GA_ID
+}else if(currentENV === 'staging'){
+    GA_CODE=env.STAGE_GA_ID
+}else if(currentENV === 'devlopment'){
+    GA_CODE=env.DEV_GA_ID
+}
 
 module.exports = {
     context: __dirname,
@@ -54,8 +54,8 @@ module.exports = {
         new ExtractTextPlugin("dist/bundle.min.css"),
         new HtmlWebpackPlugin({
             inject: false,
-            GA: '<script async src="https://www.googletagmanager.com/gtag/js?id='+env.GA_ID+'"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","'+env.GA_ID+'");</script>',
-            PTCODE: 'window._pt_lt=(new Date).getTime(),window._pt_sp_2=[],_pt_sp_2.push("setAccount,'+env.PTCODE_ID+'");var _protocol="https:"==document.location.protocol?" https://":" http://";!function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=_protocol+"cjs.ptengine.com/pta_en.js";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}();',
+            GA: '<script async src="https://www.googletagmanager.com/gtag/js?id='+GA_CODE+'"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","'+env.GA_ID+'");</script>',
+            PTCODE: 'window._pt_lt=(new Date).getTime(),window._pt_sp_2=[],_pt_sp_2.push("setAccount,'+PTCODE+'");var _protocol="https:"==document.location.protocol?" https://":" http://";!function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=_protocol+"cjs.ptengine.com/pta_en.js";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}();',
             template: './template.html',
             filename: './index.html',
             minify: {
