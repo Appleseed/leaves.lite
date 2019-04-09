@@ -20,8 +20,8 @@
     // STAGE_GA_ID = 'UA-125628317-1';
     // DEV_GA_ID = 'UA-657559-23';
 
-    PTCODE_ID = '35ee64ef';
-    GA_ID = 'UA-657559-23'
+    window.__env.PTCODE_ID = '35ee64ef';
+    window.__env.GA_ID = 'UA-657559-23'
     // Whether or not to enable debug mode
     // Setting this to false will disable console output
     window.__env.BITLY_API_ACCESSTOKEN = '2902c7b1d82061bab0d8732473d3b37a4477a253';
