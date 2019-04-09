@@ -23,7 +23,7 @@
     <meta property="twitter:title" content="Leaves.Lite Reader | anant.us">
     <meta property="twitter:description" content="Leaves.Lite presents a searchable web interface to links and bookmarks curated/organized in JSON or fed by a REST API.">
 
-    <link rel="stylesheet" type="text/css" href="bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="dist/bundle.min.css">
     <!-- <base href="/"> -->
     <%= htmlWebpackPlugin.options.GA %>
 </head>
@@ -59,17 +59,17 @@
         </div>
     </div>
 <script type="text/javascript" src="env/env.js"></script>
-<script type="text/javascript" src="vendor.bundle.js"></script>
-<script type="text/javascript" src="app.bundle.js"></script>
+<script type="text/javascript" src="dist/vendor.bundle.js"></script>
+<script type="text/javascript" src="dist/app.bundle.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="js/intro.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/feather.min.js"></script>
+<script src="dist/js/intro.js"></script>
+<script src="dist/js/bootstrap.min.js"></script>
+<script src="dist/js/feather.min.js"></script>
 
 <script type="text/javascript">
 var config={apiKey:"AIzaSyBeK_YwXpRuv0qEXbmN8J7umHPbOZyi_J0",authDomain:"anant-leaves-next.firebaseapp.com",databaseURL:"https://anant-leaves-next.firebaseio.com"};firebase.initializeApp(config),$(document).ready(function(){feather.replace()});
