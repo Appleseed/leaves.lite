@@ -50,7 +50,7 @@ module.exports = {
         extensions: ['.js', '.jsx', '.css']      
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
+        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'dist/vendor.bundle.js' }),
         new ExtractTextPlugin("dist/bundle.min.css"),
         new HtmlWebpackPlugin({
             inject: false,
