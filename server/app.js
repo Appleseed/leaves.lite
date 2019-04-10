@@ -10,6 +10,8 @@ var config = require('./config');
 var app = express();
 var http = require('http');
 
+app.use(express.static('dist'))
+
 // Express configuration
 require('./config/express')(app);
 // Route configutation
