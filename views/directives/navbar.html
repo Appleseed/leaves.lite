@@ -10,30 +10,43 @@
         <div class="search-transparent-bg" ng-click="toggleSearchInput()" ng-if="searchInputVisible"></div>
 
         <form class="search-box" ng-submit="searchLeaf(searchValue)" role="search">
-                <input type="search" ng-value="searchParams"  data-intro='Search your query here!' ng-class="{'search-query-input-show': searchInputVisible}" id="tagSearchInput" ng-model="searchValue" ng-change="onSearchBoxChange(searchValue)" class="form-control search-query-input" placeholder="Enter your search query"/>
-                <button ng-if="searchValueReset" class="close-icon" ng-click="resetSearchValue()" type="reset"></button>
+            <input type="search" ng-value="searchParams" data-intro='Search your query here!' ng-class="{'search-query-input-show': searchInputVisible}"
+                id="tagSearchInput" ng-model="searchValue" ng-change="onSearchBoxChange(searchValue)" class="form-control search-query-input"
+                placeholder="Enter your search query" />
+            <button ng-if="searchValueReset" class="close-icon" ng-click="resetSearchValue()" type="reset"></button>
         </form>
-        
-        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i data-feather="menu"></i>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto">
+
                 <li class="nav-item">
-                    <a class="nav-link" data-intro='Share the branch' ng-click="makeBitlyLink()"><i data-feather="share-2" width="16"></i> Branch</span></a>
+                    <a class="nav-link" data-intro='Invite friends' ng-click="inviteOthers()"><i data-feather="user-plus"
+                            width="16"></i> Invite Friends</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-intro='If you have good resource then you can add!' data-target="#addLeaf"><i data-feather="plus-square" width="16"></i> Leaf</a>
+                    <a class="nav-link" data-intro='Share the branch' ng-click="makeBitlyLink()"><i data-feather="share-2"
+                            width="16"></i> Branch</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-intro='Click to check the tour' ng-click="takeTour()"><i data-feather="info" width="16"></i> Tour</a>
+                    <a class="nav-link" data-toggle="modal" data-intro='If you have good resource then you can add!'
+                        data-target="#addLeaf"><i data-feather="plus-square" width="16"></i> Leaf</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-intro='Click to check the tour' ng-click="takeTour()"><i data-feather="info"
+                            width="16"></i> Tour</a>
                 </li>
                 <li ng-if="!userLoggedIn">
-                    <a class="nav-link" data-toggle="modal" data-intro='Login' data-target="#doLogin" class="do-login"><i data-feather="log-in" width="16"></i> Login</a>
+                    <a class="nav-link" data-toggle="modal" data-intro='Login' data-target="#doLogin" class="do-login"><i
+                            data-feather="log-in" width="16"></i> Login</a>
                 </li>
                 <li class="nav-item dropdown profile-list" ng-if="userLoggedIn">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         <img src={{userProfile.photoURL}} ng-if="userProfile.displayName.split(' ')[0]" />
                         <i class="fa fa-user" ng-if="!userProfile.displayName.split(' ')[0]"></i>
                         {{userProfile.displayName.split(' ')[0] ? userProfile.displayName.split(' ')[0] : 'profile'}}
@@ -57,17 +70,18 @@
         <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="item in savedLinks track by $index">
                 <a href={{item.short_link}} target="_blank">
-                {{item.name}}
-                <br>
-                <small>{{item.short_link}}</small>
+                    {{item.name}}
+                    <br>
+                    <small>{{item.short_link}}</small>
                 </a>
-            <span class="badge badge-secondary badge-pill" ng-click="removeTheBranch(item.id, $index)"> <i class="fa fa-trash"></i></span>
+                <span class="badge badge-secondary badge-pill" ng-click="removeTheBranch(item.id, $index)"> <i class="fa fa-trash"></i></span>
             </li>
         </ul>
     </div>
 </div>
 
-<div class="modal fade bs-example-modal-lg" id="addLeaf" tabindex="-1" role="dialog" aria-labelledby="addLeaf" aria-hidden="true">
+<div class="modal fade bs-example-modal-lg" id="addLeaf" tabindex="-1" role="dialog" aria-labelledby="addLeaf"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -85,22 +99,26 @@
                     <form name="addUrlForm" ng-submit="newLeaf(leavesurl)">
                         <div class="form-group">
                             <label for="addUrl">Site URL</label>
-                            <input type="url" class="form-control" ng-change="getPreviewData(leavesurl)" name="leavesurl" id="leavesurl" ng-model="leavesurl" placeholder="Enter the URL" required>
-                            
+                            <input type="url" class="form-control" ng-change="getPreviewData(leavesurl)" name="leavesurl"
+                                id="leavesurl" ng-model="leavesurl" placeholder="Enter the URL" required>
+
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="routeTags" id="routeTags" ng-model="routeTags" placeholder="Enter tags appropriate for the leaf content(optional)">
-                            <small id="routeTags" class="form-text text-muted">For multiple tags, separate each with a comma</small>
+                            <input type="text" class="form-control" name="routeTags" id="routeTags" ng-model="routeTags"
+                                placeholder="Enter tags appropriate for the leaf content(optional)">
+                            <small id="routeTags" class="form-text text-muted">For multiple tags, separate each with a
+                                comma</small>
                         </div>
                         <div class="select-tags">
-                            <div class="tag-name" ng-click="pickTheTag(tag, $index)" ng-repeat="tag in preview_data_tags track by $index" ng-class="{selected_tag: tag.selected}">
+                            <div class="tag-name" ng-click="pickTheTag(tag, $index)" ng-repeat="tag in preview_data_tags track by $index"
+                                ng-class="{selected_tag: tag.selected}">
                                 {{tag.name}}
                             </div>
                         </div>
                         <div id="addleafError" style="color: red;"></div>
                         <div>{{error.data.error.message}}</div>
                         <div>{{linkAdded}} {{addingMsg}}</div>
-                        <input type="submit" value="Add" class="btn btn-primary"/>
+                        <input type="submit" value="Add" class="btn btn-primary" />
                     </form>
                     <p ng-if="loading_preview">Loading preview...</p>
                     <div class="card" ng-if="!loading_preview">
@@ -137,41 +155,116 @@
 
                 <div>
 
-                <ul class="nav nav-tabs" id="myTab" role="loginTab">
-                    <li class="nav-item">
-                    <a class="nav-link active" id="login-tab" data-toggle="tab" data-target="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" id="signup-tab" data-toggle="tab" data-target="#signup" role="tab" aria-controls="signup" aria-selected="false">Signup</a>
-                    </li>
-                </ul>
+                    <ul class="nav nav-tabs" id="myTab" role="loginTab">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="login-tab" data-toggle="tab" data-target="#login" role="tab"
+                                aria-controls="login" aria-selected="true">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="signup-tab" data-toggle="tab" data-target="#signup" role="tab"
+                                aria-controls="signup" aria-selected="false">Signup</a>
+                        </li>
+                    </ul>
 
-                <div class="tab-content" id="loginTab">
-                    <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                    <div class="tab-content" id="loginTab">
                         <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+
+                                <div class="row">
+                                    <div class="col-md-6 email-pwd-section">
+                                        <form ng-submit="loginWithEmail()">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                                </div>
+                                                <input type="email" class="form-control" ng-model="loginEmail" id="loginEmail"
+                                                    aria-describedby="emailHelp" placeholder="Enter email" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
+                                                </div>
+                                                <input type="password" class="form-control" ng-model="loginPassword" id="loginPassword"
+                                                    placeholder="Password" required>
+                                            </div>
+                                            <div ng-if="errorMessage" class="alert alert-primary alert-dismissible fade show"
+                                                role="alert">
+                                                {{errorMessage}}
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Login Now</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-6 social-login-section">
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <a class="btn btn-block btn-social btn-facebook" ng-click="loginFn('facebook')">
+                                                    <img src="/img/svgs/facebook.svg" />
+                                                    Sign in with Facebook
+                                                </a>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <a class="btn btn-block btn-social btn-google" ng-click="loginFn('google')">
+                                                    <img src="/img/svgs/googleplus.svg" />
+                                                    Sign in with Google
+                                                </a>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <a class="btn btn-block btn-social btn-github" ng-click="loginFn('github')">
+                                                    <img src="/img/svgs/github.svg" />
+                                                    Sign in with GitHub
+                                                </a>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <a class="btn btn-block btn-social btn-twitter" ng-click="loginFn('twitter')">
+                                                    <img src="/img/svgs/twitter.svg" />
+                                                    Sign in with Twitter
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
 
                             <div class="row">
                                 <div class="col-md-6 email-pwd-section">
-                                    <form ng-submit="loginWithEmail()">
+                                    <form ng-submit="makeNewAccountWithEmail()">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
                                             </div>
-                                            <input type="email" class="form-control" ng-model="loginEmail" id="loginEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+                                            <input type="email" class="form-control" ng-model="email_address" id="signupEmail"
+                                                aria-describedby="emailHelp" placeholder="Enter email" required>
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
                                             </div>
-                                            <input type="password" class="form-control" ng-model="loginPassword" id="loginPassword" placeholder="Password"required>
+                                            <input type="password" class="form-control" ng-model="password" id="signupPassword"
+                                                placeholder="Password" required>
                                         </div>
-                                        <div ng-if="errorMessage" class="alert alert-primary alert-dismissible fade show" role="alert">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
+                                            </div>
+                                            <input type="password" class="form-control" ng-model="confirm_password" id="signupConfirmPassword"
+                                                placeholder="Password" required>
+                                        </div>
+                                        <div ng-if="errorMessage" class="alert alert-primary alert-dismissible fade show"
+                                            role="alert">
                                             {{errorMessage}}
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Login Now</button>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">Singup</button>
                                     </form>
                                 </div>
                                 <div class="col-md-6 social-login-section">
@@ -179,106 +272,41 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a class="btn btn-block btn-social btn-facebook" ng-click="loginFn('facebook')">
-                                                <img src="/img/svgs/facebook.svg"/>
-                                                Sign in with Facebook
-                                              </a>
+                                                <img src="/img/svgs/facebook.svg" />
+                                                Sign-up with Facebook
+                                            </a>
                                         </div>
                                         <div class="col-md-12">
                                             <a class="btn btn-block btn-social btn-google" ng-click="loginFn('google')">
-                                                <img src="/img/svgs/googleplus.svg"/>
-                                                Sign in with Google
+                                                <img src="/img/svgs/googleplus.svg" />
+                                                Sign-up with Google
                                             </a>
                                         </div>
                                         <div class="col-md-12">
                                             <a class="btn btn-block btn-social btn-github" ng-click="loginFn('github')">
-                                            <img src="/img/svgs/github.svg"/>
-                                            Sign in with GitHub
-                                              </a>
+                                                <img src="/img/svgs/github.svg" />
+                                                Sign-up with GitHub
+                                            </a>
                                         </div>
                                         <div class="col-md-12">
                                             <a class="btn btn-block btn-social btn-twitter" ng-click="loginFn('twitter')">
-                                            <img src="/img/svgs/twitter.svg"/>
-                                            Sign in with Twitter
-                                              </a>
+                                                <img src="/img/svgs/twitter.svg" />
+                                                Sign-up with Twitter
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
-
-                        <div class="row">
-                                <div class="col-md-6 email-pwd-section">
-                                    <form ng-submit="makeNewAccountWithEmail()">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                                    </div>
-                                    <input type="email" class="form-control" ng-model="email_address" id="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
-                                    </div>
-                                    <input type="password" class="form-control" ng-model="password" id="signupPassword" placeholder="Password" required>
-                                </div>
-                                <div class="input-group mb-3">
-                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
-                                    </div>
-                                    <input type="password" class="form-control" ng-model="confirm_password" id="signupConfirmPassword" placeholder="Password" required>
-                                </div>
-                                <div ng-if="errorMessage" class="alert alert-primary alert-dismissible fade show" role="alert">
-                                    {{errorMessage}}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <br>
-                                <button type="submit" class="btn btn-primary">Singup</button>
-                            </form>
-                                </div>
-                                <div class="col-md-6 social-login-section">
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <a class="btn btn-block btn-social btn-facebook" ng-click="loginFn('facebook')">
-                                                <img src="/img/svgs/facebook.svg"/>
-                                                Sign-up with Facebook
-                                              </a>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <a class="btn btn-block btn-social btn-google" ng-click="loginFn('google')">
-                                                <img src="/img/svgs/googleplus.svg"/>
-                                                Sign-up with Google
-                                              </a>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <a class="btn btn-block btn-social btn-github" ng-click="loginFn('github')">
-                                            <img src="/img/svgs/github.svg"/>
-                                            Sign-up with GitHub
-                                              </a>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <a class="btn btn-block btn-social btn-twitter" ng-click="loginFn('twitter')">
-                                            <img src="/img/svgs/twitter.svg"/>
-                                                Sign-up with Twitter
-                                              </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade bs-example-modal-lg" id="shareBundle" tabindex="-1" role="dialog" aria-labelledby="shareBundle" aria-hidden="true">
+<div class="modal fade bs-example-modal-lg" id="shareBundle" tabindex="-1" role="dialog" aria-labelledby="shareBundle"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -290,65 +318,117 @@
             <div class="modal-body share-modal">
                 <div class="share-modal-title">Share this resource link</div>
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-value="bitly_link" id="bitlyLink" placeholder="Share this Thread" aria-describedby="basic-addon2">
+                    <input type="text" class="form-control" ng-value="bitly_link" id="bitlyLink" placeholder="Share this Thread"
+                        aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <span class="input-group-text" id="basic-addon2" ng-click="copyThisShortLink()" title="Clipboard Link"><i class="fa fa-clipboard"></i></span>
+                        <span class="input-group-text" id="basic-addon2" ng-click="copyThisShortLink()" title="Clipboard Link"><i
+                                data-feather="clipboard" width="16"></i></span>
                     </div>
                 </div>
                 <div id="showCopiedMsg" class="coiped-msg"></div>
-                <hr/>
-                
+                <hr />
+
                 <div class="share-modal-title">Save this branch</div>
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-value="branch_custom_title" id="branchCustomTitle" placeholder="Give the name and save to profile" ng-model="branch_custom_title" ng-change="trimCustomBranchName(branch_custom_title)" aria-describedby="basic-addon2">
+                    <input type="text" class="form-control" ng-value="branch_custom_title" id="branchCustomTitle"
+                        placeholder="Give the name and save to profile" ng-model="branch_custom_title" ng-change="trimCustomBranchName(branch_custom_title)"
+                        aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <span class="input-group-text" id="basic-addon2" ng-click="saveBranchLinkToProfile()" title="Save to Profile">Save to Profile</span>
+                        <span class="input-group-text" id="basic-addon2" ng-click="saveBranchLinkToProfile()" title="Save to Profile">Save
+                            to Profile</span>
                     </div>
                 </div>
                 <small style="color:red">{{saveBundleMsg}}</small>
                 <small style="color:green">{{saveBundleSuccesMsg}}</small>
-                
-                <hr/>
+
+                <hr />
                 <div class="share-modal-title">Share this bundle link on your social network</div>
                 <div class="social-btn">
 
                     <div class="facebook social-share-btn">
-                        <button class="btn btn-medium center-content color-black radius3 bg-white"
-                            socialshare
-                            socialshare-provider="facebook"
-                            socialshare-url={{bitly_link}}
-                        >
-                        <i data-feather="facebook"></i>
+                        <button class="btn btn-medium center-content color-black radius3 bg-white" socialshare
+                            socialshare-provider="facebook" socialshare-url={{bitly_link}}>
+                            <i data-feather="facebook"></i>
                         </button>
                     </div>
 
                     <div class="twitter social-share-btn">
-                        <button class="btn btn-medium center-content color-black radius3 bg-white"
-                            socialshare
-                            socialshare-provider="twitter"
-                            socialshare-url={{bitly_link}}
-                        >
-                        <i data-feather="twitter"></i>
+                        <button class="btn btn-medium center-content color-black radius3 bg-white" socialshare
+                            socialshare-provider="twitter" socialshare-url={{bitly_link}}>
+                            <i data-feather="twitter"></i>
                         </button>
                     </div>
 
                     <div class="linkedin social-share-btn">
-                        <button class="btn btn-medium center-content color-black radius3 bg-white"
-                            socialshare
-                            socialshare-provider="linkedin"
-                            socialshare-url={{bitly_link}}
-                        >
-                        <i data-feather="linkedin"></i>
+                        <button class="btn btn-medium center-content color-black radius3 bg-white" socialshare
+                            socialshare-provider="linkedin" socialshare-url={{bitly_link}}>
+                            <i data-feather="linkedin"></i>
                         </button>
                     </div>
 
                     <div class="pocket social-share-btn">
-                        <button class="btn btn-medium center-content color-black radius3 bg-white"
-                            socialshare
-                            socialshare-provider="pocket"
-                            socialshare-url={{bitly_link}}
-                        >
-                        <i data-feather="pocket"></i>
+                        <button class="btn btn-medium center-content color-black radius3 bg-white" socialshare
+                            socialshare-provider="pocket" socialshare-url={{bitly_link}}>
+                            <i data-feather="pocket"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="inviteFriends" tabindex="-1" role="dialog" aria-labelledby="inviteFriends"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Invite Friends</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body share-modal">
+                <div class="share-modal-title">Hey, Let's share Leaves with your team and friends. So, they can boost
+                    their knowledge.</div>
+                <br />
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-value="refer_link" id="referLink" placeholder="Share this Thread"
+                        aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2" ng-click="copyReferLink()" title="Clipboard Link"><i
+                                data-feather="clipboard" width="16"></i></span>
+                    </div>
+                </div>
+                <div id="referLinkCopydMsg" class="coiped-msg"></div>
+
+                <hr />
+                <div class="share-modal-title">Invite friends on your social network</div>
+                <div class="social-btn">
+
+                    <div class="facebook social-share-btn">
+                        <button class="btn btn-medium center-content color-black radius3 bg-white" socialshare
+                            socialshare-provider="facebook" socialshare-url={{refer_link}}>
+                            <i data-feather="facebook" width="16"></i>
+                        </button>
+                    </div>
+
+                    <div class="twitter social-share-btn">
+                        <button class="btn btn-medium center-content color-black radius3 bg-white" socialshare
+                            socialshare-provider="twitter" socialshare-url={{refer_link}}>
+                            <i data-feather="twitter" width="16"></i>
+                        </button>
+                    </div>
+
+                    <div class="linkedin social-share-btn">
+                        <button class="btn btn-medium center-content color-black radius3 bg-white" socialshare
+                            socialshare-provider="linkedin" socialshare-url={{refer_link}}>
+                            <i data-feather="linkedin" width="16"></i>
                         </button>
                     </div>
 

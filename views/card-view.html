@@ -2,36 +2,38 @@
 	<div class="row">
 		<div class="col-md-12 text-center">
 			<span ng-if="loading_icon" style="font-size: 1.5rem;">
-				Loading cards...<br/>
+				Loading cards...<br />
 				<i data-feather="loader"></i>
 			</span>
 		</div>
 	</div>
 	<div class="sub-div text-right" ng-if="current_params.tag !== 'home'">
-        <div class="sub-btn">
-            <button type="button" ng-click="subscribeTag(tag, $index)" class="btn btn-outline-dark" ng-repeat="tag in subsTagsArray">
-                <i data-feather="bell" width="16"></i>
-                {{tag.slug}} 
-                <i ng-if="tag.isSub" data-feather="bell" width="16" fill="green"></i>
-            </button>
-        </div>
-    </div>
+		<div class="sub-btn">
+			<button type="button" ng-click="subscribeTag(tag, $index)" class="btn btn-outline-dark" ng-repeat="tag in subsTagsArray">
+				<i data-feather="bell" width="16"></i>
+				{{tag.slug}}
+				<i ng-if="tag.isSub" data-feather="bell" width="16" fill="green"></i>
+			</button>
+		</div>
+	</div>
 
-    <h4 ng-if="searchTagMessage">{{searchTagMessage}}</h4>
+	<h4 ng-if="searchTagMessage">{{searchTagMessage}}</h4>
 
 	<div class="row no-gutters">
-		<div ng-class="cardViewActive ? 'col-md-12' : 'col-xs-12 col-sm-4 col-md-4 col-lg-3'" class="card-hide-scroll" when-scrolled="paginationFuntion()">
+		<div ng-class="cardViewActive ? 'col-md-12' : 'col-xs-12 col-sm-4 col-md-4 col-lg-3'" class="card-hide-scroll"
+		 when-scrolled="paginationFuntion()">
 			<div class="row">
-				<div ng-class="cardViewActive ? 'col-xs-12 col-sm-6 col-md-3 col-lg-4' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'" class="card-template" style="padding: 0px 5px 10px 10px;"ng-repeat="entry in entries">
+				<div ng-class="cardViewActive ? 'col-xs-12 col-sm-6 col-md-3 col-lg-4' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'"
+				 class="card-template" style="padding: 0px 5px 10px 10px;" ng-repeat="entry in entries">
 					<card-template data="entry" listarr="listArray"></card-template>
 				</div>
 			</div>
 
-			<div class="text-center loading_button" ng-if="searching ? (loading_button && 'entries.length <= totalSearchFound') : (loading_button && 'entries.length <= entries.total') ">              
-            	<button class="btn btn-primary" ng-click="searching ? loadSearchQuery() : loadMore()">
-            		{{loadingMessage ? 'Loading...' : 'Load More'}}
-            	</button>      
-        	</div>
+			<div class="text-center loading_button" ng-if="searching ? (loading_button && 'entries.length <= totalSearchFound') : (loading_button && 'entries.length <= entries.total') ">
+				<button class="btn btn-primary" ng-click="searching ? loadSearchQuery() : loadMore()">
+					{{loadingMessage ? 'Loading...' : 'Load More'}}
+				</button>
+			</div>
 		</div>
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 reader" ng-class="minimizeReader ? 'minimize-reader' : ''">
 			<div ui-view></div>

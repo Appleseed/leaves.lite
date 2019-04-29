@@ -18,6 +18,14 @@ var app = angular.module('leavesNext');
 	}
 
 	app.controller('mainController', ['$scope', '$http', '$state', '$location', '$rootScope','ENV', '$stateParams', '$cookies', function($scope, $http, $state, $location, $rootScope, ENV, $stateParams, $cookies) {
+		var refCode;
+		var isRefCode = window.location.href.includes("?ref=");
+		if(isRefCode){
+			refCode = window.location.href.split('ref=')[1].substr(0,8)
+			localStorage.setItem('refCode', refCode)
+		}
+		
+		console.log(refCode)
 
 		$rootScope.isidexit = 0
     	$rootScope.readerFromInbox = true
@@ -113,6 +121,49 @@ var app = angular.module('leavesNext');
 	        }).then(function(success) {
 	            $scope.bitly_link = success.data.data.url
 	        })
+		}
+		
+		function randomString(length, chars) {
+			var result = '';
+			for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+			return result;
+		}
+
+		$scope.inviteOthers = function(){
+			firebase.auth().onAuthStateChanged(function(user) {
+				if(user){            
+					$("#inviteFriends").modal('show')
+					$rootScope.refer_link = 'Loading...'
+					firebase.database().ref(`referrals/${user.uid}`).once('value', function(snapshot) {
+						var referData = snapshot.val();
+						console.log(referData)
+						var referCode = randomString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+						if(referData === null){
+							firebase.database().ref(`referrals/${user.uid}`).set({referCode})
+							.then((responce)=>{
+								$rootScope.refer_link = `${window.location}?ref=${referCode}`
+							})
+						}else{
+							$scope.$apply(()=> {
+                                $rootScope.refer_link = `${window.location.origin}?ref=${referData.referCode}`
+                            });
+						}
+					});
+
+					var refCode = localStorage.getItem('refCode')
+					firebase.database().ref().child('referrals').orderByChild('referCode').equalTo(refCode).on("value", function(snapshot) {
+						console.log(snapshot.val());
+						var referralPerson = snapshot.val()
+                        var userId = Object.keys(referralPerson)[0]
+						var referObj = Object.values(referralPerson)
+						console.log(userId);
+						console.log(referObj)
+						
+					});
+				}else {
+					$('#doLogin').modal('show')
+				}
+			});
 	    }
 
 	    $scope.copyThisShortLink = function() {
@@ -123,7 +174,19 @@ var app = angular.module('leavesNext');
 	        setTimeout(function() {
 	            $('#showCopiedMsg').fadeOut('fast');
 	        }, 1000);
-	    }
+		}
+		
+
+
+	    $scope.copyReferLink = function() {
+			var copyText = document.getElementById("referLink");
+		   copyText.select();
+		   document.execCommand("Copy");
+		   document.getElementById("referLinkCopydMsg").innerHTML = 'copied'
+		   setTimeout(function() {
+			   $('#referLinkCopydMsg').fadeOut('fast');
+		   }, 1000);
+	   }
 
 }])
 })(app);

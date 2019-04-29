@@ -217,6 +217,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
         
     }
 
+
     function snapToArray(snapshot){
         const articles = Object.entries(snapshot).map(article => {
             return Object.assign({}, { id: article[0] }, article[1]);
@@ -244,6 +245,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
     });
 
     $scope.makeProfile = function(user){
+        console.log('make new profile')
         firebase.database().ref(`users/${user.uid}`).once('value', function(snapshot) {
             var not_exists = (snapshot.val() === null);
             if(not_exists) {
@@ -257,9 +259,62 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                 }
 
                 firebase.database().ref(`users/${user.uid}`).set(userData)
-                .then(function(responce){
-                    location.reload();
+                .then((responce)=>{
+                    let refCode = localStorage.getItem('refCode')
+
+                    
+
+
+
+                    // firebase.database().ref().child('referrals').orderByChild('referCode').equalTo(refCode).on("value", (snapshot)=> {
+                    //     console.log('hi')
+                    //     var referralPerson = snapshot.val()
+                    //     var userId = Object.keys(referralPerson)[0]
+                    //     var referObj = Object.values(referralPerson)[0]
+                    //     var run = true
+                    //     var friendObj = {
+                    //         name: user.displayName,
+                    //         id: user.uid,
+                    //         referredCode: refCode
+                    //     }
+                    //     // console.log('friendObj',friendObj)
+                    //     run = false
+                    //     var newKey =  firebase.database().ref(`referrals/${userId}/friends`).push();
+                    //     var pushKey = newKey.key;
+                    //     firebase.database().ref(`referrals/${userId}/friends/${pushKey}`).set(friendObj)
+                    //     .then((responce)=>{
+                    //         console.log('responce',responce)
+                    //         // localStorage.removeItem('refCode');
+                    //         location.reload();
+                    //     })
+					// });
+
                 })
+
+
+                var refCode = localStorage.getItem('refCode')
+
+                firebase.database().ref().child('referrals').orderByChild('referCode').equalTo(refCode).on("value", function(snapshot) {
+                    
+                    console.log(snapshot.val());
+                    var referralPerson = snapshot.val()
+                    var userId = Object.keys(referralPerson)[0]
+                    var referObj = Object.values(referralPerson)
+                    var friendObj = {
+                        name: user.displayName,
+                        id: user.uid,
+                        referredCode: refCode
+                    }
+                    var newKey =  firebase.database().ref(`referrals/${userId}/friends`).push();
+                    var pushKey = newKey.key;
+                    firebase.database().ref(`referrals/${userId}/friends/${pushKey}`).set(friendObj)
+                    .then((responce)=>{
+                        console.log('responce',responce)
+                        // localStorage.removeItem('refCode');
+                        location.reload();
+                    })
+                    
+                });
             }else{
                 location.reload();
             }

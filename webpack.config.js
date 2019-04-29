@@ -1,6 +1,20 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const dotenv = require('dotenv').config({path: __dirname + '/env/env.js'});
+const env = dotenv.parsed
+const currentENV = process.env.NODE_ENV
+var GA_CODE, PTCODE=env.PTCODE_ID;
+
+if(currentENV === 'production'){
+    GA_CODE=env.PROD_GA_ID
+}else if(currentENV === 'staging'){
+    GA_CODE=env.STAGE_GA_ID
+}else if(currentENV === 'devlopment'){
+    GA_CODE=env.DEV_GA_ID
+}
 
 module.exports = {
     context: __dirname,
@@ -38,5 +52,28 @@ module.exports = {
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
         new ExtractTextPlugin("bundle.min.css"),
+        new HtmlWebpackPlugin({
+            inject: false,
+            GA: '<script async src="https://www.googletagmanager.com/gtag/js?id='+GA_CODE+'"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","'+GA_CODE+'");</script>',
+            PTCODE: 'window._pt_lt=(new Date).getTime(),window._pt_sp_2=[],_pt_sp_2.push("setAccount,'+PTCODE+'");var _protocol="https:"==document.location.protocol?" https://":" http://";!function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=_protocol+"cjs.ptengine.com/pta_en.js";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}();',
+            template: './template.html',
+            filename: './index.html',
+            minify: {
+                collapseWhitespace: true,
+                removeComments: true,
+                removeRedundantAttributes: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                useShortDoctype: true
+            },
+        }),
+        new CopyPlugin([
+            { from: 'views/**/*', to: '' },
+            { from: 'img/*', to: 'img/' },
+            { from: 'js/bootstrap.min.js', to: 'js/' },
+            { from: 'js/feather.min.js', to: 'js/' },
+            { from: 'env/env.js', to: 'env/' },
+            { from: 'node_modules/intro.js/intro.js', to: 'js/' },
+        ]),
     ]
 };
