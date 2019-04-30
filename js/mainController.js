@@ -150,16 +150,17 @@ var app = angular.module('leavesNext');
 						}
 					});
 
-					var refCode = localStorage.getItem('refCode')
-					firebase.database().ref().child('referrals').orderByChild('referCode').equalTo(refCode).on("value", function(snapshot) {
-						var referralPerson = snapshot.val()
-                        var userId = Object.keys(referralPerson)[0]
-						var referObj = Object.values(referralPerson)
-						$scope.$apply(()=> {
-							$rootScope.refer_link = referObj.referCode
-						});
+					// var refCode = localStorage.getItem('refCode')
+					// firebase.database().ref().child('referrals').orderByChild('referCode').equalTo(refCode).once("value", function(snapshot) {
+					// 	var referralPerson = snapshot.val()
+                    //     var userId = Object.keys(referralPerson)[0]
+					// 	var referObj = Object.values(referralPerson)
+					// 	console.log(referObj)
+					// 	$scope.$apply(()=> {
+					// 		$rootScope.refer_link = referObj.referCode
+					// 	});
 						
-					});
+					// });
 				}else {
 					$('#doLogin').modal('show')
 				}
