@@ -152,12 +152,12 @@ var app = angular.module('leavesNext');
 
 					var refCode = localStorage.getItem('refCode')
 					firebase.database().ref().child('referrals').orderByChild('referCode').equalTo(refCode).on("value", function(snapshot) {
-						console.log(snapshot.val());
 						var referralPerson = snapshot.val()
                         var userId = Object.keys(referralPerson)[0]
 						var referObj = Object.values(referralPerson)
-						console.log(userId);
-						console.log(referObj)
+						$scope.$apply(()=> {
+							$rootScope.refer_link = referObj.referCode
+						});
 						
 					});
 				}else {

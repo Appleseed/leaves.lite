@@ -260,9 +260,30 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
 
                 firebase.database().ref(`users/${user.uid}`).set(userData)
                 .then((responce)=>{
-                    let refCode = localStorage.getItem('refCode')
 
+                    var refCode = localStorage.getItem('refCode')
+
+                firebase.database().ref().child('referrals').orderByChild('referCode').equalTo(refCode).once("value", function(snapshot) {
                     
+                    console.log(snapshot.val());
+                    var referralPerson = snapshot.val()
+                    var userId = Object.keys(referralPerson)[0]
+                    var referObj = Object.values(referralPerson)
+                    var friendObj = {
+                        name: user.displayName,
+                        id: user.uid,
+                        referredCode: refCode
+                    }
+                    var newKey =  firebase.database().ref(`referrals/${userId}/friends`).push();
+                    var pushKey = newKey.key;
+                    firebase.database().ref(`referrals/${userId}/friends/${pushKey}`).set(friendObj)
+                    .then((responce)=>{
+                        console.log('responce',responce)
+                        localStorage.removeItem('refCode');
+                        location.reload();
+                    })
+                    
+                });
 
 
 
@@ -292,29 +313,7 @@ app.controller('navbarCtrl',['$scope','$rootScope', '$state', '$http', 'ENV', '$
                 })
 
 
-                var refCode = localStorage.getItem('refCode')
-
-                firebase.database().ref().child('referrals').orderByChild('referCode').equalTo(refCode).on("value", function(snapshot) {
-                    
-                    console.log(snapshot.val());
-                    var referralPerson = snapshot.val()
-                    var userId = Object.keys(referralPerson)[0]
-                    var referObj = Object.values(referralPerson)
-                    var friendObj = {
-                        name: user.displayName,
-                        id: user.uid,
-                        referredCode: refCode
-                    }
-                    var newKey =  firebase.database().ref(`referrals/${userId}/friends`).push();
-                    var pushKey = newKey.key;
-                    firebase.database().ref(`referrals/${userId}/friends/${pushKey}`).set(friendObj)
-                    .then((responce)=>{
-                        console.log('responce',responce)
-                        // localStorage.removeItem('refCode');
-                        location.reload();
-                    })
-                    
-                });
+                
             }else{
                 location.reload();
             }
