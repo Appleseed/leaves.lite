@@ -4,8 +4,8 @@ var app = angular.module('leavesNext');
 
   app.constant('ENV', {
     LEAVES_API_URL: 'http://leaves.anant.us:82',
-    LEAVES_API_ACCESSTOKEN: 'N2Y1YmFlNzY4OTM3ZjE2OGMwODExODQ1ZDhiYmQ5OWYzMjhkZjhiMDgzZWU2Y2YyYzNkYzA5MDQ2NWRhNDIxYw',
-    BITLY_API_ACCESSTOKEN: '2902c7b1d82061bab0d8732473d3b37a4477a253',
+    LEAVES_API_ACCESSTOKEN: 'XXXXXX',
+    BITLY_API_ACCESSTOKEN: 'XXXXXX',
     GOOGLE_ANALYTICS_CODE: false
   });
 
